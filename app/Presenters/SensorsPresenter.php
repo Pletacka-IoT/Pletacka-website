@@ -21,7 +21,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     ///////////////////
     //Pridani senzoru
     ///////////////////
-    public function createComponentAddsensorForm(): Form
+    public function createComponentAddSensorForm(): Form
     {        
         $form = new Form; // means Nette\Application\UI\Form
     
@@ -59,7 +59,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     //Editace senzoru
     ///////////////////
 
-    public function createComponentEditsensorForm(): Form
+    public function createComponentEditSensorForm(): Form
     {        
         $form = new Form; // means Nette\Application\UI\Form
     
@@ -75,7 +75,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
         $form->addText('description', 'Popis:');           
             
-        $form->addSubmit('send', 'Pridej');
+        $form->addSubmit('send', 'Uprav');
 
         $form->onSuccess[] = [$this, 'EditSensorFormSucceeded'];
     
@@ -84,7 +84,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->editSensor($values->number, $values->name, $values->description);
+        $addNew = $this->databaseManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
         if($addNew[0])
         {
             $this->flashMessage($addNew[2], 'success');
@@ -97,6 +97,41 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
             $this->redirect('this');
         }
     }    
+
+    ///////////////////
+    //Smazani senzoru
+    ///////////////////
+
+    public function createComponentDeleteSensorForm(): Form
+    {        
+        $form = new Form; // means Nette\Application\UI\Form
+
+        $form->addText('name', 'Nazev:') 
+            ->setRequired();                  
+            
+        $form->addSubmit('send', 'Smaž');
+
+        $form->onSuccess[] = [$this, 'DeleteSensorFormSucceeded'];
+    
+        return $form;
+    }    
+    
+    public function DeleteSensorFormSucceeded(Form $form, \stdClass $values): void
+    {
+        $addNew = $this->databaseManager->deleteSensor($values->name);
+        if($addNew[0])
+        {
+            $this->flashMessage($addNew[2], 'success');
+            $this->redirect('Sensors:sensor',$values->name);
+        }
+        else
+        {
+            
+            $this->flashMessage($addNew[2], 'error');
+            $this->redirect('this');
+        }
+    }    
+
 
     public function renderDefault() : void
     {

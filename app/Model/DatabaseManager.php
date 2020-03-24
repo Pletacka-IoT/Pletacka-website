@@ -80,14 +80,20 @@ class DatabaseManager
 
 
     /**
-     * Add new sensor
+     * Edit sensor
+     * @param mixed $oldname machine old name to edit
      * @param mixed $number machine number
      * @param mixed $name machine name
      * @param string $description machine description (optional)
      * @return array (bool - STATE, string - EN, string - CZ)
      */
-    public function editSensor($number, $name, $description = "")
+    public function editSensor($oldName, $number, $name, $description = "")
     {
+        if(!$this->sensorIsExist($oldName, "name") )
+        {
+            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
+        }
+
         if($this->sensorIsExist($number, "number") )
         {
             return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
@@ -102,8 +108,28 @@ class DatabaseManager
             'number' => $number,
             'name' => $name,
             'description' => $description,
-        ]);
+        ], 'WHERE name = ?', $oldName);
 
         return array($result, "Sensor edited", "Senzor upraven vytvořen");
     }    
+
+
+    /**
+     * Delete sensor
+     * @param mixed $name machine name
+     * @return array (bool - STATE, string - EN, string - CZ)
+     */
+    public function deleteSensor($name)
+    {
+        if(!$this->sensorIsExist($name, "name") )
+        {
+            return array(false, "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
+        }
+
+        $result = $this->database->query('DELETE FROM sensors WHERE name = ?', $name);
+
+        return array($result, "Sensor deleted", "Senzor byl smazán");
+    }    
+
+
 }
