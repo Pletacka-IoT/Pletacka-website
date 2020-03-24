@@ -1,0 +1,37 @@
+
+/*Muj alert*/
+div.flash{
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+	padding: 1em;
+    
+    position: relative;
+    padding: .75rem 1.25rem;
+
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+/*Muj alert*/
+div.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/*Muj alert*/
+div.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+div.my-circle {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    margin: 6px;
+    background-color: red;
+    border-radius: 50%!important;
+}

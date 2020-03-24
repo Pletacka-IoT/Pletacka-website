@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
+use App\Model\DatabaseManager;
 
 
 final class HomepagePresenter extends Nette\Application\UI\Presenter
 {
 
-    private $database;
+    private $databaseManager;
 
-	public function __construct(Nette\Database\Connection $database)
+	public function __construct(DatabaseManager $databaseManager)
 	{
-		$this->database = $database;
+		$this->databaseManager = $databaseManager;
     }
 
     public function renderDefault() : void
     {
-        $rows = $this->database->fetchAll('SELECT * FROM settings');
-        print_r($rows); 
-
-        $this->template->settings = $rows[0];
+        $this->template->settings = $this->databaseManager->getTitleSettings();
+        $variab = "Pepik";
+        $this->template->var = $variab;
     }
     
 
