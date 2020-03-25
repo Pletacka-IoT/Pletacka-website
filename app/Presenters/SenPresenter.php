@@ -6,17 +6,19 @@ namespace App\Presenters;
 
 use Nette;
 use App\Model\DatabaseManager;
-
+use Nette\Http\Request;
 
 final class SenPresenter extends Nette\Application\UI\Presenter
 {
 
 
     private $database;
+    private $request;
     
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(Nette\Database\Context $database, Nette\Http\Request $request)
     {
         $this->database = $database;
+        $this->request = $request;
     }
     
 
@@ -136,6 +138,8 @@ final class SenPresenter extends Nette\Application\UI\Presenter
         {
             echo "stej";
         }
+
+        print_r( $this->request->getHeaders());
     
         
         $this->template->arr = $sensors;

@@ -7,15 +7,19 @@ namespace App\Presenters;
 use Nette;
 use App\Model\DatabaseManager;
 use Nette\Application\UI\Form;
+use Nette\Http\Request;
+use Nette\Http\UrlScript;
 
 
 final class SensorsPresenter extends Nette\Application\UI\Presenter
 {
     private $databaseManager;
+    private $request;
 
-	public function __construct(DatabaseManager $databaseManager)
+	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request)
 	{
-		$this->databaseManager = $databaseManager;
+        $this->databaseManager = $databaseManager;
+        $this->request = $request;
     }
 
     ///////////////////
@@ -122,7 +126,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         if($addNew[0])
         {
             $this->flashMessage($addNew[2], 'success');
-            $this->redirect('Sensors:sensor',$values->name);
+            $this->redirect('this');
         }
         else
         {
@@ -183,7 +187,13 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->editSensor($values->number, $values->name, $values->description);
+        $url = $this->request->getHeaders()["referer"];
+        $exUrl = explode('/', $url);
+        $exUrl = explode('?', $exUrl[6]);
+        $oldSensor = $exUrl[0];
+        
+        
+        $addNew = $this->databaseManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
         if($addNew[0])
         {
             $this->flashMessage($addNew[2], 'success');
@@ -211,10 +221,8 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $this->template->sensor = $sensor;
         $this->template->name = $sensor["name"];
         $this['editSensorForm']->setDefaults($sensor);
-        //addSensorForm
-        //$sensor = $this->database->table
 
-        
+
     }
 
 

@@ -117,7 +117,6 @@ class DatabaseManager
         //Is not same?
         if(($oldSen->number!=$number)==true)
         {
-            //return array(false, "Sensor with this number is exist", "gfdbfbdfgf");
             //Is exist?
             if($this->sensorIsExist($number, "number") )
             {
@@ -128,10 +127,9 @@ class DatabaseManager
         //Is not same?
         if(($oldSen->name!=$name)==true)
         {
-            //return array(false, "Sensor with this number is exist", "gfdbfbdfgf");
             if($this->sensorIsExist($name, "name"))
             {
-                return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje2");
+                return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
             }
         }
        
@@ -167,7 +165,7 @@ class DatabaseManager
     }  
 
     /**
-     * Edit sensor
+     * Edit sensorx
      * @param mixed $oldname machine old name to edit
      * @param mixed $number machine number
      * @param mixed $name machine name
@@ -176,34 +174,41 @@ class DatabaseManager
      */
     public function editSensor($oldName, $number, $name, $description = "")
     {
-        if($this->deleteSensor($name))
+        if(!$this->sensorIsExist($oldName, "name") )
         {
+            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
+        }        
+        
+        $oldSen = $this->getSensorInfo($oldName);
+
+        //Is not same?
+        if(($oldSen->number!=$number)==true)
+        {
+            //Is exist?
             if($this->sensorIsExist($number, "number") )
             {
                 return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
             }
-    
+        }
+
+        //Is not same?
+        if(($oldSen->name!=$name)==true)
+        {
             if($this->sensorIsExist($name, "name"))
             {
                 return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
             }
-
-            $count = $this->database->table("sensors")
-                ->where('name', $oldName)
-                ->update([
-                    'number' => $number,
-                    'name' => $name,
-                    'description' => $description,
-                ]);    
-
-    
-            return array($count, "Sensor edited", "Senzor upraven vytvořen");
         }
-        else
-        {
-            return array(false, "Sensor edited", "CHYBA");
-        }
-    }   
+       
+
+        $result = $this->database->query('UPDATE sensors  SET', [ 
+            'number' => $number,
+            'name' => $name,
+            'description' => $description,
+        ], 'WHERE name = ?', $oldName);
+
+        return array($result, "Sensor edited", "Senzor upraven vytvořen");
+    }  
     
     public function easyGet($name)
     {
