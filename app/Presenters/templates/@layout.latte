@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/style.css">	
 	<title>{$xtitle}</title>
-	
+	{dump}
+
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 		<a class="navbar-brand" href="{$basePath}">
 			<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
 		</a>
-		<a class="navbar-brand" href="{$basePath}">{$settings[web_name]}</a>
+		<a class="navbar-brand" href="{$basePath}">{$settings->web_name}</a>
 		
 		<!-- Links -->
 		<ul class="navbar-nav">

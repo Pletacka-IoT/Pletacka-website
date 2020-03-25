@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Nette;
 
-class DatabaseManager
+class DataManager
 {
 	use Nette\SmartObject;
 
@@ -22,8 +22,7 @@ class DatabaseManager
      */
     public function getTitleSettings()
     {
-        return $this->database->table("settings")->get(1); //number is ID in table settings
-        
+        return $this->database->fetchField('SELECT * FROM settings ORDER BY id DESC LIMIT 1');
     }
 
 
@@ -33,7 +32,7 @@ class DatabaseManager
      */    
     public function getSensorInfo($name)
     {
-        return $this->database->table("sensors")->where("name", $name)[0];
+        return $this->database->fetch('SELECT * FROM sensors WHERE name = ?', $name);
     }    
 
     /**
@@ -41,9 +40,8 @@ class DatabaseManager
      */
     public function getCountSensors($name, $column = "name") :int
     {
-        //$result =  $this->database->query('SELECT * FROM sensors WHERE ' . $column . ' = ?', $name);
-        //return $result->getRowCount();
-        return $this->database->table("sensors")->where($column, $name)->count();
+        $result =  $this->database->query('SELECT * FROM sensors WHERE ' . $column . ' = ?', $name);
+        return $result->getRowCount();
     }
 
     /**
@@ -81,19 +79,13 @@ class DatabaseManager
             return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
         }
 
-        if($succes = $this->database->table("sensors")->insert([
+        $result = $this->database->query('INSERT INTO sensors  ?', [ 
             'number' => $number,
             'name' => $name,
             'description' => $description,
-        ]))
-        {
-            return array(true, "Sensor created", "Senzor byl vytvořen");
-        }
-        else
-        {
-            return array(false, "ERROR!!!", "ERROR!!!");
-        }        
-        
+        ]);
+
+        return array($result, "Sensor created", "Senzor byl vytvořen");
     }
 
 
@@ -110,31 +102,17 @@ class DatabaseManager
         if(!$this->sensorIsExist($oldName, "name") )
         {
             return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
-        }        
-        
-        $oldSen = $this->getSensorInfo($oldName);
-
-        //Is not same?
-        if(($oldSen->number!=$number)==true)
-        {
-            //return array(false, "Sensor with this number is exist", "gfdbfbdfgf");
-            //Is exist?
-            if($this->sensorIsExist($number, "number") )
-            {
-                return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
-            }
         }
 
-        //Is not same?
-        if(($oldSen->name!=$name)==true)
+        if($this->sensorIsExist($number, "number") )
         {
-            //return array(false, "Sensor with this number is exist", "gfdbfbdfgf");
-            if($this->sensorIsExist($name, "name"))
-            {
-                return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje2");
-            }
+            return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
         }
-       
+
+        if($this->sensorIsExist($name, "name"))
+        {
+            return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
+        }
 
         $result = $this->database->query('UPDATE sensors  SET', [ 
             'number' => $number,
@@ -158,12 +136,9 @@ class DatabaseManager
             return array(false, "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
         }
 
-        //$result = $this->database->query('DELETE FROM sensors WHERE name = ?', $name);
-        $count = $this->database->table("sensors")
-            ->where('name', $name)
-            ->delete();
+        $result = $this->database->query('DELETE FROM sensors WHERE name = ?', $name);
 
-        return array($count, "Sensor deleted", "Senzor byl smazán");
+        return array($result, "Sensor deleted", "Senzor byl smazán");
     }  
 
     /**
@@ -187,17 +162,14 @@ class DatabaseManager
             {
                 return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
             }
-
-            $count = $this->database->table("sensors")
-                ->where('name', $oldName)
-                ->update([
-                    'number' => $number,
-                    'name' => $name,
-                    'description' => $description,
-                ]);    
-
     
-            return array($count, "Sensor edited", "Senzor upraven vytvořen");
+            $result = $this->database->query('INSERT INTO sensors  ?', [ 
+                'number' => $number,
+                'name' => $name,
+                'description' => $description,
+            ]);
+    
+            return array($result, "Sensor edited", "Senzor upraven vytvořen");
         }
         else
         {

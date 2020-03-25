@@ -59,11 +59,11 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     //Editace senzoru
     ///////////////////
 
-    public function createComponentEditSensorForm(): Form
+    public function createComponentEditSensorxForm(): Form
     {        
         $form = new Form; // means Nette\Application\UI\Form
     
-        $form->addText('oldname', 'Starý název:') 
+        $form->addText('oldname', 'Starý název1:') 
             ->setRequired();
         
         $form->addText('number', 'Cislo:') 
@@ -77,14 +77,14 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
             
         $form->addSubmit('send', 'Uprav');
 
-        $form->onSuccess[] = [$this, 'EditSensorFormSucceeded'];
+        $form->onSuccess[] = [$this, 'EditSensorxFormSucceeded'];
     
         return $form;
     }    
     
-    public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
+    public function EditSensorxFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
+        $addNew = $this->databaseManager->editSensorx($values->oldname, $values->number, $values->name, $values->description);
         if($addNew[0])
         {
             $this->flashMessage($addNew[2], 'success');
@@ -138,19 +138,94 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $this->template->settings = $this->databaseManager->getTitleSettings();
 
     } 
-    
-    public function renderSensor($name, $next)
+
+
+    public function renderSensor($name)
     {
         $this->template->settings = $this->databaseManager->getTitleSettings();
         
-        $this->template->name = $name;
-        $this->template->a = "";
-        
-        
-        $res = $this->databaseManager->addNewSensor(25,"MojeMasina");
+        if(!$this->databaseManager->sensorIsExist($name))
+        {
+            $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
+            $this->flashMessage($message[2], 'error');
+            $this->redirect('Sensors:default');
+        }
 
-        $this->template->b = $res[0];
-        $this->template->c = $res[1];
+        $this->template->sensor = $this->databaseManager->getSensorInfo($name);
+        $this->template->name = $this->databaseManager->getSensorInfo($name)["name"];
+
+    }
+
+    ////////////////////////////////////////////////
+    //  Edit page
+    ////////////////////////////////////////////////
+
+
+    public function createComponentEditSensorForm(): Form
+    {        
+        $form = new Form; // means Nette\Application\UI\Form
+        
+        $form->addText('number', 'Cislo:') 
+            ->setRequired();
+
+        $form->addText('name', 'Nazev:') 
+            ->setRequired();        
+
+
+        $form->addText('description', 'Popis:');           
+            
+        $form->addSubmit('send', 'Uprav');
+
+        $form->onSuccess[] = [$this, 'EditSensorFormSucceeded'];
+    
+        return $form;
+    }    
+    
+    public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
+    {
+        $addNew = $this->databaseManager->editSensor($values->number, $values->name, $values->description);
+        if($addNew[0])
+        {
+            $this->flashMessage($addNew[2], 'success');
+            $this->redirect('Sensors:sensor',$values->name);
+        }
+        else
+        {
+            
+            $this->flashMessage($addNew[2], 'error');
+            $this->redirect('this');
+        }
+    }     
+
+    public function renderEdit($name)
+    {
+        $this->template->settings = $this->databaseManager->getTitleSettings();
+
+        if(!$this->databaseManager->sensorIsExist($name))
+        {
+            $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
+            $this->flashMessage($message[2], 'error');
+            $this->redirect('Sensors:default');
+        }
+        $sensor = $this->databaseManager->getSensorInfo($name);
+        $this->template->sensor = $sensor;
+        $this->template->name = $sensor["name"];
+        $this['editSensorForm']->setDefaults($sensor);
+        //addSensorForm
+        //$sensor = $this->database->table
+
+        
+    }
+
+
+    ////////////////////////////////////////////////
+    //  Test Page
+    ////////////////////////////////////////////////
+
+    public function renderTest($name, $next)
+    {
+        $this->template->settings = $this->databaseManager->getTitleSettings();
+        
     }
 
 }
