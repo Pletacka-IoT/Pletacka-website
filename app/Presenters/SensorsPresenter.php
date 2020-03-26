@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use App\Model\DatabaseManager;
+use App\Model\ThisSensorManager;
 use Nette\Application\UI\Form;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
@@ -13,13 +14,19 @@ use Nette\Http\UrlScript;
 
 final class SensorsPresenter extends Nette\Application\UI\Presenter
 {
+	const
+		FORM_MSG_REQUIRED = 'Tohle pole je povinné.',
+		FORM_MSG_RULE = 'Tohle pole má neplatný formát.';    
+    
     private $databaseManager;
     private $request;
+    private $thisSensorManager;
 
-	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request)
+	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request, ThisSensorManager $thisSensorManager)
 	{
         $this->databaseManager = $databaseManager;
         $this->request = $request;
+        $this->thisSensorManager = $thisSensorManager;
     }
 
     ///////////////////
@@ -30,10 +37,11 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $form = new Form; // means Nette\Application\UI\Form
     
         $form->addText('number', 'Cislo:') 
-            ->setRequired();
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
 
         $form->addText('name', 'Nazev:') 
-            ->setRequired();
+            ->setRequired(self::FORM_MSG_REQUIRED);
         
         $form->addText('description', 'Popis:');           
             
@@ -68,13 +76,14 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $form = new Form; // means Nette\Application\UI\Form
     
         $form->addText('oldname', 'Starý název1:') 
-            ->setRequired();
+            ->setRequired(self::FORM_MSG_REQUIRED);
         
         $form->addText('number', 'Cislo:') 
-            ->setRequired();
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
 
         $form->addText('name', 'Nazev:') 
-            ->setRequired();        
+            ->setRequired(self::FORM_MSG_REQUIRED);        
 
 
         $form->addText('description', 'Popis:');           
@@ -88,7 +97,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function EditSensorxFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->editSensorx($values->oldname, $values->number, $values->name, $values->description);
+        $addNew = $this->databaseManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
         if($addNew[0])
         {
             $this->flashMessage($addNew[2], 'success');
@@ -111,7 +120,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $form = new Form; // means Nette\Application\UI\Form
 
         $form->addText('name', 'Nazev:') 
-            ->setRequired();                  
+            ->setRequired(self::FORM_MSG_REQUIRED);                  
             
         $form->addSubmit('send', 'Smaž');
 
@@ -172,10 +181,11 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $form = new Form; // means Nette\Application\UI\Form
         
         $form->addText('number', 'Cislo:') 
-            ->setRequired();
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
 
         $form->addText('name', 'Nazev:') 
-            ->setRequired();        
+            ->setRequired(self::FORM_MSG_REQUIRED);        
 
 
         $form->addText('description', 'Popis:');           

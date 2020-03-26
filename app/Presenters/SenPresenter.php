@@ -6,6 +6,7 @@ namespace App\Presenters;
 
 use Nette;
 use App\Model\DatabaseManager;
+use App\Model\ThisSensorManager;
 use Nette\Http\Request;
 
 final class SenPresenter extends Nette\Application\UI\Presenter
@@ -14,17 +15,22 @@ final class SenPresenter extends Nette\Application\UI\Presenter
 
     private $database;
     private $request;
+    private $databaseManager;
+    private $thisSensorManager;
+
     
-    public function __construct(Nette\Database\Context $database, Nette\Http\Request $request)
+    public function __construct(Nette\Database\Context $database, Nette\Http\Request $request, DatabaseManager $databaseManager, ThisSensorManager $thisSensorManager)
     {
         $this->database = $database;
         $this->request = $request;
+        $this->databaseManager = $databaseManager;
+        $this->thisSensorManager = $thisSensorManager;
     }
-    
 
 
     public function renderDefault() : void
     {
+        /*
         $sensors = $this->database->table('sen');
 
         foreach ($sensors as $sensor) {
@@ -138,11 +144,82 @@ final class SenPresenter extends Nette\Application\UI\Presenter
         {
             echo "stej";
         }
+        
 
-        print_r( $this->request->getHeaders());
+        //print_r( $this->request->getHeaders());
     
         
         $this->template->arr = $sensors;
+        */
+
+        //$this->databaseManager->renameThisSensor("MujSen3", "MujSen4");
+
+        
+        echo "<br>Je validni:".ctype_alnum("Ahoj@");
+
+        //$res = $this->databaseManager->addThisSensor("MujSen2");
+
+        
+        //Test this sensoru - vutvoreni
+        if(0)
+        {
+            try{
+                $res = $this->database->query("CREATE TABLE Seno1 (
+                    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    state ENUM('0','1') NOT NULL DEFAULT '0',               
+                    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    )");
+            } catch (Nette\Database\DriverException $e){
+                echo "<br>CHybicka";
+                echo $e;
+                $this->template->e = $e;
+                echo "<br>";
+
+
+                print_r($e->errorInfo);
+
+                echo "<br>Same".($e->errorInfo[0]!="42S0 1");
+            }
+        }   
+
+        //Test this sensoru - mazani
+        if(0)
+        {
+            try{
+                $res = $this->database->query("DROP TABLE SenName2");
+            } catch (Nette\Database\DriverException $e){
+                echo "<br>CHybicka";
+                echo $e;
+                $this->template->e = $e;
+                echo "<br>";
+
+
+                print_r($e->errorInfo);
+
+                echo "<br>Same".($e->errorInfo[0]!="42S01");
+            }
+            if($res)
+            {
+                echo "<br>OK";
+            }
+        }    
+        
+
+        //Test this sensoru - mazani
+        if(0)
+        {
+            
+            $res = $this->database->query("DROP TABLE SenName2");
+
+            if($res)
+            {
+                echo "<br>OK";
+            }
+        }         
+        
+        
+            
+
         
     }
     

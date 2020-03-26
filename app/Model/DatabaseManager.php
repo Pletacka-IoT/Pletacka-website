@@ -69,6 +69,44 @@ class DatabaseManager
             return 0;
         }
     }
+
+
+    public function addThisSensor($sensorName)
+    {
+        try{
+            $this->database->query("CREATE TABLE $sensorName (
+                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                state ENUM('0','1') NOT NULL DEFAULT '0',               
+                time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )");
+        } catch (Nette\Database\DriverException $e){
+            if($e->errorInfo[0]!="42S01") //Skip if error is "table is already exist"
+            {
+                return false;
+            }   
+        }
+        return true;
+    }
+
+    public function renameThisSensor($oldName, $sensorName)
+    {
+
+        try{
+            $this->database->query("ALTER TABLE $oldName
+            RENAME TO $sensorName");    
+        } catch (Nette\Database\DriverException $e) {
+            return $this->addThisSensor($sensorName);
+        }
+        return true;
+    }  
+    
+    public function deleteThisSensor($sensorName)
+    {
+        return $this->database->query("DROP TABLE $sensorName");
+    }
+
+
+
     
 
     /**
@@ -80,6 +118,11 @@ class DatabaseManager
      */
     public function addNewSensor($number, $name, $description = "")
     {
+        if(ctype_alnum($name)==false)
+        {
+            return array(false, "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
+        }
+        
         if($this->sensorIsExist($number, "number") )
         {
             return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
@@ -90,12 +133,19 @@ class DatabaseManager
             return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
         }
 
+        $res = $this->addThisSensor($name);
+
+        if(!$res)
+        {
+            return array(false, "There is a very serious database error you should contact your administrator!", "Nastala velmi závažná chyba v databázi měli byste kontaktovat svého administrátora!");
+        }
+
         if($succes = $this->database->table("sensors")->insert([
             'number' => $number,
             'name' => $name,
             'description' => $description,
         ]))
-        {
+        {            
             return array(true, "Sensor created", "Senzor byl vytvořen");
         }
         else
@@ -104,54 +154,6 @@ class DatabaseManager
         }        
         
     }
-
-
-    /**
-     * Edit sensorx
-     * @param mixed $oldname machine old name to edit
-     * @param mixed $number machine number
-     * @param mixed $name machine name
-     * @param string $description machine description (optional)
-     * @return array (bool - STATE, string - EN, string - CZ)
-     */
-    public function editSensorx($oldName, $number, $name, $description = "")
-    {
-        if(!$this->sensorIsExist($oldName, "name") )
-        {
-            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
-        }        
-        
-        $oldSen = $this->getSensorInfo($oldName);
-
-        //Is not same?
-        if(($oldSen->number!=$number)==true)
-        {
-            //Is exist?
-            if($this->sensorIsExist($number, "number") )
-            {
-                return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
-            }
-        }
-
-        //Is not same?
-        if(($oldSen->name!=$name)==true)
-        {
-            if($this->sensorIsExist($name, "name"))
-            {
-                return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
-            }
-        }
-       
-
-        $result = $this->database->query('UPDATE sensors  SET', [ 
-            'number' => $number,
-            'name' => $name,
-            'description' => $description,
-        ], 'WHERE name = ?', $oldName);
-
-        return array($result, "Sensor edited", "Senzor upraven vytvořen");
-    }    
-
 
     /**
      * Delete sensor
@@ -165,16 +167,20 @@ class DatabaseManager
             return array(false, "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
         }
 
+        
+
         //$result = $this->database->query('DELETE FROM sensors WHERE name = ?', $name);
         $count = $this->database->table("sensors")
             ->where('name', $name)
             ->delete();
 
+        $this->deleteThisSensor($name);
+
         return array($count, "Sensor deleted", "Senzor byl smazán");
     }  
 
     /**
-     * Edit sensorx
+     * Edit sensor
      * @param mixed $oldname machine old name to edit
      * @param mixed $number machine number
      * @param mixed $name machine name
@@ -190,6 +196,11 @@ class DatabaseManager
         
         $oldSen = $this->getSensorInfo($oldName);
 
+        if(ctype_alnum($name)==false)
+        {
+            return array(false, "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
+        }
+
         //Is not same?
         if(($oldSen->number!=$number)==true)
         {
@@ -207,6 +218,7 @@ class DatabaseManager
             {
                 return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
             }
+            $this->renameThisSensor($oldSen->name, $name);
         }
        
 
@@ -216,7 +228,7 @@ class DatabaseManager
             'description' => $description,
         ], 'WHERE name = ?', $oldName);
 
-        return array($result, "Sensor edited", "Senzor upraven vytvořen");
+        return array($result, "Sensor edited", "Senzor byl upraven");
     }  
     
     public function easyGet($name)

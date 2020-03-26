@@ -15,3 +15,4 @@ services:
 	router: App\Router\RouterFactory::createRouter
 	- App\Model\DatabaseManager
 	- App\Model\DataManager
+	- App\Model\ThisSensorManager
