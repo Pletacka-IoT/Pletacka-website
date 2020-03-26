@@ -10,6 +10,11 @@ application:
 session:
 	expiration: 14 days
 
+security:
+	users:
+		admin: secret  # user 'admin', password 'secret'	
+		root: lopaticka
+
 
 services:
 	router: App\Router\RouterFactory::createRouter

@@ -54,16 +54,16 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
     public function AddSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->addNewSensor($values->number, $values->name, $values->description);
-        if($addNew[0])
+        $returnMessage = $this->databaseManager->addNewSensor($values->number, $values->name, $values->description);
+        if($returnMessage[0])
         {
-            $this->flashMessage($addNew[2], 'success');
+            $this->flashMessage($returnMessage[2], 'success');
             $this->redirect('Sensors:sensor',$values->name);
         }
         else
         {
             
-            $this->flashMessage($addNew[2], 'error');
+            $this->flashMessage($returnMessage[2], 'error');
             $this->redirect('this');
         }
     } 
@@ -97,16 +97,16 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function EditSensorxFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
-        if($addNew[0])
+        $returnMessage = $this->databaseManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
+        if($returnMessage[0])
         {
-            $this->flashMessage($addNew[2], 'success');
+            $this->flashMessage($returnMessage[2], 'success');
             $this->redirect('Sensors:sensor',$values->name);
         }
         else
         {
             
-            $this->flashMessage($addNew[2], 'error');
+            $this->flashMessage($returnMessage[2], 'error');
             $this->redirect('this');
         }
     }    
@@ -131,16 +131,16 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function DeleteSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-        $addNew = $this->databaseManager->deleteSensor($values->name);
-        if($addNew[0])
+        $returnMessage = $this->databaseManager->deleteSensor($values->name);
+        if($returnMessage[0])
         {
-            $this->flashMessage($addNew[2], 'success');
+            $this->flashMessage($returnMessage[2], 'success');
             $this->redirect('this');
         }
         else
         {
             
-            $this->flashMessage($addNew[2], 'error');
+            $this->flashMessage($returnMessage[2], 'error');
             $this->redirect('this');
         }
     }    
@@ -206,16 +206,16 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
         $oldSensor = $exUrl[0];
         
         
-        $addNew = $this->databaseManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
-        if($addNew[0])
+        $returnMessage = $this->databaseManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
+        if($returnMessage[0])
         {
-            $this->flashMessage($addNew[2], 'success');
+            $this->flashMessage($returnMessage[2], 'success');
             $this->redirect('Sensors:sensor',$values->name);
         }
         else
         {
             
-            $this->flashMessage($addNew[2], 'error');
+            $this->flashMessage($returnMessage[2], 'error');
             $this->redirect('this');
         }
     }     
@@ -238,6 +238,38 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
     }
 
+    ////////////////////////////////////////////////
+    //  Delete sensor Page
+    ////////////////////////////////////////////////
+
+    public function renderDelete($name)
+    {
+        $this->template->settings = $this->databaseManager->getTitleSettings();
+
+        if(!$this->databaseManager->sensorIsExist($name))
+        {
+            $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
+            $this->flashMessage($message[2], 'error');
+            $this->redirect('Sensors:default');
+        }
+
+        $returnMessage = $this->databaseManager->deleteSensor($name);
+        if($returnMessage[0])
+        {
+            $this->flashMessage($returnMessage[2], 'success');
+            $this->redirect('Sensors:default');
+        }
+        else
+        {
+            
+            $this->flashMessage($returnMessage[2], 'error');
+            $this->redirect('Sensors:default');
+        }
+
+
+
+        
+    }
 
     ////////////////////////////////////////////////
     //  Test Page

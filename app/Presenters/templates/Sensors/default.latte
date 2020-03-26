@@ -1,6 +1,6 @@
 {block content}
 
-<div class="container text-center p-4 ">
+<div class="container text-center p-4 " style="margin-top:80px">
 
     <h1>Výpis senzorů </h1>
 
@@ -16,6 +16,7 @@
                         <th>Datum změny</th>
                         <th>Zobrazit</th>
                         <th>Upravit</th>
+                        <th>Smazat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,7 @@
                         <td>{$sensor->date}</td>
                         <td><a n:href="sensor $sensor->name" >Zobrazit</a></td>
                         <td><a n:href="edit $sensor->name" >Upravit</a></td>
+                        <td><a n:href="delete $sensor->name" >Smazat</a></td>
                     </tr>
         {if $iterator->last}
                 </tbody>
