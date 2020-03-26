@@ -34,6 +34,15 @@ class DatabaseManager
     public function getSensorInfo($name)
     {
         return $this->database->table("sensors")->where("name", $name)[0];
+    } 
+    
+    /**
+     * Get all sensors from database 
+     * @return array
+     */    
+    public function getSensors()
+    {
+        return $this->database->table("sensors");
     }    
 
     /**

@@ -1,18 +1,55 @@
 {block content}
-<h1>Přidání</h1>
 
-{control addSensorForm}
-<br>
-<br>
+<div class="container text-center p-4 ">
 
-<h1>Editace</h1>
+    <h1>Výpis senzorů </h1>
 
-{control editSensorxForm}
 
-<br>
-<br>
+    {foreach $sensors as $sensor}
+        {if $iterator->first}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Číslo</th>
+                        <th>Název</th>
+                        <th>Popis</th>
+                        <th>Datum změny</th>
+                        <th>Zobrazit</th>
+                        <th>Upravit</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {/if}
+                    <tr id="row-{$iterator->counter}">
+                        <td>{$sensor->number}</td>
+                        <td>{$sensor->name}</td>
+                        <td>{$sensor->description}</td>
+                        <td>{$sensor->date}</td>
+                        <td><a n:href="sensor $sensor->name" >Zobrazit</a></td>
+                        <td><a n:href="edit $sensor->name" >Upravit</a></td>
+                    </tr>
+        {if $iterator->last}
+                </tbody>
+            </table>
+        {/if}
+    {/foreach}
 
-<h1>Smazani</h1>
 
-{control deleteSensorForm}
+    <h1>Přidání</h1>
+
+    {control addSensorForm}
+    <br>
+    <br>
+
+    <h1>Editace</h1>
+
+    {control editSensorxForm}
+
+    <br>
+    <br>
+
+    <h1>Smazani</h1>
+
+    {control deleteSensorForm}
+</div>
 

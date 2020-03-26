@@ -140,6 +140,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     public function renderDefault() : void
     {
         $this->template->settings = $this->databaseManager->getTitleSettings();
+        $this->template->sensors = $this->databaseManager->getSensors();
 
     } 
 
@@ -157,6 +158,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
         $this->template->sensor = $this->databaseManager->getSensorInfo($name);
         $this->template->name = $this->databaseManager->getSensorInfo($name)["name"];
+        
 
     }
 
@@ -187,6 +189,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     
     public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
     {
+        //Get actual sensor name from URL
         $url = $this->request->getHeaders()["referer"];
         $exUrl = explode('/', $url);
         $exUrl = explode('?', $exUrl[6]);
