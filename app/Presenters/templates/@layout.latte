@@ -21,41 +21,35 @@
 	
 
 
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-  
-  		<!-- Brand/logo -->
-		<a class="navbar-brand" href="{$basePath}">
-			<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
-		</a>
-		<a class="navbar-brand" href="{$basePath}">{$settings->web_name}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-		{if $user->loggedIn}
-			<a class="nav-link" n:href="Sign:out">Odhlásit</a>
-		{else}
-			<a class="nav-link" n:href="Sign:in">Přihlásits</a>
-		{/if}        
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" n:href="Sensors:default">Sensors</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>    
-    </ul>
-  </div>  
-</nav>	
-
-
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
 	
-
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
-
+			<!-- Brand/logo -->
+			<a class="navbar-brand" href="{$basePath}">
+				<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
+			</a>
+			<a class="navbar-brand" href="{$basePath}">{$settings->web_name}</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="navbar-nav">
+		<li class="nav-item">
+			{if $user->loggedIn}
+				<a class="nav-link" n:href="Sign:out">Odhlásit</a>
+			{else}
+				<a class="nav-link" n:href="Sign:in">Přihlásits</a>
+			{/if}        
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" n:href="Sensors:default">Sensors</a>
+		</li>
+		<li class="nav-item ">
+			<a class="nav-link" href="#">Link</a>
+		</li>    
+		</ul>
+	</div>
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>  
+	</nav>
 
 
 	{include content}

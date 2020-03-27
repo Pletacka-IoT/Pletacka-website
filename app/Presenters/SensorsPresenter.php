@@ -7,6 +7,7 @@ namespace App\Presenters;
 use Nette;
 use App\Model\DatabaseManager;
 use App\Model\ThisSensorManager;
+use App\Model\FunctionManager;
 use Nette\Application\UI\Form;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
@@ -21,12 +22,15 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     private $databaseManager;
     private $request;
     private $thisSensorManager;
+    private $functionManager;
+    
 
-	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request, ThisSensorManager $thisSensorManager)
+	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request, ThisSensorManager $thisSensorManager, FunctionManager $functionManager)
 	{
         $this->databaseManager = $databaseManager;
         $this->request = $request;
         $this->thisSensorManager = $thisSensorManager;
+        $this->functionManager = $functionManager;
     }
 
     ///////////////////
@@ -222,6 +226,10 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
     public function renderEdit($name)
     {
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in');
+        }
+        
         $this->template->settings = $this->databaseManager->getTitleSettings();
 
         if(!$this->databaseManager->sensorIsExist($name))
@@ -244,6 +252,11 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
     public function renderDelete($name)
     {
+        //$this->functionManager->checkLogin();
+        if (!$this->getUser()->isLoggedIn()) {
+            $this->redirect('Sign:in');
+        }
+        
         $this->template->settings = $this->databaseManager->getTitleSettings();
 
         if(!$this->databaseManager->sensorIsExist($name))
@@ -278,6 +291,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     public function renderTest($name, $next)
     {
         $this->template->settings = $this->databaseManager->getTitleSettings();
+        
         
     }
 

@@ -21,3 +21,4 @@ services:
 	- App\Model\DatabaseManager
 	- App\Model\DataManager
 	- App\Model\ThisSensorManager
+	- App\Model\FunctionManager
