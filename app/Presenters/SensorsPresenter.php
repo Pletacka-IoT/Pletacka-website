@@ -228,6 +228,7 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
     {
         if (!$this->getUser()->isLoggedIn()) {
             $this->redirect('Sign:in');
+            $this->flashMessage("Nemáš dostatečné oprávnění, je nutné se přihlásit", 'error');
         }
         
         $this->template->settings = $this->databaseManager->getTitleSettings();
@@ -252,10 +253,10 @@ final class SensorsPresenter extends Nette\Application\UI\Presenter
 
     public function renderDelete($name)
     {
-        //$this->functionManager->checkLogin();
         if (!$this->getUser()->isLoggedIn()) {
             $this->redirect('Sign:in');
-        }
+        }        
+
         
         $this->template->settings = $this->databaseManager->getTitleSettings();
 
