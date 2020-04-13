@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Presenters;
+namespace App\CoreModule\Presenters;
 
 use App\Forms;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
+use App\Presenters\BasePresenter;
+
 
 
 final class SignPresenter extends BasePresenter

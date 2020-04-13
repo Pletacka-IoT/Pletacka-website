@@ -5,13 +5,24 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
+use Nette\Application\UI\Presenter;
+use App\Forms\FormFactory;
+
+
 
 
 /**
  * Base presenter for all application presenters.
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends Presenter
 {
+	protected $formFactory;
+	
+	public final function injectFormFactory(FormFactory $formFactory)
+	{
+		$this->formFactory = $formFactory;
+	}
+	
 	protected function startup()
 	{
 		parent::startup();

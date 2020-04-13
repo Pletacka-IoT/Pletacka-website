@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Presenters;
+namespace App\CoreModule\Presenters;
 use Nette\Security\User;
 use Nette\HTTP\IResponse;
 use Tracy\Debugger;
+use App\Presenters\BasePresenter;
+
 
 
 final class ConnectPresenter extends BasePresenter

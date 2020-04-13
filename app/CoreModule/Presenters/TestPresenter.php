@@ -2,10 +2,12 @@
 declare(strict_types=1);
 
 
-namespace App\Presenters;
+namespace App\CoreModule\Presenters;
 use Nette\Forms\Form;
 use Tracy\Debugger;
 use Tracy\Dumper;
+use App\Presenters\BasePresenter;
+
 
 Debugger::enable();
 

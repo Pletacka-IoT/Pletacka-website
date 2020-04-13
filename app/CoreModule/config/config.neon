@@ -1,0 +1,37 @@
+services:
+	acl:
+		setup:
+			- addRole(guest)
+			- addRole(member, guest)
+			- addRole(admin)
+            # Zdroje CoreModule.
+			- addResource(Core:Homepage)
+			- addResource(Core:Sign)
+			- addResource(Core:Test)
+			- addResource(Core:Connect)
+
+
+            # Pravidla přístupu
+			- allow(member, Core:Homepage)
+			- allow(guest, Core:Sign)
+			- allow(admin) # Administrátor může všechno.
+			- allow(guest, Core:Connect)
+
+			- deny(guest, Core:Homepage)
+
+# 			# Zdroje CoreModule.
+# 			- addResource(Core:Administration)
+# 			- addResource(Core:Article)
+# 			- addResource(Core:Contact)
+
+# 			# Pravidla přístupu.
+# 			- allow(guest, Core:Administration, login)
+# 			- allow(guest, Core:Administration, register)
+# 			- allow(guest, Core:Article, default)
+# 			- allow(guest, Core:Article, list)
+# 			- allow(guest, Core:Contact)
+# 			- allow(member, Core:Administration, default)
+# 			- allow(member, Core:Administration, logout)
+
+# 	# Definice vlastních služeb dále přístupných pomocí DI.
+# 	- App\CoreModule\Model\ArticleManager

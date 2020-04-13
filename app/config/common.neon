@@ -11,7 +11,7 @@ extensions:
 resource:
 	resources:
 		App\Controllers\:
-			paths: [%appDir%/Controllers]
+			paths: [%appDir%/CoreModule/Controllers]
 			decorator:
 				inject: true
 
@@ -42,6 +42,8 @@ database:
 		lazy: yes
 
 
+
+
 services:
 	acl:
 		factory: Nette\Security\Permission
@@ -49,19 +51,6 @@ services:
 			- addRole(guest)
 			- addRole(member, guest)
 			- addRole(admin)
-		
-
-			- addResource(Homepage)
-			- addResource(Sign)
-			- addResource(Test)
-			- addResource(Connect)
-
-			- allow(member, Homepage)
-			- allow(guest, Sign)
-			- allow(admin) # Administrátor může všechno.
-			- allow(guest, Connect)
-
-			- deny(guest, Homepage)
 
 
 	- App\Model\UserManager
@@ -69,3 +58,6 @@ services:
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
 	router: App\Router\RouterFactory::createRouter
+
+includes:
+	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	

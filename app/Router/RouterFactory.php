@@ -19,7 +19,7 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 		$router[] = new ApiRoute('api');
-		$router[] = new Route('<presenter>/<action>', 'Homepage:default');
+		$router[] = new Route('<presenter>/<action>', 'Core:Homepage:default');
 		return $router;
 	}
 }
