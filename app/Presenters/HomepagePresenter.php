@@ -3,27 +3,30 @@
 declare(strict_types=1);
 
 namespace App\Presenters;
-
-use Nette;
-use App\Model\DatabaseManager;
+use Nette\Security\User;
 
 
-final class HomepagePresenter extends Nette\Application\UI\Presenter
+final class HomepagePresenter extends BasePresenter
 {
-
-    private $databaseManager;
-
-	public function __construct(DatabaseManager $databaseManager)
+	protected $user;
+	
+	public function __construct(User $user)
 	{
-		$this->databaseManager = $databaseManager;
-    }
+		$this->user = $user;
+	}
+	
+	public function renderDefault(): void
+	{
+		$this->template->iden = "";
 
-    public function renderDefault() : void
-    {
-        $this->template->settings = $this->databaseManager->getTitleSettings();
-        $variab = "Pepik";
-        $this->template->var = $variab;
-    }
-    
-
+		if($this->user->isInRole('admin')) { // je uživatel v roli admina?
+			$this->template->test = 'Admin';
+			$this->template->iden = $this->user->getIdentity()->username;
+		}
+		else
+		{
+			$this->template->test = 'Nekdo jiny';
+			$this->template->iden = $this->user->getIdentity()->role;
+		}
+	}
 }

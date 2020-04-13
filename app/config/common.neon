@@ -1,3 +1,7 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
 parameters:
 
 
@@ -10,16 +14,39 @@ application:
 session:
 	expiration: 14 days
 
-security:
-	users:
-		admin: secret  # user 'admin', password 'secret'	
-		root: lopaticka
+
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=pletacka-ex'
+	user: root
+	password: lopaticka
+	options:
+		lazy: yes
 
 
 services:
+	acl:
+		factory: Nette\Security\Permission
+		setup:
+			- addRole(guest)
+			- addRole(member, guest)
+			- addRole(admin)
+		
+
+			- addResource(Homepage)
+			- addResource(Sign)
+			- addResource(Test)
+			- addResource(Connect)
+
+			- allow(member, Homepage)
+			- allow(guest, Sign)
+			- allow(admin) # Administrátor může všechno.
+			- allow(guest, Connect)
+
+			- deny(guest, Homepage)
+
+
+	- App\Model\UserManager
+	- App\Forms\FormFactory
+	- App\Forms\SignInFormFactory
+	- App\Forms\SignUpFormFactory
 	router: App\Router\RouterFactory::createRouter
-	- App\Model\DatabaseManager
-	- App\Model\DataManager
-	- App\Model\ThisSensorManager
-	- App\Model\FunctionManager
-	

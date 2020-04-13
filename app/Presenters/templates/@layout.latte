@@ -1,65 +1,34 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+{import 'components/form.latte'}
+
 <!DOCTYPE html>
 <html>
 <head>
-	{default $xtitle = 'Pletacka website Nette'}
-
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<link rel="icon" href="{$basePath}/images/Kuba_logo.png" />
 
-	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">	
-	<title>{$xtitle}</title>
-	{dump}
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	{block head}{/block}
 </head>
 
 <body>
-	
+	<div class=container>
+		<div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
 
-
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-	
-			<!-- Brand/logo -->
-			<a class="navbar-brand" href="{$basePath}">
-				<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
-			</a>
-			<a class="navbar-brand" href="{$basePath}">{$settings->web_name}</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-		<ul class="navbar-nav">
-		<li class="nav-item">
-			{if $user->loggedIn}
-				<a class="nav-link" n:href="Sign:out">Odhlásit</a>
-			{else}
-				<a class="nav-link" n:href="Sign:in">Přihlásits</a>
-			{/if}        
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" n:href="Sensors:default">Sensors</a>
-		</li>
-		<li class="nav-item ">
-			<a class="nav-link" href="#">Link</a>
-		</li>    
-		</ul>
+		{include content}
 	</div>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>  
-	</nav>
-
-
-	{include content}
-
-    <div class="container-fluid text-center p-4 bg-secondary text-white" style="margin-bottom:0">
-    	<p>© {date('Y')} {$xtitle}</p>
-    </div>	
 
 	{block scripts}
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
 	{/block}
 </body>
 </html>

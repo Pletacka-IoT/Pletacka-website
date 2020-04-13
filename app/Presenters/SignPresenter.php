@@ -1,68 +1,62 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Presenters;
 
-use Nette;
+use App\Forms;
 use Nette\Application\UI\Form;
-use App\Model\DatabaseManager;
-use App\Model\ThisSensorManager;
-use Nette\Http\Request;
-use Nette\Http\UrlScript;
+use Nette\Utils\ArrayHash;
 
 
-class SignPresenter extends Nette\Application\UI\Presenter
+final class SignPresenter extends BasePresenter
 {
+	/** @persistent */
+	public $backlink = '';
+
+	/** @var Forms\SignInFormFactory */
+	private $signInFactory;
+
+	/** @var Forms\SignUpFormFactory */
+	private $signUpFactory;
 
 
-    private $databaseManager;
-    private $request;
-    private $thisSensorManager;
-
-	public function __construct(DatabaseManager $databaseManager, Nette\Http\Request $request, ThisSensorManager $thisSensorManager)
+	public function __construct(Forms\SignInFormFactory $signInFactory, Forms\SignUpFormFactory $signUpFactory)
 	{
-        $this->databaseManager = $databaseManager;
-        $this->request = $request;
-        $this->thisSensorManager = $thisSensorManager;
-    }
-    
-    
+		$this->signInFactory = $signInFactory;
+		$this->signUpFactory = $signUpFactory;
+	}
+
+
+	/**
+	 * Sign-in form factory.
+	 */
 	protected function createComponentSignInForm(): Form
 	{
-		$form = new Form;
-		$form->addText('username', 'Uživatelské jméno:')
-			->setRequired('Prosím vyplňte své uživatelské jméno.');
-
-		$form->addPassword('password', 'Heslo:')
-			->setRequired('Prosím vyplňte své heslo.');
-
-		$form->addSubmit('send', 'Přihlásit');
-
-		$form->onSuccess[] = [$this, 'signInFormSucceeded'];
-		return $form;
-    }
-    
-    public function signInFormSucceeded(Form $form, \stdClass $values): void
-    {
-        try {
-            $this->getUser()->login($values->username, $values->password);
-            $this->redirect('Homepage:');
-    
-        } catch (Nette\Security\AuthenticationException $e) {
-            $form->addError('Nesprávné přihlašovací jméno nebo heslo!!!');
-        }
-    }
+		return $this->signInFactory->create(function (): void {
+			$this->restoreRequest($this->backlink);
+			$this->flashMessage('Byl jste úspěšně přihlášen.');
+			$this->redirect('Homepage:');
+		});
+	}
 
 
-    public function actionOut(): void
-    {
-        $this->getUser()->logout();
-        $this->flashMessage('Odhlášení bylo úspěšné.', "success");
-        $this->redirect('Homepage:');
-    }
-    
-    public function renderIn()
-    {
-        $this->template->settings = $this->databaseManager->getTitleSettings();
-    }
-    
+	/**
+	 * Sign-up form factory.
+	 */
+	protected function createComponentSignUpForm(): Form
+	{
+		return $this->signUpFactory->create(function (): void {
+			$this->flashMessage('Byl jste úspěšně zaregistrován.');
+			$this->redirect('Homepage:');
+		});
+	}
+
+
+	public function actionOut(): void
+	{
+		$this->getUser()->logout();
+	}
+
+	
 }

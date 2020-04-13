@@ -264,6 +264,7 @@ return array(
     'Nette\\Mail\\DkimSigner' => $vendorDir . '/nette/mail/src/Mail/DkimSigner.php',
     'Nette\\Mail\\FallbackMailer' => $vendorDir . '/nette/mail/src/Mail/FallbackMailer.php',
     'Nette\\Mail\\FallbackMailerException' => $vendorDir . '/nette/mail/src/Mail/exceptions.php',
+    'Nette\\Mail\\IMailer' => $vendorDir . '/nette/mail/src/Mail/Mailer.php',
     'Nette\\Mail\\Mailer' => $vendorDir . '/nette/mail/src/Mail/Mailer.php',
     'Nette\\Mail\\Message' => $vendorDir . '/nette/mail/src/Mail/Message.php',
     'Nette\\Mail\\MimePart' => $vendorDir . '/nette/mail/src/Mail/MimePart.php',
