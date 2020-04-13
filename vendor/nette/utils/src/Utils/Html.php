@@ -234,20 +234,20 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 {
 	use Nette\SmartObject;
 
-	/** @var array<string, mixed>  element's attributes */
+	/** @var array  element's attributes */
 	public $attrs = [];
 
 	/** @var bool  use XHTML syntax? */
 	public static $xhtml = false;
 
-	/** @var array<string, int>  void elements */
+	/** @var array  empty (void) elements */
 	public static $emptyElements = [
 		'img' => 1, 'hr' => 1, 'br' => 1, 'input' => 1, 'meta' => 1, 'area' => 1, 'embed' => 1, 'keygen' => 1,
 		'source' => 1, 'base' => 1, 'col' => 1, 'link' => 1, 'param' => 1, 'basefont' => 1, 'frame' => 1,
 		'isindex' => 1, 'wbr' => 1, 'command' => 1, 'track' => 1,
 	];
 
-	/** @var array<int, Html|string> nodes */
+	/** @var array  of Html | string nodes */
 	protected $children = [];
 
 	/** @var string  element's name */
@@ -258,7 +258,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 
 	/**
-	 * Constructs new HTML element.
+	 * Static factory.
 	 * @param  array|string $attrs element's attributes or plain text content
 	 * @return static
 	 */
@@ -282,51 +282,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 		}
 
 		return $el;
-	}
-
-
-	/**
-	 * Returns an object representing HTML text.
-	 */
-	public static function fromHtml(string $html): self
-	{
-		return (new static)->setHtml($html);
-	}
-
-
-	/**
-	 * Returns an object representing plain text.
-	 */
-	public static function fromText(string $text): self
-	{
-		return (new static)->setText($text);
-	}
-
-
-	/**
-	 * Converts to HTML.
-	 */
-	final public function toHtml(): string
-	{
-		return $this->render();
-	}
-
-
-	/**
-	 * Converts to plain text.
-	 */
-	final public function toText(): string
-	{
-		return $this->getText();
-	}
-
-
-	/**
-	 * Converts given HTML code to plain text.
-	 */
-	public static function htmlToText(string $html): string
-	{
-		return html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	}
 
 
@@ -373,8 +328,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 	/**
 	 * Appends value to element's attribute.
-	 * @param  mixed  $value
-	 * @param  mixed  $option
 	 * @return static
 	 */
 	public function appendAttribute(string $name, $value, $option = true)
@@ -398,7 +351,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 	/**
 	 * Sets element's attribute.
-	 * @param  mixed  $value
 	 * @return static
 	 */
 	public function setAttribute(string $name, $value)
@@ -444,7 +396,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 	/**
 	 * Overloaded setter for element's attribute.
-	 * @param  mixed  $value
 	 */
 	final public function __set(string $name, $value): void
 	{
@@ -530,7 +481,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 
 	/**
 	 * Setter for data-* attributes. Booleans are converted to 'true' resp. 'false'.
-	 * @param  mixed  $value
 	 * @return static
 	 */
 	public function data(string $name, $value = null)
@@ -585,7 +535,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, IHtmlString
 	 */
 	final public function getText(): string
 	{
-		return self::htmlToText($this->getHtml());
+		return html_entity_decode(strip_tags($this->getHtml()), ENT_QUOTES, 'UTF-8');
 	}
 
 

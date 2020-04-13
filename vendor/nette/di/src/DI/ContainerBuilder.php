@@ -317,6 +317,8 @@ class ContainerBuilder
 		foreach ($this->definitions as $def) {
 			$resolver->completeDefinition($def);
 		}
+
+		$this->parameters = $resolver->completeArguments($this->parameters);
 	}
 
 
@@ -342,7 +344,9 @@ class ContainerBuilder
 	}
 
 
-	/** @internal */
+	/**
+	 * @internal
+	 */
 	public function exportMeta(): array
 	{
 		$defs = $this->definitions;

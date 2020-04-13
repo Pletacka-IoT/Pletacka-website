@@ -24,7 +24,6 @@ class FilterExecutor
 
 	/** @var array [name => [callback, FilterInfo aware] */
 	private $_static = [
-		'batch' => [[Filters::class, 'batch'], false],
 		'breaklines' => [[Filters::class, 'breaklines'], false],
 		'bytes' => [[Filters::class, 'bytes'], false],
 		'capitalize' => [[Filters::class, 'capitalize'], false],
@@ -102,7 +101,7 @@ class FilterExecutor
 			if ($aware) { // FilterInfo aware filter
 				return $this->$lname = function (...$args) use ($callback) {
 					array_unshift($args, $info = new FilterInfo);
-					if ($args[1] instanceof HtmlString) {
+					if ($args[1] instanceof IHtmlString) {
 						$args[1] = $args[1]->__toString();
 						$info->contentType = Engine::CONTENT_HTML;
 					}
@@ -156,7 +155,7 @@ class FilterExecutor
 					. ($info->contentType === Engine::CONTENT_HTML ? ', try to prepend |stripHtml.' : '.'), E_USER_WARNING);
 			}
 			$res = ($this->$name)(...$args);
-			if ($res instanceof HtmlString) {
+			if ($res instanceof IHtmlString) {
 				trigger_error("Filter |$name should be changed to content-aware filter.");
 				$info->contentType = Engine::CONTENT_HTML;
 				$res = $res->__toString();

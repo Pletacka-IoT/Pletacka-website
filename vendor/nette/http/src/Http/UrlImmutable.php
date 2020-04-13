@@ -87,7 +87,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withScheme(string $scheme)
 	{
 		$dolly = clone $this;
@@ -103,7 +105,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withUser(string $user)
 	{
 		$dolly = clone $this;
@@ -119,7 +123,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withPassword(string $password)
 	{
 		$dolly = clone $this;
@@ -135,7 +141,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withoutUserInfo()
 	{
 		$dolly = clone $this;
@@ -145,7 +153,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withHost(string $host)
 	{
 		$dolly = clone $this;
@@ -169,7 +179,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withPort(int $port)
 	{
 		$dolly = clone $this;
@@ -185,7 +197,9 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withPath(string $path)
 	{
 		$dolly = clone $this;
@@ -226,14 +240,18 @@ class UrlImmutable implements \JsonSerializable
 	}
 
 
-	/** @return array|string|null */
+	/**
+	 * @return array|string|null
+	 */
 	public function getQueryParameter(string $name)
 	{
 		return $this->query[$name] ?? null;
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function withFragment(string $fragment)
 	{
 		$dolly = clone $this;

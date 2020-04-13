@@ -32,10 +32,10 @@ class DefaultBarPanel implements IBarPanel
 	 */
 	public function getTab(): string
 	{
-		return Helpers::capture(function () {
-			$data = $this->data;
-			require __DIR__ . "/panels/{$this->id}.tab.phtml";
-		});
+		ob_start(function () {});
+		$data = $this->data;
+		require __DIR__ . "/panels/{$this->id}.tab.phtml";
+		return ob_get_clean();
 	}
 
 
@@ -44,11 +44,11 @@ class DefaultBarPanel implements IBarPanel
 	 */
 	public function getPanel(): string
 	{
-		return Helpers::capture(function () {
-			if (is_file(__DIR__ . "/panels/{$this->id}.panel.phtml")) {
-				$data = $this->data;
-				require __DIR__ . "/panels/{$this->id}.panel.phtml";
-			}
-		});
+		ob_start(function () {});
+		if (is_file(__DIR__ . "/panels/{$this->id}.panel.phtml")) {
+			$data = $this->data;
+			require __DIR__ . "/panels/{$this->id}.panel.phtml";
+		}
+		return ob_get_clean();
 	}
 }

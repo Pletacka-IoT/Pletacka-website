@@ -15,9 +15,9 @@ use Latte\MacroNode;
 
 
 /**
- * Base Macro implementation. Allows add multiple macros.
+ * Base IMacro implementation. Allows add multiple macros.
  */
-class MacroSet implements Latte\Macro
+class MacroSet implements Latte\IMacro
 {
 	use Latte\Strict;
 
@@ -66,7 +66,6 @@ class MacroSet implements Latte\Macro
 	 */
 	public function finalize()
 	{
-		return null;
 	}
 
 
@@ -108,12 +107,9 @@ class MacroSet implements Latte\Macro
 			}
 			$node->context[1] = Latte\Compiler::CONTEXT_HTML_TEXT;
 
-		} elseif ($node->empty && $node->prefix) {
-			return false;
-
 		} elseif ($begin) {
 			$res = $this->compile($node, $begin);
-			if ($res === false) {
+			if ($res === false || ($node->empty && $node->prefix)) {
 				return false;
 			} elseif (!$node->openingCode && is_string($res) && $res !== '') {
 				$node->openingCode = "<?php $res ?>";
@@ -122,7 +118,6 @@ class MacroSet implements Latte\Macro
 		} elseif (!$end) {
 			return false;
 		}
-		return null;
 	}
 
 

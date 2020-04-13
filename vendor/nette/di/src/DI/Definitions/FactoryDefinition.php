@@ -34,7 +34,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function setImplement(string $type)
 	{
 		if (!interface_exists($type)) {
@@ -61,7 +63,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function setResultDefinition(Definition $definition)
 	{
 		$this->resultDefinition = $definition;
@@ -69,7 +73,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @return ServiceDefinition */
+	/**
+	 * @return ServiceDefinition
+	 */
 	public function getResultDefinition(): Definition
 	{
 		return $this->resultDefinition;
@@ -88,7 +94,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @deprecated use ->getResultDefinition()->getFactory() */
+	/**
+	 * @deprecated use ->getResultDefinition()->getFactory()
+	 */
 	public function getFactory(): ?Statement
 	{
 		trigger_error(sprintf('Service %s: %s() is deprecated, use ->getResultDefinition()->getFactory()', $this->getName(), __METHOD__), E_USER_DEPRECATED);
@@ -131,7 +139,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @deprecated use ->getResultDefinition()->getSetup() */
+	/**
+	 * @deprecated use ->getResultDefinition()->getSetup()
+	 */
 	public function getSetup(): array
 	{
 		trigger_error(sprintf('Service %s: %s() is deprecated, use ->getResultDefinition()->getSetup()', $this->getName(), __METHOD__), E_USER_DEPRECATED);
@@ -151,7 +161,9 @@ final class FactoryDefinition extends Definition
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function setParameters(array $params)
 	{
 		$this->parameters = $params;
@@ -240,7 +252,7 @@ final class FactoryDefinition extends Definition
 				$this->resultDefinition->getFactory()->arguments[$arg->getPosition()] = Nette\DI\ContainerBuilder::literal('$' . $arg->getName());
 
 			} elseif (!$this->resultDefinition->getSetup()) {
-				$hint = Nette\Utils\Helpers::getSuggestion(array_keys($ctorParams), $param->getName());
+				$hint = Nette\Utils\ObjectHelpers::getSuggestion(array_keys($ctorParams), $param->getName());
 				throw new ServiceCreationException("Unused parameter \${$param->getName()} when implementing method $interface::create()" . ($hint ? ", did you mean \${$hint}?" : '.'));
 			}
 			$nullable = $hint && $param->allowsNull() && (!$param->isDefaultValueAvailable() || $param->getDefaultValue() !== null);
@@ -260,7 +272,7 @@ final class FactoryDefinition extends Definition
 			->addImplement($this->getType());
 
 		$class->addProperty('container')
-			->setPrivate();
+			->setVisibility('private');
 
 		$class->addMethod('__construct')
 			->addBody('$this->container = $container;')

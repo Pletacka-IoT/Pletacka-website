@@ -15,6 +15,7 @@ namespace Nette\Application\UI;
  */
 interface ITemplate
 {
+
 	/**
 	 * Renders template to output.
 	 */

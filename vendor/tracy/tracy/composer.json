@@ -20,16 +20,10 @@
 		"ext-json": "*"
 	},
 	"require-dev": {
-		"nette/utils": "^3.0",
-		"nette/di": "^3.0",
-		"nette/mail": "^3.0",
+		"nette/utils": "^2.4 || ^3.0",
+		"nette/di": "^2.4 || ~3.0.0",
 		"nette/tester": "^2.2",
-		"latte/latte": "^2.5",
-		"psr/log": "^1.0",
-		"phpstan/phpstan": "^0.12"
-	},
-	"conflict": {
-		"nette/di": "<3.0"
+		"psr/log": "^1.0"
 	},
 	"suggest": {
 		"https://nette.org/donate": "Please support Tracy via a donation"
@@ -39,13 +33,9 @@
 		"files": ["src/Tracy/shortcuts.php"]
 	},
 	"minimum-stability": "dev",
-	"scripts": {
-		"phpstan": "phpstan analyse --level 5 src",
-		"tester": "tester tests -s"
-	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.7-dev"
+			"dev-master": "2.6-dev"
 		}
 	}
 }

@@ -33,7 +33,7 @@ The recommended way to install is via Composer:
 composer require nette/security
 ```
 
-It requires PHP version 7.1 and supports PHP up to 7.4.
+It requires PHP version 7.1 and supports PHP up to 7.3.
 
 
 Authentication
@@ -123,12 +123,10 @@ use Nette\Security as NS;
 class MyAuthenticator implements NS\IAuthenticator
 {
 	public $database;
-	public $passwords;
 
-	function __construct(Nette\Database\Connection $database, NS\Passwords $passwords)
+	function __construct(Nette\Database\Connection $database)
 	{
 		$this->database = $database;
-		$this->passwords = $password;
 	}
 
 	function authenticate(array $credentials)
@@ -141,7 +139,7 @@ class MyAuthenticator implements NS\IAuthenticator
 			throw new NS\AuthenticationException('User not found.');
 		}
 
-		if (!$passwords->verify($password, $row->password)) {
+		if (!NS\Passwords::verify($password, $row->password)) {
 			throw new NS\AuthenticationException('Invalid password.');
 		}
 
@@ -155,8 +153,9 @@ Class `MyAuthenticator` communicates with the database using Nette\Database laye
 This authenticator would be configured in the `config.neon` file like this:
 
 ```
-services:
-	authenticator: MyAuthenticator
+common:
+	services:
+		authenticator: MyAuthenticator
 ```
 
 

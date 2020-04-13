@@ -7,6 +7,8 @@ namespace App\Router;
 use Nette;
 use Nette\Application\Routers\RouteList;
 use Nette\Application\Routers\Route;
+use Apitte\Presenter\ApiRoute;
+
 
 
 final class RouterFactory
@@ -16,13 +18,7 @@ final class RouterFactory
 	public static function createRouter(): RouteList
 	{
 		$router = new RouteList;
-		//
-		
-		
-		//$router[] = new Route('<presenter>/<action>[/<name>][/<pwd>]', 'Test:default');
-		//$router[] = new Route('run', 'Test:run');
-
-
+		$router[] = new ApiRoute('api');
 		$router[] = new Route('<presenter>/<action>', 'Homepage:default');
 		return $router;
 	}

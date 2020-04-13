@@ -69,10 +69,10 @@ final class RoutingPanel implements Tracy\IBarPanel
 	public function getTab(): string
 	{
 		$this->analyse($this->router);
-		return Nette\Utils\Helpers::capture(function () {
-			$matched = $this->matched;
-			require __DIR__ . '/templates/RoutingPanel.tab.phtml';
-		});
+		ob_start(function () {});
+		$matched = $this->matched;
+		require __DIR__ . '/templates/RoutingPanel.tab.phtml';
+		return ob_get_clean();
 	}
 
 
@@ -81,15 +81,15 @@ final class RoutingPanel implements Tracy\IBarPanel
 	 */
 	public function getPanel(): string
 	{
-		return Nette\Utils\Helpers::capture(function () {
-			$matched = $this->matched;
-			$routers = $this->routers;
-			$source = $this->source;
-			$hasModule = (bool) array_filter($routers, function (array $rq): string { return $rq['module']; });
-			$url = $this->httpRequest->getUrl();
-			$method = $this->httpRequest->getMethod();
-			require __DIR__ . '/templates/RoutingPanel.panel.phtml';
-		});
+		ob_start(function () {});
+		$matched = $this->matched;
+		$routers = $this->routers;
+		$source = $this->source;
+		$hasModule = (bool) array_filter($routers, function (array $rq): string { return $rq['module']; });
+		$url = $this->httpRequest->getUrl();
+		$method = $this->httpRequest->getMethod();
+		require __DIR__ . '/templates/RoutingPanel.panel.phtml';
+		return ob_get_clean();
 	}
 
 
@@ -99,10 +99,8 @@ final class RoutingPanel implements Tracy\IBarPanel
 	private function analyse(Nette\Routing\Router $router, string $module = ''): void
 	{
 		if ($router instanceof Routers\RouteList) {
-			if ($router->match($this->httpRequest)) {
-				foreach ($router as $subRouter) {
-					$this->analyse($subRouter, $module . $router->getModule());
-				}
+			foreach ($router as $subRouter) {
+				$this->analyse($subRouter, $module . $router->getModule());
 			}
 			return;
 		}

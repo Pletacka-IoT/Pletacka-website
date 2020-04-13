@@ -17,8 +17,7 @@ class Engine
 {
 	use Strict;
 
-	public const VERSION = '2.7.1';
-	public const VERSION_ID = 20701;
+	public const VERSION = '2.6.2';
 
 	/** Content types */
 	public const
@@ -39,7 +38,7 @@ class Engine
 	/** @var Compiler|null */
 	private $compiler;
 
-	/** @var Loader|null */
+	/** @var ILoader|null */
 	private $loader;
 
 	/** @var Runtime\FilterExecutor */
@@ -73,23 +72,21 @@ class Engine
 
 	/**
 	 * Renders template to output.
-	 * @param  object|array  $params
 	 */
-	public function render(string $name, $params = [], string $block = null): void
+	public function render(string $name, array $params = [], string $block = null): void
 	{
-		$this->createTemplate($name, $this->processParams($params))
-			->render($block);
+		$this->createTemplate($name, $params + ['_renderblock' => $block])
+			->render();
 	}
 
 
 	/**
 	 * Renders template to string.
-	 * @param  object|array  $params
 	 */
-	public function renderToString(string $name, $params = [], string $block = null): string
+	public function renderToString(string $name, array $params = [], string $block = null): string
 	{
-		$template = $this->createTemplate($name, $this->processParams($params));
-		return $template->capture(function () use ($template, $block) { $template->render($block); });
+		$template = $this->createTemplate($name, $params + ['_renderblock' => $block]);
+		return $template->capture([$template, 'render']);
 	}
 
 
@@ -231,7 +228,7 @@ class Engine
 
 	public function getTemplateClass(string $name): string
 	{
-		$key = serialize([$this->getLoader()->getUniqueId($name), self::VERSION, array_keys((array) $this->functions)]);
+		$key = $this->getLoader()->getUniqueId($name) . "\00" . self::VERSION;
 		return 'Template' . substr(md5($key), 0, 10);
 	}
 
@@ -271,7 +268,7 @@ class Engine
 	 * Adds new macro.
 	 * @return static
 	 */
-	public function addMacro(string $name, Macro $macro)
+	public function addMacro(string $name, IMacro $macro)
 	{
 		$this->getCompiler()->addMacro($name, $macro);
 		return $this;
@@ -371,43 +368,18 @@ class Engine
 
 
 	/** @return static */
-	public function setLoader(Loader $loader)
+	public function setLoader(ILoader $loader)
 	{
 		$this->loader = $loader;
 		return $this;
 	}
 
 
-	public function getLoader(): Loader
+	public function getLoader(): ILoader
 	{
 		if (!$this->loader) {
 			$this->loader = new Loaders\FileLoader;
 		}
 		return $this->loader;
-	}
-
-
-	/**
-	 * @param  object|array  $params
-	 */
-	private function processParams($params): array
-	{
-		if (is_array($params)) {
-			return $params;
-		} elseif (!is_object($params)) {
-			throw new \InvalidArgumentException(sprintf('Engine::render() expects array|object, %s given.', gettype($params)));
-		}
-
-		$methods = (new \ReflectionClass($params))->getMethods(\ReflectionMethod::IS_PUBLIC);
-		foreach ($methods as $method) {
-			if (strpos((string) $method->getDocComment(), '@filter')) {
-				$this->addFilter($method->getName(), [$params, $method->getName()]);
-			}
-			if (strpos((string) $method->getDocComment(), '@function')) {
-				$this->addFunction($method->getName(), [$params, $method->getName()]);
-			}
-		}
-
-		return array_filter((array) $params, function ($key) { return $key[0] !== "\0"; }, ARRAY_FILTER_USE_KEY);
 	}
 }

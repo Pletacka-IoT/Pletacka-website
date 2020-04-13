@@ -68,7 +68,10 @@ final class Callback
 	{
 		$prev = set_error_handler(function ($severity, $message, $file) use ($onError, &$prev, $function): ?bool {
 			if ($file === __FILE__) {
-				$msg = ini_get('html_errors') ? Html::htmlToText($message) : $message;
+				$msg = $message;
+				if (ini_get('html_errors')) {
+					$msg = html_entity_decode(strip_tags($msg));
+				}
 				$msg = preg_replace("#^$function\(.*?\): #", '', $msg);
 				if ($onError($msg, $severity) !== false) {
 					return null;
@@ -86,7 +89,6 @@ final class Callback
 
 
 	/**
-	 * @param  mixed  $callable
 	 * @return callable
 	 */
 	public static function check($callable, bool $syntax = false)
@@ -101,9 +103,6 @@ final class Callback
 	}
 
 
-	/**
-	 * @param  mixed  $callable  may be syntactically correct but not callable
-	 */
 	public static function toString($callable): string
 	{
 		if ($callable instanceof \Closure) {
@@ -118,10 +117,6 @@ final class Callback
 	}
 
 
-	/**
-	 * @param  callable  $callable  is escalated to ReflectionException
-	 * @return \ReflectionMethod|\ReflectionFunction
-	 */
 	public static function toReflection($callable): \ReflectionFunctionAbstract
 	{
 		if ($callable instanceof \Closure) {

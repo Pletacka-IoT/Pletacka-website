@@ -12,6 +12,7 @@ namespace Nette\Utils;
 
 interface IHtmlString
 {
+
 	/**
 	 * Returns string in HTML format
 	 */

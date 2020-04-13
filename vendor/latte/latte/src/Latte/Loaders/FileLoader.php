@@ -15,12 +15,12 @@ use Latte;
 /**
  * Template loader.
  */
-class FileLoader implements Latte\Loader
+class FileLoader implements Latte\ILoader
 {
 	use Latte\Strict;
 
 	/** @var string|null */
-	protected $baseDir;
+	private $baseDir;
 
 
 	public function __construct($baseDir = null)
@@ -78,7 +78,7 @@ class FileLoader implements Latte\Loader
 	}
 
 
-	protected static function normalizePath(string $path): string
+	private static function normalizePath(string $path): string
 	{
 		$res = [];
 		foreach (explode('/', strtr($path, '\\', '/')) as $part) {

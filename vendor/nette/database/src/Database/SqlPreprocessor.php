@@ -96,7 +96,7 @@ class SqlPreprocessor
 				$this->arrayMode = null;
 				$res[] = Nette\Utils\Strings::replace(
 					$param,
-					'~\'[^\']*+\'|"[^"]*+"|\?[a-z]*|^\s*+(?:\(?\s*SELECT|INSERT|UPDATE|DELETE|REPLACE|EXPLAIN)\b|\b(?:SET|WHERE|HAVING|ORDER BY|GROUP BY|KEY UPDATE)(?=\s*$|\s*\?)|/\*.*?\*/|--[^\n]*~Dsi',
+					'~\'[^\']*+\'|"[^"]*+"|\?[a-z]*|^\s*+(?:SELECT|INSERT|UPDATE|DELETE|REPLACE|EXPLAIN)\b|\b(?:SET|WHERE|HAVING|ORDER BY|GROUP BY|KEY UPDATE)(?=\s*$|\s*\?)|/\*.*?\*/|--[^\n]*~Dsi',
 					[$this, 'callback']
 				);
 			} else {
@@ -122,7 +122,7 @@ class SqlPreprocessor
 			return $m;
 
 		} else { // command
-			$cmd = ltrim(strtoupper($m), "\t\n\r (");
+			$cmd = ltrim(strtoupper($m));
 			$this->arrayMode = self::ARRAY_MODES[$cmd] ?? null;
 			$this->useParams = isset(self::PARAMETRIC_COMMANDS[$cmd]) || $this->useParams;
 			return $m;
@@ -137,17 +137,10 @@ class SqlPreprocessor
 				if ($this->useParams) {
 					$this->remaining[] = $value;
 					return '?';
-
-				} elseif (is_int($value) || is_bool($value)) {
-					return (string) (int) $value;
-
-				} elseif (is_float($value)) {
-					return rtrim(rtrim(number_format($value, 10, '.', ''), '0'), '.');
-
-				} elseif (is_resource($value)) {
-					return $this->connection->quote(stream_get_contents($value));
-
 				} else {
+					if (is_resource($value)) {
+						$value = stream_get_contents($value);
+					}
 					return $this->connection->quote((string) $value);
 				}
 
@@ -195,7 +188,7 @@ class SqlPreprocessor
 
 			if ($mode === 'values') { // (key, key, ...) VALUES (value, value, ...)
 				if (array_key_exists(0, $value)) { // multi-insert
-					if (!is_array($value[0]) && !$value[0] instanceof Row) {
+					if (!is_array($value[0])) {
 						throw new Nette\InvalidArgumentException('Automaticaly detected multi-insert, but values aren\'t array. If you need try to change mode like "?[' . implode('|', self::MODE_LIST) . ']". Mode "' . $mode . '" was used.');
 					}
 					foreach ($value[0] as $k => $v) {

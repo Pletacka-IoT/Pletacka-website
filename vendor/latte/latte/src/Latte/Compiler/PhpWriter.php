@@ -309,7 +309,7 @@ class PhpWriter
 
 					$rescue = [$res->tokens, $expr->tokens, $tokens->position, $addBraces];
 
-					if (!$tokens->isNext('->', '::')) {
+					if (!$tokens->isNext('->')) {
 						$expr->prepend('(');
 						$expr->append(' ?? null)' . $addBraces);
 						break;
@@ -321,9 +321,9 @@ class PhpWriter
 					$expr = new MacroTokens('$_tmp');
 					$addBraces .= ')';
 
-				} elseif ($tokens->nextToken('->', '::')) {
+				} elseif ($tokens->nextToken('->')) {
 					$expr->append($tokens->currentToken());
-					if (!$tokens->nextToken($tokens::T_SYMBOL, $tokens::T_VARIABLE)) {
+					if (!$tokens->nextToken($tokens::T_SYMBOL)) {
 						$expr->append($addBraces);
 						break;
 					}
@@ -451,7 +451,7 @@ class PhpWriter
 
 	private function inlineModifierInner(MacroTokens $tokens): array
 	{
-		$isFunctionOrArray = $tokens->isPrev($tokens::T_VARIABLE, $tokens::T_SYMBOL, ')') || $tokens->isCurrent('[');
+		$isFunctionOrArray = $tokens->isPrev($tokens::T_VARIABLE, $tokens::T_SYMBOL) || $tokens->isCurrent('[');
 		$result = new MacroTokens;
 		$args = new MacroTokens;
 		$modifiers = new MacroTokens;

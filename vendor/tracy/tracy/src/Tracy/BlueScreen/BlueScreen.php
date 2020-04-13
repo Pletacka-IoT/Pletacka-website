@@ -15,8 +15,6 @@ namespace Tracy;
  */
 class BlueScreen
 {
-	private const MAX_MESSAGE_LENGTH = 2000;
-
 	/** @var string[] */
 	public $info = [];
 
@@ -80,12 +78,10 @@ class BlueScreen
 	public function render(\Throwable $exception): void
 	{
 		if (Helpers::isAjax() && session_status() === PHP_SESSION_ACTIVE) {
-			$_SESSION['_tracy']['bluescreen'][$_SERVER['HTTP_X_TRACY_AJAX']] = [
-				'content' => Helpers::capture(function () use ($exception) {
-					$this->renderTemplate($exception, __DIR__ . '/assets/content.phtml');
-				}),
-				'time' => time(),
-			];
+			ob_start(function () {});
+			$this->renderTemplate($exception, __DIR__ . '/assets/content.phtml');
+			$contentId = $_SERVER['HTTP_X_TRACY_AJAX'];
+			$_SESSION['_tracy']['bluescreen'][$contentId] = ['content' => ob_get_clean(), 'time' => time()];
 
 		} else {
 			$this->renderTemplate($exception, __DIR__ . '/assets/page.phtml');
@@ -113,25 +109,15 @@ class BlueScreen
 
 	private function renderTemplate(\Throwable $exception, string $template, $toScreen = true): void
 	{
-		$messageHtml = Dumper::encodeString((string) $exception->getMessage(), self::MAX_MESSAGE_LENGTH);
-		$messageHtml = htmlspecialchars($messageHtml, ENT_SUBSTITUTE, 'UTF-8');
+		$showEnvironment = strpos($exception->getMessage(), 'Allowed memory size') === false;
 		$messageHtml = preg_replace(
 			'#\'\S(?:[^\']|\\\\\')*\S\'|"\S(?:[^"]|\\\\")*\S"#',
 			'<i>$0</i>',
-			$messageHtml
+			htmlspecialchars((string) $exception->getMessage(), ENT_SUBSTITUTE, 'UTF-8')
 		);
-		$messageHtml = preg_replace_callback(
-			'#\w+\\\\[\w\\\\]+\w#',
-			function ($m) {
-				return class_exists($m[0], false) || interface_exists($m[0], false)
-				? '<a href="' . Helpers::escapeHtml(Helpers::editorUri((new \ReflectionClass($m[0]))->getFileName())) . '">' . $m[0] . '</a>'
-				: $m[0];
-			},
-			$messageHtml
-		);
-
 		$info = array_filter($this->info);
 		$source = Helpers::getSource();
+		$sourceIsUrl = preg_match('#^https?://#', $source);
 		$title = $exception instanceof \ErrorException
 			? Helpers::errorTypeToString($exception->getSeverity())
 			: Helpers::getClass($exception);
@@ -259,13 +245,14 @@ class BlueScreen
 	public static function highlightFile(string $file, int $line, int $lines = 15, array $vars = [], array $keysToHide = []): ?string
 	{
 		$source = @file_get_contents($file); // @ file may not exist
-		if ($source) {
-			$source = static::highlightPhp($source, $line, $lines, $vars, $keysToHide);
-			if ($editor = Helpers::editorUri($file, $line)) {
-				$source = substr_replace($source, ' data-tracy-href="' . Helpers::escapeHtml($editor) . '"', 4, 0);
-			}
-			return $source;
+		if ($source === false) {
+			return null;
 		}
+		$source = static::highlightPhp($source, $line, $lines, $vars, $keysToHide);
+		if ($editor = Helpers::editorUri($file, $line)) {
+			$source = substr_replace($source, ' data-tracy-href="' . Helpers::escapeHtml($editor) . '"', 4, 0);
+		}
+		return $source;
 	}
 
 
@@ -282,6 +269,7 @@ class BlueScreen
 			ini_set('highlight.string', '#080');
 		}
 
+		$source = preg_replace('#(__halt_compiler\s*\(\)\s*;).*#is', '$1', $source);
 		$source = str_replace(["\r\n", "\r"], "\n", $source);
 		$source = explode("\n", highlight_string($source, true));
 		$out = $source[0]; // <code><span color=highlight.html>
@@ -351,7 +339,6 @@ class BlueScreen
 
 	/**
 	 * Should a file be collapsed in stack trace?
-	 * @internal
 	 */
 	public function isCollapsed(string $file): bool
 	{
@@ -366,7 +353,6 @@ class BlueScreen
 	}
 
 
-	/** @internal */
 	public function getDumper(): \Closure
 	{
 		$keysToHide = array_flip(array_map('strtolower', $this->keysToHide));

@@ -3,7 +3,7 @@
 	"description": "💎 Nette Dependency Injection Container: Flexible, compiled and full-featured DIC with perfectly usable autowiring and support for all new PHP 7.1 features.",
 	"keywords": ["nette", "di", "dic", "ioc", "factory", "compiled", "static"],
 	"homepage": "https://nette.org",
-	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"authors": [
 		{
 			"name": "David Grudl",
@@ -18,10 +18,10 @@
 		"php": ">=7.1",
 		"ext-tokenizer": "*",
 		"nette/neon": "^3.0",
-		"nette/php-generator": "^3.3.3",
+		"nette/php-generator": "^3.3",
 		"nette/robot-loader": "^3.2",
 		"nette/schema": "^1.0",
-		"nette/utils": "^3.1"
+		"nette/utils": "^3.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.2",
@@ -32,7 +32,8 @@
 		"nette/bootstrap": "<3.0"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"classmap": ["src/"],
+		"files": ["src/compatibility.php"]
 	},
 	"minimum-stability": "dev",
 	"scripts": {

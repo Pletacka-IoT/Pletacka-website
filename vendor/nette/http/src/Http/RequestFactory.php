@@ -36,7 +36,9 @@ class RequestFactory
 	private $proxies = [];
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function setBinary(bool $binary = true)
 	{
 		$this->binary = $binary;
@@ -275,7 +277,7 @@ class RequestFactory
 	{
 		$forwardParams = preg_split('/[,;]/', $_SERVER['HTTP_FORWARDED']);
 		foreach ($forwardParams as $forwardParam) {
-			[$key, $value] = explode('=', $forwardParam, 2) + [1 => ''];
+			[$key, $value] = explode('=', $forwardParam, 2) + [1 => null];
 			$proxyParams[strtolower(trim($key))][] = trim($value, " \t\"");
 		}
 
@@ -331,10 +333,8 @@ class RequestFactory
 					return filter_var(trim($ip), FILTER_VALIDATE_IP) !== false && Helpers::ipMatch(trim($ip), $proxy);
 				});
 			});
-			if ($xForwardedForWithoutProxies) {
-				$remoteAddr = trim(end($xForwardedForWithoutProxies));
-				$xForwardedForRealIpKey = key($xForwardedForWithoutProxies);
-			}
+			$remoteAddr = trim(end($xForwardedForWithoutProxies));
+			$xForwardedForRealIpKey = key($xForwardedForWithoutProxies);
 		}
 
 		if (isset($xForwardedForRealIpKey) && !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {

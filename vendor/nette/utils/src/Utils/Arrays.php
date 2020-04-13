@@ -23,7 +23,6 @@ class Arrays
 	/**
 	 * Returns item from array or $default if item is not set.
 	 * @param  string|int|array $key one or more keys
-	 * @param  mixed  $default
 	 * @return mixed
 	 * @throws Nette\InvalidArgumentException if item does not exist and default value is not provided
 	 */
@@ -79,19 +78,17 @@ class Arrays
 
 	/**
 	 * Searches the array for a given key and returns the offset if successful.
-	 * @param  string|int  $key
 	 * @return int|null offset if it is found, null otherwise
 	 */
 	public static function searchKey(array $arr, $key): ?int
 	{
 		$foo = [$key => null];
-		return Helpers::falseToNull(array_search(key($foo), array_keys($arr), true));
+		return ($tmp = array_search(key($foo), array_keys($arr), true)) === false ? null : $tmp;
 	}
 
 
 	/**
 	 * Inserts new array before item specified by key.
-	 * @param  string|int  $key
 	 */
 	public static function insertBefore(array &$arr, $key, array $inserted): void
 	{
@@ -102,7 +99,6 @@ class Arrays
 
 	/**
 	 * Inserts new array after item specified by key.
-	 * @param  string|int  $key
 	 */
 	public static function insertAfter(array &$arr, $key, array $inserted): void
 	{
@@ -114,8 +110,6 @@ class Arrays
 
 	/**
 	 * Renames key in array.
-	 * @param  string|int  $oldKey
-	 * @param  string|int  $newKey
 	 */
 	public static function renameKey(array &$arr, $oldKey, $newKey): void
 	{
@@ -153,7 +147,6 @@ class Arrays
 
 	/**
 	 * Finds whether a variable is a zero-based integer indexed array.
-	 * @param  mixed  $value
 	 */
 	public static function isList($value): bool
 	{
@@ -163,7 +156,6 @@ class Arrays
 
 	/**
 	 * Reformats table to associative tree. Path looks like 'field|field[]field->field=field'.
-	 * @param  string|string[]  $path
 	 * @return array|\stdClass
 	 */
 	public static function associate(array $arr, $path)
@@ -219,7 +211,6 @@ class Arrays
 
 	/**
 	 * Normalizes to associative array.
-	 * @param  mixed  $filling
 	 */
 	public static function normalize(array $arr, $filling = null): array
 	{
@@ -233,8 +224,7 @@ class Arrays
 
 	/**
 	 * Picks element from the array by key and return its value.
-	 * @param  string|int  $key
-	 * @param  mixed  $default
+	 * @param  string|int $key array key
 	 * @return mixed
 	 * @throws Nette\InvalidArgumentException if item does not exist and default value is not provided
 	 */

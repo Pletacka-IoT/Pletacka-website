@@ -15,6 +15,7 @@ namespace Nette\Application\UI;
  */
 interface IStatePersistent
 {
+
 	/**
 	 * Loads state informations.
 	 */

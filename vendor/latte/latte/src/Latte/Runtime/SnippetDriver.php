@@ -34,11 +34,11 @@ class SnippetDriver
 	/** @var bool */
 	private $renderingSnippets = false;
 
-	/** @var SnippetBridge */
+	/** @var ISnippetBridge */
 	private $bridge;
 
 
-	public function __construct(SnippetBridge $bridge)
+	public function __construct(ISnippetBridge $bridge)
 	{
 		$this->bridge = $bridge;
 	}

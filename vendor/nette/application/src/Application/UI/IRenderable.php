@@ -15,6 +15,7 @@ namespace Nette\Application\UI;
  */
 interface IRenderable
 {
+
 	/**
 	 * Forces control to repaint.
 	 */

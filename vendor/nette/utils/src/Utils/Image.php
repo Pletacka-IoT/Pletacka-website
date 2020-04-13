@@ -115,12 +115,11 @@ class Image
 		JPEG = IMAGETYPE_JPEG,
 		PNG = IMAGETYPE_PNG,
 		GIF = IMAGETYPE_GIF,
-		WEBP = IMAGETYPE_WEBP,
-		BMP = IMAGETYPE_BMP;
+		WEBP = 18; // IMAGETYPE_WEBP is available as of PHP 7.1
 
 	public const EMPTY_GIF = "GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00!\xf9\x04\x01\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02D\x01\x00;";
 
-	private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp', self::BMP => 'bmp'];
+	private const FORMATS = [self::JPEG => 'jpeg', self::PNG => 'png', self::GIF => 'gif', self::WEBP => 'webp'];
 
 	/** @var resource */
 	private $image;
@@ -208,21 +207,6 @@ class Image
 			imagealphablending($image, true);
 		}
 		return new static($image);
-	}
-
-
-	public static function typeToExtension(int $type): string
-	{
-		if (!isset(self::FORMATS[$type])) {
-			throw new Nette\InvalidArgumentException("Unsupported image type '$type'.");
-		}
-		return self::FORMATS[$type];
-	}
-
-
-	public static function typeToMimeType(int $type): string
-	{
-		return 'image/' . self::typeToExtension($type);
 	}
 
 
@@ -385,14 +369,8 @@ class Image
 	{
 		[$r['x'], $r['y'], $r['width'], $r['height']]
 			= static::calculateCutout($this->getWidth(), $this->getHeight(), $left, $top, $width, $height);
-		if (gd_info()['GD Version'] === 'bundled (2.1.0 compatible)') {
-			$this->image = imagecrop($this->image, $r);
-			imagesavealpha($this->image, true);
-		} else {
-			$newImage = static::fromBlank($r['width'], $r['height'], self::RGB(0, 0, 0, 127))->getImageResource();
-			imagecopy($newImage, $this->image, 0, 0, $r['x'], $r['y'], $r['width'], $r['height']);
-			$this->image = $newImage;
-		}
+		$this->image = imagecrop($this->image, $r);
+		imagesavealpha($this->image, true);
 		return $this;
 	}
 
@@ -528,9 +506,9 @@ class Image
 	 */
 	public function toString(int $type = self::JPEG, int $quality = null): string
 	{
-		return Helpers::capture(function () use ($type, $quality) {
-			$this->output($type, $quality);
-		});
+		ob_start(function () {});
+		$this->output($type, $quality);
+		return ob_get_clean();
 	}
 
 
@@ -557,7 +535,10 @@ class Image
 	 */
 	public function send(int $type = self::JPEG, int $quality = null): void
 	{
-		header('Content-Type: ' . self::typeToMimeType($type));
+		if (!isset(self::FORMATS[$type])) {
+			throw new Nette\InvalidArgumentException("Unsupported image type '$type'.");
+		}
+		header('Content-Type: ' . image_type_to_mime_type($type));
 		$this->output($type, $quality);
 	}
 
@@ -588,15 +569,11 @@ class Image
 				$success = @imagewebp($this->image, $file, $quality); // @ is escalated to exception
 				break;
 
-			case self::BMP:
-				$success = @imagebmp($this->image, $file); // @ is escalated to exception
-				break;
-
 			default:
 				throw new Nette\InvalidArgumentException("Unsupported image type '$type'.");
 		}
 		if (!$success) {
-			throw new ImageException(Helpers::getLastError() ?: 'Unknown error');
+			throw new ImageException(error_get_last()['message'] ?: 'Unknown error');
 		}
 	}
 

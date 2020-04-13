@@ -154,10 +154,10 @@ final class ComponentReflection extends \ReflectionClass
 		$res = [];
 		foreach ($method->getParameters() as $i => $param) {
 			$name = $param->getName();
-			$type = self::getParameterType($param);
+			[$type, $isClass] = self::getParameterType($param);
 			if (isset($args[$name])) {
 				$res[$i] = $args[$name];
-				if (!self::convertType($res[$i], $type)) {
+				if (!self::convertType($res[$i], $type, $isClass)) {
 					throw new Nette\InvalidArgumentException(sprintf(
 						'Argument $%s passed to %s() must be %s, %s given.',
 						$name,
@@ -187,15 +187,9 @@ final class ComponentReflection extends \ReflectionClass
 	/**
 	 * Non data-loss type conversion.
 	 */
-	public static function convertType(&$val, string $type): bool
+	public static function convertType(&$val, string $type, bool $isClass = false): bool
 	{
-		static $builtin = [
-			'string' => 1, 'int' => 1, 'float' => 1, 'bool' => 1, 'array' => 1, 'object' => 1,
-			'callable' => 1, 'iterable' => 1, 'void' => 1, 'null' => 1,
-			'boolean' => 1, 'integer' => 1, 'double' => 1, 'NULL' => 1,
-		];
-
-		if (empty($builtin[$type])) {
+		if ($isClass) {
 			return $val instanceof $type;
 
 		} elseif ($type === 'callable') {
@@ -246,11 +240,14 @@ final class ComponentReflection extends \ReflectionClass
 	}
 
 
-	public static function getParameterType(\ReflectionParameter $param): string
+	/**
+	 * @return array [string|null, bool]
+	 */
+	public static function getParameterType(\ReflectionParameter $param): array
 	{
 		return $param->hasType()
-			? $param->getType()->getName()
-			: gettype($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+			? [$param->getType()->getName(), !$param->getType()->isBuiltin()]
+			: [gettype($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null), false];
 	}
 
 
@@ -310,6 +307,3 @@ final class ComponentReflection extends \ReflectionClass
 		return $res;
 	}
 }
-
-
-class_exists(PresenterComponentReflection::class);

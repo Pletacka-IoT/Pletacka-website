@@ -92,7 +92,9 @@ class Compiler
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function setClassName(string $className)
 	{
 		$this->className = $className;
@@ -174,7 +176,9 @@ class Compiler
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function addExportedTag(string $tag)
 	{
 		if (isset($this->extensions[self::DI])) {
@@ -185,7 +189,9 @@ class Compiler
 	}
 
 
-	/** @return static */
+	/**
+	 * @return static
+	 */
 	public function addExportedType(string $type)
 	{
 		if (isset($this->extensions[self::DI])) {
@@ -237,7 +243,7 @@ class Compiler
 			throw new Nette\DeprecatedException("Extensions '$extra' were added while container was being compiled.");
 
 		} elseif ($extra = key(array_diff_key($this->configs, $this->extensions))) {
-			$hint = Nette\Utils\Helpers::getSuggestion(array_keys($this->extensions), $extra);
+			$hint = Nette\Utils\ObjectHelpers::getSuggestion(array_keys($this->extensions), $extra);
 			throw new InvalidConfigurationException(
 				"Found section '$extra' in configuration, but corresponding extension is missing"
 				. ($hint ? ", did you mean '$hint'?" : '.')
@@ -279,11 +285,11 @@ class Compiler
 
 		$generator = new PhpGenerator($this->builder);
 		$class = $generator->generate($this->className);
+		$class->addMethod('initialize');
 		$this->dependencies->add($this->builder->getDependencies());
 
 		foreach ($this->extensions as $extension) {
 			$extension->afterCompile($class);
-			$generator->addInitialization($class, $extension);
 		}
 
 		return $this->sources . "\n" . $generator->toString($class);
@@ -301,14 +307,18 @@ class Compiler
 	}
 
 
-	/** @deprecated use non-static Compiler::loadDefinitionsFromConfig() */
+	/**
+	 * @deprecated use non-static Compiler::loadDefinitionsFromConfig()
+	 */
 	public static function loadDefinitions(): void
 	{
 		throw new Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');
 	}
 
 
-	/** @deprecated use non-static Compiler::loadDefinitionsFromConfig() */
+	/**
+	 * @deprecated use non-static Compiler::loadDefinitionsFromConfig()
+	 */
 	public static function loadDefinition(): void
 	{
 		throw new Nette\DeprecatedException(__METHOD__ . '() is deprecated, use non-static Compiler::loadDefinitionsFromConfig(array $configList).');

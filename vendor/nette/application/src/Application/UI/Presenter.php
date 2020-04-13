@@ -179,13 +179,6 @@ abstract class Presenter extends Control implements Application\IPresenter
 	}
 
 
-	public function isModuleCurrent(string $module): bool
-	{
-		$current = Helpers::splitName($this->getName())[0];
-		return Nette\Utils\Strings::startsWith($current . ':', ltrim($module . ':', ':'));
-	}
-
-
 	/********************* interface IPresenter ****************d*g**/
 
 
@@ -975,7 +968,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 		$i = 0;
 		$rm = new \ReflectionMethod($class, $method);
 		foreach ($rm->getParameters() as $param) {
-			$type = ComponentReflection::getParameterType($param);
+			[$type, $isClass] = ComponentReflection::getParameterType($param);
 			$name = $param->getName();
 
 			if (array_key_exists($i, $args)) {
@@ -998,7 +991,7 @@ abstract class Presenter extends Control implements Application\IPresenter
 				continue;
 			}
 
-			if (!ComponentReflection::convertType($args[$name], $type)) {
+			if (!ComponentReflection::convertType($args[$name], $type, $isClass)) {
 				throw new InvalidLinkException(sprintf(
 					'Argument $%s passed to %s() must be %s, %s given.',
 					$name,
@@ -1068,15 +1061,11 @@ abstract class Presenter extends Control implements Application\IPresenter
 		}
 		$request = clone $session[$key][1];
 		unset($session[$key]);
+		$request->setFlag(Application\Request::RESTORED, true);
 		$params = $request->getParameters();
 		$params[self::FLASH_KEY] = $this->getFlashKey();
 		$request->setParameters($params);
-		if ($request->isMethod('POST')) {
-			$request->setFlag(Application\Request::RESTORED, true);
-			$this->sendResponse(new Responses\ForwardResponse($request));
-		} else {
-			$this->redirectUrl($this->requestToUrl($request));
-		}
+		$this->sendResponse(new Responses\ForwardResponse($request));
 	}
 
 
@@ -1295,8 +1284,8 @@ abstract class Presenter extends Control implements Application\IPresenter
 	/********************* services ****************d*g**/
 
 
-	final public function injectPrimary(?Nette\DI\Container $context, ?Application\IPresenterFactory $presenterFactory, ?Nette\Routing\Router $router,
-		Http\IRequest $httpRequest, Http\IResponse $httpResponse, ?Http\Session $session = null, ?Nette\Security\User $user = null, ?ITemplateFactory $templateFactory = null)
+	final public function injectPrimary(Nette\DI\Container $context = null, Application\IPresenterFactory $presenterFactory = null, Nette\Routing\Router $router = null,
+		Http\IRequest $httpRequest, Http\IResponse $httpResponse, Http\Session $session = null, Nette\Security\User $user = null, ITemplateFactory $templateFactory = null)
 	{
 		if ($this->presenterFactory !== null) {
 			throw new Nette\InvalidStateException('Method ' . __METHOD__ . ' is intended for initialization and should not be called more than once.');

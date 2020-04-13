@@ -15,6 +15,7 @@ namespace Tracy;
  */
 class Helpers
 {
+
 	/**
 	 * Returns HTML link to editor.
 	 */
@@ -239,17 +240,17 @@ class Helpers
 	/** @internal */
 	public static function guessClassFile(string $class): ?string
 	{
-		$segments = explode(DIRECTORY_SEPARATOR, $class);
+		$segments = explode('\\', $class);
 		$res = null;
 		$max = 0;
 		foreach (get_declared_classes() as $class) {
-			$parts = explode(DIRECTORY_SEPARATOR, $class);
+			$parts = explode('\\', $class);
 			foreach ($parts as $i => $part) {
-				if ($part !== $segments[$i] ?? null) {
+				if ($part !== ($segments[$i] ?? null)) {
 					break;
 				}
 			}
-			if ($i > $max && ($file = (new \ReflectionClass($class))->getFileName())) {
+			if ($i > $max && $i < count($segments) && ($file = (new \ReflectionClass($class))->getFileName())) {
 				$max = $i;
 				$res = array_merge(array_slice(explode(DIRECTORY_SEPARATOR, $file), 0, $i - count($parts)), array_slice($segments, $i));
 				$res = implode(DIRECTORY_SEPARATOR, $res) . '.php';
@@ -315,21 +316,5 @@ class Helpers
 		return defined('PHP_WINDOWS_VERSION_BUILD')
 			? '"' . str_replace('"', '""', $s) . '"'
 			: escapeshellarg($s);
-	}
-
-
-	/**
-	 * Captures PHP output into a string.
-	 */
-	public static function capture(callable $func): string
-	{
-		ob_start(function () {});
-		try {
-			$func();
-			return ob_get_clean();
-		} catch (\Throwable $e) {
-			ob_end_clean();
-			throw $e;
-		}
 	}
 }

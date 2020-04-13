@@ -62,9 +62,9 @@
 
 			elem.querySelectorAll('.tracy-icons a').forEach((link) => {
 				link.addEventListener('click', (e) => {
-					if (link.dataset.tracyAction === 'close') {
+					if (link.rel === 'close') {
 						this.toPeek();
-					} else if (link.dataset.tracyAction === 'window') {
+					} else if (link.rel === 'window') {
 						this.toWindow();
 					}
 					e.preventDefault();
@@ -259,7 +259,7 @@
 		initTabs(elem) {
 			elem.querySelectorAll('a').forEach((link) => {
 				link.addEventListener('click', (e) => {
-					if (link.dataset.tracyAction === 'close') {
+					if (link.rel === 'close') {
 						this.close();
 
 					} else if (link.rel) {
@@ -286,7 +286,7 @@
 				});
 
 				link.addEventListener('mouseenter', (e) => {
-					if (e.buttons || !link.rel || elem.classList.contains('tracy-dragged')) {
+					if (e.buttons || !link.rel || link.rel === 'close' || elem.classList.contains('tracy-dragged')) {
 						return;
 					}
 
@@ -313,7 +313,7 @@
 				link.addEventListener('mouseleave', () => {
 					clearTimeout(this.displayTimeout);
 
-					if (link.rel && !elem.classList.contains('tracy-dragged')) {
+					if (link.rel && link.rel !== 'close' && !elem.classList.contains('tracy-dragged')) {
 						Debug.panels[link.rel].blur();
 					}
 				});

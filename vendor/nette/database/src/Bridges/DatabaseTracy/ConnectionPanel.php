@@ -101,12 +101,12 @@ class ConnectionPanel implements Tracy\IBarPanel
 
 	public function getTab(): string
 	{
-		return Nette\Utils\Helpers::capture(function () {
-			$name = $this->name;
-			$count = $this->count;
-			$totalTime = $this->totalTime;
-			require __DIR__ . '/templates/ConnectionPanel.tab.phtml';
-		});
+		$name = $this->name;
+		$count = $this->count;
+		$totalTime = $this->totalTime;
+		ob_start(function () {});
+		require __DIR__ . '/templates/ConnectionPanel.tab.phtml';
+		return ob_get_clean();
 	}
 
 
@@ -117,15 +117,18 @@ class ConnectionPanel implements Tracy\IBarPanel
 			return null;
 		}
 
+		$name = $this->name;
+		$count = $this->count;
+		$totalTime = $this->totalTime;
 		$queries = [];
 		foreach ($this->queries as $query) {
-			[$connection, $sql, $params, , , , $error] = $query;
+			[$connection, $sql, , , , , $error] = $query;
 			$explain = null;
 			$command = preg_match('#\s*\(?\s*(SELECT|INSERT|UPDATE|DELETE)\s#iA', $sql, $m) ? strtolower($m[1]) : null;
 			if (!$error && $this->explain && $command === 'select') {
 				try {
 					$cmd = is_string($this->explain) ? $this->explain : 'EXPLAIN';
-					$explain = $connection->queryArgs("$cmd $sql", $params)->fetchAll();
+					$explain = $connection->queryArgs("$cmd $sql", [])->fetchAll();
 				} catch (\PDOException $e) {
 				}
 			}
@@ -134,11 +137,8 @@ class ConnectionPanel implements Tracy\IBarPanel
 			$queries[] = $query;
 		}
 
-		return Nette\Utils\Helpers::capture(function () use ($queries, $connection) {
-			$name = $this->name;
-			$count = $this->count;
-			$totalTime = $this->totalTime;
-			require __DIR__ . '/templates/ConnectionPanel.panel.phtml';
-		});
+		ob_start(function () {});
+		require __DIR__ . '/templates/ConnectionPanel.panel.phtml';
+		return ob_get_clean();
 	}
 }

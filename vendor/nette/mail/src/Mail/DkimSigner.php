@@ -47,7 +47,9 @@ class DkimSigner implements Signer
 	private $testMode;
 
 
-	/** @throws Nette\NotSupportedException */
+	/**
+	 * @throws Nette\NotSupportedException
+	 */
 	public function __construct(array $options, array $signHeaders = self::DEFAULT_SIGN_HEADERS)
 	{
 		if (!extension_loaded('openssl')) {
@@ -62,7 +64,9 @@ class DkimSigner implements Signer
 	}
 
 
-	/** @throws SignException */
+	/**
+	 * @throws SignException
+	 */
 	public function generateSignedMessage(Message $message): string
 	{
 		$message = $message->build();
@@ -126,7 +130,9 @@ class DkimSigner implements Signer
 	}
 
 
-	/** @throws SignException */
+	/**
+	 * @throws SignException
+	 */
 	protected function sign(string $value): string
 	{
 		$privateKey = openssl_pkey_get_private($this->privateKey, $this->passPhrase);
@@ -139,7 +145,6 @@ class DkimSigner implements Signer
 			return base64_encode($signature);
 		}
 		openssl_pkey_free($privateKey);
-		return '';
 	}
 
 

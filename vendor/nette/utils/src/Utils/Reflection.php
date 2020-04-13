@@ -33,34 +33,28 @@ final class Reflection
 
 	public static function getReturnType(\ReflectionFunctionAbstract $func): ?string
 	{
-		$type = $func->getReturnType();
-		return $type instanceof \ReflectionNamedType && $func instanceof \ReflectionMethod
-			? self::normalizeType($type->getName(), $func)
+		return $func->hasReturnType()
+			? self::normalizeType($func->getReturnType()->getName(), $func)
 			: null;
 	}
 
 
 	public static function getParameterType(\ReflectionParameter $param): ?string
 	{
-		$type = $param->getType();
-		return $type instanceof \ReflectionNamedType
-			? self::normalizeType($type->getName(), $param)
+		return $param->hasType()
+			? self::normalizeType($param->getType()->getName(), $param)
 			: null;
 	}
 
 
 	public static function getPropertyType(\ReflectionProperty $prop): ?string
 	{
-		$type = PHP_VERSION_ID >= 70400 ? $prop->getType() : null;
-		return $type instanceof \ReflectionNamedType
-			? self::normalizeType($type->getName(), $prop)
+		return PHP_VERSION_ID >= 70400 && $prop->hasType()
+			? self::normalizeType($prop->getType()->getName(), $prop)
 			: null;
 	}
 
 
-	/**
-	 * @param  \ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
-	 */
 	private static function normalizeType(string $type, $reflection): string
 	{
 		$lower = strtolower($type);
@@ -84,7 +78,9 @@ final class Reflection
 			$const = $orig = $param->getDefaultValueConstantName();
 			$pair = explode('::', $const);
 			if (isset($pair[1])) {
-				$pair[0] = self::normalizeType($pair[0], $param);
+				if (strtolower($pair[0]) === 'self') {
+					$pair[0] = $param->getDeclaringClass()->getName();
+				}
 				try {
 					$rcc = new \ReflectionClassConstant($pair[0], $pair[1]);
 				} catch (\ReflectionException $e) {
@@ -187,7 +183,9 @@ final class Reflection
 	}
 
 
-	/** @return array of [alias => class] */
+	/**
+	 * @return array of [alias => class]
+	 */
 	public static function getUseStatements(\ReflectionClass $class): array
 	{
 		if ($class->isAnonymous()) {
@@ -288,7 +286,7 @@ final class Reflection
 	}
 
 
-	private static function fetch(array &$tokens, $take): ?string
+	private static function fetch(&$tokens, $take)
 	{
 		$res = null;
 		while ($token = current($tokens)) {

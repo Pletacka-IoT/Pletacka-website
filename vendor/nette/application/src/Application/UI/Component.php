@@ -330,6 +330,3 @@ abstract class Component extends Nette\ComponentModel\Container implements ISign
 		throw new Nette\Application\BadRequestException($message, $httpCode);
 	}
 }
-
-
-class_exists(PresenterComponent::class);
