@@ -48,10 +48,6 @@ services:
 	acl:
 		factory: Nette\Security\Permission
 		setup:
-			- addRole(guest)
-			- addRole(member, guest)
-			- addRole(admin)
-
 
 	- App\Model\UserManager
 	- App\Forms\FormFactory
