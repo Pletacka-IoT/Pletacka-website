@@ -7,6 +7,8 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Presenter;
 use App\Forms\FormFactory;
+use Nette\Database\Context;
+
 
 
 
@@ -14,7 +16,7 @@ use App\Forms\FormFactory;
 /**
  * Base presenter for all application presenters.
  */
-abstract class BasePresenter extends Presenter
+abstract class BasePresenter extends Presenter 
 {
 	protected $formFactory;
 	
@@ -27,7 +29,7 @@ abstract class BasePresenter extends Presenter
 	{
 		parent::startup();
 		if (!$this->getUser()->isAllowed($this->getName(), $this->getAction())) {
-			$this->flashMessage('Nejsi přihlášený nebo nemáš dostatečná oprávnění.');
+			$this->flashMessage('Nejsi přihlášený nebo nemáš dostatečná oprávnění.', "error");
 			$this->redirect('Sign:in');
 		}
 	}

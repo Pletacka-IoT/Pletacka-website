@@ -1,26 +1,55 @@
-{* This is the welcome page, you can delete it *}
-
 {block content}
-<div id="banner">
-	<h1 n:block=title>Congratulations!</h1>
+
+<div class="container-fluid  p-4 bg-primary text-white text-center"  >
+    <h1 class="display-4">
+        {$settings->work_shift_A}
+    </h1>
+    <div class="row">
+        <div class="col-sm-4 ">
+            {$settings->title_pair_count}
+        </div>
+        <div class="col-sm-4">
+			{$settings->title_succes_rate}
+        </div>
+        <div class="col-sm-4">
+            {$settings->title_succes_rate}
+        </div>              
+    </div>   
 </div>
 
-<div id="content">
-	<h2>{$test}</h2>
+<div class="container-fluid text-center p-4 bg-info text-white " >
+    <h1 class="display-4">
+        Info
+    </h2>
+    <div class="row">
+        <div class="col-sm-3 ">
+            <table class="table table-borderless"> 
+                <tr>
+                    <td><div class = "circle-text"><h2>1</h2></div></td>
+                    <td><div class="my-circle">10 m</div></td>
+                </tr>    
+            </table> 
 
-
-
-	<h2>{$iden}</h2>
-
-
+        
+        </div>
+        <div class="col-sm-3">
+			{$settings->title_succes_rate}
+        </div>
+        <div class="col-sm-3">
+            {$settings->title_error_count}
+        </div>     
+        <div class="col-sm-3">
+            {$settings->title_error_count}
+        </div>                     
+    </div>    
 </div>
-{/block}
 
-{block scripts}
-{include parent}
-{/block}
+<style>
 
 
-{block head}
+</style>
 
-{/block}
+
+
+
+

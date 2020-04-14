@@ -50,6 +50,7 @@ services:
 		setup:
 
 	- App\Model\UserManager
+	- App\Model\DatabaseManager
 	- App\Forms\FormFactory
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
