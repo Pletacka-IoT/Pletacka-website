@@ -193,16 +193,9 @@ final class SensorsPresenter extends BasePresenter
             ->setRequired(self::FORM_MSG_REQUIRED);        
 
 
-        $form->addText('description', 'Popis:');  
-        $form->addHidden('old')
-            ->setDefaultValue($this->urlParameter);
-        // $form["old"] = $this->urlParameter;
-        dump($this->urlParameter);            
-            
+        $form->addText('description', 'Popis:');       
         $form->addSubmit('send', 'Uprav');
 
-
-        
 
         
         $form->onSuccess[] = [$this, 'EditSensorFormSucceeded'];
@@ -212,8 +205,13 @@ final class SensorsPresenter extends BasePresenter
     
     public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-
-        $returnMessage = $this->databaseManager->editSensor($values->old,$values->number, $values->name, $values->description);
+        $url = $this->request->getHeaders()["referer"];
+        $exUrl = explode('/', $url);
+        $exUrl = explode('?', $exUrl[7]);
+        $oldSensor = $exUrl[0];
+        
+        
+        $returnMessage = $this->databaseManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
         if($returnMessage[0])
         {
             $this->flashMessage($returnMessage[2], 'success');
@@ -240,11 +238,6 @@ final class SensorsPresenter extends BasePresenter
         $this->template->sensor = $sensor;
         $this->template->name = $sensor["name"];
         $this['editSensorForm']->setDefaults($sensor);
-        
-
-        $this->urlParameter = $sensor["name"];
-        echo "*".$this->urlParameter."**";
-
 
     }
 

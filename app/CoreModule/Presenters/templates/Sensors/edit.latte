@@ -1,9 +1,12 @@
 {block content}
 
 
-<div class="container text-center p-4 " style="margin-top:80px">
+<div class="container text-center p-4 " >
     <h2>Upravit senzor: {$sensor["name"]}</h2>
     <h5><a n:href="sensor $name" >Zpět na senzor</a></h5>
-    {control editSensorForm}
+</div>
+    
 
+<div class="container  p-4 " >
+    {include bootstrap-form editSensorForm}
 </div>

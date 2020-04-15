@@ -19,14 +19,14 @@
 
 {* for Bootstrap v3 *}
 {define bootstrap-form $formName}
-	<form n:name=$formName class=form-horizontal>
+	<form n:name=$formName class=form-group>
 	<ul class=error n:ifcontent>
 		<li n:foreach="$form->ownErrors as $error">{$error}</li>
 	</ul>
 
 	<div n:foreach="$form->controls as $name => $input"
 		n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
-		n:class="form-group, $input->required ? required, $input->error ? has-error">
+		n:class="form-inline, $input->required ? required, $input->error ? has-error">
 
 		<div class="col-sm-2 control-label">{label $input}</div>
 
@@ -34,11 +34,12 @@
 			{if $input->getOption(type) in [text, select, textarea]}
 				{input $input class => form-control}
 			{elseif $input->getOption(type) === button}
-				{input $input class => "btn btn-default"}
+				{input $input class => "btn btn-dark"}
 			{elseif $input->getOption(type) === checkbox}
 				<div class="checkbox">{input $input}</div>
 			{elseif $input->getOption(type) === radio}
 				<div class="radio">{input $input}</div>
+
 			{else}
 				{input $input}
 			{/if}
