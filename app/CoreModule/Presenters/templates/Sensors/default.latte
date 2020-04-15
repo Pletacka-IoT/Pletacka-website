@@ -36,23 +36,25 @@
             {/if}
         {/foreach}
     </div>
+</div>
 
+<div class="container">
 
     <h1>Přidání</h1>
 
-    {control addSensorForm}
+    {include bootstrap-form addSensorForm}
     <br>
     <br>
 
     <h1>Editace</h1>
 
-    {control editSensorxForm}
+    {include bootstrap-form editSensorxForm}
 
     <br>
     <br>
 
     <h1>Smazani</h1>
 
-    {control deleteSensorForm}
-</div>
+    {include bootstrap-form deleteSensorForm}
+</div>    
 

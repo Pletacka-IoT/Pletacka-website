@@ -16,6 +16,7 @@ services:
 			- allow(guest, Core:Sign)
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
+			- allow(guest, Core:Sensors, default)
 
 
 			- allow(member, Core:Homepage)

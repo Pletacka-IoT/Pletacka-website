@@ -16,11 +16,14 @@
 
 	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/style.css">	
+
+
+	<script src="{$basePath}/js/jquery.min.js"></script>
+	<script src="{$basePath}/js/bootstrap.min.js"></script>
 	<title>{$xtitle}</title>
 	{dump}
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 
 </head>
 
@@ -53,9 +56,7 @@
 		</li>    
 		</ul>
 	</div>
-				<a class="navbar-brand" href="{$basePath}">
-				<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
-			</a>
+
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>  
 	</nav>
 
