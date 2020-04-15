@@ -9,12 +9,19 @@ services:
 			- addResource(Core:Sign)
 			- addResource(Core:Test)
 			- addResource(Core:Connect)
+			- addResource(Core:Sensors)
 
 
             # Pravidla přístupu
-			- allow(member, Core:Homepage)
 			- allow(guest, Core:Sign)
-			- allow(admin) # Administrátor může všechno.
 			- allow(guest, Core:Connect)
+			- allow(guest, Core:Homepage)
 
-			- deny(guest, Core:Homepage)
+
+			- allow(member, Core:Homepage)
+			- allow(member, Core:Sensors)
+			
+			- allow(admin) # Administrátor může všechno.
+			
+
+			# - deny(guest, Core:Homepage)

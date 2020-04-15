@@ -19,7 +19,23 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 		$router[] = new ApiRoute('api');
-		$router[] = new Route('<presenter>/<action>', 'Core:Homepage:default');
+
+		$router[] = new Route('senzory/<action>[/<name>]', [
+			'presenter' => 'Core:Sensors',
+			'action' => [
+				// Route::FILTER_STRICT => true,
+				Route::FILTER_TABLE => [
+					// řetězec v URL => akce presenteru
+					'vse' => 'default',
+					'editovat' => 'edit',
+					'senzory' => 'sensor',
+					'smazat' => 'delete',
+					'ping' => 'test',
+				]
+			]
+		]);
+
+		$router[] = new Route('<presenter>/<action>[/<name>]', 'Core:Homepage:default');
 		return $router;
 	}
 }

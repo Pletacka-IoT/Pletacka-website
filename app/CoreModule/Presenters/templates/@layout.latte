@@ -26,7 +26,7 @@
 
 <body>
 
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark "><!--fixed-top-->
 	
 			<!-- Brand/logo -->
 			<a class="navbar-brand" href="{$basePath}">
@@ -46,13 +46,16 @@
 			{/if}        
 		</li>
 		<li class="nav-item">
-			{* <a class="nav-link" n:href="Sensors:default">Sensors</a> *}
+			<a class="nav-link" n:href="Sensors:default">Sensors</a>
 		</li>
 		<li class="nav-item ">
 			<a class="nav-link" href="#">Link</a>
 		</li>    
 		</ul>
 	</div>
+				<a class="navbar-brand" href="{$basePath}">
+				<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
+			</a>
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>  
 	</nav>
 

@@ -191,7 +191,7 @@ class DatabaseManager
     {
         if(!$this->sensorIsExist($oldName, "name") )
         {
-            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
+            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje->".$oldName.";".$number);
         }        
         
         $oldSen = $this->getSensorInfo($oldName);

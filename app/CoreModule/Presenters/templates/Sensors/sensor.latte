@@ -1,0 +1,29 @@
+{block content}
+
+<div class="container text-center p-4 " style="margin-top:80px">
+    <h2>Senzor: {$sensor["name"]}</h2>
+    <h5><a n:href="edit $name" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a n:href="delete $name" >Smazat Senzor</a></h5>
+
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+        <th>Číslo</th>
+        <th>Název</th>
+        <th>Popis</th>
+        <th>Datum vytvoření</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>{$sensor["number"]}</td>
+        <td>{$sensor["name"]}</td>
+        <td>{$sensor["description"]}</td>
+        <td>{$sensor["date"]}</td>        
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+
+
+
