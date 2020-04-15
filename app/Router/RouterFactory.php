@@ -30,7 +30,7 @@ final class RouterFactory
 					'editovat' => 'edit',
 					'senzory' => 'sensor',
 					'smazat' => 'delete',
-					'ping' => 'test',
+					'test' => 'test',
 				]
 			]
 		]);

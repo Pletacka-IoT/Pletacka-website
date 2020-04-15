@@ -43,7 +43,17 @@ class DatabaseManager
     public function getSensors()
     {
         return $this->database->table("sensors");
-    }    
+    }  
+    
+    public function getSensorsNumber($number)
+    {
+        return $this->database->table("sensors")->where("number", $number )->fetch();
+    } 
+
+    public function getSensorsName($name)
+    {
+        return $this->database->table("sensors")->where("name", $name )->fetch();
+    }     
 
     /**
      * Get count of rows in table

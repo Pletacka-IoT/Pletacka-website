@@ -150,6 +150,9 @@ final class SensorsPresenter extends BasePresenter
         }
     }    
 
+    ////////////////////////////////////////////////
+    //  Default page
+    ////////////////////////////////////////////////
 
     public function renderDefault() : void
     {
@@ -285,7 +288,24 @@ final class SensorsPresenter extends BasePresenter
 
     public function renderTest($name, $next)
     {
-        
+        // $output = array();
+        // $sensors = $this->databaseManager->getSensors();
+        // foreach($sensors as $sensor)
+        // {
+        //     dump($sensor);
+        //     echo($sensor->name);
+        //     $output[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
+        // }
+        // $xout = array();
+        // $xout = array('sensors'=>$output);
+        // $xout['status'] = 'kuba';
+        // dump($xout);
+        // echo json_encode($xout);
+        // dump( $xout['sensors']);
+
+        $sensor = $this->databaseManager->getSensorsNumber(3);
+        dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+
         
         
     }
