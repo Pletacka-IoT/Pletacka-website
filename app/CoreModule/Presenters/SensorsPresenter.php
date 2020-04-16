@@ -306,7 +306,7 @@ final class SensorsPresenter extends BasePresenter
         // $sensor = $this->databaseManager->getSensorsNumber(3);
         // dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 
-        if($this->databaseManager->sensorIsExist(5, 'number'))
+        // if($this->databaseManager->sensorIsExist(5, 'number'))
 
         
     }

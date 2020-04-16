@@ -74,6 +74,7 @@ final class SensorsController extends BaseV1Controller
 	{
 		
 		$name = $request->getParameter('name');
+		dump($request->getParameters());
 		if($this->databaseManager->sensorIsExist($name, 'name'))
 		{
 			$sensor = $this->databaseManager->getSensorsName($name);
@@ -87,10 +88,30 @@ final class SensorsController extends BaseV1Controller
 				'message' => 'Sensor with name '. $name .' does not exist.',
 			];
 			return $response->writeJsonBody($error);
-		}		
+		}
+		// dump($request);		
 		
-		$sensor = $this->databaseManager->getSensorsName($request->getParameter('name'));
-		return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+		// $sensor = $this->databaseManager->getSensorsName($request->getParameter('name'));
+		// return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+	}
+	
+	
+	/**
+	 * @Path("/create")
+	 * @Method("POST")
+	 */
+	public function create(ApiRequest $request): array
+	{
+		$post = $request->getJsonBody();
+		dump($post);
+		echo $post['number'];
+
+		return ['data' => [
+			// 'raw' => $request->getContentsCopy(),
+			// 'parsed' => $request->getParsedBody(),
+			// 'sen' => $request->withParsedBody(""),
+			'jsonbody' => $request->getJsonBody(),
+		]];
 	}	
 
 
@@ -102,5 +123,24 @@ final class SensorsController extends BaseV1Controller
 	{
 		return 'pong';
 	}
+
+	/**
+	 * @Path("/create")
+	 * @Method("POST")
+	 */
+	public function create2(ApiRequest $request): array
+	{
+		$post = $request->getJsonBody();
+		dump($post);
+		echo $post['number'];
+
+		return ['data' => [
+			// 'raw' => $request->getContentsCopy(),
+			// 'parsed' => $request->getParsedBody(),
+			// 'sen' => $request->withParsedBody(""),
+			'jsonbody' => $request->getJsonBody(),
+		]];
+	}	
+
 
 }
