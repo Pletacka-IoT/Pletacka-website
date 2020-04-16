@@ -11,7 +11,7 @@ extensions:
 
 resource:
 	resources:
-		App\Controllers\:
+		App\CoreModule\Controllers\:
 			paths: [%appDir%/CoreModule/Controllers]
 			decorator:
 				inject: true
@@ -56,7 +56,6 @@ services:
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
 	router: App\Router\RouterFactory::createRouter
-	# - App\Controllers\SensorsController(%defaultMsgLanguage%)
 
 includes:
 	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	

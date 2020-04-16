@@ -33,4 +33,6 @@ abstract class BasePresenter extends Presenter
 			$this->redirect('Sign:in');
 		}
 	}
+
+
 }

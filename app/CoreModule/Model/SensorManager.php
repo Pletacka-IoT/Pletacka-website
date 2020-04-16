@@ -9,10 +9,12 @@ class SensorManager
 	use Nette\SmartObject;
 
     private $database;
+    private $defaultMsgLanguage;
     
-    public function __construct(Nette\Database\Context $database)
+    public function __construct($defaultMsgLanguage,Nette\Database\Context $database)
     {
         $this->database = $database;
+        $this->defaultMsgLanguage = $defaultMsgLanguage;
     }
 
 
@@ -224,7 +226,7 @@ class SensorManager
     {
         if(!$this->sensorIsExist($oldName, "name") )
         {
-            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje->".$oldName.";".$number);
+            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
         }        
         
         $oldSen = $this->getSensorsName($oldName);
@@ -262,7 +264,12 @@ class SensorManager
         ], 'WHERE name = ?', $oldName);
 
         return array($result, "Sensor edited", "Senzor byl upraven");
-    }  
+    }
+    
+    public function getLanguage()
+	{
+		return $this->defaultMsgLanguage;
+	}
     
 
 

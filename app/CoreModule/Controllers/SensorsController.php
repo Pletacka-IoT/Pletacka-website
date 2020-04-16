@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Controllers;
+namespace App\CoreModule\Controllers;
 
 use Apitte\Core\Annotation\Controller\ControllerPath;
 use Apitte\Core\Annotation\Controller\Method;
@@ -17,12 +17,14 @@ use Apitte\Core\Exception\Api\MessageException;
 final class SensorsController extends BaseV1Controller
 {
 	private $sensorManager;
+	private $language;
 
 	private $defaultArticleUrl;
 	
 	public function __construct(SensorManager $sensorManager)
 	{
 		$this->sensorManager = $sensorManager;
+		$this->language = $this->sensorManager->getLanguage();
 	}
 
 
@@ -78,7 +80,6 @@ final class SensorsController extends BaseV1Controller
 	{
 		
 		$name = $request->getParameter('name');
-		dump($request->getParameters());
 		if($this->sensorManager->sensorIsExist($name, 'name'))
 		{
 			$sensor = $this->sensorManager->getSensorsName($name);
@@ -100,12 +101,10 @@ final class SensorsController extends BaseV1Controller
 	public function create(ApiRequest $request): array
 	{
 		$post = $request->getJsonBody();
-		dump($post);
-		echo $post['number'];
 		$returnMessage = $this->sensorManager->addNewSensor($post['number'], $post['name'], $post['description']);
 		if($returnMessage[0])
 		{
-			$returnMessage[2];
+			return ['message'=>$returnMessage[$this->language]];
 
 		}
 		else
@@ -113,9 +112,50 @@ final class SensorsController extends BaseV1Controller
 			
 			throw MessageException::create()
 			->withCode(405)
-			->withMessage("Sensor with name ". $name . " does not exist.");
+			->withMessage($returnMessage[$this->language]);
 		}  
-		return ['data' => [1,2,3], "asd"=>55];
+	}	
+
+		/**
+	 * @Path("/update")
+	 * @Method("PUT")
+	 */
+	public function update(ApiRequest $request): array
+	{
+		$post = $request->getJsonBody();
+		$returnMessage = $this->sensorManager->editSensor($post['old-name'],$post['number'], $post['name'], $post['description']);
+		if($returnMessage[0])
+		{
+			return ['message'=>$returnMessage[$this->language]];
+		}
+		else
+		{
+			
+			throw MessageException::create()
+			->withCode(405)
+			->withMessage($returnMessage[$this->language]);
+		}  
+	}
+
+	/**
+	 * @Path("/delete")
+	 * @Method("DELETE")
+	 */
+	public function delete(ApiRequest $request): array
+	{
+		$post = $request->getJsonBody();
+		$returnMessage = $this->sensorManager->deleteSensor($post['name']);
+		if($returnMessage[0])
+		{
+			return ['message'=>$returnMessage[$this->language]];
+		}
+		else
+		{
+			
+			throw MessageException::create()
+			->withCode(405)
+			->withMessage($returnMessage[$this->language]);
+		}  
 	}	
 
 
@@ -125,27 +165,10 @@ final class SensorsController extends BaseV1Controller
 	 */
 	public function scalar(): string
 	{
-		return strval( $this->defaultArticleUrl);//'pong';
+		return strval($this->language );//'pong';
 	}
 
-	/**
-	 * @Path("/create2")
-	 * @Method("POST")
-	 */
-	public function create2(ApiRequest $request): array
-	{
-		$post = $request->getJsonBody();
-		dump($post);
-		echo $post['number'];
 
-		return ['data' => [
-			// 'raw' => $request->getContentsCopy(),
-			// 'parsed' => $request->getParsedBody(),
-			// 'sen' => $request->withParsedBody(""),
-			'jsonbody' => $request->getJsonBody(),
-			'asd' => $this->defaultArticleUrl
-		]];
-	}	
 
 	
 

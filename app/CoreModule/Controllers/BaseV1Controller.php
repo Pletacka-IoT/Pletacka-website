@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Controllers;
+namespace App\CoreModule\Controllers;
 
 use Apitte\Core\Annotation\Controller\GroupPath;
 

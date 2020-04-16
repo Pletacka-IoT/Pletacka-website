@@ -19,8 +19,9 @@ final class SensorsPresenter extends BasePresenter
 {
 	const
 		FORM_MSG_REQUIRED = 'Tohle pole je povinné.',
-		FORM_MSG_RULE = 'Tohle pole má neplatný formát.';    
-    
+        FORM_MSG_RULE = 'Tohle pole má neplatný formát.';    
+        
+        
     private $sensorManager;
     private $request;
     private $session;
@@ -31,6 +32,7 @@ final class SensorsPresenter extends BasePresenter
 
 	public function __construct(SensorManager $sensorManager, Request $request, Session $session, SensorsFormFactory $sensorsFormFactory)
 	{
+        
         $this->sensorManager = $sensorManager;
         $this->request = $request;
         $this->session = $session;
@@ -211,6 +213,8 @@ final class SensorsPresenter extends BasePresenter
 
         
     }
+
+
 
     ////////////////////////////////////////////////
     //  Test Page
