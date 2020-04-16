@@ -67,7 +67,8 @@ class SensorManager
     public function getSensorsName($name)
     {
         return $this->database->table("sensors")->where("name", $name )->fetch();
-    }     
+    }
+        
 
     /**
      * Get count of rows in table
@@ -81,6 +82,16 @@ class SensorManager
         //return $result->getRowCount();
         return $this->database->table("sensors")->where($column, $name)->count();
     }
+
+    /**
+     * Find sensors with specific name
+     * @param string $name
+     * @return null|\Nette\Database\Table\ActiveRow
+     */    
+    public function findSensorsName($name)
+    {
+        return $this->database->table("sensors")->where("name LIKE ?", "%".$name."%" )->fetchAll();
+    }    
 
     /**
      * Is sensor exist?

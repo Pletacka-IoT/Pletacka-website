@@ -46,6 +46,24 @@ final class SensorsController extends BaseV1Controller
 	}
 
 	/**
+	 * @Path("/find-name/{name}")
+	 * @Method("GET")
+	 */
+	public function find(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+		$name = $request->getParameter('name');
+		$aSensors = array();
+        $sensors = $this->sensorManager->findSensorsName($name);
+        foreach($sensors as $sensor)
+        {
+            $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
+        }
+
+        //$xout = array('sensors'=>$aSensors);
+		return $response->writeJsonBody($aSensors);
+	}	
+
+	/**
 	 * @Path("/number/{number}")
 	 * @Method("GET")
 	 */
