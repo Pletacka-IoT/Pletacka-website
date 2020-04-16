@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace App\CoreModule\Model;
 
 use Nette;
 
-class DatabaseManager
+class SensorManager
 {
 	use Nette\SmartObject;
 
@@ -44,12 +44,22 @@ class DatabaseManager
     {
         return $this->database->table("sensors");
     }  
-    
+
+    /**
+     * Get sensor with specific number
+     * @param string $number
+     * @return null|\Nette\Database\Table\ActiveRow
+     */
     public function getSensorsNumber($number)
     {
         return $this->database->table("sensors")->where("number", $number )->fetch();
     } 
 
+    /**
+     * Get sensor with specific name
+     * @param string $name
+     * @return null|\Nette\Database\Table\ActiveRow
+     */    
     public function getSensorsName($name)
     {
         return $this->database->table("sensors")->where("name", $name )->fetch();
@@ -57,6 +67,9 @@ class DatabaseManager
 
     /**
      * Get count of rows in table
+     * @param mixed $name
+     * @param string $column DEFAULT = "name"
+     * @return int count of rows
      */
     public function getCountSensors($name, $column = "name") :int
     {
@@ -80,7 +93,11 @@ class DatabaseManager
         }
     }
 
-
+    /**
+     * Add new sensor
+     * @param string $sensorName
+     * @return bool
+     */    
     public function addThisSensor($sensorName)
     {
         try{
@@ -98,6 +115,12 @@ class DatabaseManager
         return true;
     }
 
+    /**
+     * Rename sensor table
+     * @param string $oldName
+     * @param string $sensorName
+     * @return bool 
+     */ 
     public function renameThisSensor($oldName, $sensorName)
     {
 
@@ -110,19 +133,22 @@ class DatabaseManager
         return true;
     }  
     
+    /**
+     * Delete sensor table
+     * @param string $sensorName
+     * @return \Nette\Database\ResultSet
+     */     
     public function deleteThisSensor($sensorName)
     {
         return $this->database->query("DROP TABLE $sensorName");
     }
 
-
-
     
 
     /**
      * Add new sensor
-     * @param mixed $number machine number
-     * @param mixed $name machine name
+     * @param int $number machine number
+     * @param string $name machine name
      * @param string $description machine description (optional)
      * @return array (bool - STATE, string - EN, string - CZ)
      */
@@ -167,7 +193,7 @@ class DatabaseManager
 
     /**
      * Delete sensor
-     * @param mixed $name machine name
+     * @param string $name machine name
      * @return array (bool - STATE, string - EN, string - CZ)
      */
     public function deleteSensor($name)
@@ -177,9 +203,6 @@ class DatabaseManager
             return array(false, "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
         }
 
-        
-
-        //$result = $this->database->query('DELETE FROM sensors WHERE name = ?', $name);
         $count = $this->database->table("sensors")
             ->where('name', $name)
             ->delete();
@@ -191,9 +214,9 @@ class DatabaseManager
 
     /**
      * Edit sensor
-     * @param mixed $oldname machine old name to edit
-     * @param mixed $number machine number
-     * @param mixed $name machine name
+     * @param string $oldName machine old name to edit
+     * @param int $number machine number
+     * @param string $name machine name
      * @param string $description machine description (optional)
      * @return array (bool - STATE, string - EN, string - CZ)
      */
@@ -241,10 +264,6 @@ class DatabaseManager
         return array($result, "Sensor edited", "Senzor byl upraven");
     }  
     
-    public function easyGet($name)
-    {
-        //$sensors = $this->database->table()
-    }
 
 
 }

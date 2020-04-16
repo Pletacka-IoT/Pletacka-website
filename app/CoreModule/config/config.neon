@@ -26,3 +26,6 @@ services:
 			
 
 			# - deny(guest, Core:Homepage)
+	- App\CoreModule\Model\SensorManager
+	- App\CoreModule\Model\ThisSensorManager
+	- App\CoreModule\Model\DatabaseManager

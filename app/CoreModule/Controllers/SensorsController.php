@@ -7,18 +7,18 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
-use App\Model\DatabaseManager;
+use App\CoreModule\Model\SensorManager;
 
 /**
  * @ControllerPath("/sensors")
  */
 final class SensorsController extends BaseV1Controller
 {
-	private $databaseManager;
+	private $sensorManager;
 	
-	public function __construct(DatabaseManager $databaseManager)
+	public function __construct(SensorManager $sensorManager)
 	{
-		$this->databaseManager = $databaseManager;
+		$this->sensorManager = $sensorManager;
 	}
 
 
@@ -29,7 +29,7 @@ final class SensorsController extends BaseV1Controller
 	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
 		$aSensors = array();
-        $sensors = $this->databaseManager->getSensors();
+        $sensors = $this->sensorManager->getSensors();
         foreach($sensors as $sensor)
         {
             $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
@@ -46,9 +46,9 @@ final class SensorsController extends BaseV1Controller
 	public function sensorsNumber(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
 		$number = $request->getParameter('number');
-		if($this->databaseManager->sensorIsExist($number, 'number'))
+		if($this->sensorManager->sensorIsExist($number, 'number'))
 		{
-			$sensor = $this->databaseManager->getSensorsNumber($number);
+			$sensor = $this->sensorManager->getSensorsNumber($number);
 			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 		}
 		else
@@ -75,9 +75,9 @@ final class SensorsController extends BaseV1Controller
 		
 		$name = $request->getParameter('name');
 		dump($request->getParameters());
-		if($this->databaseManager->sensorIsExist($name, 'name'))
+		if($this->sensorManager->sensorIsExist($name, 'name'))
 		{
-			$sensor = $this->databaseManager->getSensorsName($name);
+			$sensor = $this->sensorManager->getSensorsName($name);
 			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 		}
 		else
@@ -91,7 +91,7 @@ final class SensorsController extends BaseV1Controller
 		}
 		// dump($request);		
 		
-		// $sensor = $this->databaseManager->getSensorsName($request->getParameter('name'));
+		// $sensor = $this->sensorManager->getSensorsName($request->getParameter('name'));
 		// return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 	}
 	
@@ -125,7 +125,7 @@ final class SensorsController extends BaseV1Controller
 	}
 
 	/**
-	 * @Path("/create")
+	 * @Path("/create2")
 	 * @Method("POST")
 	 */
 	public function create2(ApiRequest $request): array
