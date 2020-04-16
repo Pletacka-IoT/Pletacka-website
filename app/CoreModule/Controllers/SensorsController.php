@@ -45,9 +45,26 @@ final class SensorsController extends BaseV1Controller
 	 */
 	public function sensorsNumber(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
-		$sensor = $this->databaseManager->getSensorsNumber($request->getParameter('number'));
-		return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+		$number = $request->getParameter('number');
+		if($this->databaseManager->sensorIsExist($number, 'number'))
+		{
+			$sensor = $this->databaseManager->getSensorsNumber($number);
+			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+		}
+		else
+		{
+			$error = [
+				'status' => 'error',
+				'code' => 404,
+				'message' => 'Sensor with number '. $number .' does not exist.',
+			];
+			return $response->writeJsonBody($error);
+		}
+		
+
 	}
+
+
 
 	/**
 	 * @Path("/name/{name}")
@@ -55,6 +72,23 @@ final class SensorsController extends BaseV1Controller
 	 */
 	public function sensorsName(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
+		
+		$name = $request->getParameter('name');
+		if($this->databaseManager->sensorIsExist($name, 'name'))
+		{
+			$sensor = $this->databaseManager->getSensorsName($name);
+			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+		}
+		else
+		{
+			$error = [
+				'status' => 'error',
+				'code' => 404,
+				'message' => 'Sensor with name '. $name .' does not exist.',
+			];
+			return $response->writeJsonBody($error);
+		}		
+		
 		$sensor = $this->databaseManager->getSensorsName($request->getParameter('name'));
 		return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 	}	

@@ -303,10 +303,11 @@ final class SensorsPresenter extends BasePresenter
         // echo json_encode($xout);
         // dump( $xout['sensors']);
 
-        $sensor = $this->databaseManager->getSensorsNumber(3);
-        dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+        // $sensor = $this->databaseManager->getSensorsNumber(3);
+        // dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 
-        
+        if($this->databaseManager->sensorIsExist(5, 'number'))
+
         
     }
 
