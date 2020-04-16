@@ -10,11 +10,13 @@ class SensorManager
 
     private $database;
     private $defaultMsgLanguage;
+    private $defaultAPILanguage;
     
-    public function __construct($defaultMsgLanguage,Nette\Database\Context $database)
+    public function __construct($defaultMsgLanguage,$defaultAPILanguage,Nette\Database\Context $database)
     {
         $this->database = $database;
         $this->defaultMsgLanguage = $defaultMsgLanguage;
+        $this->defaultAPILanguage = $defaultAPILanguage;
     }
 
 
@@ -266,10 +268,15 @@ class SensorManager
         return array($result, "Sensor edited", "Senzor byl upraven");
     }
     
-    public function getLanguage()
+    public function getAPILanguage()
+	{
+		return $this->defaultAPILanguage;
+    }
+    
+    public function getMsgLanguage()
 	{
 		return $this->defaultMsgLanguage;
-	}
+	}    
     
 
 

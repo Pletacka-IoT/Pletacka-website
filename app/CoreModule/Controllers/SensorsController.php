@@ -24,7 +24,7 @@ final class SensorsController extends BaseV1Controller
 	public function __construct(SensorManager $sensorManager)
 	{
 		$this->sensorManager = $sensorManager;
-		$this->language = $this->sensorManager->getLanguage();
+		$this->language = $this->sensorManager->getAPILanguage();
 	}
 
 
@@ -147,7 +147,7 @@ final class SensorsController extends BaseV1Controller
 		$returnMessage = $this->sensorManager->deleteSensor($post['name']);
 		if($returnMessage[0])
 		{
-			return ['message'=>$returnMessage[$this->language]];
+			return ['message'=>$returnMessage[$this->language], $this->language];
 		}
 		else
 		{
@@ -165,7 +165,7 @@ final class SensorsController extends BaseV1Controller
 	 */
 	public function scalar(): string
 	{
-		return strval($this->language );//'pong';
+		return 'pong';
 	}
 
 

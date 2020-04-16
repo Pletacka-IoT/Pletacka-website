@@ -3,7 +3,8 @@
 # https://nette.org/security-warning
 #
 parameters:
-	defaultMsgLanguage: 1 #1-english; 2-czech
+	defaultMsgLanguage: 2 #1-english; 2-czech
+	defaultAPILanguage: 1 #1-english; 2-czech
 
 extensions:
 	api: Apitte\Core\DI\ApiExtension
