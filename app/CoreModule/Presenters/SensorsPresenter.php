@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
+use App\CoreModule\Forms\SensorsFormFactory;
 use Nette;
 use App\CoreModule\Model\SensorManager;
 
@@ -24,130 +25,79 @@ final class SensorsPresenter extends BasePresenter
     private $request;
     private $session;
     private $urlParameter;
+    private $sensorsFormFactory;
 
     
 
-	public function __construct(SensorManager $sensorManager, Request $request, Session $session)
+	public function __construct(SensorManager $sensorManager, Request $request, Session $session, SensorsFormFactory $sensorsFormFactory)
 	{
         $this->sensorManager = $sensorManager;
         $this->request = $request;
         $this->session = $session;
+        $this->sensorsFormFactory = $sensorsFormFactory;
     }
 
     ///////////////////
     //Pridani senzoru
     ///////////////////
     public function createComponentAddSensorForm(): Form
-    {        
-        $form = new Form; // means Nette\Application\UI\Form
-    
-        $form->addText('number', 'Cislo:') 
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);
-        
-        $form->addText('description', 'Popis:');           
-            
-        $form->addSubmit('send', 'Pridej');
-
-        $form->onSuccess[] = [$this, 'AddSensorFormSucceeded'];
-    
-        return $form;
+    {
+		return $this->sensorsFormFactory->createCreate(function (Form $form, \stdClass $values) {
+            $returnMessage = $this->sensorManager->addNewSensor($values->number, $values->name, $values->description);
+            if($returnMessage[0])
+            {
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$values->name);
+            }
+            else
+            {
+                
+                $this->flashMessage($returnMessage[2], 'error');
+                $this->redirect('this');
+            }  
+		});        
     }
 
-    public function AddSensorFormSucceeded(Form $form, \stdClass $values): void
-    {
-        $returnMessage = $this->sensorManager->addNewSensor($values->number, $values->name, $values->description);
-        if($returnMessage[0])
-        {
-            $this->flashMessage($returnMessage[2], 'success');
-            $this->redirect('Sensors:sensor',$values->name);
-        }
-        else
-        {
-            
-            $this->flashMessage($returnMessage[2], 'error');
-            $this->redirect('this');
-        }
-    } 
     ///////////////////
     //Editace senzoru
-    ///////////////////
-
+    /////////////////// 
     public function createComponentEditSensorxForm(): Form
-    {        
-        $form = new Form; // means Nette\Application\UI\Form
-    
-        $form->addText('oldname', 'Starý název1:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);
-        
-        $form->addText('number', 'Cislo:') 
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);        
-
-
-        $form->addText('description', 'Popis:');           
-            
-        $form->addSubmit('send', 'Uprav');
-
-        $form->onSuccess[] = [$this, 'EditSensorxFormSucceeded'];
-    
-        return $form;
-    }    
-    
-    public function EditSensorxFormSucceeded(Form $form, \stdClass $values): void
     {
-        $returnMessage = $this->sensorManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
-        if($returnMessage[0])
-        {
-            $this->flashMessage($returnMessage[2], 'success');
-            $this->redirect('Sensors:sensor',$values->name);
-        }
-        else
-        {
-            
-            $this->flashMessage($returnMessage[2], 'error');
-            $this->redirect('this');
-        }
-    }    
+		return $this->sensorsFormFactory->createEditOld(function (Form $form, \stdClass $values) {
+            $returnMessage = $this->sensorManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
+            if($returnMessage[0])
+            {
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$values->name);
+            }
+            else
+            {
+                
+                $this->flashMessage($returnMessage[2], 'error');
+                $this->redirect('this');
+            } 
+		});        
+    }
 
     ///////////////////
     //Smazani senzoru
-    ///////////////////
-
+    ///////////////////  
     public function createComponentDeleteSensorForm(): Form
-    {        
-        $form = new Form; // means Nette\Application\UI\Form
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);                  
-            
-        $form->addSubmit('send', 'Smaž');
-
-        $form->onSuccess[] = [$this, 'DeleteSensorFormSucceeded'];
-    
-        return $form;
-    }    
-    
-    public function DeleteSensorFormSucceeded(Form $form, \stdClass $values): void
     {
-        $returnMessage = $this->sensorManager->deleteSensor($values->name);
-        if($returnMessage[0])
-        {
-            $this->flashMessage($returnMessage[2], 'success');
-            $this->redirect('this');
-        }
-        else
-        {
-            
-            $this->flashMessage($returnMessage[2], 'error');
-            $this->redirect('this');
-        }
+		return $this->sensorsFormFactory->createDelete(function (Form $form, \stdClass $values) {
+            $returnMessage = $this->sensorManager->deleteSensor($values->name);
+            if($returnMessage[0])
+            {
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('this');
+            }
+            else
+            {
+                
+                $this->flashMessage($returnMessage[2], 'error');
+                $this->redirect('this');
+            }
+		});        
     }    
 
     ////////////////////////////////////////////////
@@ -182,51 +132,31 @@ final class SensorsPresenter extends BasePresenter
     ////////////////////////////////////////////////
     //  Edit page
     ////////////////////////////////////////////////
-
-
-    public function createComponentEditSensorForm(): Form
-    {        
-        $form = new Form; // means Nette\Application\UI\Form
-        
-        $form->addText('number', 'Cislo:') 
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);        
-
-
-        $form->addText('description', 'Popis:');       
-        $form->addSubmit('send', 'Uprav');
-
-
-        
-        $form->onSuccess[] = [$this, 'EditSensorFormSucceeded'];
     
-        return $form;
+    public function createComponentEditSensorForm(): Form
+    {
+		return $this->sensorsFormFactory->createEdit(function (Form $form, \stdClass $values) {
+            $url = $this->request->getHeaders()["referer"];
+            $exUrl = explode('/', $url);
+            $exUrl = explode('?', $exUrl[7]);
+            $oldSensor = $exUrl[0];
+            
+            
+            $returnMessage = $this->sensorManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
+            if($returnMessage[0])
+            {
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$values->name);
+            }
+            else
+            {
+                
+                $this->flashMessage($values->old."*".$returnMessage[2], 'error');
+                $this->redirect('this');
+            }
+		});        
     }    
     
-    public function EditSensorFormSucceeded(Form $form, \stdClass $values): void
-    {
-        $url = $this->request->getHeaders()["referer"];
-        $exUrl = explode('/', $url);
-        $exUrl = explode('?', $exUrl[7]);
-        $oldSensor = $exUrl[0];
-        
-        
-        $returnMessage = $this->sensorManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
-        if($returnMessage[0])
-        {
-            $this->flashMessage($returnMessage[2], 'success');
-            $this->redirect('Sensors:sensor',$values->name);
-        }
-        else
-        {
-            
-            $this->flashMessage($values->old."*".$returnMessage[2], 'error');
-            $this->redirect('this');
-        }
-    }     
 
     public function renderEdit($name)
     {

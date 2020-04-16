@@ -29,3 +29,4 @@ services:
 	- App\CoreModule\Model\SensorManager
 	- App\CoreModule\Model\ThisSensorManager
 	- App\CoreModule\Model\DatabaseManager
+	- App\CoreModule\Forms\SensorsFormFactory
