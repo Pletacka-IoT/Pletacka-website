@@ -40,7 +40,7 @@ final class SensorsFormFactory
         
         $form->addText('description', 'Popis:');           
             
-        $form->addSubmit('send', 'Pridej'); 
+        $form->addSubmit('send', 'Přidej'); 
                
         $form->onSuccess[] = function (Form $form, \stdClass $values) use ($onSuccess) {
           

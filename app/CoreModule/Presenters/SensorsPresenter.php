@@ -123,8 +123,8 @@ final class SensorsPresenter extends BasePresenter
             $this->redirect('Sensors:default');
         }
 
-        $this->template->sensor = $this->sensorManager->getSensorInfo($name);
-        $this->template->name = $this->sensorManager->getSensorInfo($name)["name"];
+        $this->template->sensor = $this->sensorManager->getSensorsName($name);
+        $this->template->name = $this->sensorManager->getSensorsName($name)["name"];
         
 
     }
@@ -132,7 +132,7 @@ final class SensorsPresenter extends BasePresenter
     ////////////////////////////////////////////////
     //  Edit page
     ////////////////////////////////////////////////
-    
+
     public function createComponentEditSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createEdit(function (Form $form, \stdClass $values) {
@@ -167,7 +167,7 @@ final class SensorsPresenter extends BasePresenter
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
-        $sensor = $this->sensorManager->getSensorInfo($name);
+        $sensor = $this->sensorManager->getSensorsName($name);
         $this->template->sensor = $sensor;
         $this->template->name = $sensor["name"];
         $this['editSensorForm']->setDefaults($sensor);

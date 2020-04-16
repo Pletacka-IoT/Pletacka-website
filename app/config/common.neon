@@ -3,6 +3,7 @@
 # https://nette.org/security-warning
 #
 parameters:
+	defaultMsgLanguage: 1 #1-english; 2-czech
 
 extensions:
 	api: Apitte\Core\DI\ApiExtension
@@ -55,6 +56,7 @@ services:
 	- App\Forms\SignInFormFactory
 	- App\Forms\SignUpFormFactory
 	router: App\Router\RouterFactory::createRouter
+	# - App\Controllers\SensorsController(%defaultMsgLanguage%)
 
 includes:
 	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	

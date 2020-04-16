@@ -9,12 +9,16 @@ use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
 use App\CoreModule\Model\SensorManager;
 
+use Apitte\Core\Exception\Api\MessageException;
+
 /**
  * @ControllerPath("/sensors")
  */
 final class SensorsController extends BaseV1Controller
 {
 	private $sensorManager;
+
+	private $defaultArticleUrl;
 	
 	public function __construct(SensorManager $sensorManager)
 	{
@@ -82,17 +86,10 @@ final class SensorsController extends BaseV1Controller
 		}
 		else
 		{
-			$error = [
-				'status' => 'error',
-				'code' => 404,
-				'message' => 'Sensor with name '. $name .' does not exist.',
-			];
-			return $response->writeJsonBody($error);
+			throw MessageException::create()
+			->withCode(405)
+			->withMessage("Sensor with name ". $name . " does not exist.");
 		}
-		// dump($request);		
-		
-		// $sensor = $this->sensorManager->getSensorsName($request->getParameter('name'));
-		// return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 	}
 	
 	
@@ -105,13 +102,20 @@ final class SensorsController extends BaseV1Controller
 		$post = $request->getJsonBody();
 		dump($post);
 		echo $post['number'];
+		$returnMessage = $this->sensorManager->addNewSensor($post['number'], $post['name'], $post['description']);
+		if($returnMessage[0])
+		{
+			$returnMessage[2];
 
-		return ['data' => [
-			// 'raw' => $request->getContentsCopy(),
-			// 'parsed' => $request->getParsedBody(),
-			// 'sen' => $request->withParsedBody(""),
-			'jsonbody' => $request->getJsonBody(),
-		]];
+		}
+		else
+		{
+			
+			throw MessageException::create()
+			->withCode(405)
+			->withMessage("Sensor with name ". $name . " does not exist.");
+		}  
+		return ['data' => [1,2,3], "asd"=>55];
 	}	
 
 
@@ -121,7 +125,7 @@ final class SensorsController extends BaseV1Controller
 	 */
 	public function scalar(): string
 	{
-		return 'pong';
+		return strval( $this->defaultArticleUrl);//'pong';
 	}
 
 	/**
@@ -139,8 +143,11 @@ final class SensorsController extends BaseV1Controller
 			// 'parsed' => $request->getParsedBody(),
 			// 'sen' => $request->withParsedBody(""),
 			'jsonbody' => $request->getJsonBody(),
+			'asd' => $this->defaultArticleUrl
 		]];
 	}	
+
+	
 
 
 }

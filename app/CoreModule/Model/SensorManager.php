@@ -227,7 +227,7 @@ class SensorManager
             return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje->".$oldName.";".$number);
         }        
         
-        $oldSen = $this->getSensorInfo($oldName);
+        $oldSen = $this->getSensorsName($oldName);
 
         if(ctype_alnum($name)==false)
         {
