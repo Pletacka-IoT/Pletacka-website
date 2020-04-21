@@ -83,7 +83,7 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('oldname', 'Starý název1:') 
+        $form->addText('oldname', 'Starý název:') 
             ->setRequired(self::FORM_MSG_REQUIRED);
         
         $form->addText('number', 'Cislo:') 

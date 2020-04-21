@@ -1,8 +1,10 @@
+{block title}{$sensor["name"]}{/block}
+
 {block content}
 
 <div class="container text-center p-4 " style="margin-top:80px">
     <h2>Senzor: {$sensor["name"]}</h2>
-    <h5><a n:href="edit $name" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a n:href="delete $name" >Smazat Senzor</a></h5>
+    <h5><a class="ajax" n:href="edit $name" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a class="ajax" n:href="delete $name" >Smazat Senzor</a></h5>
     <div class="table-responsive">
         <table class="table table-bordered">
         <thead>

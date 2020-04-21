@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{default $xtitle = 'Pletacka website Nette'}
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
@@ -20,57 +19,75 @@
 
 	<script src="{$basePath}/js/jquery.min.js"></script>
 	<script src="{$basePath}/js/bootstrap.min.js"></script>
-	<title>{$xtitle}</title>
-	{dump}
+	
+	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka website Nette</title>
+	{dump} {*VARIABLES DEBUG*}
+	{block head}{/block}
 
 
 
 </head>
 
 <body>
+	<div class="page">
 
-	<nav class="navbar navbar-expand-md bg-dark navbar-dark "><!--fixed-top-->
-	
-			<!-- Brand/logo -->
-			<a class="navbar-brand" href="{$basePath}">
-				<img src="{$basePath}/images/Kuba_logo.png" alt="logo" style="width:40px;">
-			</a>
-			<a class="navbar-brand" href="{$basePath}">Pletačka</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-		<ul class="navbar-nav">
-		<li class="nav-item">
-			{if $user->loggedIn}
-				<a class="nav-link" n:href="Sign:out">Odhlásit</a>
-			{else}
-				<a class="nav-link" n:href="Sign:in">Přihlásits</a>
-			{/if}        
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" n:href="Sensors:default">Senzory</a>
-		</li>
-		<li class="nav-item ">
-			<a class="nav-link" href="#">Link</a>
-		</li>    
-		</ul>
+		{snippet header}
+			<nav class="navbar navbar-expand-md bg-dark navbar-dark "><!--fixed-top-->
+				
+				<!-- Brand/logo -->
+				<a class="navbar-brand ajax" href="{$basePath}">
+					<img src="{$basePath}/images/Kuba_logo_min.png" alt="logo" style="width:40px;">
+				</a>
+
+				<a class="navbar-brand ajax" href="{$basePath}">Pletačka</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="collapsibleNavbar">
+					<ul class="navbar-nav">
+					<li class="nav-item">
+						{if $user->loggedIn}
+							<a class="nav-link ajax" n:href="Sign:out">Odhlásit</a>
+						{else}
+							<a class="nav-link ajax" n:href="Sign:in">Přihlásits</a>
+						{/if}        
+					</li>
+					<li class="nav-item">
+						<a class="nav-link ajax" n:href="Sensors:default">Senzory</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link " n:href="Sensors:default">Senzory ne AJAX</a>
+					</li>    
+					</ul>
+				</div>
+				{snippet msg1}
+					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>  
+				{/snippet}
+			</nav>
+		{/snippet}
+
+		<div class="conntent">
+			{snippet msg2}
+			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-big">{$flash->message}</div> 
+			{/snippet}
+			
+			{snippet content}
+				{include content}
+			{/snippet}
+		</div>
+		{snippet footer}
+			<div class="container-fluid text-center p-4 bg-secondary text-white" style="margin-bottom:0">
+				<p>© {date('Y')} Pletacka website Nette</p>
+			</div>	
+		{/snippet}
 	</div>
-
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>  
-	</nav>
-
-	<div class="conntent">
-		<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-big">{$flash->message}</div> 
-		{include content}
-	</div>
-
-    <div class="container-fluid text-center p-4 bg-secondary text-white" style="margin-bottom:0">
-    	<p>© {date('Y')} {$xtitle}</p>
-    </div>	
 
 	{block scripts}
-	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	{* <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script> *}
+	<script src="{$basePath}/js/netteForms.min.js"></script>
+	<script src="{$basePath}/js/Naja_v1.8.1.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
 	{/block}
 </body>
 </html>

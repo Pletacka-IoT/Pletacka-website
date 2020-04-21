@@ -1,3 +1,5 @@
+{block title}Senzory{/block}
+
 {block content}
 
 <div class="container text-center p-4 " style="margin-top:80px">
@@ -26,9 +28,9 @@
                             <td>{$sensor->name}</td>
                             <td>{$sensor->description}</td>
                             <td>{$sensor->date}</td>
-                            <td><a n:href="sensor $sensor->name" >Zobrazit</a></td>
-                            <td><a n:href="edit $sensor->name" >Upravit</a></td>
-                            <td><a n:href="delete $sensor->name" >Smazat</a></td>
+                            <td><a class="ajax" n:href="sensor $sensor->name" >Zobrazit</a></td>
+                            <td><a class="ajax" n:href="edit $sensor->name" >Upravit</a></td>
+                            <td><a class="ajax" n:href="delete $sensor->name" >Smazat</a></td>
                         </tr>
             {if $iterator->last}
                     </tbody>

@@ -19,6 +19,22 @@ use Nette\Database\Context;
 abstract class BasePresenter extends Presenter 
 {
 	protected $formFactory;
+
+
+    protected function beforeRender()
+    {
+		parent::beforeRender();
+		$this->template->time = date("m/d/Y h:i:s",time());
+
+		$this->redrawControl('title');
+		$this->redrawControl('header');
+		$this->redrawControl('msg1');
+		$this->redrawControl('msg2');
+		$this->redrawControl('content');
+		$this->redrawControl('footer');
+
+
+	}	
 	
 	public final function injectFormFactory(FormFactory $formFactory)
 	{

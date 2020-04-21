@@ -1,9 +1,11 @@
+{block title}Editace {$sensor["name"]}{/block}
+
 {block content}
 
 
 <div class="container text-center p-4 " >
     <h2>Upravit senzor: {$sensor["name"]}</h2>
-    <h5><a n:href="sensor $name" >Zpět na senzor</a></h5>
+    <h5><a class="ajax" n:href="sensor $name" >Zpět na senzor</a></h5>
 </div>
     
 
