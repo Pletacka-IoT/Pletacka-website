@@ -3,6 +3,8 @@
 namespace App\CoreModule\Model;
 
 use Nette;
+use Nette\Database\Context;
+
 
 class SensorManager
 {
@@ -12,7 +14,7 @@ class SensorManager
     private $defaultMsgLanguage;
     private $defaultAPILanguage;
     
-    public function __construct($defaultMsgLanguage,$defaultAPILanguage,Nette\Database\Context $database)
+    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database )
     {
         $this->database = $database;
         $this->defaultMsgLanguage = $defaultMsgLanguage;

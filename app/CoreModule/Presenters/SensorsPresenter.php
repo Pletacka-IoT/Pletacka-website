@@ -7,35 +7,38 @@ namespace App\CoreModule\Presenters;
 use App\CoreModule\Forms\SensorsFormFactory;
 use Nette;
 use App\CoreModule\Model\SensorManager;
-
+use App\CoreModule\Model\ThisSensorManager;
 use Nette\Application\UI\Form;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;
 use Nette\Utils\Strings;
 use Nette\Http\Session;
+use Nette\Utils\DateTime;
 
 final class SensorsPresenter extends BasePresenter
 {
 	const
 		FORM_MSG_REQUIRED = 'Tohle pole je povinné.',
-        FORM_MSG_RULE = 'Tohle pole má neplatný formát.';    
+        FORM_MSG_RULE = 'Tohle pole má neplatný formát.',
+        PLETE = '1',
+        STOJI = "0";
+
+
         
         
     private $sensorManager;
     private $request;
-    private $session;
     private $urlParameter;
     private $sensorsFormFactory;
+    private $thisSensorManager;
 
-    
-
-	public function __construct(SensorManager $sensorManager, Request $request, Session $session, SensorsFormFactory $sensorsFormFactory)
+	public function __construct(SensorManager $sensorManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
 	{
         
         $this->sensorManager = $sensorManager;
+        $this->thisSensorManager = $thisSensorManager;
         $this->request = $request;
-        $this->session = $session;
         $this->sensorsFormFactory = $sensorsFormFactory;
     }
 
@@ -240,11 +243,44 @@ final class SensorsPresenter extends BasePresenter
         // $sensor = $this->sensorManager->getSensorsNumber(3);
         // dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 
-        dump($this->sensorManager->findSensorsName("3"));
-
-
+        // dump($this->sensorManager->findSensorsName("3"));
 
         
+        
+        //dump($this->thisSensorManager->addEvent("Sen3", self::STOJI));
+        
+
+        echo $this->thisSensorManager->countAllEventsState("Sen3", "1")."<br>";
+        
+        echo "XXX:".$this->thisSensorManager->getAllEventsOlder("Sen3", '2020-04-17 15:56:30')."<br>";
+        echo "Time<br>";
+        foreach($this->thisSensorManager->getAllEventsYounger("Sen3", '2020-04-17 15:52:30') as $event)
+        {
+            echo $event->id."->". $event->state."->".$event->time."<br>";
+        }
+
+        echo "All<br>";
+        foreach($this->thisSensorManager->getAllEvents("Sen3") as $event)
+        {
+            echo $event->id."->". $event->state."->".$event->time."<br>";
+        }
+        // date
+
+        
+    }
+
+    public function actionDebug()
+    {
+        $date1=DateTime::from("2020-04-17 15:52:00");
+        $date2=DateTime::from("2020-04-17 15:53:00");
+
+        echo date_format($date1,"Y-m/d H:i:s")."<br>";
+        echo date_format($date2,"Y-m/d H:i:s")."<br>";
+        $x  =  date_diff($date2, $date1);
+        // echo date_format($x,"Y-m/d H:i:s")."<br>";          
+        dump($x);
+        echo ($x->format('Y-m-d H:i:s.u'));
+       
     }
 
 }

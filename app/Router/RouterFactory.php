@@ -24,9 +24,9 @@ final class RouterFactory
 			'presenter' => 'Core:Sensors',
 			'action' => [
 				// Route::FILTER_STRICT => true,
+				Route::VALUE => 'default',
 				Route::FILTER_TABLE => [
 					// řetězec v URL => akce presenteru
-					'vse' => 'default',
 					'editovat' => 'edit',
 					'senzory' => 'sensor',
 					'smazat' => 'delete',
@@ -34,6 +34,12 @@ final class RouterFactory
 				]
 			]
 		]);
+
+		$router[] = new Route('sign/<action>', [
+			'presenter' => 'Core:Sign',
+			'action' => 'in'
+		]);
+
 
 		$router[] = new Route('<presenter>/<action>[/<name>]', 'Core:Homepage:default');
 		return $router;
