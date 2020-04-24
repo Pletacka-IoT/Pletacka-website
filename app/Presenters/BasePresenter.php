@@ -30,6 +30,11 @@ abstract class BasePresenter extends Presenter
 		$this->redrawControl('footer');
 	}
 
+	public function handleRedrawAll(): void
+	{
+		$this->redrawAll();
+	}    
+
 
     protected function beforeRender()
     {

@@ -9,6 +9,14 @@ use Tracy\Debugger;
 use Tracy\Dumper;
 use App\Presenters\BasePresenter;
 
+
+use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Forms\SensorsFormFactory;
+use Nette\Http\Request;
+use Nette\Utils\DateTime;
+
+
 use Jakubandrysek\Chart\Category;
 use Jakubandrysek\Chart\CategoryChart;
 use Jakubandrysek\Chart\Serie\CategorySerie;
@@ -32,7 +40,63 @@ use Jakubandrysek\Chart\BasicChart;
 
 final class TestPresenter extends BasePresenter
 {
-	public function renderDefault(): void
+	const
+        PLETE = '1',
+        STOJI = "0";	
+	
+	private $sensorManager;
+    private $request;
+    private $urlParameter;
+    private $sensorsFormFactory;
+    private $thisSensorManager;
+
+	public function __construct(SensorManager $sensorManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
+	{
+        
+        $this->sensorManager = $sensorManager;
+        $this->thisSensorManager = $thisSensorManager;
+        $this->request = $request;
+        $this->sensorsFormFactory = $sensorsFormFactory;
+    }
+	
+	public function renderDefault()
+	{
+        $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Tester");
+        $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", self::STOJI);
+		$this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", self::PLETE);
+		$this->template->allEvents = $this->thisSensorManager->getAllEvents("Tester");
+		
+		$this->template->firstEvent = $this->thisSensorManager->getFirstId("Tester", '2020-04-24 22:00:00', self::PLETE);
+		$this->template->lastEvent = $this->thisSensorManager->getLastId("Tester", '2020-04-24 22:20:00', self::PLETE);
+
+		
+
+		dump(date_diff(	DateTime::from("2020-04-24 22:13:00"), DateTime::from("2020-04-24 22:03:00")));
+
+		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:20:00', self::PLETE);
+		
+		dump($this->thisSensorManager->getRunTime("Tester",$ids));
+
+		
+
+
+		
+        
+        // echo "XXX:".$this->thisSensorManager->getAllEventsOlder("Tester", '2020-04-17 15:56:30')."<br>";
+        // echo "Time<br>";
+        // foreach($this->thisSensorManager->getAllEventsYounger("Tester", '2020-04-17 15:52:30') as $event)
+        // {
+        //     echo $event->id."->". $event->state."->".$event->time."<br>";
+        // }
+
+        // echo "All<br>";
+        // foreach($this->thisSensorManager->getAllEvents("Tester") as $event)
+        // {
+        //     echo $event->id."->". $event->state."->".$event->time."<br>";
+        // }
+	}
+	
+	public function renderRun(): void
 	{
 
 

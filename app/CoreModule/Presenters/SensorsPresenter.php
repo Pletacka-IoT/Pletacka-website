@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
-use App\CoreModule\Forms\SensorsFormFactory;
 use Nette;
 use App\CoreModule\Model\SensorManager;
 use App\CoreModule\Model\ThisSensorManager;
 use Nette\Application\UI\Form;
+use App\CoreModule\Forms\SensorsFormFactory;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;

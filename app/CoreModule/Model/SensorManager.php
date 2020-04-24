@@ -120,7 +120,8 @@ class SensorManager
         try{
             $this->database->query("CREATE TABLE $sensorName (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                state ENUM('0','1') NOT NULL DEFAULT '0',               
+                state ENUM('0','1') NOT NULL DEFAULT '0',
+                work INT(11) NOT NULL,               
                 time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )");
         } catch (Nette\Database\DriverException $e){

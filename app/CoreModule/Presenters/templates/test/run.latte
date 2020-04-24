@@ -1,24 +1,31 @@
-{* This is the welcome page, you can delete it *}
-
 {block content}
-<div id="banner">
-	<h1 n:block=title>Congratulations!</h1>
+
+<div class="container">
+Chart
+{$chart|noescape}
+
+Big Chart
+{$bigchart|noescape}
+
+
+Basic chart
+{$basicchart|noescape}
+
+
+Pie RAW
+{$pieRAW|noescape}
+
+Pie
+{$pie|noescape}
+
+Donut RAW
+{$donutRAW|noescape}
+
+
+Donut
+{$donut|noescape}
+
+Basic chart
+{$basicChart|noescape}
+
 </div>
-
-<div id="content">
-	<h2>Run</h2>
-
-
-
-
-</div>
-{/block}
-
-{block scripts}
-{include parent}
-{/block}
-
-
-{block head}
-
-{/block}
