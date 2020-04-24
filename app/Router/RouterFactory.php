@@ -40,6 +40,11 @@ final class RouterFactory
 			'action' => 'in'
 		]);
 
+		$router[] = new Route('test/<action>', [
+			'presenter' => 'Core:Test',
+			'action' => 'default'
+		]);		
+
 
 		$router[] = new Route('<presenter>/<action>[/<name>]', 'Core:Homepage:default');
 		return $router;

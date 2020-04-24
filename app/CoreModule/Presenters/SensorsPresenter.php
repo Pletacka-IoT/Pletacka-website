@@ -114,7 +114,14 @@ final class SensorsPresenter extends BasePresenter
         
         $this->template->sensors = $this->sensorManager->getSensors();
 
-    } 
+    }
+
+
+
+	public function handleReloadSensorTable(): void
+	{
+		$this->redrawControl('sensorTable');
+	}    
 
 
     public function renderSensor($name)
@@ -126,6 +133,7 @@ final class SensorsPresenter extends BasePresenter
             $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
+            
         }
 
         $this->template->sensor = $this->sensorManager->getSensorsName($name);

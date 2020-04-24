@@ -14,11 +14,14 @@
 	<link rel="icon" href="{$basePath}/images/Kuba_logo.png" />
 
 	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">	
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/css/c3.css">	
 
 
 	<script src="{$basePath}/js/jquery.min.js"></script>
 	<script src="{$basePath}/js/bootstrap.min.js"></script>
+	<script src="{$basePath}/js/c3.js"></script>
+	<script src="{$basePath}/js/d3.js"></script>
 	
 	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka website Nette</title>
 	{dump} {*VARIABLES DEBUG*}
@@ -57,7 +60,7 @@
 						<a class="nav-link ajax" n:href="Sensors:default">Senzory</a>
 					</li>
 					<li class="nav-item ">
-						<a class="nav-link " n:href="Sensors:default">Senzory ne AJAX</a>
+						<a class="nav-link ajax" n:href="Test:default">Test</a>
 					</li>    
 					</ul>
 				</div>

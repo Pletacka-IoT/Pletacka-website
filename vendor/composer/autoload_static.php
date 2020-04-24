@@ -23,6 +23,10 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
             'Psr\\Http\\Message\\' => 17,
             'PHPStan\\' => 8,
         ),
+        'J' => 
+        array (
+            'Jakubandrysek\\Chart\\' => 20,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -62,6 +66,10 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
         'PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan-nette/src',
+        ),
+        'Jakubandrysek\\Chart\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jakubandrysek/chart/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
