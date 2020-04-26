@@ -34,7 +34,7 @@
                         {$event->state}
                     </td>
                 {/if}                               
-                <td>{$event->work}</td>
+                <td>{$event->work|date:'%h:%i:%s'}</td>
                 <td>{$event->time}</td>        
             </tr>
         {if $iterator->last}

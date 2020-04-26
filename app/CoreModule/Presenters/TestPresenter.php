@@ -15,6 +15,7 @@ use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use Nette\Http\Request;
 use Nette\Utils\DateTime;
+use DateInterval;
 
 
 use Jakubandrysek\Chart\Category;
@@ -61,6 +62,7 @@ final class TestPresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
+		//$this->thisSensorManager->resetDB("Tester");
         $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Tester");
         $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", self::STOJI);
 		$this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", self::PLETE);
@@ -76,6 +78,8 @@ final class TestPresenter extends BasePresenter
 		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:20:00', self::PLETE);
 		
 		dump($this->thisSensorManager->getRunTime("Tester",$ids));
+
+	
 
 		
 
@@ -260,6 +264,11 @@ final class TestPresenter extends BasePresenter
 
 
 	}	
+
+	public function actionReset()
+	{
+		$this->thisSensorManager->resetDB("Tester");
+	}
 
 }
 
