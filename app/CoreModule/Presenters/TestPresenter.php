@@ -78,9 +78,9 @@ final class TestPresenter extends BasePresenter
 		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', self::PLETE);
 		
 		// dump($this->thisSensorManager->getRunTime("Tester",$ids));
-		dump($this->thisSensorManager->getRunTimeStamp("Tester",$ids));
+		dump(DateTime::from("2000-01-01 00:00:00")->add($this->thisSensorManager->getRunTimeStamp("Tester",$ids)));
 
-		dump($this->thisSensorManager->timeToInterval("00:03:18"));
+		// dump($this->thisSensorManager->timeToInterval("00:03:18"));
 
 	
 

@@ -127,7 +127,7 @@ class ThisSensorManager
         return $out;
     }
 
-    public function getRunTimeStamp($sName, $ids)
+    public function getRunTimeStamp($sName, $ids): DateInterval
     {
         $last = $this->database->table($sName)->where("id=?", 1)->fetch();
         echo $out =  $last->time->getTimestamp();
@@ -148,42 +148,47 @@ class ThisSensorManager
         {
             $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
             
-            //dump($last->work);
+            //dump($last->actWork);
 
             //  First loop
             if($id < $ids[1])
             {
-                $work=3*self::MINUTE; // 3 Minutes
-                $workTime+=$work;
+                $actWork=3*self::MINUTE; // 3 Minutes
+                $workTime+=$actWork;
+                $lastWork = $actWork;
+                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
                 echo "FIRST";
+
 
             }
             // Next loops
             else if($id >= $ids[1])
             {
-                $work=$actual->time->getTimestamp()-$last->time->getTimestamp();
-                if($work>3*self::MINUTE)
+                $actWork=$actual->time->getTimestamp()-$last->time->getTimestamp();
+                if($actWork>3*self::MINUTE)
                 {
                     echo "NEXT - BIG";
-                    $work = 4*self::MINUTE;
-                    $workTime+=$work;
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$work]);
+                    $actWork = $lastWork;
+                    $workTime+=$actWork;
+                    
                 }
                 else
                 {
-                    $workTime+=$work;
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$work]);
+                    $workTime+=$actWork;
                     echo "NEXT - NORMAL";
 
                 }
+                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
                              
                 $last = $actual;
+                $lastWork = $actWork;
                 
             }
             echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
-            echo "Add:".$work."->T:".gmdate("H:i:s",$work)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
+            echo "Add:".$actWork."->T:".gmdate("H:i:s",$actWork)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
         }
-        $this->database->table($sName)->where("id=?", 10)->update(['work'=>$workTime]);
+        $this->database->table($sName)->where("id=?", 10)->update(['work'=>$workTime, 'time'=>$actual->time]);
+        return new DateInterval("PT".$workTime."S");
     }
 
  
@@ -466,17 +471,19 @@ class ThisSensorManager
     {
         for ($i = 0;$i<=8;$i++ )
         {
-            $this->database->table($sName)->where("id = ?", $i)->update([ "work"=>"00:00:00"]);
+            $this->database->table($sName)->where("id = ?", $i)->update([ "work"=>"0"]);
         }
 
-        $this->database->table($sName)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"00:03:00"]);
+        $this->database->table($sName)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
         $this->database->table($sName)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
         $this->database->table($sName)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
         $this->database->table($sName)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
-        $this->database->table($sName)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
+        $this->database->table($sName)->where("id = 5")->update(["time"=>"2020-04-24 22:15:00"]);
         $this->database->table($sName)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
         $this->database->table($sName)->where("id = 7")->update(["time"=>"2020-04-24 22:20:59"]);
-        $this->database->table($sName)->where("id = 8")->update(["time"=>"2020-04-24 22:26:50"]);
+        $this->database->table($sName)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
+
+        $this->database->table($sName)->where("id = ?", 10)->update([ "work"=>"0"]);
 
 
 
