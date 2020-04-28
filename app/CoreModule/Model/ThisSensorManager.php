@@ -127,21 +127,30 @@ class ThisSensorManager
         return $out;
     }
 
-    public function getRunTimeStamp($sName, $ids): DateInterval
+    public function getAllTime($sName, $ids)
+    {
+        $first = $this->database->table($sName)->where("id=?", $ids[0])->fetch()->time->getTimestamp();
+        $last = $this->database->table($sName)->where("id=?", end($ids))->fetch()->time->getTimestamp();
+        $res =  $last-$first;
+        return new DateInterval("PT".$res."S");
+
+    }
+
+    public function getRunTime($sName, $ids): DateInterval
     {
         $last = $this->database->table($sName)->where("id=?", 1)->fetch();
-        echo $out =  $last->time->getTimestamp();
-        dump($last->time);
+        //echo $out =  $last->time->getTimestamp();
+        //dump($last->time);
         $workTime = 0;
 
         // $next = $this->database->table($sName)->where("id=?", 2)->fetch();
-        // echo $next->time->getTimestamp();
+        // //echo $next->time->getTimestamp();
         // dump($next->time);
 
 
         // $start = DateTime::from($out);
 
-        // echo $start;
+        // //echo $start;
 
 
         foreach($ids as $id)
@@ -154,10 +163,13 @@ class ThisSensorManager
             if($id < $ids[1])
             {
                 $actWork=3*self::MINUTE; // 3 Minutes
-                $workTime+=$actWork;
+                // $workTime+=$actWork;
                 $lastWork = $actWork;
-                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
-                echo "FIRST";
+                // $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
+                //echo "FIRST";
+
+                //echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
+                //echo "Add:".$actWork."->T:".gmdate("H:i:s",$actWork)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
 
 
             }
@@ -165,29 +177,38 @@ class ThisSensorManager
             else if($id >= $ids[1])
             {
                 $actWork=$actual->time->getTimestamp()-$last->time->getTimestamp();
-                if($actWork>3*self::MINUTE)
+                if($actWork>$lastWork+1*self::MINUTE)
                 {
-                    echo "NEXT - BIG";
+                    //echo "NEXT - BIG";
                     $actWork = $lastWork;
                     $workTime+=$actWork;
                     
                 }
+                if($actWork<$lastWork-1.5*self::MINUTE)
+                {
+                    //echo "NEXT - SMALL";
+                    $actWork = 0;
+                    $workTime+=$actWork;
+                    
+                }                
                 else
                 {
                     $workTime+=$actWork;
-                    echo "NEXT - NORMAL";
+                    //echo "NEXT - NORMAL";
 
                 }
                 $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
                              
+                //echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
+                //echo "Add:".$actWork."->T:".gmdate("H:i:s",$actWork)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
+
                 $last = $actual;
                 $lastWork = $actWork;
                 
             }
-            echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
-            echo "Add:".$actWork."->T:".gmdate("H:i:s",$actWork)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
+
         }
-        $this->database->table($sName)->where("id=?", 10)->update(['work'=>$workTime, 'time'=>$actual->time]);
+        $this->database->table($sName)->where("id=?", 10)->update(['work'=>$workTime]);
         return new DateInterval("PT".$workTime."S");
     }
 
@@ -205,215 +226,7 @@ class ThisSensorManager
     ////////////////////
     // Time counting
     ////////////////////
-    public function getRunTime($sName, $ids)
-    {
-        $start = DateTime::from(self::START);
-        $work = DateTime::from("2000-01-01 00:03:08");
-        $workTime = date_diff($start, $work);
-        echo $start;
-        dump($ids);
-        //echo "x".$ids[1];
-        $last = $this->database->table($sName)->where("id=?", 1)->fetch();
-        
-        dump($workTime);
-        echo "First: ".$workTime->format("%H:%I:%S"); //$last->time ;
 
-
-
-        //$workTime = $last->work;
-        foreach($ids as $id)
-        {
-            $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
-            
-            //dump($last->work);
-
-            //  First loop
-            if($id < $ids[1])
-            {
-                echo "<br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;
-                echo "<br>Add: ".$start->add( $workTime);
-                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$workTime->format("%H:%I:%S")]);
-                $lastDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                
-            }
-            // Next loops
-            else if($id >= $ids[1])
-            {
-                echo "<br><br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;                
-                $actDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                echo "<br>actDiff:";dump($actDiff);
-                if(($actDiff->i)>($last->work->i+1))
-                {
-                    echo"  *BIG: ".$actDiff->i." ->".$start->add( $lastDiff);
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$lastDiff->format('%H:%I:%S')]);
-                }
-                else 
-                {
-                    echo " *NORMAL*".$actDiff->i." ->".$start->add($actDiff);
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actDiff->format('%H:%I:%S')]);
-                    
-                }
-                //$this->database->table($sName)->where("id=?", $id)->update(['work'=>/*$actDiff->format('%H:%I:%S')*/$workTime]);
-                $last = $actual;
-                $lastDiff = $actDiff;
-            }
-            
-        }
-        $out = date_diff(DateTime::from(self::START),$start);
-        return $out;
-    }
-
-    public function getRunTime4($sName, $ids)
-    {
-        $start = DateTime::from(self::START);
-        $work = DateTime::from("2000-01-01 00:03:08");
-        $workTime = date_diff($start, $work);
-        echo $start;
-        dump($ids);
-        //echo "x".$ids[1];
-        $last = $this->database->table($sName)->where("id=?", 1)->fetch();
-        
-        dump($workTime);
-        echo "First: ".$workTime->format("%H:%I:%S"); //$last->time ;
-
-
-
-        //$workTime = $last->work;
-        foreach($ids as $id)
-        {
-            $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
-            
-            //dump($last->work);
-
-            //  First loop
-            if($id < $ids[1])
-            {
-                echo "<br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;
-                echo "<br>Add: ".$start->add( $last->work);
-                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$last->work->format("%H:%I:%S")]);
-                $lastDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                
-            }
-            // Next loops
-            else if($id >= $ids[1])
-            {
-                echo "<br><br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;                
-                $actDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                echo "<br>actDiff:";dump($actDiff);
-                if(($actDiff->i)>($last->work->i+1))
-                {
-                    echo"  *BIG: act:".$actual->work->format('%H:%I:%S')." last:".$last->work->format('%H:%I:%S')." ->".$start->add( $lastDiff);
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$lastDiff->format('%H:%I:%S')]);
-                }
-                else 
-                {
-                    echo " *NORMAL* act:".$actual->work->format('%H:%I:%S')." last:".$last->work->format('%H:%I:%S')." ->".$start->add($actDiff);
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actDiff->format('%H:%I:%S')]);
-                    
-                }
-                //$this->database->table($sName)->where("id=?", $id)->update(['work'=>/*$actDiff->format('%H:%I:%S')*/$workTime]);
-                $last = $actual;
-                $lastDiff = $actDiff;
-            }
-            
-        }
-        $out = date_diff(DateTime::from(self::START),$start);
-        return $out;
-    }
-
-    public function getRunTime3($sName, $ids)
-    {
-        $start = DateTime::from(self::START);
-        $work = DateTime::from("2000-01-01 00:03:00");
-        $workTime = date_diff($start, $work);
-        echo $start;
-        dump($ids);
-        //echo "x".$ids[1];
-        $last = $this->database->table($sName)->where("id=?", 1)->fetch();
-        
-        dump($workTime);
-        echo "First: ".$workTime->format("%H:%I:%S"); //$last->time ;
-
-
-
-        //$workTime = $last->work;
-        foreach($ids as $id)
-        {
-            $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
-            // echo "Last work";
-            // dump($last->work);
-
-            //  First loop
-            if($id < $ids[1])
-            {
-                echo "<br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;
-                echo "<br>Add: ".$start->add( $workTime);
-                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$workTime->format("%H:%I:%S")]);
-                $lastDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                
-            }
-            // Next loops
-            else if($id >= $ids[1])
-            {
-                echo "<br><br><br>LOOP ID:".$id."->".$last->time." - ".$actual->time;                
-                $actDiff = date_diff(DateTime::from($last->time), DateTime::from($actual->time));//3 Minutes 0 seconds
-                echo "<br>actDiff:";dump($actDiff);
-                if(($actDiff->i)>($last->work->i+1))
-                {
-                    // if($last->id != $id-1)
-                    // {
-                        echo "<br>XXXXXXXXXX<br>";
-                        echo"  *BIG: ".$last->work->format('%H:%I:%S')." ->".$start->add( $last->work /*$this->timeToInterval($last->work)*/);
-                        $this->database->table($sName)->where("id=?", $id)->update(['work'=>$last->work->format('%H:%I:%S')]);
-                    // }
-                    // else
-                    // {
-                    //     echo"  *BIG: ".$actDiff->i." ->".$start->add( $lastDiff);
-                    //     $this->database->table($sName)->where("id=?", $id)->update(['work'=>$lastDiff->format('%H:%I:%S')]);
-                    // }
-
-                }
-                else 
-                {
-                    echo " *NORMAL*".$actDiff->format('%H:%I:%S')." ->".$start->add($actDiff);
-                    $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actDiff->format('%H:%I:%S')]);
-                    $lastDiff = $actDiff;
-                    
-                }
-                //$this->database->table($sName)->where("id=?", $id)->update(['work'=>/*$actDiff->format('%H:%I:%S')*/$workTime]);
-                $last = $actual;
-                
-            }
-            
-        }
-        $out = date_diff(DateTime::from(self::START),$start);
-        return $out;
-    }
-
-
-    public function timeToInterval($work):DateInterval
-    {
-        $out = explode(":", $work);
-        $hour = $this->crop($out[0]);
-        $minute = $this->crop($out[1]);
-        $second = $this->crop($out[2]);
-
-        $start = DateTime::from("2000-01-01 00:00:00");
-        
-        $work = DateTime::from("2000-01-01 ".$hour.":".$minute.":".$second);
-        $workTime = date_diff($start, $work);
-        return $workTime;
-
-    }
-
-    public function crop($input)
-    {
-        if($input[0]=="0")
-        {
-            return $input[1];
-        }
-        return $input;
-    }
 
     //////////////////////////////
 
@@ -422,11 +235,11 @@ class ThisSensorManager
         $start = DateTime::from(self::START);
         $work = DateTime::from("2000-01-01 00:03:00");
         $workTime = date_diff($start, $work);
-        echo $start;
-        dump($ids);
-        //echo "x".$ids[1];
+        //echo $start;
+        //dump($ids);
+        ////echo "x".$ids[1];
         $last = $this->database->table($sName)->where("id=?", $ids[0])->fetch();
-        echo "First: ".$last->time ;
+        //echo "First: ".$last->time ;
 
         $workTime = $last->work;
         foreach($ids as $id)
@@ -436,7 +249,7 @@ class ThisSensorManager
             //dump($last->work);
             if($id < $ids[1])
             {
-                echo "<br>Add: ".$start->add( $workTime);
+                //echo "<br>Add: ".$start->add( $workTime);
                 $this->database->table($sName)->where("id=?", $id)->insert(['work'=>$workTime]);
                 
             }
@@ -444,18 +257,18 @@ class ThisSensorManager
             {
                 $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
                 
-                echo "<br>ID:".$id."->";
+                //echo "<br>ID:".$id."->";
                 
-                echo $last->time." - ".$actual->time;
+                //echo $last->time." - ".$actual->time;
                 $add = date_diff(DateTime::from($last->time), DateTime::from($actual->time));
                 dump($add);
                 if(($add->i)>($actual->work->i))
                 {
-                    echo"  *BIG: ".$add->i." ->".$start->add( $workTime);
+                    //echo"  *BIG: ".$add->i." ->".$start->add( $workTime);
                 }
                 else if(($add->i)<=($actual->work->i))
                 {
-                    echo " *NORMAL*".$add->i." ->".$start->add($add);
+                    //echo " *NORMAL*".$add->i." ->".$start->add($add);
                     $this->database->table($sName)->where("id=?", $id)->insert(['work'=>$add]);
                 }
             
@@ -478,9 +291,9 @@ class ThisSensorManager
         $this->database->table($sName)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
         $this->database->table($sName)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
         $this->database->table($sName)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
-        $this->database->table($sName)->where("id = 5")->update(["time"=>"2020-04-24 22:15:00"]);
+        $this->database->table($sName)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
         $this->database->table($sName)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
-        $this->database->table($sName)->where("id = 7")->update(["time"=>"2020-04-24 22:20:59"]);
+        $this->database->table($sName)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
         $this->database->table($sName)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
 
         $this->database->table($sName)->where("id = ?", 10)->update([ "work"=>"0"]);

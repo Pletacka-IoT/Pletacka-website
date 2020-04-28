@@ -63,6 +63,11 @@ final class TestPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		//$this->thisSensorManager->resetDB("Tester");
+
+		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', self::PLETE);
+		$runTime = $this->thisSensorManager->getRunTime("Tester",$ids);
+		
+
         $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Tester");
         $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", self::STOJI);
 		$this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", self::PLETE);
@@ -73,12 +78,15 @@ final class TestPresenter extends BasePresenter
 
 		
 
-		dump(date_diff(	DateTime::from("2020-04-24 22:13:00"), DateTime::from("2020-04-24 22:03:00")));
+		//dump(date_diff(	DateTime::from("2020-04-24 22:13:00"), DateTime::from("2020-04-24 22:03:00")));
 
-		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', self::PLETE);
-		
-		// dump($this->thisSensorManager->getRunTime("Tester",$ids));
-		dump(DateTime::from("2000-01-01 00:00:00")->add($this->thisSensorManager->getRunTimeStamp("Tester",$ids)));
+
+		$this->template->runTime = $runTime;
+		$this->template->runTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($runTime);
+
+		$allTime = $this->thisSensorManager->getAllTime("Tester",$ids);
+		$this->template->allTime = $allTime;
+		$this->template->allTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($allTime);
 
 		// dump($this->thisSensorManager->timeToInterval("00:03:18"));
 

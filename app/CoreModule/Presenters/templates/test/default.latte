@@ -44,10 +44,15 @@
             </table>
         {/if}
     {/foreach}
-
+    <h3>All time: {$allTime|date:'%h:%i:%s'} ->  {$allTimeAdd|date:'H:i:s'}</h3>
+    <h3>Run time: {$runTime|date:'%h:%i:%s'} ->  {$runTimeAdd|date:'H:i:s'}</h3>
     {dump $allEvents}
     <h3>First event state (1): {$firstEvent}</h3>
     <h3>Last event state (1): {$lastEvent}</h3>
     <h3></h3>
     <h3></h3>
 </div>
+
+<script>
+    {* javascript:location.reload(true) *}
+</script>
