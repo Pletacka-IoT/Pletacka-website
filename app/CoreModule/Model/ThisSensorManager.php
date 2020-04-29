@@ -20,6 +20,17 @@ class ThisSensorManager
         START = "2000-01-01 00:00:00",
         MINUTE = 60;
 
+    public const
+        WORK = '1',	// Machine is working
+        STOP = "0",	// Machine is not working
+        REWORK = "2"; 	//State after end of stoji	
+
+    public const STATES = [
+        self::WORK,
+        self::STOP,
+        self::REWORK,
+    ];
+
     private $database;
     private $defaultMsgLanguage;
     private $defaultAPILanguage;
@@ -70,7 +81,7 @@ class ThisSensorManager
         return $this->database->table($sName)->fetchAll();
     }
 
-    public function getAllEventsState($sName, $state)
+    public function getAllEventsState($sName, self::)
     {
         return $this->database->table($sName)->where("state", $state)->fetchAll();
     }   

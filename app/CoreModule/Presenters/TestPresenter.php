@@ -42,8 +42,9 @@ use Jakubandrysek\Chart\BasicChart;
 final class TestPresenter extends BasePresenter
 {
 	const
-        PLETE = '1',
-        STOJI = "0";	
+        WORK = '1',	// Machine is working
+        STOP = "0",	// Machine is not working
+        REWORK = "2"; 	//State after end of stoji	
 	
 	private $sensorManager;
     private $request;
@@ -64,17 +65,17 @@ final class TestPresenter extends BasePresenter
 	{
 		//$this->thisSensorManager->resetDB("Tester");
 
-		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', self::PLETE);
+		$ids = $this->thisSensorManager->getAllId("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', self::WORK);
 		$runTime = $this->thisSensorManager->getRunTime("Tester",$ids);
 		
 
         $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Tester");
-        $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", self::STOJI);
-		$this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", self::PLETE);
+        $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", self::STOP);
+		$this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", self::WORK);
 		$this->template->allEvents = $this->thisSensorManager->getAllEvents("Tester");
 		
-		$this->template->firstEvent = $this->thisSensorManager->getFirstId("Tester", '2020-04-24 22:00:00', self::PLETE);
-		$this->template->lastEvent = $this->thisSensorManager->getLastId("Tester", '2020-04-24 22:20:00', self::PLETE);
+		$this->template->firstEvent = $this->thisSensorManager->getFirstId("Tester", '2020-04-24 22:00:00', self::WORK);
+		$this->template->lastEvent = $this->thisSensorManager->getLastId("Tester", '2020-04-24 22:20:00', self::WORK);
 
 		
 
@@ -109,6 +110,11 @@ final class TestPresenter extends BasePresenter
         // {
         //     echo $event->id."->". $event->state."->".$event->time."<br>";
         // }
+	}
+
+	public function actionDebug()
+	{
+		
 	}
 	
 	public function renderRun(): void
