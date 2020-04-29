@@ -120,7 +120,7 @@ class SensorManager
         try{
             $this->database->query("CREATE TABLE $sensorName (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                state ENUM('0','1') NOT NULL DEFAULT '0',
+                state ENUM('WORK','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'WORK',
                 work INT(11) NOT NULL,               
                 time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )");
@@ -174,24 +174,24 @@ class SensorManager
     {
         if(ctype_alnum($name)==false)
         {
-            return array(false, "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
+            return array(false, "", "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
         }
         
         if($this->sensorIsExist($number, "number") )
         {
-            return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
+            return array(false, "", "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
         }
 
         if($this->sensorIsExist($name, "name"))
         {
-            return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
+            return array(false, "", "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
         }
 
         $res = $this->addThisSensor($name);
 
         if(!$res)
         {
-            return array(false, "There is a very serious database error you should contact your administrator!", "Nastala velmi závažná chyba v databázi měli byste kontaktovat svého administrátora!");
+            return array(false, "", "There is a very serious database error you should contact your administrator!", "Nastala velmi závažná chyba v databázi měli byste kontaktovat svého administrátora!");
         }
 
         if($succes = $this->database->table("sensors")->insert([
@@ -200,11 +200,11 @@ class SensorManager
             'description' => $description,
         ]))
         {            
-            return array(true, "Sensor created", "Senzor byl vytvořen");
+            return array(true, "", "Sensor created", "Senzor byl vytvořen");
         }
         else
         {
-            return array(false, "ERROR!!!", "ERROR!!!");
+            return array(false, "", "ERROR!!!", "ERROR!!!");
         }        
         
     }
@@ -218,7 +218,7 @@ class SensorManager
     {
         if(!$this->sensorIsExist($name, "name") )
         {
-            return array(false, "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
+            return array(false, "", "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
         }
 
         $count = $this->database->table("sensors")
@@ -227,7 +227,7 @@ class SensorManager
 
         $this->deleteThisSensor($name);
 
-        return array($count, "Sensor deleted", "Senzor byl smazán");
+        return array($count,"", "Sensor deleted", "Senzor byl smazán");
     }  
 
     /**
@@ -242,14 +242,14 @@ class SensorManager
     {
         if(!$this->sensorIsExist($oldName, "name") )
         {
-            return array(false, "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
+            return array(false, "", "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
         }        
         
         $oldSen = $this->getSensorsName($oldName);
 
         if(ctype_alnum($name)==false)
         {
-            return array(false, "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
+            return array(false, "", "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
         }
 
         //Is not same?
@@ -258,7 +258,7 @@ class SensorManager
             //Is exist?
             if($this->sensorIsExist($number, "number") )
             {
-                return array(false, "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
+                return array(false, "", "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
             }
         }
 
@@ -267,7 +267,7 @@ class SensorManager
         {
             if($this->sensorIsExist($name, "name"))
             {
-                return array(false, "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
+                return array(false, "", "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
             }
             $this->renameThisSensor($oldSen->name, $name);
         }
@@ -279,7 +279,7 @@ class SensorManager
             'description' => $description,
         ], 'WHERE name = ?', $oldName);
 
-        return array($result, "Sensor edited", "Senzor byl upraven");
+        return array($result,"", "Sensor edited", "Senzor byl upraven");
     }
     
     public function getAPILanguage()
