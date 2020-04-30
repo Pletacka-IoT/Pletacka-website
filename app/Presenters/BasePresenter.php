@@ -20,6 +20,9 @@ abstract class BasePresenter extends Presenter
 {
 	protected $formFactory;
 
+	private $sensorManager;
+
+	
 	protected function redrawAll()
 	{
 		$this->redrawControl('title');
@@ -39,7 +42,10 @@ abstract class BasePresenter extends Presenter
     protected function beforeRender()
     {
 		parent::beforeRender();
-		$this->template->time = date("m/d/Y h:i:s",time());
+		{
+			$this->template->time = date("m/d/Y h:i:s",time());
+		}
+		
 
 		$this->redrawAll();
 
@@ -50,6 +56,8 @@ abstract class BasePresenter extends Presenter
 	{
 		$this->formFactory = $formFactory;
 	}
+
+	
 	
 	protected function startup()
 	{

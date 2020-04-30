@@ -23,6 +23,10 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
             'Psr\\Http\\Message\\' => 17,
             'PHPStan\\' => 8,
         ),
+        'M' => 
+        array (
+            'MyCLabs\\Enum\\' => 13,
+        ),
         'J' => 
         array (
             'Jakubandrysek\\Chart\\' => 20,
@@ -66,6 +70,10 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
         'PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan-nette/src',
+        ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Jakubandrysek\\Chart\\' => 
         array (
