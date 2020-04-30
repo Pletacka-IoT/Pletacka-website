@@ -192,9 +192,9 @@ class ThisSensorManager
         $first = $this->database->table($sName)->where("id=?", array_key_first($ids[0]) )->fetch()->time->getTimestamp();
         $last = $this->database->table($sName)->where("id=?", array_key_last($ids)+1)->fetch()->time->getTimestamp();
         $res =  $last-$first;
-        return new DateInterval("PT".$res."S");
-
+        return array(new DateInterval("PT".$res."S"), $res);
     }
+
 
     public function testPretty()
     {
@@ -259,8 +259,28 @@ class ThisSensorManager
         // $first = $this->database->table($sName)->where("id=?", $ids[0])->fetch()->time->getTimestamp();
         // $last = $this->database->table($sName)->where("id=?", end($ids))->fetch()->time->getTimestamp();
         // $res =  $last-$first;
-        return new DateInterval("PT".$time."S");
+        return array(new DateInterval("PT".$time."S"), $time);
 
+    }
+
+    public function getAproxStopTime($stopTimestamp, $stopCount)
+    {
+        $time = ceil($stopTimestamp/$stopCount);
+        return array(new DateInterval("PT".$time."S"), $time);
+    }    
+
+    public function getWorkTime($allTimestamp, $stopTimestamp)
+    {
+        $time = $allTimestamp-$stopTimestamp;
+        return array(new DateInterval("PT".$time."S"), $time);
+    }
+
+
+
+    public function getAproxWorkTime($workTimestamp, $workCount)
+    {
+        $time = ceil($workTimestamp/$workCount);
+        return array(new DateInterval("PT".$time."S"), $time);
     }
 
     public function getWorkTimeOld($sName, $ids): DateInterval

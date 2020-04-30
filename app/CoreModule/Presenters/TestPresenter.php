@@ -79,19 +79,19 @@ final class TestPresenter extends BasePresenter
 	
 	public function renderDefault()
 	{
-		// //$this->thisSensorManager->resetDB("Tester");
+		// //$this->thisSensorManager->resetDB("Debug");
 
-		// $ids = $this->thisSensorManager->getAllIdState("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', $this->thisSensorManager::OLDWORK);
-		// $runTime = $this->thisSensorManager->getWorkTime("Tester",$ids);
+		// $ids = $this->thisSensorManager->getAllIdState("Debug", '2020-04-24 22:00:00', '2020-04-24 22:30:00', $this->thisSensorManager::OLDWORK);
+		// $runTime = $this->thisSensorManager->getWorkTime("Debug",$ids);
 		
 
-        // $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Tester");
-        // $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Tester", $this->thisSensorManager::OLDSTOP);
-		// $this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Tester", $this->thisSensorManager::OLDWORK);
-		// $this->template->allEvents = $this->thisSensorManager->getAllEvents("Tester");
+        // $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Debug");
+        // $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState("Debug", $this->thisSensorManager::OLDSTOP);
+		// $this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState("Debug", $this->thisSensorManager::OLDWORK);
+		// $this->template->allEvents = $this->thisSensorManager->getAllEvents("Debug");
 		
-		// $this->template->firstEvent = $this->thisSensorManager->getFirstIdState("Tester", '2020-04-24 22:00:00', $this->thisSensorManager::OLDWORK);
-		// $this->template->lastEvent = $this->thisSensorManager->getLastIdState("Tester", '2020-04-24 22:20:00', $this->thisSensorManager::OLDWORK);
+		// $this->template->firstEvent = $this->thisSensorManager->getFirstIdState("Debug", '2020-04-24 22:00:00', $this->thisSensorManager::OLDWORK);
+		// $this->template->lastEvent = $this->thisSensorManager->getLastIdState("Debug", '2020-04-24 22:20:00', $this->thisSensorManager::OLDWORK);
 		// $this->thisSensorManager::MINUTE;
 		
 
@@ -101,7 +101,7 @@ final class TestPresenter extends BasePresenter
 		// $this->template->runTime = $runTime;
 		// $this->template->runTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($runTime);
 
-		// $allTime = $this->thisSensorManager->getAllTime("Tester",$ids);
+		// $allTime = $this->thisSensorManager->getAllTime("Debug",$ids);
 		// $this->template->allTime = $allTime;
 		// $this->template->allTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($allTime);
 
@@ -114,15 +114,15 @@ final class TestPresenter extends BasePresenter
 
 		
         
-        // echo "XXX:".$this->thisSensorManager->getAllEventsOlder("Tester", '2020-04-17 15:56:30')."<br>";
+        // echo "XXX:".$this->thisSensorManager->getAllEventsOlder("Debug", '2020-04-17 15:56:30')."<br>";
         // echo "Time<br>";
-        // foreach($this->thisSensorManager->getAllEventsYounger("Tester", '2020-04-17 15:52:30') as $event)
+        // foreach($this->thisSensorManager->getAllEventsYounger("Debug", '2020-04-17 15:52:30') as $event)
         // {
         //     echo $event->id."->". $event->state."->".$event->time."<br>";
         // }
 
         // echo "All<br>";
-        // foreach($this->thisSensorManager->getAllEvents("Tester") as $event)
+        // foreach($this->thisSensorManager->getAllEvents("Debug") as $event)
         // {
         //     echo $event->id."->". $event->state."->".$event->time."<br>";
         // }
@@ -130,20 +130,41 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug()
 	{
-		$stopIds = $this->thisSensorManager->getAllIdState("Tester", '2020-04-24 22:00:00', '2020-04-24 22:30:00', $this->thisSensorManager::STOP);
-		$stopTime = $this->thisSensorManager->getStopTime("Tester",$stopIds);
-		$this->template->stopTime = $stopTime;
+        $this->template->allEventsCount = $this->thisSensorManager->countAllEvents("Debug");
+        $this->template->allEventsCountF = $allCountF = $this->thisSensorManager->countAllEventsState("Debug", $this->thisSensorManager::FINISHED);
+		$this->template->allEventsCountS = $allCountS = $this->thisSensorManager->countAllEventsState("Debug", $this->thisSensorManager::STOP);
+		$this->template->allEventsCountR = $allCountR = $this->thisSensorManager->countAllEventsState("Debug", $this->thisSensorManager::REWORK);
+		$this->template->allEvents = $this->thisSensorManager->getAllEvents("Debug");		
 
-		$ids = $this->thisSensorManager->getAllId("Debug", '2020-04-24 22:02:00', '2020-04-24 22:30:00');
-		dump($ids);
+		$ids = $this->thisSensorManager->getAllId("Debug", '2020-04-24 22:00:00', '2020-04-24 22:30:00');
+		$start = Datetime::from("2000-01-01 00:00:00");
+
+		$allTime = $this->thisSensorManager->getAllTime("Debug", $ids);
+		$this->template->allTime = $allTime; //Date interval
+
+		$stopTime = $this->thisSensorManager->getStopTime("Debug", $ids);
+		$this->template->stopTime = $stopTime; //Date interval
+
+		$workTime = $this->thisSensorManager->getWorkTime($allTime[1], $stopTime[1]);
+		$this->template->workTime = $workTime; //Date interval
+
+		$stopAproxTime = $this->thisSensorManager->getAproxStopTime($stopTime[1], $allCountS);
+		$this->template->stopAproxTime = $stopAproxTime; //Date interval		
+
+		$workAproxTime = $this->thisSensorManager->getAproxWorkTime($workTime[1], $allCountF);
+		$this->template->workAproxTime = $workAproxTime; //Date interval		
+
+		// echo"Work";
+		// dump($workTime);
+
+		// dump($ids);
 		// $this->error("TEST ERROR", IResponse::S404_NOT_FOUND);
 		// dump($this->runSafely($this->thisSensorManager->addEvent("asd", 1)));
 		// dump($this->thisSensorManager->testPretty());
-		$start = Datetime::from("2000-01-01 00:00:00");
-		dump($all = $this->thisSensorManager->getAllTime("Debug", $ids));
-		dump($stop = $this->thisSensorManager->getStopTime("Debug", $ids));
-		$start->add($all);
-		dump($start);
+		
+		// dump($stop = $this->thisSensorManager->getStopTime("Debug", $ids));
+		// $start->add($allTime[0]);
+		// dump($start);
 	}
 	
 	public function renderRun(): void
@@ -313,7 +334,7 @@ final class TestPresenter extends BasePresenter
 
 	public function actionReset()
 	{
-		$this->thisSensorManager->resetDB("Tester");
+		$this->thisSensorManager->resetDB("Debug");
 	}
 
 }
