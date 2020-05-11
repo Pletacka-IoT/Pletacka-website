@@ -4,7 +4,7 @@ namespace App\CoreModule\Model;
 
 use Nette;
 use Nette\Database\Context;
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 use DateInterval;
 use DateTimeZone;
 use Nette\Utils\DateTime;
@@ -39,14 +39,14 @@ class ThisSensorManager
     private $database;
     private $defaultMsgLanguage;
     private $defaultAPILanguage;
-    private $sensorManager;
+    private $sensorsManager;
 
-    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database, SensorManager $sensorManager)
+    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database, SensorsManager $sensorsManager)
     {
         $this->database = $database;
         $this->defaultMsgLanguage = $defaultMsgLanguage;
         $this->defaultAPILanguage = $defaultAPILanguage;
-        $this->sensorManager = $sensorManager;
+        $this->sensorsManager = $sensorsManager;
 
     }
 
@@ -75,7 +75,7 @@ class ThisSensorManager
      */
     public function addEvent($sName, $state)
     {
-        if(!$this->sensorManager->sensorIsExist($sName))
+        if(!$this->sensorsManager->sensorIsExist($sName))
         {
             // return array(false, "Sensor with name ".$sName." delete does not exist", "Senzor s názvem".$sName." neexistuje");
             return $this->pretty(0,"","Sensor with name ".$sName." does not exist", "Senzor s názvem".$sName." neexistuje");
@@ -227,7 +227,7 @@ class ThisSensorManager
 
     public function getStopTime($sName, $ids)
     {
-        if(!$this->sensorManager->sensorIsExist($sName))
+        if(!$this->sensorsManager->sensorIsExist($sName))
         {
             return $this->pretty(false,"",  "Sensor with name ".$sName." delete does not exist", "V poli neni žádný prvek");
         }

@@ -10,7 +10,7 @@ use Tracy\Dumper;
 use App\Presenters\BasePresenter;
 
 
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use Nette\Http\Request;
@@ -47,16 +47,16 @@ final class TestPresenter extends BasePresenter
     //     OLDSTOP = "0",	// Machine is not working
     //     REWORK = "2"; 	//State after end of stoji	
 	
-	private $sensorManager;
+	private $sensorsManager;
     private $request;
     private $urlParameter;
     private $sensorsFormFactory;
     private $thisSensorManager;
 
-	public function __construct(SensorManager $sensorManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
+	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
 	{
         
-        $this->sensorManager = $sensorManager;
+        $this->sensorsManager = $sensorsManager;
         $this->thisSensorManager = $thisSensorManager;
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;

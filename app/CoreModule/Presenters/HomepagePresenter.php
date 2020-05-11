@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 use App\Presenters\BasePresenter;
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 
 
 
 final class HomepagePresenter extends BasePresenter
 {
-    private $sensorManager;
+    private $sensorsManager;
 
-	public function __construct(SensorManager $sensorManager)
+	public function __construct(SensorsManager $sensorsManager)
 	{
-		$this->sensorManager = $sensorManager;
+		$this->sensorsManager = $sensorsManager;
     }
 
     public function renderDefault() : void
     {
-        $this->template->settings = $this->sensorManager->getTitleSettings();
+        $this->template->settings = $this->sensorsManager->getTitleSettings();
         $variab = "Pepik";
         $this->template->var = $variab;
     }

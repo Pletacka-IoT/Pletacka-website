@@ -7,7 +7,7 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 
 use Apitte\Core\Exception\Api\MessageException;
 
@@ -16,15 +16,15 @@ use Apitte\Core\Exception\Api\MessageException;
  */
 final class SensorsController extends BaseV1Controller
 {
-	private $sensorManager;
+	private $sensorsManager;
 	private $language;
 
 	private $defaultArticleUrl;
 	
-	public function __construct(SensorManager $sensorManager)
+	public function __construct(SensorsManager $sensorsManager)
 	{
-		$this->sensorManager = $sensorManager;
-		$this->language = $this->sensorManager->getAPILanguage();
+		$this->sensorsManager = $sensorsManager;
+		$this->language = $this->sensorsManager->getAPILanguage();
 	}
 
 
@@ -35,7 +35,7 @@ final class SensorsController extends BaseV1Controller
 	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
 		$aSensors = array();
-        $sensors = $this->sensorManager->getSensors();
+        $sensors = $this->sensorsManager->getSensors();
         foreach($sensors as $sensor)
         {
             $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
@@ -53,7 +53,7 @@ final class SensorsController extends BaseV1Controller
 	{
 		$name = $request->getParameter('name');
 		$aSensors = array();
-        $sensors = $this->sensorManager->findSensorsName($name);
+        $sensors = $this->sensorsManager->findSensorsName($name);
         foreach($sensors as $sensor)
         {
             $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
@@ -70,9 +70,9 @@ final class SensorsController extends BaseV1Controller
 	public function sensorsNumber(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
 		$number = $request->getParameter('number');
-		if($this->sensorManager->sensorIsExist($number, 'number'))
+		if($this->sensorsManager->sensorIsExist($number, 'number'))
 		{
-			$sensor = $this->sensorManager->getSensorsNumber($number);
+			$sensor = $this->sensorsManager->getSensorsNumber($number);
 			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 		}
 		else
@@ -98,9 +98,9 @@ final class SensorsController extends BaseV1Controller
 	{
 		
 		$name = $request->getParameter('name');
-		if($this->sensorManager->sensorIsExist($name, 'name'))
+		if($this->sensorsManager->sensorIsExist($name, 'name'))
 		{
-			$sensor = $this->sensorManager->getSensorsName($name);
+			$sensor = $this->sensorsManager->getSensorsName($name);
 			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 		}
 		else
@@ -119,7 +119,7 @@ final class SensorsController extends BaseV1Controller
 	public function create(ApiRequest $request): array
 	{
 		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorManager->addNewSensor($post['number'], $post['name'], $post['description']);
+		$returnMessage = $this->sensorsManager->addNewSensor($post['number'], $post['name'], $post['description']);
 		if($returnMessage[0])
 		{
 			return ['message'=>$returnMessage[$this->language]];
@@ -141,7 +141,7 @@ final class SensorsController extends BaseV1Controller
 	public function update(ApiRequest $request): array
 	{
 		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorManager->editSensor($post['old-name'],$post['number'], $post['name'], $post['description']);
+		$returnMessage = $this->sensorsManager->editSensor($post['old-name'],$post['number'], $post['name'], $post['description']);
 		if($returnMessage[0])
 		{
 			return ['message'=>$returnMessage[$this->language]];
@@ -162,7 +162,7 @@ final class SensorsController extends BaseV1Controller
 	public function delete(ApiRequest $request): array
 	{
 		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorManager->deleteSensor($post['name']);
+		$returnMessage = $this->sensorsManager->deleteSensor($post['name']);
 		if($returnMessage[0])
 		{
 			return ['message'=>$returnMessage[$this->language], $this->language];

@@ -20,7 +20,7 @@ abstract class BasePresenter extends Presenter
 {
 	protected $formFactory;
 
-	private $sensorManager;
+	private $sensorsManager;
 
 	
 	protected function redrawAll()

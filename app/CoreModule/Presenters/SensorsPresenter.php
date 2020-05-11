@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\CoreModule\Presenters;
 
 use Nette;
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 use Nette\Application\UI\Form;
 use App\CoreModule\Forms\SensorsFormFactory;
@@ -27,16 +27,16 @@ final class SensorsPresenter extends BasePresenter
 
         
         
-    private $sensorManager;
+    private $sensorsManager;
     private $request;
     private $urlParameter;
     private $sensorsFormFactory;
     private $thisSensorManager;
 
-	public function __construct(SensorManager $sensorManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
+	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
 	{
         
-        $this->sensorManager = $sensorManager;
+        $this->sensorsManager = $sensorsManager;
         $this->thisSensorManager = $thisSensorManager;
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
@@ -48,7 +48,7 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentAddSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createCreate(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorManager->addNewSensor($values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->addNewSensor($values->number, $values->name, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[3], 'success');
@@ -69,7 +69,7 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentEditSensorxForm(): Form
     {
 		return $this->sensorsFormFactory->createEditOld(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[3], 'success');
@@ -90,7 +90,7 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentDeleteSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createDelete(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorManager->deleteSensor($values->name);
+            $returnMessage = $this->sensorsManager->deleteSensor($values->name);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[3], 'success');
@@ -112,7 +112,7 @@ final class SensorsPresenter extends BasePresenter
     public function renderDefault() : void
     {
         
-        $this->template->sensors = $this->sensorManager->getSensors();
+        $this->template->sensors = $this->sensorsManager->getSensors();
 
     }
 
@@ -128,7 +128,7 @@ final class SensorsPresenter extends BasePresenter
     {
         
         
-        if(!$this->sensorManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($name))
         {
             $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
@@ -136,8 +136,8 @@ final class SensorsPresenter extends BasePresenter
             
         }
 
-        $this->template->sensor = $this->sensorManager->getSensorsName($name);
-        $this->template->name = $this->sensorManager->getSensorsName($name)["name"];
+        $this->template->sensor = $this->sensorsManager->getSensorsName($name);
+        $this->template->name = $this->sensorsManager->getSensorsName($name)["name"];
         
 
     }
@@ -155,7 +155,7 @@ final class SensorsPresenter extends BasePresenter
             $oldSensor = $exUrl[0];
             
             
-            $returnMessage = $this->sensorManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[3], 'success');
@@ -174,13 +174,13 @@ final class SensorsPresenter extends BasePresenter
     public function renderEdit($name)
     {
 
-        if(!$this->sensorManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($name))
         {
             $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
-        $sensor = $this->sensorManager->getSensorsName($name);
+        $sensor = $this->sensorsManager->getSensorsName($name);
         $this->template->sensor = $sensor;
         $this->template->name = $sensor["name"];
         $this['editSensorForm']->setDefaults($sensor);
@@ -200,14 +200,14 @@ final class SensorsPresenter extends BasePresenter
         
         
 
-        if(!$this->sensorManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($name))
         {
             $message = array(false,"", "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
 
-        $returnMessage = $this->sensorManager->deleteSensor($name);
+        $returnMessage = $this->sensorsManager->deleteSensor($name);
         if($returnMessage[0])
         {
             $this->flashMessage($returnMessage[3], 'success');
@@ -234,7 +234,7 @@ final class SensorsPresenter extends BasePresenter
     public function renderTest($name, $next)
     {
         // $output = array();
-        // $sensors = $this->sensorManager->getSensors();
+        // $sensors = $this->sensorsManager->getSensors();
         // foreach($sensors as $sensor)
         // {
         //     dump($sensor);
@@ -248,10 +248,10 @@ final class SensorsPresenter extends BasePresenter
         // echo json_encode($xout);
         // dump( $xout['sensors']);
 
-        // $sensor = $this->sensorManager->getSensorsNumber(3);
+        // $sensor = $this->sensorsManager->getSensorsNumber(3);
         // dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
 
-        // dump($this->sensorManager->findSensorsName("3"));
+        // dump($this->sensorsManager->findSensorsName("3"));
 
         
         

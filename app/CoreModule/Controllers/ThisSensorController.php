@@ -7,7 +7,7 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
-use App\CoreModule\Model\SensorManager;
+use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 
 use Apitte\Core\Exception\Api\MessageException;
@@ -17,17 +17,17 @@ use Apitte\Core\Exception\Api\MessageException;
  */
 final class ThisSensorController extends BaseV1Controller
 {
-	private $sensorManager;
+	private $sensorsManager;
 	private $language;
 
 	
 	private $thisSensorManager;
 	
-	public function __construct(SensorManager $sensorManager, ThisSensorManager $thisSensorManager)
+	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager)
 	{
-		$this->sensorManager = $sensorManager;
+		$this->sensorsManager = $sensorsManager;
 		$this->thisSensorManager = $thisSensorManager;
-		$this->language = $this->sensorManager->getAPILanguage();
+		$this->language = $this->sensorsManager->getAPILanguage();
 	}
 
 	

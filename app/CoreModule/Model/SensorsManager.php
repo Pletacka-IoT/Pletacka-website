@@ -6,7 +6,7 @@ use Nette;
 use Nette\Database\Context;
 
 
-class SensorManager
+class SensorsManager
 {
 	use Nette\SmartObject;
 
