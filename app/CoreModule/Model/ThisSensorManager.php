@@ -53,7 +53,20 @@ class ThisSensorManager
     public function pretty($state = true, $main, $englishMsg = "", $czechMsg = "" )
     {
         return( array($state, $main, $englishMsg, $czechMsg));
+        
     }  
+
+
+    public function testPretty()
+    {
+        // dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
+        // $y = PrettyReturn::return(true, array(1,2,3), "IT is ok", "Je to ok");
+        dump(Pretty::return(0,"","Sensor with name  does not exist", "Senzor s názvemneexistuje"));
+        // dump($y);
+        return 1;//$x;
+    }
+
+    
 
     /**
      * Save sensor status to database
@@ -95,10 +108,20 @@ class ThisSensorManager
     // Gets
     //////////////
 
-    public function getAllEvents($sName)
+    public function getAllEventsL($sName)
     {
         return $this->database->table($sName)->fetchAll();
     }
+
+
+    public function getAllEvents($sName, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
+    {
+        return $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();  
+    }
+
+    // public function getAllIdState($sName, $from , $to, $state = self::FINISHED)
+    // {
+    //     $ids =   
 
     public function getAllEventsState($sName, $state)
     {
@@ -187,23 +210,20 @@ class ThisSensorManager
     public function getAllTime($sName, $ids)
     {
         //dump($ids);
-        //echo "First key".array_key_first($ids);
+        // echo "First key->".array_key_first($ids[0]);
+        // echo "<br>Last key->".array_key_first($ids[array_key_last($ids)]);
         //dump( array_key_last($ids)+1);
-        $first = $this->database->table($sName)->where("id=?", array_key_first($ids[0]) )->fetch()->time->getTimestamp();
-        $last = $this->database->table($sName)->where("id=?", array_key_last($ids)+1)->fetch()->time->getTimestamp();
+
+        // echo "<br>X".(array_key_last($ids));
+        // echo "<br>RES:".array_key_first($ids[array_key_last($ids)]);
+        /*echo "<br>First:".*/$first = $this->database->table($sName)->where("id=?", array_key_first($ids[0]) )->fetch()->time->getTimestamp();
+        /*echo"<br>Last:". */$last = $this->database->table($sName)->where("id=?", array_key_first($ids[array_key_last($ids)]))->fetch()->time->getTimestamp();
         $res =  $last-$first;
+        //echo "<br>Vys:".$res;
         return array(new DateInterval("PT".$res."S"), $res);
     }
 
 
-    public function testPretty()
-    {
-        // dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
-        // $y = PrettyReturn::return(true, array(1,2,3), "IT is ok", "Je to ok");
-        dump(Pretty::fromParts(2000,1,11,1));
-        // dump($y);
-        return 1;//$x;
-    }
 
     public function getStopTime($sName, $ids)
     {
@@ -227,7 +247,8 @@ class ThisSensorManager
         {
             
             // dump($state);
-            //dump($id);
+            // dump($state);
+            // echo array_key_first($ids[$id]);
             //dump( $state[key($state)]);
             //echo "ID: ".key($state)."STATE ->".$state[key($state)];
             switch ($sState) {
@@ -235,14 +256,14 @@ class ThisSensorManager
                     if($state[key($state)] == self::STOP)
                     {
                         $sState++;
-                        $start = $this->database->table($sName)->where("id=?", $id+1)->fetch()->time->getTimestamp();
+                        $start = $this->database->table($sName)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
                         //echo " -> STOP -> ".$start;
                     }                    
                     break;
                 case 1:
                     if($state[key($state)] == self::REWORK)
                     {
-                        $stop = $this->database->table($sName)->where("id=?", $id+1)->fetch()->time->getTimestamp();
+                        $stop = $this->database->table($sName)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
                         $sState = 0;
                         $time += $stop-$start;
                         //echo " -> REWORK -> ".$stop."-> ALL: ". $time;

@@ -120,8 +120,8 @@ class SensorManager
         try{
             $this->database->query("CREATE TABLE $sensorName (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                state ENUM('WORK','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'WORK',
-                work INT(11) NOT NULL,               
+                state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'WORK',
+                -- work INT(11) NOT NULL,               
                 time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )");
         } catch (Nette\Database\DriverException $e){
@@ -146,7 +146,8 @@ class SensorManager
             $this->database->query("ALTER TABLE $oldName
             RENAME TO $sensorName");    
         } catch (Nette\Database\DriverException $e) {
-            return $this->addThisSensor($sensorName);
+            //if sensor does no exist add new sensor to DB
+            return $this->addThisSensor($sensorName); //
         }
         return true;
     }  
