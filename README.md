@@ -16,5 +16,4 @@ To clone and run this repository you'll need [Git](https://git-scm.com),  [PHP 7
 # Clone this repository to Apache server folder
 git clone https://github.com/JakubAndrysek/Pletacka-website-nette.git
 ``` 
-
-Then open your browser and 
+...
