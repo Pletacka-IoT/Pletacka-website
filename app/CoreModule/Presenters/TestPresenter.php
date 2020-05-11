@@ -346,7 +346,7 @@ final class TestPresenter extends BasePresenter
 
 	public function actionReset()
 	{
-		$this->thisSensorManager->resetDB($sName);
+		// $this->thisSensorManager->resetDB($sName);
 	}
 
 }

@@ -23,11 +23,6 @@ class ThisSensorManager
         MINUTE = 60;
 
     public const
-        OLDWORK = '1',	// Machine is working
-        OLDSTOP = "0",	// Machine is not working
-        OLDREWORK = "2"; 	//State after end of stoji
-
-    public const
         FINISHED = 'FINISHED',	    // Machine is working
         STOP = "STOP",	    // Machine is not working
         REWORK = "REWORK", 	// State after end of STOP

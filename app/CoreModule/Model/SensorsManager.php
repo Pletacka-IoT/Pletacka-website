@@ -117,6 +117,19 @@ class SensorsManager
      */    
     public function addThisSensor($sensorName)
     {
+        $this->database->query("CREATE TABLE $sensorName (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
+            -- work INT(11) NOT NULL,               
+            time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )");
+        return true;
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+    public function example($sensorName)
+    {
         try{
             $this->database->query("CREATE TABLE $sensorName (
                 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
