@@ -293,13 +293,14 @@ final class SensorsPresenter extends BasePresenter
         // dump($x);
         // echo ($x->format('Y-m-d H:i:s.u'));
 
-        dump($this->sensorsManager->getTitleSettings());
+        // dump($this->sensorsManager->getSensorInfo("Debuga"));
+        dump($this->sensorsManager->getSensorsNumber(121));
         echo "Ahoj";
         // dump($this->sensorsManager->getTitleSettings()[1]->web_nsame);
 
         // dump($this->sensorsManager->GET)
         // throw new Exception;
-        throw new Exceptions\TableNotExist();
+        // throw new Exceptions\TableNotExist();
         
         // throw new BadRequestException("Bad");
        

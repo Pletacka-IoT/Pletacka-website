@@ -35,6 +35,23 @@ class MyException extends \Exception
 }
 
 
+/**
+ * Exception for unexisting table
+ */
+class ERROR extends MyException
+{
+	protected $message = 'Unspecificed ERROR';
+}
+
+
+/**
+ * Exception for unexisting table
+ */
+class SettingsNotExist extends MyException
+{
+	protected $message = 'Please create table "settings" in DB';
+}
+
 
 /**
  * Exception for unexisting table
@@ -43,6 +60,8 @@ class TableNotExist extends MyException
 {
 	protected $message = 'Table with this name is not exist';
 }
+
+
 
 
 /**

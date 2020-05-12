@@ -39,36 +39,20 @@ class SensorsManager
 
 
     /**
-     * Get settings from database 
-     * @return null|\Nette\Database\Table\ActiveRow
+     * Get all settings from database 
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */
     public function getTitleSettings()
     {
         try {
             $ret = $this->database->table("settings")->get(1); //number is ID in table settings
-        } catch (Nette\Database\DriverException $e) {
-            
-            if($e->errorInfo[0]=="42S02") //Skip if error is "table is already exist"
-            {
-                throw new Exceptions\TableNotExist;
-            }  
-            return Pretty::return(false,"","ERROR", "ERROR");
-            
+        } catch (Nette\InvalidArgumentException $e) {
+            throw new Exceptions\SettingsNotExist;
         }
-        return Pretty::return(true, $ret);
+        return $ret;
     }
 
-    
 
-
-    /**
-     * Get sensor from database 
-     * @return null|\Nette\Database\Table\ActiveRow
-     */    
-    public function getSensorInfo($name)
-    {
-        return $this->database->table("sensors")->where("name", $name)[0];
-    } 
     
     /**
      * Get all sensors from database 
@@ -82,21 +66,29 @@ class SensorsManager
     /**
      * Get sensor with specific number
      * @param string $number
-     * @return null|\Nette\Database\Table\ActiveRow
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */
     public function getSensorsNumber($number)
     {
-        return $this->database->table("sensors")->where("number", $number )->fetch();
+        if(($out = $this->database->table("sensors")->where("number", $number )->fetch())==null)
+        {
+            throw new Exceptions\SensorNotExist;
+        }
+        return $out;
     } 
 
     /**
      * Get sensor with specific name
      * @param string $name
-     * @return null|\Nette\Database\Table\ActiveRow
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */    
     public function getSensorsName($name)
     {
-        return $this->database->table("sensors")->where("name", $name )->fetch();
+        if(($out = $this->database->table("sensors")->where("name", $name )->fetch())==null)
+        {
+            throw new Exceptions\SensorNotExist;
+        }
+        return $out;
     }
         
 
