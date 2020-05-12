@@ -8,6 +8,11 @@ use Nette;
 use Nette\Application\Responses;
 use Nette\Http;
 use Tracy\ILogger;
+use App\Exceptions\MyException;
+
+use App\Exceptions\ExampleShow;
+use Error;
+use Exception;
 
 
 final class ErrorPresenter implements Nette\Application\IPresenter
@@ -31,8 +36,14 @@ final class ErrorPresenter implements Nette\Application\IPresenter
 	{
 		$e = $request->getParameter('exception');
 
+		if ($e instanceof MyException) {
+			$this->logger->log($e, ILogger::ERROR);
+			return new Responses\ForwardResponse($request->setPresenterName("ErrorApp")->setParameters(['message' => $e->getMessage()]));
+		}	
+
 		if ($e instanceof Nette\Application\BadRequestException) {
 			// $this->logger->log("HTTP code {$e->getCode()}: {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", 'access');
+			$this->logger->log($e, ILogger::INFO);
 			[$module, , $sep] = Nette\Application\Helpers::splitName($request->getPresenterName());
 			$errorPresenter = $module . $sep . 'Error4xx';
 			return new Responses\ForwardResponse($request->setPresenterName($errorPresenter));

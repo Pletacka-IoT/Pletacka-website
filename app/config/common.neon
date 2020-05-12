@@ -27,6 +27,8 @@ api:
 
 application:
 	errorPresenter: Error
+
+
 	mapping:
 		*: App\*Module\Presenters\*Presenter
 		Apitte: Apitte\Presenter\*Presenter
@@ -50,6 +52,11 @@ services:
 	acl:
 		factory: Nette\Security\Permission
 		setup:
+			# - addResource(Error)
+			# - addResource(Error4xx)
+			
+			# - allow(guest, Error)
+			# - allow(guest, Error4xx)		
 
 	- App\Model\UserManager
 	# - App\Model\DatabaseManager
@@ -60,3 +67,5 @@ services:
 
 includes:
 	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	
+
+

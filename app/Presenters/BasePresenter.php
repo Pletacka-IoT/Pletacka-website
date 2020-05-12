@@ -21,8 +21,14 @@ abstract class BasePresenter extends Presenter
 	protected $formFactory;
 
 	private $sensorsManager;
+	// private $request;
 
-	
+	// public function __construct(Nette\Application\Request $request)
+	// {
+	// 	$this->request = $request ;
+	// }
+
+
 	protected function redrawAll()
 	{
 		$this->redrawControl('title');

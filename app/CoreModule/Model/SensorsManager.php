@@ -2,9 +2,25 @@
 
 namespace App\CoreModule\Model;
 
+
+use Exception;
 use Nette;
 use Nette\Database\Context;
+use App\Utils\Pretty;
+// use App\CoreModule\Exceptions;
+use App\Exceptions;
+use App\Exceptions\MyException;
 
+
+// /**
+//  * Výjimka pro duplicitní uživatelské jméno.
+//  * @package App\Model
+//  */
+// class DuplicateNameException extends Exception
+// {
+// 	// Nastavení výchozí chybové zprávy.
+// 	protected $message = 'Uživatel s tímto jménem je již zaregistrovaný.';
+// }
 
 class SensorsManager
 {
@@ -23,24 +39,20 @@ class SensorsManager
 
 
     /**
-     * Get settings from database 
-     * @return array
+     * Get all settings from database 
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */
     public function getTitleSettings()
     {
-        return $this->database->table("settings")->get(1); //number is ID in table settings
-        
+        try {
+            $ret = $this->database->table("settings")->get(1); //number is ID in table settings
+        } catch (Nette\InvalidArgumentException $e) {
+            throw new Exceptions\SettingsNotExist;
+        }
+        return $ret;
     }
 
 
-    /**
-     * Get sensor from database 
-     * @return array
-     */    
-    public function getSensorInfo($name)
-    {
-        return $this->database->table("sensors")->where("name", $name)[0];
-    } 
     
     /**
      * Get all sensors from database 
@@ -54,21 +66,29 @@ class SensorsManager
     /**
      * Get sensor with specific number
      * @param string $number
-     * @return null|\Nette\Database\Table\ActiveRow
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */
     public function getSensorsNumber($number)
     {
-        return $this->database->table("sensors")->where("number", $number )->fetch();
+        if(($out = $this->database->table("sensors")->where("number", $number )->fetch())==null)
+        {
+            throw new Exceptions\SensorNotExist;
+        }
+        return $out;
     } 
 
     /**
      * Get sensor with specific name
      * @param string $name
-     * @return null|\Nette\Database\Table\ActiveRow
+     * @return Exception|\Nette\Database\Table\ActiveRow
      */    
     public function getSensorsName($name)
     {
-        return $this->database->table("sensors")->where("name", $name )->fetch();
+        if(($out = $this->database->table("sensors")->where("name", $name )->fetch())==null)
+        {
+            throw new Exceptions\SensorNotExist;
+        }
+        return $out;
     }
         
 

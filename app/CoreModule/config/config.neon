@@ -10,6 +10,8 @@ services:
 			- addResource(Core:Test)
 			- addResource(Core:Connect)
 			- addResource(Core:Sensors)
+			# - addResource(Error)
+			# - addResource(Error4xx)
 
 
             # Pravidla přístupu
@@ -17,6 +19,8 @@ services:
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
+			# - allow(guest, Error)
+			# - allow(guest, Error4xx)
 
 
 			- allow(member, Core:Homepage)
