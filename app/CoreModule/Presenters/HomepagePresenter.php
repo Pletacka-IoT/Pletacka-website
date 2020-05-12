@@ -19,7 +19,16 @@ final class HomepagePresenter extends BasePresenter
 
     public function renderDefault() : void
     {
-        $this->template->settings = $this->sensorsManager->getTitleSettings();
+        $settings = $this->sensorsManager->getTitleSettings();
+        if($settings[0])
+        {
+            $this->template->settings = $settings[1];
+        }
+        else
+        {
+            $this->error($settings[2]);
+        }
+        
         $variab = "Pepik";
         $this->template->var = $variab;
     }

@@ -15,6 +15,10 @@ use App\Presenters\BasePresenter;
 use Nette\Utils\Strings;
 use Nette\Http\Session;
 use Nette\Utils\DateTime;
+use App\Exceptions;
+use App\Exceptions\MyException;
+use Exception;
+use Nette\Application\BadRequestException;
 
 final class SensorsPresenter extends BasePresenter
 {
@@ -279,16 +283,27 @@ final class SensorsPresenter extends BasePresenter
 
     public function actionDebug()
     {
-        $date1=DateTime::from("2020-04-17 15:52:00");
-        $date2=DateTime::from("2020-04-17 15:53:00");
+        // $date1=DateTime::from("2020-04-17 15:52:00");
+        // $date2=DateTime::from("2020-04-17 15:53:00");
 
-        echo date_format($date1,"Y-m/d H:i:s")."<br>";
-        echo date_format($date2,"Y-m/d H:i:s")."<br>";
-        $x  =  date_diff($date2, $date1);
-        // echo date_format($x,"Y-m/d H:i:s")."<br>";          
-        dump($x);
-        echo ($x->format('Y-m-d H:i:s.u'));
+        // echo date_format($date1,"Y-m/d H:i:s")."<br>";
+        // echo date_format($date2,"Y-m/d H:i:s")."<br>";
+        // $x  =  date_diff($date2, $date1);
+        // // echo date_format($x,"Y-m/d H:i:s")."<br>";          
+        // dump($x);
+        // echo ($x->format('Y-m-d H:i:s.u'));
+
+        dump($this->sensorsManager->getTitleSettings());
+        echo "Ahoj";
+        // dump($this->sensorsManager->getTitleSettings()[1]->web_nsame);
+
+        // dump($this->sensorsManager->GET)
+        // throw new Exception;
+        throw new Exceptions\TableNotExist();
+        
+        // throw new BadRequestException("Bad");
        
     }
 
 }
+

@@ -2,9 +2,25 @@
 
 namespace App\CoreModule\Model;
 
+
+use Exception;
 use Nette;
 use Nette\Database\Context;
+use App\Utils\Pretty;
+// use App\CoreModule\Exceptions;
+use App\Exceptions;
+use App\Exceptions\MyException;
 
+
+// /**
+//  * Výjimka pro duplicitní uživatelské jméno.
+//  * @package App\Model
+//  */
+// class DuplicateNameException extends Exception
+// {
+// 	// Nastavení výchozí chybové zprávy.
+// 	protected $message = 'Uživatel s tímto jménem je již zaregistrovaný.';
+// }
 
 class SensorsManager
 {
@@ -24,18 +40,30 @@ class SensorsManager
 
     /**
      * Get settings from database 
-     * @return array
+     * @return null|\Nette\Database\Table\ActiveRow
      */
     public function getTitleSettings()
     {
-        return $this->database->table("settings")->get(1); //number is ID in table settings
-        
+        try {
+            $ret = $this->database->table("settings")->get(1); //number is ID in table settings
+        } catch (Nette\Database\DriverException $e) {
+            
+            if($e->errorInfo[0]=="42S02") //Skip if error is "table is already exist"
+            {
+                throw new Exceptions\TableNotExist;
+            }  
+            return Pretty::return(false,"","ERROR", "ERROR");
+            
+        }
+        return Pretty::return(true, $ret);
     }
+
+    
 
 
     /**
      * Get sensor from database 
-     * @return array
+     * @return null|\Nette\Database\Table\ActiveRow
      */    
     public function getSensorInfo($name)
     {

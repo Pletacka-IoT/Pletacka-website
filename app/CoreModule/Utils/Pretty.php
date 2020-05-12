@@ -22,7 +22,7 @@ class Pretty
 	 * @param string $czechMsg
 	 * @return void
 	 */	
-    public static function return($state, $main, $englishMsg, $czechMsg)
+    public static function return($state, $main = "", $englishMsg = "", $czechMsg = "")
     {
         $x = array($state, $main, $englishMsg, $czechMsg);
         return ($x);
