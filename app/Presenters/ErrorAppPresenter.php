@@ -7,7 +7,7 @@ namespace App\Presenters;
 use Nette;
 use Error;
 use App\Exceptions\MyException;
-
+use Nette\Application\UI\Presenter;
 
 final class ErrorAppPresenter extends BasePresenter
 {
@@ -20,9 +20,9 @@ final class ErrorAppPresenter extends BasePresenter
 	// }
 
 
-	public function renderDefault(MyException $exception, $message): void
+	public function renderDefault(/*MyException $exception, */$message): void
 	{
-		echo "Fungujsse->".$message;
+		// echo "Fungujsse->".$message;
 		$file = __DIR__ . "/templates/Error/ErrorApp.latte";
 		$this->template->setFile($file);
 		$this->template->message = $message;
