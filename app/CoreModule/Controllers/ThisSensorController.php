@@ -77,17 +77,23 @@ final class ThisSensorController extends BaseV1Controller
 	 * @Path("/ping")
 	 * @Method("GET")
 	 */
-	public function scalar(): string
+	public function ping(): string
 	{
-		// return 'pong';
-		$ret = $this->thisSensorManager->addEvent("Pletacka1", "work");
-		if($ret == true)
-		{
-			return "OK";
-		}
-
-		return "Error ->".$ret[2];
+		return 'pong';
 	}
+
+
+	/**
+	 * @Path("/plet")
+	 * @Method("GET")
+	 */	
+	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
+
+        //$xout = array('sensors'=>$aSensors);
+		return $response->writeJsonBody($events);
+	}	
 
 
 	/**

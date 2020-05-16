@@ -300,7 +300,7 @@ final class SensorsPresenter extends BasePresenter
 
         // dump($this->sensorsManager->GET)
         // throw new Exception;
-        // throw new Exceptions\TableNotExist();
+        throw new Exceptions\TableNotExist();
         
         // throw new BadRequestException("Bad");
        

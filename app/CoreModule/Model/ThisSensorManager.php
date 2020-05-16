@@ -103,12 +103,6 @@ class ThisSensorManager
     // Gets
     //////////////
 
-    public function getAllEventsL($sName)
-    {
-        return $this->database->table($sName)->fetchAll();
-    }
-
-
     public function getAllEvents($sName, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
     {
         return $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();  
@@ -118,20 +112,6 @@ class ThisSensorManager
     // {
     //     $ids =   
 
-    public function getAllEventsState($sName, $state)
-    {
-        return $this->database->table($sName)->where("state", $state)->fetchAll();
-    }
-
-    public function getAllEventsOlder($sName, $time)
-    {
-        return $this->database->table($sName)->where("time >=?", $time)->fetchAll();
-    }
-
-    public function getAllEventsYounger($sName, $time)
-    {
-        return $this->database->table($sName)->where("time <=?", $time)->fetchAll();
-    }
 
     //////////////
     // Counts
@@ -147,8 +127,7 @@ class ThisSensorManager
         return $this->database->table($sName)->where("state", $state)->count();
     }
 
-
-
+    
     //////////////
     // ID
     //////////////

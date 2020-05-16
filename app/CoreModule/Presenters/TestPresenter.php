@@ -37,6 +37,8 @@ use DateTimeImmutable;
 
 use Jakubandrysek\Chart\BasicChart;
 
+use App\TimeManagers\TimeBox;
+
 
 
 
@@ -131,52 +133,23 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-		$sName = "Pletacka2";
-		if($name==1)
-		{
-			$sName = "Pletacka1";
-		}
+
+		$sName = "Pletacka1";
 
 		$start = "2020-05-05 4:00:00";
-		
-		
-		$this->template->allEventsCount = $this->thisSensorManager->countAllEvents($sName);
-        $this->template->allEventsCountF = $allCountF = $this->thisSensorManager->countAllEventsState($sName, $this->thisSensorManager::FINISHED);
-		$this->template->allEventsCountS = $allCountS = $this->thisSensorManager->countAllEventsState($sName, $this->thisSensorManager::STOP);
-		$this->template->allEventsCountR = $allCountR = $this->thisSensorManager->countAllEventsState($sName, $this->thisSensorManager::REWORK);
-		$this->template->allEvents = $this->thisSensorManager->getAllEvents($sName,"2000-01-01 00:00:00","2020-05-05 23:00:00");		
+		$end = "2020-05-05 7:00:00";
 
-		$ids = $this->thisSensorManager->getAllId($sName, '2020-05-05 4:00:00', '2020-05-05 23:00:00');
+		$rawEvents = $this->thisSensorManager->getAllEvents($sName, '2020-05-05 6:54:00', '2020-05-05 7:00:00');
+		
+		// dump($events);
+		$events = new TimeBox($rawEvents);
+		$this->template->events = $events;
+		dump($events->getEvents());
+		echo "Count";
+		$events->countEvents();
+
 		$start = Datetime::from("2000-01-01 00:00:00");
 
-		//dump($ids);
-
-		$allTime = $this->thisSensorManager->getAllTime($sName, $ids);
-		$this->template->allTime = $allTime; //Date interval
-
-		$stopTime = $this->thisSensorManager->getStopTime($sName, $ids);
-		$this->template->stopTime = $stopTime; //Date interval
-
-		$workTime = $this->thisSensorManager->getWorkTime($allTime[1], $stopTime[1]);
-		$this->template->workTime = $workTime; //Date interval
-
-		$stopAproxTime = $this->thisSensorManager->getAproxStopTime($stopTime[1], $allCountS);
-		$this->template->stopAproxTime = $stopAproxTime; //Date interval		
-
-		$workAproxTime = $this->thisSensorManager->getAproxWorkTime($workTime[1], $allCountF);
-		$this->template->workAproxTime = $workAproxTime; //Date interval		
-
-		// echo"Work";
-		// dump($workTime);
-
-		 
-		// $this->error("TEST ERROR", IResponse::S404_NOT_FOUND);
-		//  dump($this->runSafely($this->thisSensorManager->addEvent("asd", 1)));
-		// dump($this->thisSensorManager->testPretty());
-		
-		// dump($stop = $this->thisSensorManager->getStopTime($sName, $ids));
-		// $start->add($allTime[0]);
-		// dump($start);
 	}
 	
 	public function renderRun(): void
@@ -347,6 +320,14 @@ final class TestPresenter extends BasePresenter
 	public function actionReset()
 	{
 		// $this->thisSensorManager->resetDB($sName);
+		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
+		// foreach($events as $event)
+		// {
+		// 	dump($event);
+		// }
+		echo '<pre>';
+		var_dump($events);
+		echo '</pre>';		
 	}
 
 }
