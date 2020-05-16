@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LattePluginSettings">
+    <option name="wasFirstInitialized" value="true" />
+    <option name="variableSettings">
+      <list>
+        <LatteVariableSettings VarName="control" VarType="\Nette\Application\UI\Control" />
+        <LatteVariableSettings VarName="basePath" VarType="string" />
+        <LatteVariableSettings VarName="baseUrl" VarType="string" />
+        <LatteVariableSettings VarName="baseUri" VarType="string" />
+        <LatteVariableSettings VarName="flashes" VarType="mixed[]" />
+        <LatteVariableSettings VarName="presenter" VarType="\Nette\Application\UI\Presenter" />
+        <LatteVariableSettings VarName="iterator" VarType="\Latte\Runtime\CachingIterator" />
+        <LatteVariableSettings VarName="form" VarType="\Nette\Application\UI\Form" />
+        <LatteVariableSettings VarName="user" VarType="\Nette\Security\User" />
+      </list>
+    </option>
+    <option name="customMacroSettings">
+      <list>
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="href" MacroType="ATTR_ONLY" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="link" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="plink" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="control" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="snippet" MacroType="PAIR" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="snippetArea" MacroType="PAIR" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="form" MacroType="PAIR" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="formContainer" MacroType="PAIR" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="label" MacroType="AUTO_EMPTY" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="input" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="name" MacroType="ATTR_ONLY" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="inputError" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="_" MacroType="PAIR" />
+        <LatteCustomMacroSettings HasParameters="true" MacroName="dump" />
+        <LatteCustomMacroSettings AllowedModifiers="true" HasParameters="true" MacroName="cache" MacroType="PAIR" />
+      </list>
+    </option>
+    <option name="customFunctionSettings">
+      <list>
+        <LatteCustomFunctionSettings FunctionDescription="" FunctionHelp="(string $destination = null, $args = [])" FunctionName="isLinkCurrent" FunctionReturnType="bool" />
+        <LatteCustomFunctionSettings FunctionDescription="" FunctionHelp="(string $moduleName)" FunctionName="isModuleCurrent" FunctionReturnType="bool" />
+      </list>
+    </option>
+  </component>
+</project>

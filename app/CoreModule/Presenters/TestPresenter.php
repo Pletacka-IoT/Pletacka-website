@@ -143,12 +143,14 @@ final class TestPresenter extends BasePresenter
 		
 		// dump($events);
 		$events = new TimeBox($rawEvents);
-		$this->template->events = $events;
-		dump($events->getEvents());
-		echo "Count";
-		$events->countEvents();
 
-		$start = Datetime::from("2000-01-01 00:00:00");
+		$this->template->events = $events->getEvents();
+		$this->template->count = $events->countEvents();
+        $this->template->allTime = $events->allTime();
+        $this->template->stopTime = $events->stopTime();
+        $this->template->workTime = $events->workTime();
+
+//		$start = Datetime::from("2000-01-01 00:00:00");
 
 	}
 	

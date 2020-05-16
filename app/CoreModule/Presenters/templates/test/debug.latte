@@ -6,16 +6,8 @@
     <h1>Debug - <small>{$time}</small></h1>
 </div>
 <div class="container">
-    <h2>All events</h2>
-    {dump $events}
-    
-
-    {* {foreach $events->countEvents as $event}
-        {$event}
-        a
-        
-    {/foreach} *}
-    {* {foreach $events as $event}
+    <h2>All events: {$count}</h2>
+     {foreach $events as $event}
         {if $iterator->first}
             <table class="table table-striped">
                 <thead>
@@ -40,22 +32,30 @@
                 {elseif  $event->state == "REWORK"}
                     <td class="text-info">
                         {$event->state}
-                    </td>                    
+                    </td>
                 {else}
                     <td class="">
                         {$event->state}
-                    </td>                    
+                    </td>
                 {/if}
 
-                
-                
+
+
                 <td>{$event->time}</td>
             </tr>
         {if $iterator->last}
                 </tbody>
             </table>
         {/if}
-    {/foreach} *}
+    {/foreach}
+
+    <h2>Times</h2>
+    <div class="move-right">
+        <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+        <h4>Stop time: {$stopTime[0]|date:'%s'}s ->  {$stopTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+        <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+    </div>
+
     <h4></h4>
     <h4></h4> 
 </div>
