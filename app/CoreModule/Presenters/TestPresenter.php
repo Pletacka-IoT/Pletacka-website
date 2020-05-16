@@ -134,21 +134,25 @@ final class TestPresenter extends BasePresenter
 	public function actionDebug($name)
 	{
 
-		$sName = "Pletacka1";
+		$sName = "Debug";
 
 		$start = "2020-05-05 4:00:00";
 		$end = "2020-05-05 7:00:00";
 
-		$rawEvents = $this->thisSensorManager->getAllEvents($sName, '2020-05-05 6:54:00', '2020-05-05 7:00:00');
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, '2020-01-01 6:54:00', '2020-05-05 9:00:00');
 		
-		// dump($events);
-		$events = new TimeBox($rawEvents);
+//		dump($events);
+		if($rawEvents)
+        {
+            $events = new TimeBox($rawEvents);
 
-		$this->template->events = $events->getEvents();
-		$this->template->count = $events->countEvents();
-        $this->template->allTime = $events->allTime();
-        $this->template->stopTime = $events->stopTime();
-        $this->template->workTime = $events->workTime();
+            $this->template->events = $events->getEvents();
+            $this->template->count = $events->countEvents();
+            $this->template->allTime = $events->allTime();
+            $this->template->stopTime = $events->stopTime();
+            $this->template->workTime = $events->workTime();
+        }
+
 
 //		$start = Datetime::from("2000-01-01 00:00:00");
 
@@ -322,14 +326,12 @@ final class TestPresenter extends BasePresenter
 	public function actionReset()
 	{
 		// $this->thisSensorManager->resetDB($sName);
-		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
+		$events = $this->thissSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 9:00:00');
 		// foreach($events as $event)
 		// {
 		// 	dump($event);
 		// }
-		echo '<pre>';
-		var_dump($events);
-		echo '</pre>';		
+
 	}
 
 }
