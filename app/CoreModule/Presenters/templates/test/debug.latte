@@ -6,8 +6,8 @@
     <h1>Debug - <small>{$time}</small></h1>
 </div>
 <div class="container">
-    <h2>All events</h2>
-    {foreach $allEvents as $event}
+    <h2>All events: {$count}</h2>
+     {foreach $events as $event}
         {if $iterator->first}
             <table class="table table-striped">
                 <thead>
@@ -32,15 +32,15 @@
                 {elseif  $event->state == "REWORK"}
                     <td class="text-info">
                         {$event->state}
-                    </td>                    
+                    </td>
                 {else}
                     <td class="">
                         {$event->state}
-                    </td>                    
+                    </td>
                 {/if}
 
-                
-                
+
+
                 <td>{$event->time}</td>
             </tr>
         {if $iterator->last}
@@ -48,29 +48,14 @@
             </table>
         {/if}
     {/foreach}
-    <h2>Counts</h2>
+
+    <h2>Times</h2>
     <div class="move-right">
-        <h4>All events count: {$allEventsCount}</h4>
-        <h4>All events state count (FINSHED): {$allEventsCountF}</h4>
-        <h4>All events state count (STOP): {$allEventsCountS}</h4>
-        <h4>All events state count (REWORK): {$allEventsCountR}</h4>
-    </div>
-    
-     <h2>Times</h2>
-    <div class="move-right">   
         <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
         <h4>Stop time: {$stopTime[0]|date:'%s'}s ->  {$stopTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
         <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
     </div>
 
-    <h2>Aprox</h2>
-    <div class="move-right">    
-        <h4>Stop aprox time: {$stopAproxTime[0]|date:'%s'}s ->  {$stopAproxTime[1]|date:'i:s'} Minute:Second</h4>
-        <h4>Work aprox time: {$workAproxTime[0]|date:'%s'}s ->  {$workAproxTime[1]|date:'i:s'} Minute:Second</h4>
-    </div>
-    {* {dump $allEvents} *}
-    {* <h4>First event state (1): {$firstEvent}</h4>
-    <h4>Last event state (1): {$lastEvent}</h4> *}
     <h4></h4>
     <h4></h4> 
 </div>

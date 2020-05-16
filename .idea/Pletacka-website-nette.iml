@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/core" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/openapi" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/presenter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/application" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/di" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/latte" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/phpdoc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/psr7-http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contributte/tracy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dg/adminer-custom" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jakubandrysek/chart" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/latte/latte" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/php-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/application" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/caching" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/component-model" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/database" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/di" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/forms" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/neon" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/php-generator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/reflection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/robot-loader" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/safe-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/security" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/tester" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nette/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan-nette" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tracy/tracy" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
