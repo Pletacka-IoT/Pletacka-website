@@ -134,7 +134,7 @@ final class TestPresenter extends BasePresenter
 	public function actionDebug($name)
 	{
 
-		$sName = "Debug";
+        $sName = "Debug";
 
 		$start = "2020-05-05 4:00:00";
 		$end = "2020-05-05 7:00:00";
@@ -147,10 +147,18 @@ final class TestPresenter extends BasePresenter
             $events = new TimeBox($rawEvents);
 
             $this->template->events = $events->getEvents();
-            $this->template->count = $events->countEvents();
+
+            $this->template->countAll = $events->countEvents();
+            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+            $this->template->countStop = $events->countEvents(TimeBox::STOP);
+            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+            $this->template->countOn = $events->countEvents(TimeBox::ON);
+            $this->template->countOff = $events->countEvents(TimeBox::OFF);
             $this->template->allTime = $events->allTime();
             $this->template->stopTime = $events->stopTime();
             $this->template->workTime = $events->workTime();
+            $this->template->avgStopTime = $events->avgStopTime();
+            $this->template->avgWorkTime = $events->avgWorkTime();
         }
 
 

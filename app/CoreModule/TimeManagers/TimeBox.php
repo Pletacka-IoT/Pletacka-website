@@ -131,20 +131,26 @@ class TimeBox
         return array(new DateInterval("PT".$time."S"), $time);
     }
 
+    /**
+     * Average stop time
+     * @return array
+     * @throws \Exception
+     */
+    public function avgStopTime()
+    {
+        $time = ceil($this->stopTime()[1]/$this->countEvents(self::STOP));
+        return array(new DateInterval("PT".$time."S"), $time);
+    }
 
-	// /**
-	//  * Method create pretty output in specific format
-	//  *
-	//  * @param bool $state
-	//  * @param mix $main
-	//  * @param string $englishMsg
-	//  * @param string $czechMsg
-	//  * @return void
-	//  */	
-    // public static function return($state, $main = "", $englishMsg = "", $czechMsg = "")
-    // {
-    //     $x = array($state, $main, $englishMsg, $czechMsg);
-    //     return ($x);
-    // }
+    /**
+     * Average work time
+     * @return array
+     * @throws \Exception
+     */
+    public function avgWorkTime()
+    {
+        $time = ceil($this->workTime()[1]/$this->countEvents(self::FINISHED));
+        return array(new DateInterval("PT".$time."S"), $time);
+    }
     
 }

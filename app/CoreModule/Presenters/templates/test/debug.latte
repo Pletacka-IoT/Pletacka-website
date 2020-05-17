@@ -7,7 +7,7 @@
 </div>
 <div class="container">
     {if $rawEvents}
-        <h2>All events: {$count}</h2>
+        <h2>All events: {$countAll}</h2>
          {foreach $events as $event}
             {if $iterator->first}
                 <table class="table table-striped">
@@ -50,6 +50,16 @@
             {/if}
         {/foreach}
 
+        <h2>Counts</h2>
+        <div class="move-right">
+            <h4>All events count: {$countAll}</h4>
+            <h4>All events state count (FINISHED): {$countFinished}</h4>
+            <h4>All events state count (STOP): {$countStop}</h4>
+            <h4>All events state count (REWORK): {$countRework}</h4>
+            <h4>All events state count (ON): {$countOn}</h4>
+            <h4>All events state count (OFF): {$countOff}</h4>
+        </div>
+
         <h2>Times</h2>
         <div class="move-right">
             <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
@@ -57,11 +67,17 @@
             <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
         </div>
 
+        <h2>Average</h2>
+        <div class="move-right">
+            <h4>Stop average time: {$avgStopTime[0]|date:'%s'}s ->  {$avgStopTime[1]|date:'i:s'} Minute:Second</h4>
+            <h4>Work average time: {$avgWorkTime[0]|date:'%s'}s ->  {$avgWorkTime[1]|date:'i:s'} Minute:Second</h4>
+        </div>
+
         <h4></h4>
         <h4></h4>
 {*    {elseifset $var}*}
     {else}
-        <h2>No data avalible</h2>
+        <h2>No data available</h2>
     {/if}
 </div>
 
