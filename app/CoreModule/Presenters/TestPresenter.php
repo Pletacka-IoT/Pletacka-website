@@ -141,13 +141,13 @@ final class TestPresenter extends BasePresenter
 
         $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, '2020-01-01 6:54:00', '2020-05-05 9:00:00');
 		
-//		dump($events);
+//		dump($rawEvents);
 		if($rawEvents)
         {
             $events = new TimeBox($rawEvents);
 
             $this->template->events = $events->getEvents();
-
+//
             $this->template->countAll = $events->countEvents();
             $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
             $this->template->countStop = $events->countEvents(TimeBox::STOP);
@@ -155,10 +155,10 @@ final class TestPresenter extends BasePresenter
             $this->template->countOn = $events->countEvents(TimeBox::ON);
             $this->template->countOff = $events->countEvents(TimeBox::OFF);
             $this->template->allTime = $events->allTime();
-            $this->template->stopTime = $events->stopTime();
-            $this->template->workTime = $events->workTime();
-            $this->template->avgStopTime = $events->avgStopTime();
-            $this->template->avgWorkTime = $events->avgWorkTime();
+//            $this->template->stopTime = $events->stopTime();
+//            $this->template->workTime = $events->workTime();
+//            $this->template->avgStopTime = $events->avgStopTime();
+//            $this->template->avgWorkTime = $events->avgWorkTime();
         }
 
 

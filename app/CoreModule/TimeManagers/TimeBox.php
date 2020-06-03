@@ -16,7 +16,8 @@ class TimeBox
 	use Nette\SmartObject;
 
     public const
-        MINUTE = 60;
+        MINUTE = 60,
+        FIRST = 1;
 
     public const
         FINISHED = 'FINISHED',	    // Machine is working
@@ -24,6 +25,8 @@ class TimeBox
         REWORK = "REWORK", 	// State after end of STOP
         ON = 'ON',          // ON machine
         OFF = 'OFF';        // OFF machine
+
+
 
 	private $tableSelection;
 
@@ -76,11 +79,47 @@ class TimeBox
      */
     public function allTime()
     {
-        $first = $this->tableSelection[array_key_first($this->tableSelection)]->time->getTimestamp();
-        $last = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
-        $res =  $last-$first;
-        return array(new DateInterval("PT" . $res . "S"), $res);
+        $sState = self::FIRST;
+        $time = 0;
+        $state = self::ON;
+
+        $start = $this->tableSelection[array_key_first($this->tableSelection)]->time->getTimestamp();
+//      $stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
+
+
+        foreach($this->tableSelection as $event)
+        {
+            echo "";
+            switch($event->state)
+            {
+                // it is OFF
+                case self::OFF:
+                    $stop = $event->time->getTimestamp();
+                    $time += $stop - $start;
+                    $state = self::OFF;
+                    break;
+
+                // It is ON
+                case self::ON:
+                    $start = $event->time->getTimestamp();
+                    $state = self::ON;
+                    break;
+
+//                case default:
+//                    $time +=
+
+            }
+        }
+
+        if($state != self::OFF)
+        {
+            $stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
+            $time += $stop - $start;
+        }
+
+        return array(new DateInterval("PT" . $time . "S"), $time);
     }
+
 
 
     /**
@@ -90,28 +129,44 @@ class TimeBox
      */
     public function stopTime()
     {
-        $sState = 0;
+        $sState = self::STOP;
         $time = 0;
         $start = 0;
 
         foreach($this->tableSelection as $event)
         {
             switch ($sState) {
-                case 0:
+                case self::STOP:
                     if($event->state == self::STOP)
                     {
-                        $sState = 1;
+                        $sState = self::REWORK;
                         $start = $event->time->getTimestamp();
 //                        echo " -> STOP -> ".$start;
                     }
+                    else if($event->state == self::OFF)
+                    {
+                        $start = $stop = 0;
+                        $sState = self::OFF;
+                    }
                     break;
-                case 1:
+                case self::REWORK:
                     if($event->state == self::REWORK)
                     {
                         $stop = $event->time->getTimestamp();
-                        $sState = 0;
+                        $sState = self::STOP;
                         $time += $stop-$start;
 //                        echo " -> REWORK -> ".$stop."-> ALL: ". $time;
+                    }
+                    else if($event->state == self::OFF)
+                    {
+                        $start = $stop = 0;
+                        $sState = self::OFF;
+                    }
+                    break;
+                case self::OFF:
+                    if($event->state == self::ON)
+                    {
+                        $sState = self::STOP;
                     }
                     break;
             }
