@@ -34,5 +34,6 @@ services:
 	- App\CoreModule\Model\ThisSensorManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\DatabaseManager
 	- App\CoreModule\Forms\SensorsFormFactory
+	- App\CoreModule\Forms\ThisSensorFormFactory
 
 	

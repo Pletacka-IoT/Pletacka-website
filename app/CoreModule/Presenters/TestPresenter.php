@@ -155,10 +155,10 @@ final class TestPresenter extends BasePresenter
             $this->template->countOn = $events->countEvents(TimeBox::ON);
             $this->template->countOff = $events->countEvents(TimeBox::OFF);
             $this->template->allTime = $events->allTime();
-//            $this->template->stopTime = $events->stopTime();
-//            $this->template->workTime = $events->workTime();
-//            $this->template->avgStopTime = $events->avgStopTime();
-//            $this->template->avgWorkTime = $events->avgWorkTime();
+            $this->template->stopTime = $events->stopTime();
+            $this->template->workTime = $events->workTime();
+            $this->template->avgStopTime = $events->avgStopTime();
+            $this->template->avgWorkTime = $events->avgWorkTime();
         }
 
 

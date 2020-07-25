@@ -9,6 +9,7 @@ use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 use Nette\Application\UI\Form;
 use App\CoreModule\Forms\SensorsFormFactory;
+use App\CoreModule\Forms\ThisSensorFormFactory;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;
@@ -19,6 +20,7 @@ use App\Exceptions;
 use App\Exceptions\MyException;
 use Exception;
 use Nette\Application\BadRequestException;
+use App\TimeManagers\TimeBox;
 
 final class SensorsPresenter extends BasePresenter
 {
@@ -34,16 +36,18 @@ final class SensorsPresenter extends BasePresenter
     private $sensorsManager;
     private $request;
     private $urlParameter;
-    private $sensorsFormFactory;
     private $thisSensorManager;
+    private $sensorsFormFactory;
+    private $thisSensorFormFactory;
 
-	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
+	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory, ThisSensorFormFactory $thisSensorFormFactory)
 	{
         
         $this->sensorsManager = $sensorsManager;
         $this->thisSensorManager = $thisSensorManager;
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
+        $this->thisSensorFormFactory = $thisSensorFormFactory;
     }
 
     ///////////////////
@@ -110,7 +114,7 @@ final class SensorsPresenter extends BasePresenter
     }    
 
     ////////////////////////////////////////////////
-    //  Default page
+    // Default page
     ////////////////////////////////////////////////
 
     public function renderDefault() : void
@@ -127,11 +131,11 @@ final class SensorsPresenter extends BasePresenter
 		$this->redrawControl('sensorTable');
 	}    
 
-
+    /*
+     * Show sensor info
+     */
     public function renderSensor($name)
     {
-        
-        
         if(!$this->sensorsManager->sensorIsExist($name))
         {
             $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
@@ -142,8 +146,65 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->sensor = $this->sensorsManager->getSensorsName($name);
         $this->template->name = $this->sensorsManager->getSensorsName($name)["name"];
+//        $this->template->rawEvents = null;
         
 
+    }
+
+    public function createComponentShowForm(): Form
+    {
+        return $this->thisSensorFormFactory->show(function (Form $form, \stdClass $values) {
+            // Get sensor name
+            $url = $this->request->getHeaders()["referer"];
+            $exUrl = explode('/', $url);
+            $exUrl = explode('?', $exUrl[7]);
+            $sName = $exUrl[0];
+
+            $from = $values->from;
+            $to = $values->to;
+
+            if($from>$to)
+            {
+                $this->flashMessage("Tento rozsah nelze zobrazit", 'error');
+                return;
+            }
+
+            $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, $from, $to);
+
+            if($rawEvents)
+            {
+                $events = new TimeBox($rawEvents);
+
+                $this->template->events = $events->getEvents();
+                //
+                $this->template->countAll = $events->countEvents();
+                $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+                $this->template->countStop = $events->countEvents(TimeBox::STOP);
+                $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+                $this->template->countOn = $events->countEvents(TimeBox::ON);
+                $this->template->countOff = $events->countEvents(TimeBox::OFF);
+                $this->template->allTime = $events->allTime();
+                $this->template->stopTime = $events->stopTime();
+                $this->template->workTime = $events->workTime();
+                $this->template->avgStopTime = $events->avgStopTime();
+                $this->template->avgWorkTime = $events->avgWorkTime();
+            }
+
+
+            echo("");
+//            $returnMessage = $this->sensorsManager->editSensor($sName,$values->number, $values->name, $values->description);
+//            if($returnMessage[0])
+//            {
+//                $this->flashMessage($returnMessage[3], 'success');
+//                $this->redirect('Sensors:sensor',$values->name);
+//            }
+//            else
+//            {
+//
+//                $this->flashMessage($values->old."*".$returnMessage[3], 'error');
+//                $this->redirect('this');
+//            }
+        });
     }
 
     ////////////////////////////////////////////////
@@ -156,10 +217,10 @@ final class SensorsPresenter extends BasePresenter
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
             $exUrl = explode('?', $exUrl[7]);
-            $oldSensor = $exUrl[0];
+            $sName = $exUrl[0];
             
             
-            $returnMessage = $this->sensorsManager->editSensor($oldSensor,$values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($sName,$values->number, $values->name, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[3], 'success');
@@ -224,9 +285,6 @@ final class SensorsPresenter extends BasePresenter
             $this->redirect('Sensors:default');
         }
 
-
-
-        
     }
 
 

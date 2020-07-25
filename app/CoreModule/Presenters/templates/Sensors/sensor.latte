@@ -25,8 +25,88 @@
         </tbody>
         </table>
     </div>
+
+
+</div>
+<div class="container  p-4 " >
+    {include bootstrap-form showForm}
 </div>
 
+<div class="container">
+    {if $rawEvents}
+        <h2>All events: {$countAll}</h2>
+        {foreach $events as $event}
+            {if $iterator->first}
+                <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>State</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+            {/if}
+            <tr id="row-{$iterator->counter}">
+                <td>{$event->id}</td>
+                {if $event->state == "FINISHED"}
+                    <td class="text-success">
+                        {$event->state}
+                    </td>
+                {elseif  $event->state == "STOP"}
+                    <td class="text-danger">
+                        {$event->state}
+                    </td>
+                {elseif  $event->state == "REWORK"}
+                    <td class="text-info">
+                        {$event->state}
+                    </td>
+                {else}
+                    <td class="">
+                        {$event->state}
+                    </td>
+                {/if}
+
+
+
+                <td>{$event->time}</td>
+            </tr>
+            {if $iterator->last}
+                </tbody>
+                </table>
+            {/if}
+        {/foreach}
+
+        <h2>Counts</h2>
+        <div class="move-right">
+            <h4>All events count: {$countAll}</h4>
+            <h4>All events state count (FINISHED): {$countFinished}</h4>
+            <h4>All events state count (STOP): {$countStop}</h4>
+            <h4>All events state count (REWORK): {$countRework}</h4>
+            <h4>All events state count (ON): {$countOn}</h4>
+            <h4>All events state count (OFF): {$countOff}</h4>
+        </div>
+
+        <h2>Times</h2>
+        <div class="move-right">
+            <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+            <h4>Stop time: {$stopTime[0]|date:'%s'}s ->  {$stopTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+            <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+        </div>
+
+        <h2>Average</h2>
+        <div class="move-right">
+            <h4>Stop average time: {$avgStopTime[0]|date:'%s'}s ->  {$avgStopTime[1]|date:'i:s'} Minute:Second</h4>
+            <h4>Work average time: {$avgWorkTime[0]|date:'%s'}s ->  {$avgWorkTime[1]|date:'i:s'} Minute:Second</h4>
+        </div>
+
+        <h4></h4>
+        <h4></h4>
+        {*    {elseifset $var}*}
+    {else}
+        <h2>No data available</h2>
+    {/if}
+</div>
 
 
 
