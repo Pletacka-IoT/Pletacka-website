@@ -105,10 +105,12 @@ class TimeBox
                     $state = self::ON;
                     break;
 
+
 //                case default:
 //                    $time +=
 
             }
+
         }
 
         if($state != self::OFF)
