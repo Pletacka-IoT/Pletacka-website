@@ -146,9 +146,92 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->sensor = $this->sensorsManager->getSensorsName($name);
         $this->template->name = $this->sensorsManager->getSensorsName($name)["name"];
-//        $this->template->rawEvents = null;
-        
+        $this->template->rawEvents = null;
 
+
+    }
+
+
+    //****************
+
+    public function createComponentShowChartForm(): Form
+    {
+        $form = new Form; // means Nette\Application\UI\Form
+
+        $form->addText('from', 'Od')
+            ->setHtmlId('from')
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->setDefaultValue("2020-05-05T05:00")
+            ->setHtmlType('datetime-local');
+
+        $form->addText('to', 'Do')
+            ->setHtmlId('to')
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->setDefaultValue("2020-05-05T23:43")
+            ->setHtmlType('datetime-local');
+
+        $form->addButton('week', "Tyden")
+            ->setHtmlAttribute('onclick', 'setWeek()');
+
+        $form->addSubmit('send', 'Zobraz');
+        $form->onSuccess[] = [$this, 'AddSensorFormSucceeded'];
+//        $submit = $form->addSubmit('send', 'Pridej');
+//        $submit->onClick[] = [$this, 'AddSensorFormSucceeded'];
+
+//        $week = $form->addSubmit('week', "Týden");
+//        $week->onClick[] = function () {
+//
+//            $this->flashMessage("Jede".rand(1,100));
+//        };
+
+        return $form;
+    }
+
+    public function AddSensorFormSucceeded(Form $form, \stdClass $values): void
+    {
+        $this->flashMessage($values->from."->".$values->to);
+    }
+    //****************
+
+    public function createComponentShowChartForm2(): Form
+    {
+        $form = new Form();
+
+
+        $form->addText('from', 'Od')
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->setDefaultValue("2020-05-05T05:00")
+            ->setHtmlType('datetime-local');
+
+
+
+
+        $form->addSubmit('send', "Add");
+
+        $form->onSuccess[] = [$this, 'customShowChart'];
+
+        $custom = $form->addSubmit('custom', "Zobraz");
+//        $custom->onClick[] = [$this, 'customShowChart'];
+
+//            function (Form $form, \stdClass $values) {
+//
+//            $this->flashMessage("Custom".rand(1,100).$values->from);
+//        };
+
+        $week = $form->addSubmit('week', "Týden");
+                $week->onClick[] = function () {
+
+                    $this->flashMessage("Jede".rand(1,100));
+                };
+
+        return $form;
+
+
+    }
+
+    public function customShowChart(\stdClass $values)
+    {
+        $this->flashMessage("Jede".rand(1,100));
     }
 
     public function createComponentShowForm(): Form

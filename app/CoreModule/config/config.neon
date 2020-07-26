@@ -30,9 +30,13 @@ services:
 			
 
 			# - deny(guest, Core:Homepage)
+
+    # Models
 	- App\CoreModule\Model\SensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\ThisSensorManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\DatabaseManager
+
+    # Forms
 	- App\CoreModule\Forms\SensorsFormFactory
 	- App\CoreModule\Forms\ThisSensorFormFactory
 
