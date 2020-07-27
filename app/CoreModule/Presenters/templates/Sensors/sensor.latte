@@ -37,38 +37,46 @@
 <script>
     function tl(num) {
         if(num<10)
-        {
             return "0"+num;
-        }
         else
-        {
             return num
-        }
+    }
 
+    function setDay() {
+        var mDay = new Date();
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+        document.getElementById('from').value = from;
+
+        var sDay = new Date();
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+        document.getElementById('to').value = to;
     }
 
     function setWeek() {
+        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+        mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+        document.getElementById('from').value = from;
 
-    var mDay = new Date(); //Prevous monday 2020-05-05T23:43
-    mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);
-    var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+        var sDay = new Date();
+        sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+        document.getElementById('to').value = to;
+    }
 
-    document.getElementById('from').value = from;
+    function setMonth() {
+        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-01"+"T00:00";
+        document.getElementById('from').value = from;
 
+        var sDay = new Date();
+        sDay.setDate(1);
+        sDay.setMonth(sDay.getMonth() + 1);
+        sDay.setDate(sDay.getDate()-1);
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+sDay.getDate()+"T23:59";
+        document.getElementById('to').value = to;
 
-
-    var sDay = new Date();
-    sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);
-    var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T00:00";
-
-    document.getElementById('to').value = to;
-
-    console.log(mDay);
-    console.log(sDay);
-
-
-    var date = new Date();
-
+        console.log(to);
     }
 </script>
 
