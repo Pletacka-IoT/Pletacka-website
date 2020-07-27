@@ -31,6 +31,7 @@ final class RouterFactory
 					'info' => 'sensor',
 					'smazat' => 'delete',
 					'test' => 'test',
+                    'debug' => 'debug',
 				]
 			]
 		]);

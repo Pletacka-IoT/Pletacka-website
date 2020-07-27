@@ -30,7 +30,7 @@
 </div>
 <div class="container  p-4 " >
 {*    {include bootstrap-form showForm}*}
-    {include bootstrap-form showChartForm}
+    {include bootstrap-form showChartForm }
 {*    {include bootstrap-form addSensorFormx}*}
 </div>
 
@@ -77,6 +77,11 @@
         document.getElementById('to').value = to;
 
         console.log(to);
+    }
+
+    document.getElementById('send').onload = function () {
+        console.log("click");
+        document.getElementById('send ').click();
     }
 </script>
 

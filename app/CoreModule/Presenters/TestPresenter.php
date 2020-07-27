@@ -176,10 +176,10 @@ final class TestPresenter extends BasePresenter
 
         //$chart->enableTimePrecision(); // Enable time accurate to seconds
 
-        for($x = 0; $x<40; $x++)
+        for($x = 0; $x<80; $x++)
         {
             $serie = new DateSerie(DateSerie::LINE, 'Costs-'.$x, dechex(rand(0x000000, 0xFFFFFF)));
-            for($i = 1; $i<=7; $i++)
+            for($i = 1; $i<=20; $i++)
             {
                 $text = '2012-';
                 $text .= strval(rand(10,12));

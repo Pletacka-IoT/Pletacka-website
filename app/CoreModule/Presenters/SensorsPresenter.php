@@ -7,20 +7,19 @@ namespace App\CoreModule\Presenters;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Model\ChartManager;
 use Nette\Application\UI\Form;
 use App\CoreModule\Forms\SensorsFormFactory;
 use App\CoreModule\Forms\ThisSensorFormFactory;
 use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;
-use Nette\Utils\Strings;
-use Nette\Http\Session;
-use Nette\Utils\DateTime;
-use App\Exceptions;
-use App\Exceptions\MyException;
-use Exception;
-use Nette\Application\BadRequestException;
 use App\TimeManagers\TimeBox;
+
+use Jakubandrysek\Chart\DateChart;
+use Jakubandrysek\Chart\Serie\DateSerie;
+use Jakubandrysek\Chart\Segment\DateSegment;
+use DateTimeImmutable;
 
 final class SensorsPresenter extends BasePresenter
 {
@@ -39,8 +38,17 @@ final class SensorsPresenter extends BasePresenter
     private $thisSensorManager;
     private $sensorsFormFactory;
     private $thisSensorFormFactory;
+    private $chartManager;
 
-	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory, ThisSensorFormFactory $thisSensorFormFactory)
+
+	public function __construct(
+	    SensorsManager $sensorsManager,
+        ThisSensorManager $thisSensorManager,
+        Request $request,
+        SensorsFormFactory $sensorsFormFactory,
+        ThisSensorFormFactory $thisSensorFormFactory,
+        ChartManager $chartManager
+    )
 	{
         
         $this->sensorsManager = $sensorsManager;
@@ -48,6 +56,7 @@ final class SensorsPresenter extends BasePresenter
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
         $this->thisSensorFormFactory = $thisSensorFormFactory;
+        $this->chartManager = $chartManager;
     }
 
     ///////////////////
@@ -146,7 +155,7 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->sensor = $this->sensorsManager->getSensorsName($name);
         $this->template->name = $this->sensorsManager->getSensorsName($name)["name"];
-        $this->template->rawEvents = null;
+//        $this->template->rawEvents = null;
 
 
     }
@@ -170,68 +179,79 @@ final class SensorsPresenter extends BasePresenter
             ->setDefaultValue("2020-05-05T23:43")
             ->setHtmlType('datetime-local');
 
+        $form->addButton('day', "Den")
+            ->setHtmlAttribute('onclick', 'setDay()');
+
         $form->addButton('week', "Tyden")
             ->setHtmlAttribute('onclick', 'setWeek()');
 
-        $form->addSubmit('send', 'Zobraz');
-        $form->onSuccess[] = [$this, 'AddSensorFormSucceeded'];
-//        $submit = $form->addSubmit('send', 'Pridej');
-//        $submit->onClick[] = [$this, 'AddSensorFormSucceeded'];
+        $form->addButton('month', "Mesic")
+            ->setHtmlAttribute('onclick', 'setMonth()');
 
-//        $week = $form->addSubmit('week', "Týden");
-//        $week->onClick[] = function () {
-//
-//            $this->flashMessage("Jede".rand(1,100));
-//        };
+        $form->addSubmit('send', 'Zobraz')
+            ->setHtmlId('send');
+        $form->onSuccess[] = [$this, 'ShowChart'];
 
         return $form;
     }
 
-    public function AddSensorFormSucceeded(Form $form, \stdClass $values): void
+    public function ShowChart(Form $form, \stdClass $values): void
     {
         $this->flashMessage($values->from."->".$values->to);
+
+        // Get sensor name
+        $url = $this->request->getHeaders()["referer"];
+        $exUrl = explode('/', $url);
+        $exUrl = explode('?', $exUrl[7]);
+        $sName = $exUrl[0];
+
+        $from = $values->from;
+        $to = $values->to;
+
+        if($from>$to)
+        {
+            $this->flashMessage("Tento rozsah nelze zobrazit", 'error');
+            return;
+        }
+
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, $from, $to);
+
+
+        if($rawEvents)
+        {
+            $events = new TimeBox($rawEvents);
+
+            $this->template->events = $events->getEvents();
+            //
+            $this->template->countAll = $events->countEvents();
+            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+            $this->template->countStop = $events->countEvents(TimeBox::STOP);
+            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+            $this->template->countOn = $events->countEvents(TimeBox::ON);
+            $this->template->countOff = $events->countEvents(TimeBox::OFF);
+            $this->template->allTime = $events->allTime();
+            $this->template->stopTime = $events->stopTime();
+            $this->template->workTime = $events->workTime();
+            $this->template->avgStopTime = $events->avgStopTime();
+            $this->template->avgWorkTime = $events->avgWorkTime();
+        }
+
+
+        echo("");
     }
     //****************
 
-    public function createComponentShowChartForm2(): Form
-    {
-        $form = new Form();
-
-
-        $form->addText('from', 'Od')
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->setDefaultValue("2020-05-05T05:00")
-            ->setHtmlType('datetime-local');
 
 
 
 
-        $form->addSubmit('send', "Add");
-
-        $form->onSuccess[] = [$this, 'customShowChart'];
-
-        $custom = $form->addSubmit('custom', "Zobraz");
-//        $custom->onClick[] = [$this, 'customShowChart'];
-
-//            function (Form $form, \stdClass $values) {
-//
-//            $this->flashMessage("Custom".rand(1,100).$values->from);
-//        };
-
-        $week = $form->addSubmit('week', "Týden");
-                $week->onClick[] = function () {
-
-                    $this->flashMessage("Jede".rand(1,100));
-                };
-
-        return $form;
 
 
-    }
 
     public function customShowChart(\stdClass $values)
     {
-        $this->flashMessage("Jede".rand(1,100));
+;
+
     }
 
     public function createComponentShowForm(): Form
@@ -424,26 +444,39 @@ final class SensorsPresenter extends BasePresenter
 
     public function actionDebug()
     {
-        // $date1=DateTime::from("2020-04-17 15:52:00");
-        // $date2=DateTime::from("2020-04-17 15:53:00");
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 00:00:00", "2020-05-05 14:00:00");
 
-        // echo date_format($date1,"Y-m/d H:i:s")."<br>";
-        // echo date_format($date2,"Y-m/d H:i:s")."<br>";
-        // $x  =  date_diff($date2, $date1);
-        // // echo date_format($x,"Y-m/d H:i:s")."<br>";          
-        // dump($x);
-        // echo ($x->format('Y-m-d H:i:s.u'));
+        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'day', 'FINISHED'));
+        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'day', 'STOP'));
 
-        // dump($this->sensorsManager->getSensorInfo("Debuga"));
-        dump($this->sensorsManager->getSensorsNumber(121));
-        echo "Ahoj";
-        // dump($this->sensorsManager->getTitleSettings()[1]->web_nsame);
+        $dayChart = new DateChart();
+        $dayChart->setValueSuffix(' p');
+        $dayChart->enableTimePrecision(); // Enable time accurate to seconds
 
-        // dump($this->sensorsManager->GET)
-        // throw new Exception;
-        throw new Exceptions\TableNotExist();
-        
-        // throw new BadRequestException("Bad");
+        $serie = new DateSerie(DateSerie::SPLINE, 'Upleteno', 'green');
+        foreach($dataChartF as $data)
+        {
+            if($data[0] != 0 || $data[1] != 0)
+            {
+            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+            }
+        }
+        $dayChart->addSerie($serie);
+
+        $serie = new DateSerie(DateSerie::SPLINE, 'Zastaveno', 'red');
+        foreach($dataChartS as $data)
+        {
+            if($data[0] != 0 || $data[1] != 0)
+            {
+            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+            }
+        }
+
+//        $serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
+//        $serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 8));
+        $dayChart->addSerie($serie);
+
+        $this->template->dayChart = $dayChart;
        
     }
 

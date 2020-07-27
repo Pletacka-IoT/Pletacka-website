@@ -19,6 +19,7 @@ services:
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
+			- allow(guest, Core:Sensors, sensor)
 			# - allow(guest, Error)
 			# - allow(guest, Error4xx)
 
@@ -35,6 +36,7 @@ services:
 	- App\CoreModule\Model\SensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\ThisSensorManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\DatabaseManager
+	- App\CoreModule\Model\ChartManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory
