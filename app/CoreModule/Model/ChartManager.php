@@ -45,10 +45,6 @@ class ChartManager
     {
         $chartData = array();
 
-        for($i = 0; $i<24; $i++)
-        {
-            $chartData[$i] = array(0 , '');
-        }
 
         switch($type)
         {
@@ -59,10 +55,16 @@ class ChartManager
                     {
                         $time = $data->time;
                         $hour = $this->zeroOut($time->format('H'));
-    //                    print($hour);
+//
 
+                        if(!isset($chartData[$hour][0]))
+                            $chartData[$hour][0] = 0;
                         $chartData[$hour][0] += 1;
-                        $chartData[$hour][1] = $time->format('Y')."-".$time->format('m')."-".$time->format('d')."T".$time->format("H").":00";
+
+                        if(!isset($chartData[$hour][1]))
+                        {
+                            $chartData[$hour][1] = $time->format('Y')."-".$time->format('m')."-".$time->format('d')."T".$time->format("H").":00";
+                        }
                     }
 
 

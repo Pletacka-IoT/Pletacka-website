@@ -466,10 +466,7 @@ final class SensorsPresenter extends BasePresenter
         $serie = new DateSerie(DateSerie::SPLINE, 'Zastaveno', 'red');
         foreach($dataChartS as $data)
         {
-            if($data[0] != 0 || $data[1] != 0)
-            {
             $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
-            }
         }
 
 //        $serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
