@@ -444,26 +444,29 @@ final class SensorsPresenter extends BasePresenter
 
     public function actionDebug()
     {
+        $type = DateSerie::AREA_SPLINE;
+
         $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 00:00:00", "2020-05-05 14:00:00");
 
-        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'day', 'FINISHED'));
-        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'day', 'STOP'));
+        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'minute', 15, 'FINISHED'));
+
+
+        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'minute', 15, 'STOP'));
 
         $dayChart = new DateChart();
-        $dayChart->setValueSuffix(' p');
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
 
-        $serie = new DateSerie(DateSerie::SPLINE, 'Upleteno', 'green');
+        $serie = new DateSerie($type, 'Upleteno - párů', 'green');
         foreach($dataChartF as $data)
         {
             if($data[0] != 0 || $data[1] != 0)
             {
-            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), intval($data[0])));
             }
         }
         $dayChart->addSerie($serie);
 
-        $serie = new DateSerie(DateSerie::SPLINE, 'Zastaveno', 'red');
+        $serie = new DateSerie($type, 'Zastaveno - počet', 'red');
         foreach($dataChartS as $data)
         {
             $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
