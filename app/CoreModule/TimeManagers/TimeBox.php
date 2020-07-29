@@ -195,8 +195,14 @@ class TimeBox
      */
     public function avgStopTime()
     {
-        $time = ceil($this->stopTime()[1]/$this->countEvents(self::STOP));
-        return array(new DateInterval("PT".$time."S"), $time);
+        if($this->countEvents(self::STOP)>0)
+        {
+            $time = ceil($this->stopTime()[1]/$this->countEvents(self::STOP));
+            return array(new DateInterval("PT".$time."S"), $time);
+        }
+        else
+            return array(new DateInterval("PT0S"), 0);
+
     }
 
     /**
@@ -206,8 +212,13 @@ class TimeBox
      */
     public function avgWorkTime()
     {
-        $time = ceil($this->workTime()[1]/$this->countEvents(self::FINISHED));
-        return array(new DateInterval("PT".$time."S"), $time);
+        if($this->countEvents(self::FINISHED)>0)
+        {
+            $time = ceil($this->workTime()[1]/$this->countEvents(self::FINISHED));
+            return array(new DateInterval("PT".$time."S"), $time);
+        }
+        else
+            return array(new DateInterval("PT0S"), 0);
     }
     
 }

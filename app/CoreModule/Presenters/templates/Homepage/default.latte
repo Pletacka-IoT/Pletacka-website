@@ -9,12 +9,15 @@
     <div class="row">
         <div class="col-sm-4 ">
             {$settings->title_pair_count}
+            <h2>{floor(($pletackyAll["FINISHED"]/$pletackyAll["SENSORS"])/2)}</h2>
         </div>
         <div class="col-sm-4">
 			{$settings->title_succes_rate}
+            <h2>{floor((($pletackyAll["WORK_TIME"]/$pletackyAll["SENSORS"])*100)/($pletackyAll["ALL_TIME"]/$pletackyAll["SENSORS"]))}%</h2>
         </div>
         <div class="col-sm-4">
-            {$settings->title_succes_rate}
+            {$settings->title_stop_time}
+            <h3>{gmdate("H:i:s", $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"])}</h3>
         </div>              
     </div>   
 </div>

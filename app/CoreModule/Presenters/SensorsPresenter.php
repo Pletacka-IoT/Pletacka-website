@@ -402,8 +402,14 @@ final class SensorsPresenter extends BasePresenter
 
     public function renderTest($name, $next)
     {
-        dump($this->chartManager->sensorsChartData('hour', 1, 'FINISHED'));
+
+        dump($senors = $this->chartManager->sensorsChartData('hour', 1, "2020-05-05 04:01:00", "2020-05-05 14:00:00"));
+        dump($senorsAverage = $this->chartManager->sensorsChartDataAvg($senors));
+
     }
+
+
+
 
     public function actionDebug()
     {
