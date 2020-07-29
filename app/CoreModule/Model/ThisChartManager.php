@@ -4,7 +4,7 @@ namespace App\CoreModule\Model;
 
 use Nette;
 use Nette\Database\Context;
-use App\CoreModule\Model\SensorsManager;
+use App\CoreModule\Model\ThisSensorManager;
 use DateInterval;
 use DateTimeZone;
 use Nette\Utils\DateTime;
@@ -24,12 +24,12 @@ class ThisChartManager
     private $database;
     private $defaultMsgLanguage;
     private $defaultAPILanguage;
-    private $sensorsManager;
+    private $thisSensorManager;
 
-    public function __construct( Context $database, SensorsManager $sensorsManager)
+    public function __construct( Context $database, ThisSensorManager $thisSensorManager)
     {
         $this->database = $database;
-        $this->sensorsManager = $sensorsManager;
+        $this->thisSensorManager = $thisSensorManager;
 
     }
 

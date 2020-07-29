@@ -47,10 +47,7 @@ class MultiSensorsManager
         $allSensors = array();
         foreach($sensorsName as $sensor)
         {
-//            dump($sensor->name);
-//            array_push($allSensors, array($sensor->name => $this->thisSensorManager->getAllEvents($sensor->name, $from, $to)));
             $allSensors += array($sensor->name => $this->thisSensorManager->getAllEvents($sensor->name, $from, $to));
-//            $allSensors = );
         }
         return $allSensors;
     }

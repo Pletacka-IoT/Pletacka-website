@@ -134,7 +134,7 @@ final class TestPresenter extends BasePresenter
 	public function actionDebug($name)
 	{
 
-        $sName = "Debug";
+        $sName = "Pletacka1";
 
 		$start = "2020-05-05 4:00:00";
 		$end = "2020-05-05 7:00:00";
