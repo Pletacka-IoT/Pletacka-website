@@ -51,8 +51,7 @@ class ChartManager
 //            $out[0] = 0;
 //            $out[1] = $number;
 //            $number[1] = $number[0];
-//            $number[0] = 0;
-            return intval('0'.$number);
+//            $number[0] = 0;return ('0'.$number);
         }
         else
             return $number;
@@ -94,8 +93,14 @@ class ChartManager
                         $time = $data->time;
                         $hour = $this->zeroOut($time->format('H'));
                         $minute = $this->zeroOut($time->format('i'));
-                        $minute = intval($minute/$interval);
+                        $minute = intval(ceil($minute/$interval));
                         $minute *= $interval;
+                        if($minute==60)
+                        {
+                            $hour++;
+                            $minute = 00;
+                            echo"";
+                        }
 
                         if(!isset($chartData[$hour.$minute][0]))
                             $chartData[$hour.$minute][0] = 0;
@@ -103,7 +108,7 @@ class ChartManager
 
                         if(!isset($chartData[$hour.$minute][1]))
                         {
-                            $chartData[$hour.$minute][1] = $time->format('Y')."-".$time->format('m')."-".$time->format('d')."T".$time->format("H").":".$this->zeroAdd($minute);
+                            $chartData[$hour.$minute][1] = $time->format('Y')."-".$time->format('m')."-".$time->format('d')."T".$this->zeroAdd($hour).":".$this->zeroAdd($minute);
                         }
                         echo"";
                     }
@@ -118,8 +123,16 @@ class ChartManager
                         $time = $data->time;
                         $day = $this->zeroOut($time->format('d'));
                         $hour = $this->zeroOut($time->format('H'));
-                        $hour = intval($hour/$interval);
+
+                        $hour = intval(ceil($hour/$interval));
                         $hour *= $interval;
+
+                        if($hour==24)
+                        {
+                            $day++;
+                            $hour = 00;
+                            echo"";
+                        }
 
                         if(!isset($chartData[$day.$hour][0]))
                             $chartData[$day.$hour][0] = 0;
@@ -129,6 +142,7 @@ class ChartManager
                         {
                             $chartData[$day.$hour][1] = $time->format('Y')."-".$time->format('m')."-".$time->format('d')."T".$this->zeroAdd($hour).":00";
                         }
+                        echo"";
                     }
                 }
                 break;

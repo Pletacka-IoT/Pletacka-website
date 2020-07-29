@@ -446,17 +446,19 @@ final class SensorsPresenter extends BasePresenter
     {
         $type = DateSerie::AREA_SPLINE;
 
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 00:00:00", "2020-05-05 14:00:00");
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
 
-        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'minute', 15, 'FINISHED'));
+        $interval = 2;
 
+        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'hour', $interval, 'FINISHED'));
+        dump($dataChartF);
 
-        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'minute', 15, 'STOP'));
+        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'hour', $interval, 'STOP'));
 
         $dayChart = new DateChart();
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
 
-        $serie = new DateSerie($type, 'Upleteno - párů', 'green');
+        $serie = new DateSerie($type, 'Upleteno - kusů', 'green');
         foreach($dataChartF as $data)
         {
             if($data[0] != 0 || $data[1] != 0)
