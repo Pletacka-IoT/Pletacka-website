@@ -13,7 +13,7 @@ use DateTimeImmutable;
 use Nette\Database\UniqueConstraintViolationException;
 use App\Utils\Pretty;
 
-class ThisSensorManager
+class ThisSensorManagerBack
 {
     use Nette\SmartObject;
 

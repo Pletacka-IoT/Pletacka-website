@@ -12,16 +12,6 @@ use App\Exceptions;
 use App\Exceptions\MyException;
 
 
-// /**
-//  * Výjimka pro duplicitní uživatelské jméno.
-//  * @package App\Model
-//  */
-// class DuplicateNameException extends Exception
-// {
-// 	// Nastavení výchozí chybové zprávy.
-// 	protected $message = 'Uživatel s tímto jménem je již zaregistrovaný.';
-// }
-
 class SensorsManager
 {
 	use Nette\SmartObject;

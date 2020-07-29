@@ -35,7 +35,9 @@ services:
     # Models
 	- App\CoreModule\Model\SensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\ThisSensorManager(%defaultMsgLanguage%,%defaultAPILanguage%)
+	- App\CoreModule\Model\MultiSensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
 	- App\CoreModule\Model\DatabaseManager
+	- App\CoreModule\Model\ThisChartManager
 	- App\CoreModule\Model\ChartManager
 
     # Forms

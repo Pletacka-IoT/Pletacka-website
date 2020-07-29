@@ -7,6 +7,7 @@ namespace App\CoreModule\Presenters;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Model\ThisChartManager;
 use App\CoreModule\Model\ChartManager;
 use Nette\Application\UI\Form;
 use App\CoreModule\Forms\SensorsFormFactory;
@@ -38,6 +39,7 @@ final class SensorsPresenter extends BasePresenter
     private $thisSensorManager;
     private $sensorsFormFactory;
     private $thisSensorFormFactory;
+    private $thisChartManager;
     private $chartManager;
 
 
@@ -47,6 +49,7 @@ final class SensorsPresenter extends BasePresenter
         Request $request,
         SensorsFormFactory $sensorsFormFactory,
         ThisSensorFormFactory $thisSensorFormFactory,
+        ThisChartManager $thisChartManager,
         ChartManager $chartManager
     )
 	{
@@ -56,6 +59,7 @@ final class SensorsPresenter extends BasePresenter
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
         $this->thisSensorFormFactory = $thisSensorFormFactory;
+        $this->thisChartManager = $thisChartManager;
         $this->chartManager = $chartManager;
     }
 
@@ -398,48 +402,7 @@ final class SensorsPresenter extends BasePresenter
 
     public function renderTest($name, $next)
     {
-        // $output = array();
-        // $sensors = $this->sensorsManager->getSensors();
-        // foreach($sensors as $sensor)
-        // {
-        //     dump($sensor);
-        //     echo($sensor->name);
-        //     $output[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
-        // }
-        // $xout = array();
-        // $xout = array('sensors'=>$output);
-        // $xout['status'] = 'kuba';
-        // dump($xout);
-        // echo json_encode($xout);
-        // dump( $xout['sensors']);
-
-        // $sensor = $this->sensorsManager->getSensorsNumber(3);
-        // dump(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
-
-        // dump($this->sensorsManager->findSensorsName("3"));
-
-        
-        
-        //dump($this->thisSensorManager->addEvent("Sen3", self::STOJI));
-        
-
-        echo $this->thisSensorManager->countAllEventsState("Sen3", "1")."<br>";
-        
-        echo "XXX:".$this->thisSensorManager->getAllEventsOlder("Sen3", '2020-04-17 15:56:30')."<br>";
-        echo "Time<br>";
-        foreach($this->thisSensorManager->getAllEventsYounger("Sen3", '2020-04-17 15:52:30') as $event)
-        {
-            echo $event->id."->". $event->state."->".$event->time."<br>";
-        }
-
-        echo "All<br>";
-        foreach($this->thisSensorManager->getAllEvents("Sen3") as $event)
-        {
-            echo $event->id."->". $event->state."->".$event->time."<br>";
-        }
-        // date
-
-        
+        $this->chartManager->sensorsChartData('hour', 1, 'FINISHED');
     }
 
     public function actionDebug()
@@ -448,12 +411,12 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
 
-        $interval = 2;
+        $interval = 15;
 
-        ($dataChartF = $this->chartManager->sensorChartData($rawEvents, 'hour', $interval, 'FINISHED'));
+        ($dataChartF = $this->thisChartManager->sensorChartData($rawEvents, 'minute', $interval, 'FINISHED'));
         dump($dataChartF);
 
-        ($dataChartS = $this->chartManager->sensorChartData($rawEvents, 'hour', $interval, 'STOP'));
+        ($dataChartS = $this->thisChartManager->sensorChartData($rawEvents, 'minute', $interval, 'STOP'));
 
         $dayChart = new DateChart();
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
@@ -463,7 +426,7 @@ final class SensorsPresenter extends BasePresenter
         {
             if($data[0] != 0 || $data[1] != 0)
             {
-            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), intval($data[0])));
+                $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
             }
         }
         $dayChart->addSerie($serie);
