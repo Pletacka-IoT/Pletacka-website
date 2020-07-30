@@ -13,18 +13,17 @@ class Pretty
 {
 	use Nette\SmartObject;
 
-	/**
-	 * Method create pretty output in specific format
-	 *
-	 * @param bool $state
-	 * @param mix $main
-	 * @param string $englishMsg
-	 * @param string $czechMsg
-	 * @return void
-	 */	
-    public static function return($state, $main = "", $englishMsg = "", $czechMsg = "")
+    /**
+     * Method create pretty output in specific format
+     *
+     * @param bool   $state
+     * @param string $main
+     * @param string $Msg
+     * @return array
+     */
+    public static function return($state, $main = "", $Msg = "")
     {
-        $x = array($state, $main, $englishMsg, $czechMsg);
+        $x = array($state, $main, $Msg);
         return ($x);
     }
     

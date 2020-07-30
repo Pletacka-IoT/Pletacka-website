@@ -36,26 +36,24 @@ class ThisSensorManager
     private $defaultAPILanguage;
     private $sensorsManager;
 
-    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database, SensorsManager $sensorsManager)
+    public function __construct(Context $database, SensorsManager $sensorsManager)
     {
         $this->database = $database;
-        $this->defaultMsgLanguage = $defaultMsgLanguage;
-        $this->defaultAPILanguage = $defaultAPILanguage;
         $this->sensorsManager = $sensorsManager;
 
     }
 
     public function pretty($state = true, $main, $englishMsg = "", $czechMsg = "" )
     {
-        return( array($state, $main, $englishMsg, $czechMsg));
+        return( array($state, $main, $czechMsg));
         
     }  
 
 
     public function testPretty()
     {
-        // dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
-        // $y = PrettyReturn::return(true, array(1,2,3), "IT is ok", "Je to ok");
+         dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
+//         $y = PrettyReturn::return(true, array(1,2,3), "Je to ok");
         dump(Pretty::return(0,"","Sensor with name  does not exist", "Senzor s názvemneexistuje"));
         // dump($y);
         return 1;//$x;
@@ -65,22 +63,22 @@ class ThisSensorManager
 
     /**
      * Save sensor status to database
-     * @param string $sName
+     * @param string $sNumber
      * @param mixed $state
      */
-    public function addEvent($sName, $state)
+    public function addEvent($sNumber, $state)
     {
-        if(!$this->sensorsManager->sensorIsExist($sName))
+        if(!$this->sensorsManager->sensorIsExist($sNumber))
         {
-            // return array(false, "Sensor with name ".$sName." delete does not exist", "Senzor s názvem".$sName." neexistuje");
-            return $this->pretty(0,"","Sensor with name ".$sName." does not exist", "Senzor s názvem".$sName." neexistuje");
+            // return array(false, "Sensor with name ".$sNumber." delete does not exist", "Senzor s názvem".$sNumber." neexistuje");
+            return $this->pretty(0,"","Sensor with name ".$sNumber." does not exist", "Senzor s názvem".$sNumber." neexistuje");
         }
 
-        if($succes = $this->database->table($sName)->insert([
+        if($succes = $this->database->table($sNumber)->insert([
             'state' => $state,
         ]))
         {
-            return $this->pretty(true, "Event created", "Záznam byl vytvořen", $sName, $state);
+            return $this->pretty(true, "Event created", "Záznam byl vytvořen", $sNumber, $state);
         }
         else
         {
@@ -103,12 +101,12 @@ class ThisSensorManager
     // Gets
     //////////////
 
-    public function getAllEvents($sName, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
+    public function getAllEvents($sNumber, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
     {
-        return $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
+        return $this->database->table($sNumber)->where("time >=? AND time <=?", $from, $to)->fetchAll();
     }
 
-    // public function getAllIdState($sName, $from , $to, $state = self::FINISHED)
+    // public function getAllIdState($sNumber, $from , $to, $state = self::FINISHED)
     // {
     //     $ids =   
 
@@ -117,14 +115,14 @@ class ThisSensorManager
     // Counts
     //////////////
 
-    public function countAllEvents($sName)
+    public function countAllEvents($sNumber)
     {
-        return $this->database->table($sName)->count();
+        return $this->database->table($sNumber)->count();
     }
 
-    public function countAllEventsState($sName, $state)
+    public function countAllEventsState($sNumber, $state)
     {
-        return $this->database->table($sName)->where("state", $state)->count();
+        return $this->database->table($sNumber)->where("state", $state)->count();
     }
 
     
@@ -132,19 +130,19 @@ class ThisSensorManager
     // ID
     //////////////
 
-    public function getFirstIdState($sName, $time, $state)
+    public function getFirstIdState($sNumber, $time, $state)
     {
-        return $this->database->table($sName)->where("time >=? AND state=?", $time, $state)->fetch()->id;
+        return $this->database->table($sNumber)->where("time >=? AND state=?", $time, $state)->fetch()->id;
     }
 
-    public function getLastIdState($sName, $time, $state)
+    public function getLastIdState($sNumber, $time, $state)
     {
-        return $this->database->table($sName)->where("time <=? AND state=?", $time, $state)->order("id DESC")->fetch()->id;
+        return $this->database->table($sNumber)->where("time <=? AND state=?", $time, $state)->order("id DESC")->fetch()->id;
     }
 
-    // public function getAllIdState($sName, $from , $to, $state = self::FINISHED)
+    // public function getAllIdState($sNumber, $from , $to, $state = self::FINISHED)
     // {
-    //     $ids = $this->database->table($sName)->where("time >=? AND time <=? AND state=?", $from, $to, $state)->fetchAll();
+    //     $ids = $this->database->table($sNumber)->where("time >=? AND time <=? AND state=?", $from, $to, $state)->fetchAll();
 
     //     $out = array();
     //     foreach($ids as $id)
@@ -155,9 +153,9 @@ class ThisSensorManager
     // }
 
 
-    public function getAllIdState($sName, $from , $to, $state = self::FINISHED)
+    public function getAllIdState($sNumber, $from , $to, $state = self::FINISHED)
     {
-        $ids = $this->database->table($sName)->where("time >=? AND time <=? AND state=?", $from, $to, $state)->fetchAll();
+        $ids = $this->database->table($sNumber)->where("time >=? AND time <=? AND state=?", $from, $to, $state)->fetchAll();
 
         $out = array();
         foreach($ids as $id)
@@ -168,9 +166,9 @@ class ThisSensorManager
         return $out;
     }    
 
-    public function getAllId($sName, $from , $to)
+    public function getAllId($sNumber, $from , $to)
     {
-        $ids = $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
+        $ids = $this->database->table($sNumber)->where("time >=? AND time <=?", $from, $to)->fetchAll();
 
         $out = array();
         foreach($ids as $id)
@@ -181,7 +179,7 @@ class ThisSensorManager
         return $out;
     }
 
-    public function getAllTime($sName, $ids)
+    public function getAllTime($sNumber, $ids)
     {
         //dump($ids);
         // echo "First key->".array_key_first($ids[0]);
@@ -190,8 +188,8 @@ class ThisSensorManager
 
         // echo "<br>X".(array_key_last($ids));
         // echo "<br>RES:".array_key_first($ids[array_key_last($ids)]);
-        /*echo "<br>First:".*/$first = $this->database->table($sName)->where("id=?", array_key_first($ids[0]) )->fetch()->time->getTimestamp();
-        /*echo"<br>Last:". */$last = $this->database->table($sName)->where("id=?", array_key_first($ids[array_key_last($ids)]))->fetch()->time->getTimestamp();
+        /*echo "<br>First:".*/$first = $this->database->table($sNumber)->where("id=?", array_key_first($ids[0]) )->fetch()->time->getTimestamp();
+        /*echo"<br>Last:". */$last = $this->database->table($sNumber)->where("id=?", array_key_first($ids[array_key_last($ids)]))->fetch()->time->getTimestamp();
         $res =  $last-$first;
         //echo "<br>Vys:".$res;
         return array(new DateInterval("PT".$res."S"), $res);
@@ -199,11 +197,11 @@ class ThisSensorManager
 
 
 
-    public function getStopTime($sName, $ids)
+    public function getStopTime($sNumber, $ids)
     {
-        if(!$this->sensorsManager->sensorIsExist($sName))
+        if(!$this->sensorsManager->sensorIsExist($sNumber))
         {
-            return $this->pretty(false,"",  "Sensor with name ".$sName." delete does not exist", "V poli neni žádný prvek");
+            return $this->pretty(false,"",  "Sensor with name ".$sNumber." delete does not exist", "V poli neni žádný prvek");
         }
 
         if($this->isEmpty($ids))
@@ -230,14 +228,14 @@ class ThisSensorManager
                     if($state[key($state)] == self::STOP)
                     {
                         $sState++;
-                        $start = $this->database->table($sName)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
+                        $start = $this->database->table($sNumber)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
                         //echo " -> STOP -> ".$start;
                     }                    
                     break;
                 case 1:
                     if($state[key($state)] == self::REWORK)
                     {
-                        $stop = $this->database->table($sName)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
+                        $stop = $this->database->table($sNumber)->where("id=?", array_key_first($ids[$id]))->fetch()->time->getTimestamp();
                         $sState = 0;
                         $time += $stop-$start;
                         //echo " -> REWORK -> ".$stop."-> ALL: ". $time;
@@ -251,8 +249,8 @@ class ThisSensorManager
             //echo "<br><br>";
         }        
 
-        // $first = $this->database->table($sName)->where("id=?", $ids[0])->fetch()->time->getTimestamp();
-        // $last = $this->database->table($sName)->where("id=?", end($ids))->fetch()->time->getTimestamp();
+        // $first = $this->database->table($sNumber)->where("id=?", $ids[0])->fetch()->time->getTimestamp();
+        // $last = $this->database->table($sNumber)->where("id=?", end($ids))->fetch()->time->getTimestamp();
         // $res =  $last-$first;
         return array(new DateInterval("PT".$time."S"), $time);
 
@@ -278,14 +276,14 @@ class ThisSensorManager
         return array(new DateInterval("PT".$time."S"), $time);
     }
 
-    public function getWorkTimeOld($sName, $ids): DateInterval
+    public function getWorkTimeOld($sNumber, $ids): DateInterval
     {
-        $last = $this->database->table($sName)->where("id=?", 1)->fetch();
+        $last = $this->database->table($sNumber)->where("id=?", 1)->fetch();
         //echo $out =  $last->time->getTimestamp();
         //dump($last->time);
         $workTime = 0;
 
-        // $next = $this->database->table($sName)->where("id=?", 2)->fetch();
+        // $next = $this->database->table($sNumber)->where("id=?", 2)->fetch();
         // //echo $next->time->getTimestamp();
         // dump($next->time);
 
@@ -297,7 +295,7 @@ class ThisSensorManager
 
         foreach($ids as $id)
         {
-            $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
+            $actual = $this->database->table($sNumber)->where("id=?", $id)->fetch();
 
             //dump($last->actWork);
 
@@ -307,7 +305,7 @@ class ThisSensorManager
                 $actWork=3*self::MINUTE; // 3 Minutes
                 // $workTime+=$actWork;
                 $lastWork = $actWork;
-                // $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
+                // $this->database->table($sNumber)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
                 //echo "FIRST";
 
                 //echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
@@ -339,7 +337,7 @@ class ThisSensorManager
                     //echo "NEXT - NORMAL";
 
                 }
-                $this->database->table($sName)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
+                $this->database->table($sNumber)->where("id=?", $id)->update(['work'=>$actWork, 'time'=>$actual->time]);
 
                 //echo " -ID:".$id." Last: ".$last->time." Actual: ".$actual->time."<br>";
                 //echo "Add:".$actWork."->T:".gmdate("H:i:s",$actWork)." -> result: ".$workTime."->T:".gmdate("H:i:s",$workTime)."<br><br><br>";
@@ -350,7 +348,7 @@ class ThisSensorManager
             }
 
         }
-        $this->database->table($sName)->where("id=?", 10)->update(['work'=>$workTime]);
+        $this->database->table($sNumber)->where("id=?", 10)->update(['work'=>$workTime]);
         return new DateInterval("PT".$workTime."S");
     }
 
@@ -372,7 +370,7 @@ class ThisSensorManager
 
     //////////////////////////////
 
-    public function getRunTime2($sName, $ids)
+    public function getRunTime2($sNumber, $ids)
     {
         $start = DateTime::from(self::START);
         $work = DateTime::from("2000-01-01 00:03:00");
@@ -380,7 +378,7 @@ class ThisSensorManager
         //echo $start;
         //dump($ids);
         ////echo "x".$ids[1];
-        $last = $this->database->table($sName)->where("id=?", $ids[0])->fetch();
+        $last = $this->database->table($sNumber)->where("id=?", $ids[0])->fetch();
         //echo "First: ".$last->time ;
 
         $workTime = $last->work;
@@ -392,12 +390,12 @@ class ThisSensorManager
             if($id < $ids[1])
             {
                 //echo "<br>Add: ".$start->add( $workTime);
-                $this->database->table($sName)->where("id=?", $id)->insert(['work'=>$workTime]);
+                $this->database->table($sNumber)->where("id=?", $id)->insert(['work'=>$workTime]);
 
             }
             else if($id >= $ids[1])
             {
-                $actual = $this->database->table($sName)->where("id=?", $id)->fetch();
+                $actual = $this->database->table($sNumber)->where("id=?", $id)->fetch();
 
                 //echo "<br>ID:".$id."->";
 
@@ -411,7 +409,7 @@ class ThisSensorManager
                 else if(($add->i)<=($actual->work->i))
                 {
                     //echo " *NORMAL*".$add->i." ->".$start->add($add);
-                    $this->database->table($sName)->where("id=?", $id)->insert(['work'=>$add]);
+                    $this->database->table($sNumber)->where("id=?", $id)->insert(['work'=>$add]);
                 }
 
                 $last = $actual;
@@ -422,23 +420,23 @@ class ThisSensorManager
         return $out;
     }
 
-    public function resetDB($sName)
+    public function resetDB($sNumber)
     {
         for ($i = 0;$i<=8;$i++ )
         {
-            $this->database->table($sName)->where("id = ?", $i)->update([ "work"=>"0"]);
+            $this->database->table($sNumber)->where("id = ?", $i)->update([ "work"=>"0"]);
         }
 
-        $this->database->table($sName)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
-        $this->database->table($sName)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
-        $this->database->table($sName)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
-        $this->database->table($sName)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
-        $this->database->table($sName)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
-        $this->database->table($sName)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
-        $this->database->table($sName)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
-        $this->database->table($sName)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
+        $this->database->table($sNumber)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
+        $this->database->table($sNumber)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
+        $this->database->table($sNumber)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
+        $this->database->table($sNumber)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
+        $this->database->table($sNumber)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
+        $this->database->table($sNumber)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
+        $this->database->table($sNumber)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
+        $this->database->table($sNumber)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
 
-        $this->database->table($sName)->where("id = ?", 10)->update([ "work"=>"0"]);
+        $this->database->table($sNumber)->where("id = ?", 10)->update([ "work"=>"0"]);
 
 
 

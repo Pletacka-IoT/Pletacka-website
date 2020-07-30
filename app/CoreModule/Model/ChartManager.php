@@ -6,6 +6,7 @@ use Nette;
 use Nette\Database\Context;
 use App\CoreModule\Model\MultiSensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Model\RoomManager;
 use DateInterval;
 use DateTimeZone;
 use Nette\Utils\DateTime;
@@ -29,12 +30,14 @@ class ChartManager
     private $defaultAPILanguage;
     private $multiSensorsManager;
     private $thisSensorManager;
+    private $roomManager;
 
-    public function __construct( Context $database, MultiSensorsManager $multiSensorsManager, ThisSensorManager $thisSensorManager)
+    public function __construct( Context $database, MultiSensorsManager $multiSensorsManager, ThisSensorManager $thisSensorManager, RoomManager $roomManager)
     {
         $this->database = $database;
         $this->multiSensorsManager = $multiSensorsManager;
         $this->thisSensorManager = $thisSensorManager;
+        $this->roomManager = $roomManager;
     }
 
     public function zeroOut($number)
@@ -76,7 +79,7 @@ class ChartManager
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         dump($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsName, $from, $to));
 
-        foreach($allSensors as $name => $data)
+        foreach($allSensors as $number => $data)
         {
             if(!empty($data))
             {
@@ -177,7 +180,7 @@ class ChartManager
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsName, $from, $to));
 
-        foreach($allSensors as $name => $data)
+        foreach($allSensors as $number => $data)
         {
             if(!empty($data))
             {
@@ -255,7 +258,7 @@ class ChartManager
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsName, $from, $to));
 
-        foreach($allSensors as $name => $data)
+        foreach($allSensors as $number => $data)
         {
             $sensorData = array();
 
@@ -293,8 +296,24 @@ class ChartManager
             $sensorData += array("COUNTER" => $counter);
             $counter++;
 
-            $chartData += array($name => $sensorData);
+            $chartData += array($number => $sensorData);
         }
+
+        $pletarnaBig = $this->roomManager->roomPletarnaBig;
+
+        $sortCartData = array();
+
+        foreach($pletarnaBig as $positionArr)
+        {
+            foreach($positionArr as $position)
+            {
+                dump($position);
+
+            }
+        }
+
+        dump($sensorsName);
+//        dump($chartData);
         return $chartData;
     }
 

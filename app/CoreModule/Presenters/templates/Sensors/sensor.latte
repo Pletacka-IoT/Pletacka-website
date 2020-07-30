@@ -1,16 +1,15 @@
-{block title}{$sensor["name"]}{/block}
+{block title}{$sensor["number"]}{/block}
 
 {block content}
 
 <div class="container text-center p-4 " style="margin-top:80px">
-    <h2>Senzor: {$sensor["name"]}</h2>
-    <h5><a class="ajax" n:href="edit $name" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a class="ajax" n:href="delete $name" >Smazat Senzor</a></h5>
+    <h2>Senzor: {$sensor["number"]}</h2>
+    <h5><a class="ajax" n:href="edit $number" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a class="ajax" n:href="delete $number" >Smazat Senzor</a></h5>
     <div class="table-responsive">
         <table class="table table-bordered">
         <thead>
             <tr>
             <th>Číslo</th>
-            <th>Název</th>
             <th>Popis</th>
             <th>Datum vytvoření</th>
             </tr>
@@ -18,7 +17,6 @@
         <tbody>
             <tr>
             <td>{$sensor["number"]}</td>
-            <td>{$sensor["name"]}</td>
             <td>{$sensor["description"]}</td>
             <td>{$sensor["date"]}</td>        
             </tr>

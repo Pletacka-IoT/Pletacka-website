@@ -20,7 +20,7 @@ final class RouterFactory
 		$router = new RouteList;
 		$router[] = new ApiRoute('api');
 
-		$router[] = new Route('senzory/<action>[/<name>]', [
+		$router[] = new Route('senzory/<action>[/<number>]', [
 			'presenter' => 'Core:Sensors',
 			'action' => [
 				// Route::FILTER_STRICT => true,
@@ -41,13 +41,13 @@ final class RouterFactory
 			'action' => 'in'
 		]);
 
-		$router[] = new Route('test/<action>[/<name>]', [
+		$router[] = new Route('test/<action>[/<number>]', [
 			'presenter' => 'Core:Test',
 			'action' => 'default'
 		]);		
 
 
-		$router[] = new Route('<presenter>/<action>[/<name>]', 'Core:Homepage:default');
+		$router[] = new Route('<presenter>/<action>[/<number>]', 'Core:Homepage:default');
 		return $router;
 	}
 }

@@ -20,11 +20,9 @@ class SensorsManager
     private $defaultMsgLanguage;
     private $defaultAPILanguage;
     
-    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database )
+    public function __construct( Context $database )
     {
         $this->database = $database;
-        $this->defaultMsgLanguage = $defaultMsgLanguage;
-        $this->defaultAPILanguage = $defaultAPILanguage;
     }
 
 
@@ -46,7 +44,7 @@ class SensorsManager
     
     /**
      * Get all sensors from database 
-     * @return array
+     * @return Nette\Database\Table\Selection
      */    
     public function getSensors()
     {
@@ -65,59 +63,33 @@ class SensorsManager
             throw new Exceptions\SensorNotExist;
         }
         return $out;
-    } 
-
-    /**
-     * Get sensor with specific name
-     * @param string $name
-     * @return Exception|\Nette\Database\Table\ActiveRow
-     */    
-    public function getSensorsName($name)
-    {
-        if(($out = $this->database->table("sensors")->where("name", $name )->fetch())==null)
-        {
-            throw new Exceptions\SensorNotExist;
-        }
-        return $out;
     }
-        
+
 
     /**
      * Get count of rows in table
-     * @param mixed $name
-     * @param string $column DEFAULT = "name"
+     * @param        $number
      * @return int count of rows
      */
-    public function getCountSensors($name, $column = "name") :int
+    public function getCountSensors($number) :int
     {
         //$result =  $this->database->query('SELECT * FROM sensors WHERE ' . $column . ' = ?', $name);
         //return $result->getRowCount();
-        return $this->database->table("sensors")->where($column, $name)->count();
+        return $this->database->table("sensors")->where("number = ?", $number)->count();
     }
 
-    /**
-     * Find sensors with specific name
-     * @param string $name
-     * @return null|\Nette\Database\Table\ActiveRow
-     */    
-    public function findSensorsName($name)
-    {
-        return $this->database->table("sensors")->where("name LIKE ?", "%".$name."%" )->fetchAll();
-    }    
 
     /**
      * Is sensor exist?
+     * @param $number
+     * @return bool
      */
-    public function sensorIsExist($name, $column = "name") :bool
+    public function sensorIsExist($number) :bool
     {
-        if($this->getCountSensors($name, $column)>0)
-        {
+        if($this->getCountSensors($number)>0)
             return 1;
-        }
         else
-        {
             return 0;
-        }
     }
 
     /**
@@ -130,29 +102,8 @@ class SensorsManager
         $this->database->query("CREATE TABLE $sensorName (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
-            -- work INT(11) NOT NULL,               
             time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )");
-        return true;
-    }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////
-    public function example($sensorName)
-    {
-        try{
-            $this->database->query("CREATE TABLE $sensorName (
-                id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'WORK',
-                -- work INT(11) NOT NULL,               
-                time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-                )");
-        } catch (Nette\Database\DriverException $e){
-            if($e->errorInfo[0]!="42S01") //Skip if error is "table is already exist"
-            {
-                return false;
-            }   
-        }
         return true;
     }
 
@@ -185,96 +136,76 @@ class SensorsManager
         return $this->database->query("DROP TABLE $sensorName");
     }
 
-    
 
     /**
      * Add new sensor
-     * @param int $number machine number
-     * @param string $name machine name
+     * @param int    $number machine number
      * @param string $description machine description (optional)
-     * @return array (bool - STATE, string - EN, string - CZ)
+     * @return array $(bool - STATE,  string - CZ)
      */
-    public function addNewSensor($number, $name, $description = "")
+    public function addNewSensor($number, $description = "")
     {
-        if(ctype_alnum($name)==false)
+
+        if($this->sensorIsExist($number) )
         {
-            return array(false, "", "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
-        }
-        
-        if($this->sensorIsExist($number, "number") )
-        {
-            return array(false, "", "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
+            return Pretty::return(false, "" , "Senzor s tímto číslem již existuje");
         }
 
-        if($this->sensorIsExist($name, "name"))
-        {
-            return array(false, "", "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
-        }
+        $this->addThisSensor($number);
 
-        $res = $this->addThisSensor($name);
-
-        if(!$res)
-        {
-            return array(false, "", "There is a very serious database error you should contact your administrator!", "Nastala velmi závažná chyba v databázi měli byste kontaktovat svého administrátora!");
-        }
 
         if($succes = $this->database->table("sensors")->insert([
             'number' => $number,
-            'name' => $name,
             'description' => $description,
         ]))
-        {            
-            return array(true, "", "Sensor created", "Senzor byl vytvořen");
+        {
+            return Pretty::return(true, "" ,"Senzor byl vytvořen");
         }
         else
         {
-            return array(false, "", "ERROR!!!", "ERROR!!!");
+            return Pretty::return(false, "" , "ERROR!!!");
         }        
         
     }
 
     /**
      * Delete sensor
-     * @param string $name machine name
-     * @return array (bool - STATE, string - EN, string - CZ)
+     * @param $number
+     * @return array $(bool - STATE,  string - CZ)
      */
-    public function deleteSensor($name)
+    public function deleteSensor($number)
     {
-        if(!$this->sensorIsExist($name, "name") )
+        if(!$this->sensorIsExist($number) )
         {
-            return array(false, "", "The sensor you want to delete does not exist", "Senzor který chceš smazat neexistuje");
+            return Pretty::return(false, "" , "Senzor který chceš smazat neexistuje");
         }
 
         $count = $this->database->table("sensors")
-            ->where('name', $name)
+            ->where('number', $number)
             ->delete();
 
-        $this->deleteThisSensor($name);
+        $this->deleteThisSensor($number);
 
-        return array($count,"", "Sensor deleted", "Senzor byl smazán");
-    }  
+        return Pretty::return(true, $count , "Senzor byl smazán");
+    }
 
     /**
      * Edit sensor
-     * @param string $oldName machine old name to edit
-     * @param int $number machine number
-     * @param string $name machine name
+     * @param        $oldNumber
+     * @param int    $number machine number
      * @param string $description machine description (optional)
-     * @return array (bool - STATE, string - EN, string - CZ)
+     * @return array $(bool - STATE,  string - CZ)
+     * @throws Exceptions\SensorNotExist
      */
-    public function editSensor($oldName, $number, $name, $description = "")
+    public function editSensor($oldNumber, $number, $description = "")
     {
-        if(!$this->sensorIsExist($oldName, "name") )
+        if(!$this->sensorIsExist($number))
         {
-            return array(false, "", "The sensor you want to edit does not exist", "Senzor který chceš upravit neexistuje");
-        }        
-        
-        $oldSen = $this->getSensorsName($oldName);
-
-        if(ctype_alnum($name)==false)
-        {
-            return array(false, "", "I can't create a sensor with this name", "Senzor s tímto názvem neumím vytvořit");
+            return Pretty::return(false, "" , "Senzor který chceš upravit neexistuje");
         }
+
+        $oldSen = $this->getSensorsNumber($oldNumber);
+
 
         //Is not same?
         if(($oldSen->number!=$number)==true)
@@ -282,39 +213,20 @@ class SensorsManager
             //Is exist?
             if($this->sensorIsExist($number, "number") )
             {
-                return array(false, "", "Sensor with this number is exist", "Senzor s tímto číslem již existuje");
+                return Pretty::return(false, "" , "Senzor s tímto číslem již existuje");
             }
         }
 
-        //Is not same?
-        if(($oldSen->name!=$name)==true)
-        {
-            if($this->sensorIsExist($name, "name"))
-            {
-                return array(false, "", "Sensor with this name is exist", "Senzor s tímto názvem již existuje");
-            }
-            $this->renameThisSensor($oldSen->name, $name);
-        }
+
        
 
         $result = $this->database->query('UPDATE sensors  SET', [ 
             'number' => $number,
-            'name' => $name,
             'description' => $description,
-        ], 'WHERE name = ?', $oldName);
+        ], 'WHERE number = ?', $oldNumber);
 
-        return array($result,"", "Sensor edited", "Senzor byl upraven");
+        return Pretty::return(false, $result , "Senzor byl upraven");
     }
-    
-    public function getAPILanguage()
-	{
-		return $this->defaultAPILanguage;
-    }
-    
-    public function getMsgLanguage()
-	{
-		return $this->defaultMsgLanguage;
-	}    
     
 
 

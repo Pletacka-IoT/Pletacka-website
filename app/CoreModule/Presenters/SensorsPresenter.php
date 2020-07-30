@@ -16,6 +16,7 @@ use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;
 use App\TimeManagers\TimeBox;
+use App\Utils\Pretty;
 
 use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Serie\DateSerie;
@@ -69,16 +70,16 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentAddSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createCreate(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorsManager->addNewSensor($values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->addNewSensor($values->number, $values->description);
             if($returnMessage[0])
             {
-                $this->flashMessage($returnMessage[3], 'success');
-                $this->redirect('Sensors:sensor',$values->name);
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$$values->numbe);
             }
             else
             {
                 
-                $this->flashMessage($returnMessage[3], 'error');
+                $this->flashMessage($returnMessage[2], 'error');
                 $this->redirect('this');
             }  
 		});        
@@ -90,16 +91,16 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentEditSensorxForm(): Form
     {
 		return $this->sensorsFormFactory->createEditOld(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorsManager->editSensor($values->oldname, $values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($values->oldnumber, $values->number, $values->description);
             if($returnMessage[0])
             {
-                $this->flashMessage($returnMessage[3], 'success');
-                $this->redirect('Sensors:sensor',$values->name);
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$$values->numbe);
             }
             else
             {
                 
-                $this->flashMessage($returnMessage[3], 'error');
+                $this->flashMessage($returnMessage[2], 'error');
                 $this->redirect('this');
             } 
 		});        
@@ -111,16 +112,16 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentDeleteSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createDelete(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorsManager->deleteSensor($values->name);
+            $returnMessage = $this->sensorsManager->deleteSensor($values->number);
             if($returnMessage[0])
             {
-                $this->flashMessage($returnMessage[3], 'success');
+                $this->flashMessage($returnMessage[2], 'success');
                 $this->redirect('this');
             }
             else
             {
                 
-                $this->flashMessage($returnMessage[3], 'error');
+                $this->flashMessage($returnMessage[2], 'error');
                 $this->redirect('this');
             }
 		});        
@@ -147,18 +148,18 @@ final class SensorsPresenter extends BasePresenter
     /*
      * Show sensor info
      */
-    public function renderSensor($name)
+    public function renderSensor($number)
     {
-        if(!$this->sensorsManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
+            $message = Pretty::return(false, "", "Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
             
         }
 
-        $this->template->sensor = $this->sensorsManager->getSensorsName($name);
-        $this->template->name = $this->sensorsManager->getSensorsName($name)["name"];
+        $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
+        $this->template->number = $number;
 //        $this->template->rawEvents = null;
 
 
@@ -207,7 +208,7 @@ final class SensorsPresenter extends BasePresenter
         $url = $this->request->getHeaders()["referer"];
         $exUrl = explode('/', $url);
         $exUrl = explode('?', $exUrl[7]);
-        $sName = $exUrl[0];
+        $sNumber = $exUrl[0];
 
         $from = $values->from;
         $to = $values->to;
@@ -218,7 +219,7 @@ final class SensorsPresenter extends BasePresenter
             return;
         }
 
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, $from, $to);
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
 
 
         if($rawEvents)
@@ -265,7 +266,7 @@ final class SensorsPresenter extends BasePresenter
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
             $exUrl = explode('?', $exUrl[7]);
-            $sName = $exUrl[0];
+            $sNumber = $exUrl[0];
 
             $from = $values->from;
             $to = $values->to;
@@ -276,7 +277,7 @@ final class SensorsPresenter extends BasePresenter
                 return;
             }
 
-            $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, $from, $to);
+            $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
 
             if($rawEvents)
             {
@@ -299,16 +300,16 @@ final class SensorsPresenter extends BasePresenter
 
 
             echo("");
-//            $returnMessage = $this->sensorsManager->editSensor($sName,$values->number, $values->name, $values->description);
+//            $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $$values->numbe, $values->description);
 //            if($returnMessage[0])
 //            {
-//                $this->flashMessage($returnMessage[3], 'success');
-//                $this->redirect('Sensors:sensor',$values->name);
+//                $this->flashMessage($returnMessage[2], 'success');
+//                $this->redirect('Sensors:sensor',$$values->numbe);
 //            }
 //            else
 //            {
 //
-//                $this->flashMessage($values->old."*".$returnMessage[3], 'error');
+//                $this->flashMessage($values->old."*".$returnMessage[2], 'error');
 //                $this->redirect('this');
 //            }
         });
@@ -324,37 +325,37 @@ final class SensorsPresenter extends BasePresenter
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
             $exUrl = explode('?', $exUrl[7]);
-            $sName = $exUrl[0];
+            $sNumber = $exUrl[0];
             
             
-            $returnMessage = $this->sensorsManager->editSensor($sName,$values->number, $values->name, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $values->description);
             if($returnMessage[0])
             {
-                $this->flashMessage($returnMessage[3], 'success');
-                $this->redirect('Sensors:sensor',$values->name);
+                $this->flashMessage($returnMessage[2], 'success');
+                $this->redirect('Sensors:sensor',$$values->numbe);
             }
             else
             {
                 
-                $this->flashMessage($values->old."*".$returnMessage[3], 'error');
+                $this->flashMessage($values->old."*".$returnMessage[2], 'error');
                 $this->redirect('this');
             }
 		});        
     }    
     
 
-    public function renderEdit($name)
+    public function renderEdit($number)
     {
 
-        if(!$this->sensorsManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($number))
         {
             $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
-        $sensor = $this->sensorsManager->getSensorsName($name);
+        $sensor = $this->sensorsManager->getSensorsNumber($number);
         $this->template->sensor = $sensor;
-        $this->template->name = $sensor["name"];
+        $this->template->number = $number;
         $this['editSensorForm']->setDefaults($sensor);
 
     }
@@ -363,7 +364,7 @@ final class SensorsPresenter extends BasePresenter
     //  Delete sensor Page
     ////////////////////////////////////////////////
 
-    public function actionDelete($name)
+    public function actionDelete($number)
     {
         if (!$this->getUser()->isLoggedIn()) {
             $this->redirect('Sign:in');
@@ -372,42 +373,27 @@ final class SensorsPresenter extends BasePresenter
         
         
 
-        if(!$this->sensorsManager->sensorIsExist($name))
+        if(!$this->sensorsManager->sensorIsExist($number))
         {
             $message = array(false,"", "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
 
-        $returnMessage = $this->sensorsManager->deleteSensor($name);
+        $returnMessage = $this->sensorsManager->deleteSensor($number);
         if($returnMessage[0])
         {
-            $this->flashMessage($returnMessage[3], 'success');
+            $this->flashMessage($returnMessage[2], 'success');
             $this->redirect('Sensors:default');
         }
         else
         {
             
-            $this->flashMessage($returnMessage[3], 'error');
+            $this->flashMessage($returnMessage[2], 'error');
             $this->redirect('Sensors:default');
         }
 
     }
-
-
-
-    ////////////////////////////////////////////////
-    //  Test Page
-    ////////////////////////////////////////////////
-
-    public function renderTest($name, $next)
-    {
-
-        dump($senors = $this->chartManager->sensorsChartData('hour', 1, "2020-05-05 04:01:00", "2020-05-05 14:00:00"));
-        dump($senorsAverage = $this->chartManager->sensorsChartDataAvg($senors));
-
-    }
-
 
 
 

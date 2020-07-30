@@ -64,76 +64,9 @@ final class TestPresenter extends BasePresenter
         $this->sensorsFormFactory = $sensorsFormFactory;
 	}
 	
-	public function runSafely($array)
-	{
-		if(is_array($array)&&count($array)>=4)
-		{
-			if($array[0])
-			{
-				return $array[1];
-			}
-			else
-			{
-				$this->error($array[2], IResponse::S405_METHOD_NOT_ALLOWED);
-			}
-		}
-	}
-	
-	public function renderDefault()
-	{
-		$this->thisSensorManager->testPretty();
-		// //$this->thisSensorManager->resetDB($sName);
-
-		// $ids = $this->thisSensorManager->getAllIdState($sName, '2020-04-24 22:00:00', '2020-04-24 22:30:00', $this->thisSensorManager::OLDWORK);
-		// $runTime = $this->thisSensorManager->getWorkTime($sName,$ids);
-		
-
-        // $this->template->allEventsCount = $this->thisSensorManager->countAllEvents($sName);
-        // $this->template->allEventsCount0 = $this->thisSensorManager->countAllEventsState($sName, $this->thisSensorManager::OLDSTOP);
-		// $this->template->allEventsCount1 = $this->thisSensorManager->countAllEventsState($sName, $this->thisSensorManager::OLDWORK);
-		// $this->template->allEvents = $this->thisSensorManager->getAllEvents($sName);
-		
-		// $this->template->firstEvent = $this->thisSensorManager->getFirstIdState($sName, '2020-04-24 22:00:00', $this->thisSensorManager::OLDWORK);
-		// $this->template->lastEvent = $this->thisSensorManager->getLastIdState($sName, '2020-04-24 22:20:00', $this->thisSensorManager::OLDWORK);
-		// $this->thisSensorManager::MINUTE;
-		
-
-		// //dump(date_diff(	DateTime::from("2020-04-24 22:13:00"), DateTime::from("2020-04-24 22:03:00")));
-
-
-		// $this->template->runTime = $runTime;
-		// $this->template->runTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($runTime);
-
-		// $allTime = $this->thisSensorManager->getAllTime($sName,$ids);
-		// $this->template->allTime = $allTime;
-		// $this->template->allTimeAdd = DateTime::from("2000-01-01 00:00:00")->add($allTime);
-
-		// // dump($this->thisSensorManager->timeToInterval("00:03:18"));
-
-	
-
-		
-
-
-		
-        
-        // echo "XXX:".$this->thisSensorManager->getAllEventsOlder($sName, '2020-04-17 15:56:30')."<br>";
-        // echo "Time<br>";
-        // foreach($this->thisSensorManager->getAllEventsYounger($sName, '2020-04-17 15:52:30') as $event)
-        // {
-        //     echo $event->id."->". $event->state."->".$event->time."<br>";
-        // }
-
-        // echo "All<br>";
-        // foreach($this->thisSensorManager->getAllEvents($sName) as $event)
-        // {
-        //     echo $event->id."->". $event->state."->".$event->time."<br>";
-        // }
-	}
 
 	public function actionDebug($name)
 	{
-
         $sName = "Pletacka1";
 
 		$start = "2020-05-05 4:00:00";
@@ -160,13 +93,9 @@ final class TestPresenter extends BasePresenter
             $this->template->avgStopTime = $events->avgStopTime();
             $this->template->avgWorkTime = $events->avgWorkTime();
         }
-
-
-//		$start = Datetime::from("2000-01-01 00:00:00");
-
 	}
 
-	public function renderRun(): void
+	public function renderChart(): void
 	{
         //////////////////////////////////////////////
 
@@ -194,27 +123,7 @@ final class TestPresenter extends BasePresenter
         $this->template->datechart = $chartd;
 
 
-
-
-        ////////////////////////////////////////////////
-
-
-		////////////////////////////////////////////////////
-
-		// $chart = new Chart();
-
-		// $serie = new Serie(Serie::LINE, 'Serie 1', 'red');
-		// $serie->addSegment(new Segment(5, 10));
-		// $serie->addSegment(new Segment(6, 4));
-		// $serie->addSegment(new Segment(2, 8));
-		// $chart->addSerie($serie);
-
-		// $serie = new Serie(Serie::LINE, 'Serie 2');
-		// $serie->addSegment(new Segment(2, 8));
-		// $serie->addSegment(new Segment(4, 6));
-		// $serie->addSegment(new Segment(8, 5));
-		// $serie->addSegment(new Segment(7, 7));
-		// $chart->addSerie($serie);
+        //////////////////////////////////////////////
 
 		$chart = new CategoryChart([
 			new Category("1", 'January'),
@@ -358,16 +267,6 @@ final class TestPresenter extends BasePresenter
 
 	}
 
-	public function actionReset()
-	{
-		// $this->thisSensorManager->resetDB($sName);
-		$events = $this->thissSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 9:00:00');
-		// foreach($events as $event)
-		// {
-		// 	dump($event);
-		// }
-
-	}
 
 }
 

@@ -32,13 +32,13 @@
             {foreach $bubbles as $bubble}
                 {first}<table class="table table-borderless">{/first}
                     {first 4}<tr>{/first}
-                        {if $bubble["LAST_STATE"] == OFF}
+                        {if $bubble["LAST_STATE"] == 'OFF'}
                             <td><div class = "circle-text"><h2>{$bubble["COUNTER"]}</h2></div></td>
                             <td><div class="my-circle bubble-off"></div></td>
-                        {elseif $bubble["LAST_STATE"] == ON or $bubble["LAST_STATE"] == FINISHED or $bubble["LAST_STATE"] == REWORK or $bubble["LAST_STATE"] == ON}
+                        {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
                             <td><div class = "circle-text bubble-ok"><h2>{$bubble["COUNTER"]}</h2></div></td>
                             <td><div class="my-circle bubble-off"></div>{floor($bubble["FINISHED"]/2)}</td>
-                        {elseif $bubble["LAST_STATE"] == STOP}
+                        {elseif $bubble["LAST_STATE"] == 'STOP'}
                             <td><div class = "circle-text bubble-stop"><h2>{$bubble["COUNTER"]}</h2></div></td>
                             <td><div class="my-circle bubble-off"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
                         {/if}

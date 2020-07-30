@@ -33,12 +33,12 @@ services:
 			# - deny(guest, Core:Homepage)
 
     # Models
-	- App\CoreModule\Model\SensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
-	- App\CoreModule\Model\ThisSensorManager(%defaultMsgLanguage%,%defaultAPILanguage%)
-	- App\CoreModule\Model\MultiSensorsManager(%defaultMsgLanguage%,%defaultAPILanguage%)
-	- App\CoreModule\Model\DatabaseManager
+	- App\CoreModule\Model\SensorsManager
+	- App\CoreModule\Model\ThisSensorManager
+	- App\CoreModule\Model\MultiSensorsManager
 	- App\CoreModule\Model\ThisChartManager
 	- App\CoreModule\Model\ChartManager
+	- App\CoreModule\Model\RoomManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory
