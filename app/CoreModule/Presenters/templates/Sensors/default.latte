@@ -15,7 +15,6 @@
                         <thead>
                             <tr>
                                 <th>Číslo</th>
-                                <th>Název</th>
                                 <th>Popis</th>
                                 <th>Datum změny</th>
                                 <th>Zobrazit</th>
@@ -27,12 +26,11 @@
                 {/if}
                             <tr id="row-{$iterator->counter}">
                                 <td>{$sensor->number}</td>
-                                <td>{$sensor->name}</td>
                                 <td>{$sensor->description}</td>
                                 <td>{$sensor->date}</td>
-                                <td><a class="ajax" n:href="sensor $sensor->name" >Zobrazit</a></td>
-                                <td><a class="ajax" n:href="edit $sensor->name" >Upravit</a></td>
-                                <td><a class="ajax" n:href="delete $sensor->name" >Smazat</a></td>
+                                <td><a class="ajax" n:href="sensor $sensor->number" >Zobrazit</a></td>
+                                <td><a class="ajax" n:href="edit $sensor->number" >Upravit</a></td>
+                                <td><a class="ajax" n:href="delete $sensor->number" >Smazat</a></td>
                             </tr>
                 {if $iterator->last}
                         </tbody>

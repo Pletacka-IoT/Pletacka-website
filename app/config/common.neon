@@ -2,10 +2,6 @@
 # WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
 # https://nette.org/security-warning
 #
-parameters:
-	defaultMsgLanguage: 3 #2-english; 3-czech
-	defaultAPILanguage: 2 #2-english; 3-czech
-
 extensions:
 	api: Apitte\Core\DI\ApiExtension
 	resource: Contributte\DI\Extension\ResourceExtension

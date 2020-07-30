@@ -31,12 +31,9 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('number', 'Cislo:') 
+        $form->addText('number', 'Číslo:')
             ->setRequired(self::FORM_MSG_REQUIRED)
             ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);
         
         $form->addText('description', 'Popis:');           
             
@@ -57,13 +54,9 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('number', 'Cislo:') 
+        $form->addText('number', 'Číslo:')
             ->setRequired(self::FORM_MSG_REQUIRED)
             ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
-
-        $form->addText('name', 'Nazev:') 
-            ->setRequired(self::FORM_MSG_REQUIRED);        
-
 
         $form->addText('description', 'Popis:');       
         $form->addSubmit('send', 'Uprav');
@@ -83,14 +76,14 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('oldname', 'Starý název:') 
+        $form->addText('oldnumber', 'Staré číslo:')
             ->setRequired(self::FORM_MSG_REQUIRED);
         
-        $form->addText('number', 'Cislo:') 
+        $form->addText('number', 'Číslo:')
             ->setRequired(self::FORM_MSG_REQUIRED)
             ->addRule(Form::INTEGER, self::FORM_MSG_RULE);
 
-        $form->addText('name', 'Nazev:') 
+        $form->addText('name', 'Název:')
             ->setRequired(self::FORM_MSG_REQUIRED);        
 
 
@@ -114,7 +107,7 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('name', 'Nazev:') 
+        $form->addText('name', 'Název:')
             ->setRequired(self::FORM_MSG_REQUIRED);                  
             
         $form->addSubmit('send', 'Smaž');

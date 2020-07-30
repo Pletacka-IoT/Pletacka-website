@@ -19,11 +19,9 @@ class MultiSensorsManager
     private $defaultAPILanguage;
     private $thisSensorManager;
     
-    public function __construct($defaultMsgLanguage,$defaultAPILanguage, Context $database, ThisSensorManager $thisSensorManager)
+    public function __construct(Context $database, ThisSensorManager $thisSensorManager)
     {
         $this->database = $database;
-        $this->defaultMsgLanguage = $defaultMsgLanguage;
-        $this->defaultAPILanguage = $defaultAPILanguage;
         $this->thisSensorManager = $thisSensorManager;
     }
 
@@ -42,12 +40,12 @@ class MultiSensorsManager
      * @param string $from
      * @param string $to
      */
-    public function getAllSensorsEvents($sensorsName, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
+    public function getAllSensorsEvents($sensorsNumbers, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
     {
         $allSensors = array();
-        foreach($sensorsName as $sensor)
+        foreach($sensorsNumbers as $sensor)
         {
-            $allSensors += array($sensor->name => $this->thisSensorManager->getAllEvents($sensor->name, $from, $to));
+            $allSensors += array($sensor->number => $this->thisSensorManager->getAllEvents($sensor->number, $from, $to));
         }
         return $allSensors;
     }
