@@ -27,14 +27,25 @@
         Info
     </h1>
     <div class="row">
-        <div class="col-sm-3 ">
-            <table class="table table-borderless"> 
-                <tr>
-                    <td><div class = "circle-text"><h2>1</h2></div></td>
-                    <td><div class="my-circle">10 m</div></td>
-                </tr>    
-            </table> 
 
+        <div class="col-sm-3 ">
+            {foreach $bubbles as $bubble}
+                {first}<table class="table table-borderless">{/first}
+                    {first 4}<tr>{/first}
+                        {if $bubble["LAST_STATE"] == OFF}
+                            <td><div class = "circle-text"><h2>{$bubble["COUNTER"]}</h2></div></td>
+                            <td><div class="my-circle bubble-off"></div></td>
+                        {elseif $bubble["LAST_STATE"] == ON or $bubble["LAST_STATE"] == FINISHED or $bubble["LAST_STATE"] == REWORK or $bubble["LAST_STATE"] == ON}
+                            <td><div class = "circle-text bubble-ok"><h2>{$bubble["COUNTER"]}</h2></div></td>
+                            <td><div class="my-circle bubble-off"></div>{floor($bubble["FINISHED"]/2)}</td>
+                        {elseif $bubble["LAST_STATE"] == STOP}
+                            <td><div class = "circle-text bubble-stop"><h2>{$bubble["COUNTER"]}</h2></div></td>
+                            <td><div class="my-circle bubble-off"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
+                        {/if}
+
+                    {last 4}</tr>{/last}
+                {last}</table>{/last}
+            {/foreach}
         
         </div>
         <div class="col-sm-3">

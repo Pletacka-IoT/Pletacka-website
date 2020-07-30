@@ -33,7 +33,7 @@ class MultiSensorsManager
      */
     public function getAllSensorsName()
     {
-        return $this->database->table("sensors")->fetchAll();
+        return $this->database->table("sensors")->order("number")->fetchAll();
     }
 
     /**

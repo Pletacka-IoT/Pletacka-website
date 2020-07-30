@@ -105,7 +105,7 @@ class ThisSensorManager
 
     public function getAllEvents($sName, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
     {
-        return $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();  
+        return $this->database->table($sName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
     }
 
     // public function getAllIdState($sName, $from , $to, $state = self::FINISHED)
