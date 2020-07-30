@@ -74,7 +74,7 @@ final class SensorsPresenter extends BasePresenter
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$$values->numbe);
+                $this->redirect('Sensors:sensor',$values->number);
             }
             else
             {
@@ -95,7 +95,7 @@ final class SensorsPresenter extends BasePresenter
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$$values->numbe);
+                $this->redirect('Sensors:sensor',$values->number);
             }
             else
             {
@@ -300,11 +300,11 @@ final class SensorsPresenter extends BasePresenter
 
 
             echo("");
-//            $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $$values->numbe, $values->description);
+//            $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $values->number, $values->description);
 //            if($returnMessage[0])
 //            {
 //                $this->flashMessage($returnMessage[2], 'success');
-//                $this->redirect('Sensors:sensor',$$values->numbe);
+//                $this->redirect('Sensors:sensor',$values->number);
 //            }
 //            else
 //            {
@@ -326,18 +326,20 @@ final class SensorsPresenter extends BasePresenter
             $exUrl = explode('/', $url);
             $exUrl = explode('?', $exUrl[7]);
             $sNumber = $exUrl[0];
+
+            echo"";
             
             
             $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$$values->numbe);
+                $this->redirect('Sensors:sensor',$values->number);
             }
             else
             {
                 
-                $this->flashMessage($values->old."*".$returnMessage[2], 'error');
+                $this->flashMessage($returnMessage[2], 'error');
                 $this->redirect('this');
             }
 		});        
@@ -349,7 +351,7 @@ final class SensorsPresenter extends BasePresenter
 
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = array(false, "This sensor does not exist","Tento senzor neexistuje");
+            $message = Pretty::array(false,"", "This sensor does not exist","Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
@@ -375,7 +377,7 @@ final class SensorsPresenter extends BasePresenter
 
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = array(false,"", "This sensor does not exist","Tento senzor neexistuje");
+            $message = Pretty::array(false,"", "Tento senzor neexistuje");
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }

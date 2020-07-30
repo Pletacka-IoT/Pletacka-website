@@ -27,8 +27,9 @@ class SensorsManager
 
 
     /**
-     * Get all settings from database 
+     * Get all settings from database
      * @return Exception|\Nette\Database\Table\ActiveRow
+     * @throws Exceptions\SettingsNotExist
      */
     public function getTitleSettings()
     {
@@ -49,12 +50,13 @@ class SensorsManager
     public function getSensors()
     {
         return $this->database->table("sensors");
-    }  
+    }
 
     /**
      * Get sensor with specific number
      * @param string $number
      * @return Exception|\Nette\Database\Table\ActiveRow
+     * @throws Exceptions\SensorNotExist
      */
     public function getSensorsNumber($number)
     {
@@ -86,20 +88,20 @@ class SensorsManager
      */
     public function sensorIsExist($number) :bool
     {
-        if($this->getCountSensors($number)>0)
-            return 1;
-        else
-            return 0;
+        return $this->getCountSensors($number);
+
     }
 
     /**
      * Add new sensor
-     * @param string $sensorName
+     * @param string $sensorNumber
      * @return bool
      */    
-    public function addThisSensor($sensorName)
+    public function addThisSensor($sensorNumber)
     {
-        $this->database->query("CREATE TABLE $sensorName (
+        $sensorNumber = "A".$sensorNumber;
+        
+        $this->database->query("CREATE TABLE $sensorNumber (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
             time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -109,31 +111,33 @@ class SensorsManager
 
     /**
      * Rename sensor table
-     * @param string $oldName
-     * @param string $sensorName
-     * @return bool 
+     * @param $oldNumber
+     * @param $newNumber
+     * @return bool
      */ 
-    public function renameThisSensor($oldName, $sensorName)
+    public function renameThisSensor($oldNumber, $newNumber)
     {
-
+        $oldNumber = "A".$oldNumber;
+        $newNumber = "A".$newNumber;
         try{
-            $this->database->query("ALTER TABLE $oldName
-            RENAME TO $sensorName");    
+            $this->database->query("ALTER TABLE $oldNumber
+            RENAME TO $newNumber");
         } catch (Nette\Database\DriverException $e) {
             //if sensor does no exist add new sensor to DB
-            return $this->addThisSensor($sensorName); //
+            return $this->addThisSensor($newNumber); //
         }
         return true;
     }  
     
     /**
      * Delete sensor table
-     * @param string $sensorName
+     * @param string $sensorNumber
      * @return \Nette\Database\ResultSet
      */     
-    public function deleteThisSensor($sensorName)
+    public function deleteThisSensor($sensorNumber)
     {
-        return $this->database->query("DROP TABLE $sensorName");
+        $sensorNumber = "A".$sensorNumber;
+        return $this->database->query("DROP TABLE $sensorNumber");
     }
 
 
@@ -154,7 +158,7 @@ class SensorsManager
         $this->addThisSensor($number);
 
 
-        if($succes = $this->database->table("sensors")->insert([
+        if($success = $this->database->table("sensors")->insert([
             'number' => $number,
             'description' => $description,
         ]))
@@ -199,9 +203,13 @@ class SensorsManager
      */
     public function editSensor($oldNumber, $number, $description = "")
     {
-        if(!$this->sensorIsExist($number))
+        if($oldNumber != $number)
         {
-            return Pretty::return(false, "" , "Senzor který chceš upravit neexistuje");
+            if($this->sensorIsExist($number))
+            {
+                return Pretty::return(false, "" , "Senzor který chceš upravit neexistuje");
+            }
+
         }
 
         $oldSen = $this->getSensorsNumber($oldNumber);
@@ -218,14 +226,16 @@ class SensorsManager
         }
 
 
-       
+
+        $this->renameThisSensor($oldNumber, $number);
+
 
         $result = $this->database->query('UPDATE sensors  SET', [ 
             'number' => $number,
             'description' => $description,
         ], 'WHERE number = ?', $oldNumber);
 
-        return Pretty::return(false, $result , "Senzor byl upraven");
+        return Pretty::return(true, $result , "Senzor byl upraven");
     }
     
 

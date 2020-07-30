@@ -107,7 +107,7 @@ final class SensorsFormFactory
     {
         $form = $this->formFactory->create();
         
-        $form->addText('name', 'Nazev:') 
+        $form->addText('name', 'Název:')
             ->setRequired(self::FORM_MSG_REQUIRED);                  
             
         $form->addSubmit('send', 'Smaž');
