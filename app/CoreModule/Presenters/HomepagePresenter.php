@@ -6,6 +6,7 @@ namespace App\CoreModule\Presenters;
 use App\Presenters\BasePresenter;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ChartManager;
+use App\CoreModule\Model\RoomManager;
 
 
 
@@ -13,11 +14,13 @@ final class HomepagePresenter extends BasePresenter
 {
     private $sensorsManager;
     private $chartManager;
+//    private $9
 
-	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager)
+	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
+
     }
 
     public function renderDefault() : void

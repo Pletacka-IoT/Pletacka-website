@@ -294,6 +294,7 @@ class ChartManager
                 $sensorData += array("LAST_STATE" => "OFF");
             }
             $sensorData += array("COUNTER" => $counter);
+            $sensorData += array("VISIBILITY" => "VISIBLY");
             $counter++;
 
             $chartData += array($number => $sensorData);
@@ -301,20 +302,28 @@ class ChartManager
 
         $pletarnaBig = $this->roomManager->roomPletarnaBig;
 
-        $sortCartData = array();
+        $sortChartData = array();
+
+        $invisibleCounter = -1;
 
         foreach($pletarnaBig as $positionArr)
         {
             foreach($positionArr as $position)
             {
-                dump($position);
+                if(array_key_exists($position, $chartData))
+                {
+                    $sortChartData += array($position => $chartData[$position]);
+                }
+                else
+                {
+                    $sortChartData += array($invisibleCounter => array("VISIBILITY" => "HIDDEN"));
+                    $invisibleCounter--;
+                }
 
             }
         }
 
-        dump($sensorsName);
-//        dump($chartData);
-        return $chartData;
+        return $sortChartData;
     }
 
 }

@@ -29,23 +29,47 @@
     <div class="row">
 
         <div class="col-sm-3 ">
-            {foreach $bubbles as $bubble}
+            {foreach $bubbles as $number => $bubble}
                 {first}<table class="table table-borderless">{/first}
                     {first 4}<tr>{/first}
-                        {if $bubble["LAST_STATE"] == 'OFF'}
-                            <td><div class = "circle-text"><h2>{$bubble["COUNTER"]}</h2></div></td>
-                            <td><div class="my-circle bubble-off"></div></td>
-                        {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-                            <td><div class = "circle-text bubble-ok"><h2>{$bubble["COUNTER"]}</h2></div></td>
-                            <td><div class="my-circle bubble-off"></div>{floor($bubble["FINISHED"]/2)}</td>
-                        {elseif $bubble["LAST_STATE"] == 'STOP'}
-                            <td><div class = "circle-text bubble-stop"><h2>{$bubble["COUNTER"]}</h2></div></td>
-                            <td><div class="my-circle bubble-off"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
+                        {if $bubble["VISIBILITY"] == "VISIBLY"}
+                            {if $bubble["LAST_STATE"] == 'OFF'}
+                                <td><div class = "bubble-text"><h2>{$number}</h2></div></td>
+                                <td><div class="bubble bubble-off"></div></td>
+                            {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
+                                <td><div class = "bubble-text "><h2>{$number}</h2></div></td>
+                                <td><div class="bubble bubble-ok"></div>{floor($bubble["FINISHED"]/2)}</td>
+                            {elseif $bubble["LAST_STATE"] == 'STOP'}
+                                <td><div class = "bubble-text "><h2>{$number}</h2></div></td>
+                                <td><div class="bubble bubble-stop"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
+                            {/if}
+                        {else}
+                            <td><div class = "bubble-text"><h2></h2></div></td>
+                            <td><div class="bubble bubble-hide"></div></td>
                         {/if}
 
                     {last 4}</tr>{/last}
                 {last}</table>{/last}
             {/foreach}
+
+{*            *}
+{*            {foreach $bubbles as $number => $bubble}*}
+{*                {first}<table class="table table-borderless">{/first}*}
+{*                    {first 4}<tr>{/first}*}
+{*                        {if $bubble["LAST_STATE"] == 'OFF'}*}
+{*                            <td><div class = "bubble-text"><h2>{$number}</h2></div></td>*}
+{*                            <td><div class="my-circle bubble-off"></div></td>*}
+{*                        {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}*}
+{*                            <td><div class = "bubble-text bubble-ok"><h2>{$bubble["COUNTER"]}</h2></div></td>*}
+{*                            <td><div class="my-circle bubble-off"></div>{floor($bubble["FINISHED"]/2)}</td>*}
+{*                        {elseif $bubble["LAST_STATE"] == 'STOP'}*}
+{*                            <td><div class = "bubble-text bubble-stop"><h2>{$bubble["COUNTER"]}</h2></div></td>*}
+{*                            <td><div class="my-circle bubble-off"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>*}
+{*                        {/if}*}
+
+{*                    {last 4}</tr>{/last}*}
+{*                {last}</table>{/last}*}
+{*            {/foreach}*}
         
         </div>
         <div class="col-sm-3">
