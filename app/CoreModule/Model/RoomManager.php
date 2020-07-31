@@ -40,7 +40,7 @@ class RoomManager
     public $roomPletarnaBig = array(
         array( 1,   2,   3,   4),
         array( 8,   7,   6,   5),
-        array( 9,  -1,  -1,  19),
+        array( 9,  -1,  -1,  18),
         array(10,  11,  12,  13),
         array(17,  16,  15,  14),
     );
@@ -50,7 +50,7 @@ class RoomManager
      */
     public $roomPletarnaSmall = array(
         array(20,  23),
-        array(18,  22),
+        array(19,  22),
         array(-1,  21),
     );
 
