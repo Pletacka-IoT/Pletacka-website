@@ -36,16 +36,25 @@ class MultiSensorsManager
 
     /**
      * Get all sensors events
-     * @param        $sensorsName
+     * @param        $sensorsNumbers
      * @param string $from
      * @param string $to
+     * @param bool   $inputFromDatabase default true (change for custom numbers array)
+     * @return array
      */
-    public function getAllSensorsEvents($sensorsNumbers, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
+    public function getAllSensorsEvents($sensorsNumbers, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00", $inputFromDatabase = true)
     {
         $allSensors = array();
         foreach($sensorsNumbers as $sensor)
         {
-            $allSensors += array($sensor->number => $this->thisSensorManager->getAllEvents($sensor->number, $from, $to));
+            if($inputFromDatabase)
+            {
+                $allSensors += array($sensor->number => $this->thisSensorManager->getAllEvents($sensor->number, $from, $to));
+            }
+            else
+            {
+                $allSensors += array($sensor => $this->thisSensorManager->getAllEvents($sensor, $from, $to));
+            }
         }
         return $allSensors;
     }

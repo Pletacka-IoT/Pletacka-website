@@ -14,12 +14,14 @@ final class HomepagePresenter extends BasePresenter
 {
     private $sensorsManager;
     private $chartManager;
+    private $roomManager;
 //    private $9
 
 	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
+		$this->roomManager = $roomManager;
 
     }
 
@@ -27,8 +29,13 @@ final class HomepagePresenter extends BasePresenter
     {
         $this->template->settings = $this->sensorsManager->getTitleSettings();
 
-        /*dump*/($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
-        /*dump*/($bubbles = $this->template->bubbles = $this->chartManager->sensorsChartBubbles());
+        ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
+
+        $plBig = $this->roomManager->roomPletarnaBig;
+        ($bubblesBig = $this->template->bubblesBig = $this->chartManager->sensorsChartBubbles($plBig));
+
+        $plSmall = $this->roomManager->roomPletarnaSmall;
+        ($bubblesSmall = $this->template->bubblesSmall = $this->chartManager->sensorsChartBubbles($plSmall));
 
 //        $last = $pletackyAll["ALL_SENSORS"]["Pletacka1"];
 //        dump($last[array_key_last($last)]->state);

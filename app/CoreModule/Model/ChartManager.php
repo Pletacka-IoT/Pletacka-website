@@ -231,8 +231,126 @@ class ChartManager
     }
 
 
+    public function sensorsChartBubbles($roomSensors)
+    {
 
-    public function sensorsChartBubbles()
+        $chartData = array();
+        $counter = 1;
+
+        if(date("H")<14)
+        {
+            $from = date("Y-m-d 04:00:00");
+            $to = date("Y-m-d 14:00:00");
+        }
+        else
+        {
+            $from = date("Y-m-d 04:00:00");
+            $to = date("Y-m-d 23:59:00");
+        }
+
+
+
+
+        $from="2020-05-05 00:00:00"; //For testing
+        $to="2020-05-05 10:00:00";
+
+        $sensorsName = $this->multiSensorsManager->getAllSensorsName();
+        $roomSensorsArray = array();
+
+        $coulmnsCounterLive = 0;
+        $coulmnsCounter = 0;
+
+        foreach($roomSensors as $sensorArr)
+        {
+            foreach($sensorArr as $sensor)
+            {
+                if(array_key_exists($sensor, $sensorsName))
+                {
+                    array_push($roomSensorsArray, $sensor);
+                }
+
+                $coulmnsCounterLive++;
+
+            }
+            if($coulmnsCounterLive>$coulmnsCounter)
+                $coulmnsCounter = $coulmnsCounterLive;
+            $coulmnsCounterLive = 0;
+        }
+
+        /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($roomSensorsArray, $from, $to, false));
+
+        foreach($allSensors as $number => $data)
+        {
+            $sensorData = array();
+
+            if(!empty($data))
+            {
+
+
+                $sensor = new TimeBox($data);   //Create object TimeBox
+
+                //                $sensorData += array("SENSORS" => 1);
+                //                $chartData += array("ALL_EVENTS" => $sensor->countEvents());
+                $sensorData += array(TimeBox::FINISHED => $sensor->countEvents(TimeBox::FINISHED) );
+                //                $chartData += array(TimeBox::STOP => $sensor->countEvents(TimeBox::STOP));
+                //                $chartData += array(TimeBox::REWORK => $sensor->countEvents(TimeBox::REWORK));
+                //                $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
+                //                $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
+                //                $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
+                $sensorData += array("STOP_TIME" => $sensor->stopTime()[1]);
+                //                $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
+                //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
+                //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
+                $sensorData += array("LAST_STATE" => $data[array_key_last($data)]->state);
+
+            }
+            else
+            {
+                $sensorData += array(TimeBox::FINISHED => 0);
+                $sensorData += array("STOP_TIME" => 0);
+                $sensorData += array("LAST_STATE" => "OFF");
+            }
+            $sensorData += array("COUNTER" => $counter);
+            $sensorData += array("COLUMN" => $coulmnsCounter);
+            $sensorData += array("VISIBILITY" => "VISIBLY");
+            $counter++;
+
+            $chartData += array($number => $sensorData);
+        }
+
+
+        $sortChartData = array();
+
+        $invisibleCounter = -1;
+
+
+        foreach($roomSensors as $positionArr)
+        {
+            foreach($positionArr as $position)
+            {
+
+                if(array_key_exists($position, $chartData))
+                {
+                    $sortChartData += array($position => $chartData[$position]);
+                }
+                else
+                {
+                    $sortChartData += array($invisibleCounter => array("VISIBILITY" => "HIDDEN"));
+                    $sortChartData[$invisibleCounter] += array("COLUMN" => "12");
+                    $invisibleCounter--;
+                }
+
+//                $sortChartData += array($position => array("COLUMN" => $coulmnsCounter));
+
+            }
+        }
+        return $sortChartData;
+    }
+
+
+
+
+    public function sensorsChartBubblesOld()
     {
 
         $chartData = array();

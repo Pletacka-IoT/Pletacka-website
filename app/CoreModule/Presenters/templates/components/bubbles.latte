@@ -1,0 +1,35 @@
+{define bubbles $bubblesData}
+
+
+	<div class="table-responsive bubble-brim">
+		{foreach $bubblesData as $number => $bubble}
+		{var myColumn = $bubble["COLUMN"]}
+			{first}<table class="table table-borderless">{/first}
+				{first $myColumn}<tr>{/first}
+					{if $bubble["VISIBILITY"] == "VISIBLY"}
+						{if $bubble["LAST_STATE"] == 'OFF'}
+							<th><div class = "bubble-number"><h2>{$number}</h2></div></th>
+							<td><div class="bubble bubble-off"></div></td>
+							<td><div class="bubble-text bubble-text-off"></div></td>
+						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
+							<th><div class = "bubble-number "><h2>{$number}</h2></div></th>
+							<td><div class="bubble bubble-ok"></div></td>
+							<td><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}</div></td>
+						{elseif $bubble["LAST_STATE"] == 'STOP'}
+							<th><div class = "bubble-number "><h2>{$number}</h2></div></th>
+							<td><div class="bubble bubble-stop"></div></td>
+							<td><div class="bubble-text bubble-text-stop">{gmdate("H:i:s", $bubble["STOP_TIME"])}</div></td>
+						{/if}
+					{else}
+						<th><div class = "bubble-number"><h2></h2></div></th>
+						<td><div class="bubble bubble-hide"></div></td>
+						<td><div class="bubble-text"></div></td>
+					{/if}
+
+				{last $myColumn}</tr>{/last}
+			{last}</table>{/last}
+		{/foreach}
+	</div>
+
+{/define}
+

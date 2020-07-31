@@ -6,108 +6,41 @@
     <h1 class="display-4">
         {$settings->work_shift_A}
     </h1>
-    <div class="row">
-        <div class="col-sm-4 ">
-            {$settings->title_pair_count}
-            <h2>{floor(($pletackyAll["FINISHED"]/$pletackyAll["SENSORS"])/2)}</h2>
-        </div>
-        <div class="col-sm-4">
-			{$settings->title_succes_rate}
-            <h2>{floor((($pletackyAll["WORK_TIME"]/$pletackyAll["SENSORS"])*100)/($pletackyAll["ALL_TIME"]/$pletackyAll["SENSORS"]))}%</h2>
-        </div>
-        <div class="col-sm-4">
-            {$settings->title_stop_time}
-            <h3>{gmdate("H:i:s", $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"])}</h3>
-        </div>              
-    </div>   
+
+    {include pusInfo $settings}
 </div>
 
-<div class="container-fluid text-center p-4 bg-info text-white " >
+<div class="container-fluid bg-info p-4">
+
+    <div class="row">
+        <div class="col-lg-8 ">
+            {include bubbles $bubblesBig}
+        </div>
+
+        <div class="col-lg-4 ">
+            {include bubbles $bubblesSmall}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid text-center p-4 bg-primary text-white " >
     <h1 class="display-4">
         Info
     </h1>
     <div class="row">
 
         <div class="col-sm-3">
-			{$settings->title_succes_rate}
+            {$settings->title_succes_rate}
         </div>
         <div class="col-sm-3">
             {$settings->title_error_count}
-        </div>     
+        </div>
         <div class="col-sm-3">
             {$settings->title_error_count}
-        </div>                     
-    </div>
-
-    <br>
-
-
-    <div class="row">
-        <div class="col-sm-8 table-responsive">
-            {foreach $bubbles as $number => $bubble}
-                {first}<table class="table table-borderless">{/first}
-                    {first 4}<tr>{/first}
-                        {if $bubble["VISIBILITY"] == "VISIBLY"}
-                            {if $bubble["LAST_STATE"] == 'OFF'}
-                                <th><div class = "bubble-text"><h2>{$number}</h2></div></th>
-                                <td><div class="bubble bubble-off"></div></td>
-                            {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-                                <th><div class = "bubble-text "><h2>{$number}</h2></div></th>
-                                <td><div class="bubble bubble-ok"></div>{floor($bubble["FINISHED"]/2)}</td>
-                            {elseif $bubble["LAST_STATE"] == 'STOP'}
-                                <th><div class = "bubble-text "><h2>{$number}</h2></div></th>
-                                <td><div class="bubble bubble-stop"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
-                            {/if}
-                        {else}
-                            <th><div class = "bubble-text"><h2></h2></div></th>
-                            <td><div class="bubble bubble-hide"></div></td>
-                        {/if}
-
-                    {last 4}</tr>{/last}
-                {last}</table>{/last}
-            {/foreach}
         </div>
     </div>
-    <div class="row">
-        {var $col = 0}
-        {var $sm = 0}
-        {var $c = 0}
-        {var $counter = 0}
-        {foreach $bubbles as $number => $bubble}
-                {if $sm % 4 == 0 || $sm % 4 == 2 }<div class="col-sm-6">{/if}
-
-                    {if $col % 4 == 0 || $col % 4 == 2 }<div class="row x">{/if}
-                        <div class="col-6">
-                            {if $bubble["VISIBILITY"] == "VISIBLY"}
-                                {if $bubble["LAST_STATE"] == 'OFF'}
-                                    <th><div class = "bubble-text"><h2>{$number}</h2></div></th>
-                                    <td><div class="bubble bubble-off"></div></td>
-                                {elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-                                    <th><div class = "bubble-text "><h2>{$number}</h2></div></th>
-                                    <td><div class="bubble bubble-ok"></div>{floor($bubble["FINISHED"]/2)}</td>
-                                {elseif $bubble["LAST_STATE"] == 'STOP'}
-                                    <th><div class = "bubble-text "><h2>{$number}</h2></div></th>
-                                    <td><div class="bubble bubble-stop"></div>{gmdate("H:i:s", $bubble["STOP_TIME"])}</td>
-                                {/if}
-                            {else}
-                                <th><div class = "bubble-text"><h2></h2></div></th>
-                                <td><div class="bubble bubble-hide"></div></td>
-                            {/if}
-                        </div>
-                    {if $col % 4 == 1 || $col % 4 == 3}</div>{/if}
-                    {var $col = $col +1}
-                {if $sm % 4 == 1 || $sm % 4 == 3}</div>{/if}
-                {var $sm = $sm +1}
-            {var $counter  = $counter +1}
-        {/foreach}
-    </div>
-
 </div>
 
-<style>
-
-
-</style>
 
 
 

@@ -27,29 +27,64 @@ div.success {
     border-color: #c3e6cb;
 }
 
-div.bubble {
-    display: inline-block;
+.bubble {
+    /*display: inline-block;*/
+    position: relative;
+    /*left: -10px;*/
     width: 70px;
     height: 70px;
-    margin: 6px;
+    /*margin: 6px;/*/
+    margin-top: 6px;
 
     border-radius: 50%!important;
 }
 
-.bubble-text{
+.bubble-number{
     color: white;
+    position: relative;
+    /*left: 10px;*/
+    top: 23px;
+    text-align: center;
+    width: 100%;
+}
+
+.bubble-text{
+    position: relative;
+    left: -10px;
+    top: 30px;
+    color: #7e491a;
+    width: 50px;
+}
+
+.table td, .table th{
+    padding: .1rem;
 }
 
 .bubble-off{
-    background-color: #937676;
+    background-color: #6a6767;
+}
+.bubble-text-off{
+    color: #6a6767;
 }
 
 .bubble-ok{
     background-color: #1A7E1E;
 }
+.bubble-text-ok{
+    color: #1A7E1E;
+}
 
 .bubble-stop{
     background-color: #f51026;
+}
+.bubble-text-stop{
+    color: #f51026;
+}
+
+.bubble-brim{
+    border: 5px solid red;
+    width: 100%;
+
 }
 
 /*.bubble-hide{*/
