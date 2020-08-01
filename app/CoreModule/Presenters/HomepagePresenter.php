@@ -7,6 +7,7 @@ use App\Presenters\BasePresenter;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\RoomManager;
+use Latte;
 
 
 
@@ -39,6 +40,8 @@ final class HomepagePresenter extends BasePresenter
 
 //        $last = $pletackyAll["ALL_SENSORS"]["Pletacka1"];
 //        dump($last[array_key_last($last)]->state);
+
+
 
     }
 }

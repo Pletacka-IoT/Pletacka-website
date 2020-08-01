@@ -8,6 +8,7 @@ use Nette;
 use Nette\Application\UI\Presenter;
 use App\Forms\FormFactory;
 use Nette\Database\Context;
+use Latte;
 
 
 
@@ -50,6 +51,7 @@ abstract class BasePresenter extends Presenter
 		parent::beforeRender();
 		{
 			$this->template->time = date("m/d/Y h:i:s",time());
+
 		}
 		
 
