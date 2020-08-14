@@ -5,7 +5,7 @@ div.flash{
     background-color: #d1ecf1;
     border-color: #bee5eb;
 	padding: 1em;
-    
+
     position: relative;
     padding: .75rem 1.25rem;
 
@@ -33,7 +33,7 @@ div.success {
     /*left: -10px;*/
     width: 90px;
     height: 50px;
-    /*margin: 6px;/*/
+    /*margin: 6px;!*/
     margin-top: 6px;
 
     border-radius: 15px!important;
@@ -59,9 +59,7 @@ div.success {
     z-index: 5;
 }
 
-.table td, .table th{
-    padding: .1rem;
-}
+
 
 .bubble-off{
     background-color: #6a6767;
@@ -110,13 +108,13 @@ div.success {
 @media screen and (max-width: 768px) {
     .hide-small{
         display: none;
-    }   
+    }
 }
 
 @media screen and (min-width: 768px) {
     .hide-big{
         display: none;
-    }   
+    }
 }
 
 .my-form{
