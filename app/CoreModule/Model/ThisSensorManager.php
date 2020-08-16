@@ -23,17 +23,15 @@ class ThisSensorManager
         MINUTE = 60;
 
     public const
-        FINISHED = 'FINISHED',	    // Machine is working
-        STOP = "STOP",	    // Machine is not working
-        REWORK = "REWORK", 	// State after end of STOP
-        ON = 'ON',          // ON machine
-        OFF = 'OFF';        // OFF machine
+        FINISHED = 'FINISHED',  // Machine is working
+        STOP = "STOP",	        // Machine is not working
+        REWORK = "REWORK", 	    // State after end of STOP
+        ON = 'ON',              // ON machine
+        OFF = 'OFF';            // OFF machine
 
 
 
     private $database;
-    private $defaultMsgLanguage;
-    private $defaultAPILanguage;
     private $sensorsManager;
 
     public function __construct(Context $database, SensorsManager $sensorsManager)

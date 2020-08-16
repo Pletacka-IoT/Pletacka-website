@@ -19,12 +19,15 @@ class TimeBox
         MINUTE = 60,
         FIRST = 1;
 
+    /**
+     * Pletacka states
+     */
     public const
-        FINISHED = 'FINISHED',	    // Machine is working
-        STOP = "STOP",	    // Machine is not working
-        REWORK = "REWORK", 	// State after end of STOP
-        ON = 'ON',          // ON machine
-        OFF = 'OFF';        // OFF machine
+        FINISHED = 'FINISHED',  // Machine is working
+        STOP = "STOP",	        // Machine is not working
+        REWORK = "REWORK", 	    // State after end of STOP
+        ON = 'ON',              // ON machine
+        OFF = 'OFF';            // OFF machine
 
 
 
@@ -39,15 +42,17 @@ class TimeBox
 		$this->tableSelection = $tableSelection;
 	}
 
-
+    /**
+     * Get events
+     * @return Selection
+     */
 	public function getEvents()
 	{
 		return $this->tableSelection;
 	}
 
     /**
-     * Count of table rows
-     *
+     * Count of table rows of specific Pletacka state or all states (null)
      * @param null $state
      * @return int count
      */
@@ -73,9 +78,8 @@ class TimeBox
 
 
     /**
-     * @return array
-     * @throws \Exception
-     * @noinspection PhpFullyQualifiedNameUsageInspection
+     * Get all pletacka time
+     * @return array [Date interval, time in second]
      */
     public function allTime()
     {
@@ -123,11 +127,9 @@ class TimeBox
     }
 
 
-
     /**
      * Get stop time
-     * @return array
-     * @throws \Exception
+     * @return array [Date interval, time in second]
      */
     public function stopTime()
     {
@@ -179,8 +181,7 @@ class TimeBox
 
     /**
      * Get work time
-     * @return array
-     * @throws \Exception
+     * @return array [Date interval, time in second]
      */
     public function workTime()
     {
@@ -189,9 +190,8 @@ class TimeBox
     }
 
     /**
-     * Average stop time
-     * @return array
-     * @throws \Exception
+     * Get average stop time
+     * @return array [Date interval, time in second]
      */
     public function avgStopTime()
     {
@@ -206,9 +206,8 @@ class TimeBox
     }
 
     /**
-     * Average work time
-     * @return array
-     * @throws \Exception
+     * Get average work time
+     * @return array [Date interval, time in second]
      */
     public function avgWorkTime()
     {

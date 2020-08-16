@@ -17,8 +17,6 @@ class SensorsManager
 	use Nette\SmartObject;
 
     private $database;
-    private $defaultMsgLanguage;
-    private $defaultAPILanguage;
     
     public function __construct( Context $database )
     {
@@ -54,7 +52,7 @@ class SensorsManager
 
     /**
      * Get sensor with specific number
-     * @param string $number
+     * @param int $number machine number
      * @return Exception|\Nette\Database\Table\ActiveRow
      * @throws Exceptions\SensorNotExist
      */
@@ -70,7 +68,7 @@ class SensorsManager
 
     /**
      * Get count of rows in table
-     * @param        $number
+     * @param $number machine number
      * @return int count of rows
      */
     public function getCountSensors($number) :int
@@ -83,7 +81,7 @@ class SensorsManager
 
     /**
      * Is sensor exist?
-     * @param $number
+     * @param $number machine number
      * @return bool
      */
     public function sensorIsExist($number) :bool
@@ -94,8 +92,8 @@ class SensorsManager
 
     /**
      * Add new sensor
-     * @param string $sensorNumber
-     * @return bool
+     * @param int $sensorNumber machine number
+     * @return bool create status
      */    
     public function addThisSensor($sensorNumber)
     {
@@ -111,10 +109,10 @@ class SensorsManager
 
     /**
      * Rename sensor table
-     * @param $oldNumber
-     * @param $newNumber
-     * @return bool
-     */ 
+     * @param int $newNumber new machine number
+     * @param int $oldNumber ols machine number
+     * @return bool rename status
+     */
     public function renameThisSensor($oldNumber, $newNumber)
     {
         $oldNumber = "A".$oldNumber;
@@ -131,7 +129,7 @@ class SensorsManager
     
     /**
      * Delete sensor table
-     * @param string $sensorNumber
+     * @param int $sensorNumber machine number
      * @return \Nette\Database\ResultSet
      */     
     public function deleteThisSensor($sensorNumber)
@@ -143,7 +141,7 @@ class SensorsManager
 
     /**
      * Add new sensor
-     * @param int    $number machine number
+     * @param int $number machine number
      * @param string $description machine description (optional)
      * @return array $(bool - STATE,  string - CZ)
      */
@@ -174,7 +172,7 @@ class SensorsManager
 
     /**
      * Delete sensor
-     * @param $number
+     * @param $number machine number
      * @return array $(bool - STATE,  string - CZ)
      */
     public function deleteSensor($number)
@@ -195,8 +193,8 @@ class SensorsManager
 
     /**
      * Edit sensor
-     * @param        $oldNumber
-     * @param int    $number machine number
+     * @param int $oldNumber machine old number
+     * @param int $number machine number
      * @param string $description machine description (optional)
      * @return array $(bool - STATE,  string - CZ)
      * @throws Exceptions\SensorNotExist
