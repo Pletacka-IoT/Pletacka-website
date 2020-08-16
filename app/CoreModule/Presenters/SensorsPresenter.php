@@ -158,9 +158,21 @@ final class SensorsPresenter extends BasePresenter
             
         }
 
+        // Get sensor name
+//        $url = $this->request->getHeaders();
+//        $url = explode('?', $url);
+//        dump($url);
+
+//        $num = substr($url, -2);
+
+//        $this->flashMessage($url);
+//        dump();
+        //        $exUrl = explode('?', $exUrl[7]);
+        //        $sNumber = $exUrl[0];
+
+
         $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
         $this->template->number = $number;
-//        $this->template->rawEvents = null;
 
 
     }
@@ -193,11 +205,15 @@ final class SensorsPresenter extends BasePresenter
         $form->addButton('month', "Mesic")
             ->setHtmlAttribute('onclick', 'setMonth()');
 
+        $form->addButton('all', "Vse")
+            ->setHtmlAttribute('onclick', 'setAll()');
+
         $form->addSubmit('send', 'Zobraz')
             ->setHtmlId('send');
         $form->onSuccess[] = [$this, 'ShowChart'];
 
         return $form;
+
     }
 
     public function ShowChart(Form $form, \stdClass $values): void
@@ -207,8 +223,11 @@ final class SensorsPresenter extends BasePresenter
         // Get sensor name
         $url = $this->request->getHeaders()["referer"];
         $exUrl = explode('/', $url);
-        $exUrl = explode('?', $exUrl[7]);
+        $exUrl = explode('?', $exUrl[5]);
         $sNumber = $exUrl[0];
+
+        $this->flashMessage($sNumber);
+//        $sNumber = 5;
 
         $from = $values->from;
         $to = $values->to;

@@ -27,143 +27,147 @@
 
 </div>
 
-{include editablaCharts $rawEvents, $showChartForm}
+{*{include editablaCharts $rawEvents, $showChartForm}*}
 
-{*<div class="container  p-4 " >*}
+<div class="container  p-4 " >
 {*    {include bootstrap-form showForm}*}
-{*    {include bootstrap-form showChartForm }*}
-{*    {include bootstrap-form addSensorFormx}*}
-{*</div>*}
+    {include bootstrap-form showChartForm}
+</div>
 
-{*<script>*}
-{*    function tl(num) {*}
-{*        if(num<10)*}
-{*            return "0"+num;*}
-{*        else*}
-{*            return num*}
-{*    }*}
+<script>
+    function tl(num) {
+        if(num<10)
+            return "0"+num;
+        else
+            return num
+    }
 
-{*    function setDay() {*}
-{*        var mDay = new Date();*}
-{*        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";*}
-{*        document.getElementById('from').value = from;*}
+    function setDay() {
+        var mDay = new Date();
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+        document.getElementById('from').value = from;
 
-{*        var sDay = new Date();*}
-{*        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";*}
-{*        document.getElementById('to').value = to;*}
-{*    }*}
+        var sDay = new Date();
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+        document.getElementById('to').value = to;
+    }
 
-{*    function setWeek() {*}
-{*        var mDay = new Date(); //Prevous monday 2020-05-05T23:43*}
-{*        mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);*}
-{*        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";*}
-{*        document.getElementById('from').value = from;*}
+    function setWeek() {
+        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+        mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+        document.getElementById('from').value = from;
 
-{*        var sDay = new Date();*}
-{*        sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);*}
-{*        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";*}
-{*        document.getElementById('to').value = to;*}
-{*    }*}
+        var sDay = new Date();
+        sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+        document.getElementById('to').value = to;
+    }
 
-{*    function setMonth() {*}
-{*        var mDay = new Date(); //Prevous monday 2020-05-05T23:43*}
-{*        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-01"+"T00:00";*}
-{*        document.getElementById('from').value = from;*}
+    function setMonth() {
+        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-01"+"T00:00";
+        document.getElementById('from').value = from;
 
-{*        var sDay = new Date();*}
-{*        sDay.setDate(1);*}
-{*        sDay.setMonth(sDay.getMonth() + 1);*}
-{*        sDay.setDate(sDay.getDate()-1);*}
-{*        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+sDay.getDate()+"T23:59";*}
-{*        document.getElementById('to').value = to;*}
+        var sDay = new Date();
+        sDay.setDate(1);
+        sDay.setMonth(sDay.getMonth() + 1);
+        sDay.setDate(sDay.getDate()-1);
+        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+sDay.getDate()+"T23:59";
+        document.getElementById('to').value = to;
 
-{*        console.log(to);*}
-{*    }*}
+        console.log(to);
+    }
 
-{*    document.getElementById('send').onload = function () {*}
-{*        console.log("click");*}
-{*        document.getElementById('send ').click();*}
-{*    }*}
-{*</script>*}
+    function setAll() {
+        document.getElementById('from').value = "2000-01-01T00:00";
+        document.getElementById('to').value = "2100-01-01T00:00";
+    }
 
+    document.getElementById('send').onload = function () {
+        console.log("click");
+        document.getElementById('send ').click();
+    }
+</script>
 
+{var $rawEvents}
 
-{*<div class="container">*}
-{*    {if $rawEvents !== null}*}
-{*        <h2>All events: {$countAll}</h2>*}
+<div class="container">
+    {if $rawEvents !== null}
+        <h2>All events: {$countAll}</h2>
 
-{*        <h2>Count</h2>*}
-{*        <div class="move-right">*}
-{*            <h4>All events count: {$countAll}</h4>*}
-{*            <h4>All events state count (FINISHED): {$countFinished}</h4>*}
-{*            <h4>All events state count (STOP): {$countStop}</h4>*}
-{*            <h4>All events state count (REWORK): {$countRework}</h4>*}
-{*            <h4>All events state count (ON): {$countOn}</h4>*}
-{*            <h4>All events state count (OFF): {$countOff}</h4>*}
-{*        </div>*}
+        <h2>Count</h2>
+        <div class="move-right">
+            <h4>All events count: {$countAll}</h4>
+            <h4>All events state count (FINISHED): {$countFinished}</h4>
+            <h4>All events state count (STOP): {$countStop}</h4>
+            <h4>All events state count (REWORK): {$countRework}</h4>
+            <h4>All events state count (ON): {$countOn}</h4>
+            <h4>All events state count (OFF): {$countOff}</h4>
+        </div>
 
-{*        <h2>Times</h2>*}
-{*        <div class="move-right">*}
-{*            <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>*}
-{*            <h4>Stop time: {$stopTime[0]|date:'%s'}s ->  {$stopTime[1]-3600|date:'h:i:s'} Minute:Second</h4>*}
-{*            <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>*}
-{*        </div>*}
+        <h2>Times</h2>
+        <div class="move-right">
+            <h4>All time: {$allTime[0]|date:'%s'}s ->  {$allTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+            <h4>Stop time: {$stopTime[0]|date:'%s'}s ->  {$stopTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+            <h4>Work time: {$workTime[0]|date:'%s'}s ->  {$workTime[1]-3600|date:'h:i:s'} Minute:Second</h4>
+        </div>
 
-{*        <h2>Average</h2>*}
-{*        <div class="move-right">*}
-{*            <h4>Stop average time: {$avgStopTime[0]|date:'%s'}s ->  {$avgStopTime[1]|date:'i:s'} Minute:Second</h4>*}
-{*            <h4>Work average time: {$avgWorkTime[0]|date:'%s'}s ->  {$avgWorkTime[1]|date:'i:s'} Minute:Second</h4>*}
-{*        </div>*}
-
-
-{*        {foreach $events as $event}*}
-{*            {if $iterator->first}*}
-{*                <table class="table table-striped">*}
-{*                <thead>*}
-{*                <tr>*}
-{*                    <th>ID</th>*}
-{*                    <th>State</th>*}
-{*                    <th>Time</th>*}
-{*                </tr>*}
-{*                </thead>*}
-{*                <tbody>*}
-{*            {/if}*}
-{*            <tr id="row-{$iterator->counter}">*}
-{*                <td>{$event->id}</td>*}
-{*                {if $event->state == "FINISHED"}*}
-{*                    <td class="text-success">*}
-{*                        {$event->state}*}
-{*                    </td>*}
-{*                {elseif  $event->state == "STOP"}*}
-{*                    <td class="text-danger">*}
-{*                        {$event->state}*}
-{*                    </td>*}
-{*                {elseif  $event->state == "REWORK"}*}
-{*                    <td class="text-info">*}
-{*                        {$event->state}*}
-{*                    </td>*}
-{*                {else}*}
-{*                    <td class="">*}
-{*                        {$event->state}*}
-{*                    </td>*}
-{*                {/if}*}
+        <h2>Average</h2>
+        <div class="move-right">
+            <h4>Stop average time: {$avgStopTime[0]|date:'%s'}s ->  {$avgStopTime[1]|date:'i:s'} Minute:Second</h4>
+            <h4>Work average time: {$avgWorkTime[0]|date:'%s'}s ->  {$avgWorkTime[1]|date:'i:s'} Minute:Second</h4>
+        </div>
 
 
-
-{*                <td>{$event->time}</td>*}
-{*            </tr>*}
-{*            {if $iterator->last}*}
-{*                </tbody>*}
-{*                </table>*}
-{*            {/if}*}
-{*        {/foreach}*}
+        {foreach $events as $event}
+            {if $iterator->first}
+                <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>State</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+            {/if}
+            <tr id="row-{$iterator->counter}">
+                <td>{$event->id}</td>
+                {if $event->state == "FINISHED"}
+                    <td class="text-success">
+                        {$event->state}
+                    </td>
+                {elseif  $event->state == "STOP"}
+                    <td class="text-danger">
+                        {$event->state}
+                    </td>
+                {elseif  $event->state == "REWORK"}
+                    <td class="text-info">
+                        {$event->state}
+                    </td>
+                {else}
+                    <td class="">
+                        {$event->state}
+                    </td>
+                {/if}
 
 
 
-{*    {else}*}
-{*        <h2>No data available</h2>*}
-{*    {/if}*}
-{*</div>*}
+                <td>{$event->time}</td>
+            </tr>
+            {if $iterator->last}
+                </tbody>
+                </table>
+            {/if}
+        {/foreach}
+
+
+
+    {else}
+        <h2>No data available</h2>
+    {/if}
+</div>
 
 
 

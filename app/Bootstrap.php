@@ -13,7 +13,7 @@ class Bootstrap
 	{
 		$configurator = new Configurator;
 
-		$configurator->setDebugMode("192.168.0.112"); // enable for your remote IP
+		$configurator->setDebugMode(array("192.168.0.112", "192.168.0.134", "192.168.0.114")); // enable for your remote IP
 		$configurator->enableTracy(__DIR__ . '/../log');
 
 		$configurator->setTimeZone('Europe/Prague');

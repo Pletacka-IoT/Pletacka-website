@@ -18,7 +18,6 @@ use Apitte\Core\Exception\Api\MessageException;
 final class ThisSensorController extends BaseV1Controller
 {
 	private $sensorsManager;
-	private $language;
 
 	
 	private $thisSensorManager;
@@ -27,51 +26,80 @@ final class ThisSensorController extends BaseV1Controller
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->thisSensorManager = $thisSensorManager;
-		$this->language = $this->sensorsManager->getAPILanguage();
 	}
 
 	
 
 
 
-
-	/**
-	 * @Path("/add-pletacka1/{state}")
-	 * @Method("GET")
-	 */
-	public function pletac1(ApiRequest $request, ApiResponse $response): string
-	{
-		$state = $request->getParameter('state');
-		$aSensors = array();
-		$ret = $this->thisSensorManager->addEvent("Pletacka1", $state);
-		if($ret == true)
-		{
-			return "OK";
-		}
-
-		return "Error ->".$ret[2];
-	}
+//
+//	/**
+//	 * @Path("/add-pletacka1/{state}")
+//	 * @Method("GET")
+//	 */
+//	public function pletac1(ApiRequest $request, ApiResponse $response): string
+//	{
+//		$state = $request->getParameter('state');
+//		$aSensors = array();
+//		$ret = $this->thisSensorManager->addEvent("Pletacka1", $state);
+//		if($ret == true)
+//		{
+//			return "OK";
+//		}
+//
+//		return "Error ->".$ret[2];
+//	}
 	
 
 	
 	/**
-	 * @Path("/add-event/{name}/{state}")
+	 * @Path("/add-event/{number}/{state}")
 	 * @Method("GET")
 	 */
 	public function xyz(ApiRequest $request, ApiResponse $response): string
 	{
-		$name = $request->getParameter('name');
+		$number = $request->getParameter('number');
 		$state = $request->getParameter('state');
-		$ret = $this->thisSensorManager->addEvent($name, $state);
+		$ret = $this->thisSensorManager->addEvent($number, $state);
 		if($ret == true)
 		{
-			return "OK -> ".$name." -> ".$state;
+			return "OK -> ".$number." -> ".$state;
 		}
 
 		return "Error ->".$ret[2];
 	}	
 
 
+
+
+//	/**
+//	 * @Path("/plet")
+//	 * @Method("GET")
+//	 */
+//	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
+//	{
+//		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
+//
+//        //$xout = array('sensors'=>$aSensors);
+//		return $response->writeJsonBody($events);
+//	}
+
+
+//	/**
+//	 * @Path("/")
+//	 * @Method("GET")
+//	 */
+//	public function scalar1(): string
+//	{
+//		// return 'pong';
+//		$ret = $this->thisSensorManager->addEvent("Pletacka1", "work");
+//		if($ret == true)
+//		{
+//			return "OK";
+//		}
+//
+//		return "Error ->".$ret[2];
+//	}
 
 	/**
 	 * @Path("/ping")
@@ -81,40 +109,6 @@ final class ThisSensorController extends BaseV1Controller
 	{
 		return 'pong';
 	}
-
-
-	/**
-	 * @Path("/plet")
-	 * @Method("GET")
-	 */	
-	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
-	{
-		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
-
-        //$xout = array('sensors'=>$aSensors);
-		return $response->writeJsonBody($events);
-	}	
-
-
-	/**
-	 * @Path("/")
-	 * @Method("GET")
-	 */
-	public function scalar1(): string
-	{
-		// return 'pong';
-		$ret = $this->thisSensorManager->addEvent("Pletacka1", "work");
-		if($ret == true)
-		{
-			return "OK";
-		}
-
-		return "Error ->".$ret[2];
-	}
-
-
-
-	
 
 
 }

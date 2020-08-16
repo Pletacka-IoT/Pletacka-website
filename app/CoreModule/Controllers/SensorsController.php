@@ -17,14 +17,12 @@ use Apitte\Core\Exception\Api\MessageException;
 final class SensorsController extends BaseV1Controller
 {
 	private $sensorsManager;
-	private $language;
 
 	private $defaultArticleUrl;
 	
 	public function __construct(SensorsManager $sensorsManager)
 	{
 		$this->sensorsManager = $sensorsManager;
-		$this->language = $this->sensorsManager->getAPILanguage();
 	}
 
 
@@ -46,25 +44,7 @@ final class SensorsController extends BaseV1Controller
 	}
 
 	/**
-	 * @Path("/find-name/{name}")
-	 * @Method("GET")
-	 */
-	public function find(ApiRequest $request, ApiResponse $response): ApiResponse
-	{
-		$name = $request->getParameter('name');
-		$aSensors = array();
-        $sensors = $this->sensorsManager->findSensorsName($name);
-        foreach($sensors as $sensor)
-        {
-            $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
-        }
-
-        //$xout = array('sensors'=>$aSensors);
-		return $response->writeJsonBody($aSensors);
-	}	
-
-	/**
-	 * @Path("/number/{number}")
+	 * @Path("/{number}")
 	 * @Method("GET")
 	 */
 	public function sensorsNumber(ApiRequest $request, ApiResponse $response): ApiResponse
@@ -89,92 +69,71 @@ final class SensorsController extends BaseV1Controller
 	}
 
 
-
-	/**
-	 * @Path("/name/{name}")
-	 * @Method("GET")
-	 */
-	public function sensorsName(ApiRequest $request, ApiResponse $response): ApiResponse
-	{
-		
-		$name = $request->getParameter('name');
-		if($this->sensorsManager->sensorIsExist($name, 'name'))
-		{
-			$sensor = $this->sensorsManager->getSensorsName($name);
-			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
-		}
-		else
-		{
-			throw MessageException::create()
-			->withCode(405)
-			->withMessage("Sensor with name ". $name . " does not exist.");
-		}
-	}
 	
-	
-	/**
-	 * @Path("/create")
-	 * @Method("POST")
-	 */
-	public function create(ApiRequest $request): array
-	{
-		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorsManager->addNewSensor($post['number'], $post['name'], $post['description']);
-		if($returnMessage[0])
-		{
-			return ['message'=>$returnMessage[$this->language]];
-
-		}
-		else
-		{
-			
-			throw MessageException::create()
-			->withCode(405)
-			->withMessage($returnMessage[$this->language]);
-		}  
-	}	
-
-		/**
-	 * @Path("/update")
-	 * @Method("PUT")
-	 */
-	public function update(ApiRequest $request): array
-	{
-		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorsManager->editSensor($post['old-name'],$post['number'], $post['name'], $post['description']);
-		if($returnMessage[0])
-		{
-			return ['message'=>$returnMessage[$this->language]];
-		}
-		else
-		{
-			
-			throw MessageException::create()
-			->withCode(405)
-			->withMessage($returnMessage[$this->language]);
-		}  
-	}
-
-	/**
-	 * @Path("/delete")
-	 * @Method("DELETE")
-	 */
-	public function delete(ApiRequest $request): array
-	{
-		$post = $request->getJsonBody();
-		$returnMessage = $this->sensorsManager->deleteSensor($post['name']);
-		if($returnMessage[0])
-		{
-			return ['message'=>$returnMessage[$this->language], $this->language];
-		}
-		else
-		{
-			
-			throw MessageException::create()
-			->withCode(405)
-			->withMessage($returnMessage[$this->language]);
-		}  
-	}	
+//
+//	/**
+//	 * @Path("/create")
+//	 * @Method("POST")
+//	 */
+//	public function create(ApiRequest $request): array
+//	{
+//		$post = $request->getJsonBody();
+//		$returnMessage = $this->sensorsManager->addNewSensor($post['number'], $post['name'], $post['description']);
+//		if($returnMessage[0])
+//		{
+//			return ['message'=>$returnMessage[$this->language]];
+//
+//		}
+//		else
+//		{
+//
+//			throw MessageException::create()
+//			->withCode(405)
+//			->withMessage($returnMessage[$this->language]);
+//		}
+//	}
+//
+//		/**
+//	 * @Path("/update")
+//	 * @Method("PUT")
+//	 */
+//	public function update(ApiRequest $request): array
+//	{
+//		$post = $request->getJsonBody();
+//		$returnMessage = $this->sensorsManager->editSensor($post['old-name'],$post['number'], $post['name'], $post['description']);
+//		if($returnMessage[0])
+//		{
+//			return ['message'=>$returnMessage[$this->language]];
+//		}
+//		else
+//		{
+//
+//			throw MessageException::create()
+//			->withCode(405)
+//			->withMessage($returnMessage[$this->language]);
+//		}
+//	}
+//
+//	/**
+//	 * @Path("/delete")
+//	 * @Method("DELETE")
+//	 */
+//	public function delete(ApiRequest $request): array
+//	{
+//		$post = $request->getJsonBody();
+//		$returnMessage = $this->sensorsManager->deleteSensor($post['name']);
+//		if($returnMessage[0])
+//		{
+//			return ['message'=>$returnMessage[$this->language], $this->language];
+//		}
+//		else
+//		{
+//
+//			throw MessageException::create()
+//			->withCode(405)
+//			->withMessage($returnMessage[$this->language]);
+//		}
+//	}
 
 
 	/**

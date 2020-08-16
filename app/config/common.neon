@@ -31,7 +31,7 @@ application:
 
 
 session:
-	expiration: 14 days
+	expiration: +14 days
 
 
 database:
