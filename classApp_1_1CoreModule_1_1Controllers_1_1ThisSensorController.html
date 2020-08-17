@@ -88,13 +88,13 @@ Inheritance diagram for App\CoreModule\Controllers\ThisSensorController:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab24759a131e608395367e7e3eb00eea0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#ab24759a131e608395367e7e3eb00eea0">__construct</a> (<a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html">SensorsManager</a> $sensorsManager, <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html">ThisSensorManager</a> $thisSensorManager)</td></tr>
 <tr class="separator:ab24759a131e608395367e7e3eb00eea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3acc525a90d3da23aee3bd4807607ff3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#a3acc525a90d3da23aee3bd4807607ff3">xyz</a> (ApiRequest $request, ApiResponse $response)</td></tr>
-<tr class="separator:a3acc525a90d3da23aee3bd4807607ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15f8e20841fab947e76e22577cd5b51f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#a15f8e20841fab947e76e22577cd5b51f">add_event</a> (ApiRequest $request, ApiResponse $response)</td></tr>
+<tr class="separator:a15f8e20841fab947e76e22577cd5b51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70a3642118a7d32ae8d4a4a90d207100"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#a70a3642118a7d32ae8d4a4a90d207100">ping</a> ()</td></tr>
 <tr class="separator:a70a3642118a7d32ae8d4a4a90d207100"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>@ControllerPath("/thisSensor") </p>
+<div class="textblock"><p>ThisSensor API class for selected sensor - extend <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1BaseV1Controller.html">BaseV1Controller</a> @ControllerPath("/thisSensor") </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab24759a131e608395367e7e3eb00eea0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab24759a131e608395367e7e3eb00eea0">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -125,6 +125,42 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a15f8e20841fab947e76e22577cd5b51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15f8e20841fab947e76e22577cd5b51f">&#9670;&nbsp;</a></span>add_event()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">App\CoreModule\Controllers\ThisSensorController::add_event </td>
+          <td>(</td>
+          <td class="paramtype">ApiRequest&#160;</td>
+          <td class="paramname"><em>$request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ApiResponse&#160;</td>
+          <td class="paramname"><em>$response</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add sensor event @Path("/add-event/{number}/{state}") @Method("GET") </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">ApiRequest</td><td class="paramname">$request</td><td>[sensor number, sensor state] </td></tr>
+    <tr><td class="paramtype">ApiResponse</td><td class="paramname">$response</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
+</div>
+</div>
 <a id="a70a3642118a7d32ae8d4a4a90d207100"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a70a3642118a7d32ae8d4a4a90d207100">&#9670;&nbsp;</a></span>ping()</h2>
 
@@ -143,42 +179,13 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3acc525a90d3da23aee3bd4807607ff3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3acc525a90d3da23aee3bd4807607ff3">&#9670;&nbsp;</a></span>xyz()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">App\CoreModule\Controllers\ThisSensorController::xyz </td>
-          <td>(</td>
-          <td class="paramtype">ApiRequest&#160;</td>
-          <td class="paramname"><em>$request</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ApiResponse&#160;</td>
-          <td class="paramname"><em>$response</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>@Path("/add-event/{number}/{state}") @Method("GET") </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/github/workspace/app/CoreModule/Controllers/<a class="el" href="ThisSensorController_8php.html">ThisSensorController.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 16 2020 23:17:53 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
+Generated on Mon Aug 17 2020 22:16:22 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
 </small></address>
 </body>
 </html>

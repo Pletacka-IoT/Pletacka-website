@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "$_abcdefghimoprstuwxz",
+  0: "$_abcdefghimoprstuwz",
   1: "bcdefhmprstu",
   2: "a",
   3: "bcefhmprstu",
-  4: "_abcdeghiprstwxz",
+  4: "_abcdeghiprstwz",
   5: "$cfmoprs",
   6: "p"
 };
