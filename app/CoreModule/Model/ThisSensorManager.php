@@ -13,6 +13,10 @@ use DateTimeImmutable;
 use Nette\Database\UniqueConstraintViolationException;
 use App\Utils\Pretty;
 
+
+/**
+ * @brief Work with one sensor by number
+ */
 class ThisSensorManager
 {
     use Nette\SmartObject;
@@ -60,7 +64,7 @@ class ThisSensorManager
     
 
     /**
-     * Save sensor status to database
+     * @brief Save sensor status to database
      * @param string $sNumber
      * @param mixed $state
      */
@@ -85,20 +89,14 @@ class ThisSensorManager
     }
     //BY NAME//
 
-    public function isEmpty($array)
-    {
-        if(count($array)<1)
-        {
-            return true;
-        }
-        return false;
-    }
 
-
-    //////////////
-    // Gets
-    //////////////
-
+    /**
+     * @brief Get all machine events
+     * @param        $sNumber
+     * @param string $from
+     * @param string $to
+     * @return array
+     */
     public function getAllEvents($sNumber, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00")
     {
         return $this->database->table("A".$sNumber)->where("time >=? AND time <=?", $from, $to)->fetchAll();
@@ -106,7 +104,7 @@ class ThisSensorManager
 
 
     /**
-     * Reset debug sensor to default values
+     * @brief  Reset debug sensor to default values
      * @param $sNumber
      */
     public function resetDB($sNumber)

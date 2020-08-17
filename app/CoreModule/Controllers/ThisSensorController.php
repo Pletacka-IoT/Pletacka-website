@@ -13,6 +13,7 @@ use App\CoreModule\Model\ThisSensorManager;
 use Apitte\Core\Exception\Api\MessageException;
 
 /**
+ * ThisSensor API class for selected sensor - extend BaseV1Controller
  * @ControllerPath("/thisSensor")
  */
 final class ThisSensorController extends BaseV1Controller
@@ -49,14 +50,17 @@ final class ThisSensorController extends BaseV1Controller
 //
 //		return "Error ->".$ret[2];
 //	}
-	
 
-	
-	/**
-	 * @Path("/add-event/{number}/{state}")
-	 * @Method("GET")
-	 */
-	public function xyz(ApiRequest $request, ApiResponse $response): string
+
+    /**
+     * Add sensor event
+     * @Path("/add-event/{number}/{state}")
+     * @Method("GET")
+     * @param ApiRequest  $request [sensor number, sensor state]
+     * @param ApiResponse $response
+     * @return string
+     */
+	public function add_event(ApiRequest $request, ApiResponse $response): string
 	{
 		$number = $request->getParameter('number');
 		$state = $request->getParameter('state');

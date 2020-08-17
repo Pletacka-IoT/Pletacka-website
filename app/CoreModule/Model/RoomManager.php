@@ -16,7 +16,9 @@ use App\Utils\Pretty;
 use App\TimeManagers\TimeBox;
 
 
-
+/**
+ * @brief Manage rooms
+ */
 class RoomManager
 {
     use Nette\SmartObject;

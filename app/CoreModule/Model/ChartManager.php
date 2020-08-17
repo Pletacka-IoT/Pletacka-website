@@ -17,7 +17,9 @@ use App\Utils\Pretty;
 use App\TimeManagers\TimeBox;
 
 
-
+/**
+ * @brief Class Chart Manager
+ */
 class ChartManager
 {
     use Nette\SmartObject;

@@ -1,6 +1,6 @@
 # Pletacka-website-nette
 
-<h1>Pletacka <a href="https://jakubandrysek.github.io/Pletacka-website-nette">documentation</a></h1>
+<h2>Pletacka <a href="https://jakubandrysek.github.io/Pletacka-website-nette">documentation</a></h2>
 
 - [Classes](https://jakubandrysek.github.io/Pletacka-website-nette/annotated.html) 
 - [Namespaces](https://jakubandrysek.github.io/Pletacka-website-nette/namespaces.html) 

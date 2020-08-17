@@ -12,6 +12,7 @@ use App\CoreModule\Model\SensorsManager;
 use Apitte\Core\Exception\Api\MessageException;
 
 /**
+ * Sensor API class - extend BaseV1Controller
  * @ControllerPath("/sensors")
  */
 final class SensorsController extends BaseV1Controller

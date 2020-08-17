@@ -13,7 +13,9 @@ use DateTimeImmutable;
 use Nette\Database\UniqueConstraintViolationException;
 use App\Utils\Pretty;
 
-
+/**
+ * @brief Manage chart data
+ */
 class ThisChartManager
 {
     use Nette\SmartObject;

@@ -9,7 +9,9 @@ use Nette\Database\Context;
 use App\Utils\Pretty;
 use App\CoreModule\Model\ThisSensorManager;
 
-
+/**
+ * @brief Work with all sensors
+ */
 class MultiSensorsManager
 {
 	use Nette\SmartObject;

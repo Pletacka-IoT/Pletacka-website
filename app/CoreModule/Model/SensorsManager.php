@@ -11,7 +11,9 @@ use App\Utils\Pretty;
 use App\Exceptions;
 use App\Exceptions\MyException;
 
-
+/**
+ * @brief Manage sensor with name
+ */
 class SensorsManager
 {
 	use Nette\SmartObject;

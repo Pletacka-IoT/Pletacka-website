@@ -19,13 +19,17 @@ final class ThisSensorFormFactory
 
     protected $formFactory;
 
+    /**
+     * @brief ThisSensorFormFactory constructor.
+     * @param FormFactory $formFactory
+     */
     public function __construct(FormFactory $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
     /**
-     * Create sensor Form
+     * @brief Create sensor Form
      */    
     public function show(callable $onSuccess): Form
     {

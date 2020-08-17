@@ -9,19 +9,14 @@ use Nette\Database\Table\Selection;
 use DateInterval;
 
 /**
- * Class create pretty output in specific format
+ * @brief The main time counting class
+ *
+ * Input database selection
  */
 class TimeBox
 {
 	use Nette\SmartObject;
 
-    public const
-        MINUTE = 60,
-        FIRST = 1;
-
-    /**
-     * Pletacka states
-     */
     public const
         FINISHED = 'FINISHED',  // Machine is working
         STOP = "STOP",	        // Machine is not working
@@ -34,7 +29,7 @@ class TimeBox
 	private $tableSelection;
 
 	/**
-	 * Constructor
+	 * @brief Constructor
 	 * @param Selection $tableSelection
 	 */
 	public function __construct($tableSelection)
@@ -43,7 +38,7 @@ class TimeBox
 	}
 
     /**
-     * Get events
+     * @brief Get events
      * @return Selection
      */
 	public function getEvents()
@@ -52,8 +47,8 @@ class TimeBox
 	}
 
     /**
-     * Count of table rows of specific Pletacka state or all states (null)
-     * @param null $state
+     * @brief Count of table rows of specific Pletacka state or all states (null)
+     * @param null $state Pletacka state or all states (null)
      * @return int count
      */
 	public function countEvents($state = NULL)
@@ -78,12 +73,11 @@ class TimeBox
 
 
     /**
-     * Get all pletacka time
+     * @brief Get all pletacka time
      * @return array [Date interval, time in second]
      */
     public function allTime()
     {
-        $sState = self::FIRST;
         $time = 0;
         $state = self::ON;
 
@@ -128,7 +122,7 @@ class TimeBox
 
 
     /**
-     * Get stop time
+     * @brief Get stop time
      * @return array [Date interval, time in second]
      */
     public function stopTime()
@@ -180,7 +174,7 @@ class TimeBox
     }
 
     /**
-     * Get work time
+     * @brief Get work time
      * @return array [Date interval, time in second]
      */
     public function workTime()
@@ -190,7 +184,7 @@ class TimeBox
     }
 
     /**
-     * Get average stop time
+     * @brief Get average stop time
      * @return array [Date interval, time in second]
      */
     public function avgStopTime()
@@ -206,7 +200,7 @@ class TimeBox
     }
 
     /**
-     * Get average work time
+     * @brief Get average work time
      * @return array [Date interval, time in second]
      */
     public function avgWorkTime()
