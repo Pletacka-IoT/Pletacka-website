@@ -9,7 +9,7 @@ use Nette\Http\IResponse;
 
 
 /**
- * The exception that indicates client error with HTTP code 4xx.
+ * @brief The exception that indicates client error with HTTP code 4xx.
  */
 class MyException extends \Exception
 {
@@ -36,7 +36,7 @@ class MyException extends \Exception
 
 
 /**
- * Exception for unexisting table
+ * @brief Exception for unexisting table
  */
 class ERROR extends MyException
 {
@@ -45,7 +45,7 @@ class ERROR extends MyException
 
 
 /**
- * Exception for unexisting table
+ * @brief Exception for unexisting table - Settings
  */
 class SettingsNotExist extends MyException
 {
@@ -54,7 +54,7 @@ class SettingsNotExist extends MyException
 
 
 /**
- * Exception for unexisting table
+ * @brief Exception for unexisting table
  */
 class TableNotExist extends MyException
 {
@@ -65,14 +65,9 @@ class TableNotExist extends MyException
 
 
 /**
- * Exception for unexisting sensor
+ * @brief Exception for unexisting sensor
  */
 class SensorNotExist extends MyException
 {
 	protected $message = 'Sensor with this name is not exist';
-}
-
-class ExampleShow extends MyException
-{
-	protected $message = "My custom exception";
 }

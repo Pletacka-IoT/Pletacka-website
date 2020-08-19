@@ -24,8 +24,6 @@ class ThisChartManager
 
 
     private $database;
-    private $defaultMsgLanguage;
-    private $defaultAPILanguage;
     private $thisSensorManager;
 
     public function __construct( Context $database, ThisSensorManager $thisSensorManager)

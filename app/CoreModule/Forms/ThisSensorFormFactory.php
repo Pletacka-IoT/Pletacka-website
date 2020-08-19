@@ -8,7 +8,9 @@ use Nette;
 use App\Forms\FormFactory;
 use Nette\Application\UI\Form;
 
-
+/**
+ * @brief Factory for selected sensor
+ */
 final class ThisSensorFormFactory
 {
     use Nette\SmartObject;

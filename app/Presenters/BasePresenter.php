@@ -15,7 +15,7 @@ use Latte;
 
 
 /**
- * Base presenter for all application presenters.
+ * @brief Base presenter for all application presenters.
  */
 abstract class BasePresenter extends Presenter 
 {

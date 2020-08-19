@@ -10,7 +10,9 @@ use Nette\Utils\ArrayHash;
 use App\Presenters\BasePresenter;
 
 
-
+/**
+ * @brief Sign presenter
+ */
 final class SignPresenter extends BasePresenter
 {
 	/** @persistent */

@@ -23,6 +23,10 @@ use Jakubandrysek\Chart\Serie\DateSerie;
 use Jakubandrysek\Chart\Segment\DateSegment;
 use DateTimeImmutable;
 
+/**
+ * @brief Sensor presenter
+ * Show everything about sensor
+ */
 final class SensorsPresenter extends BasePresenter
 {
 	const

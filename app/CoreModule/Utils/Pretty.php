@@ -7,7 +7,7 @@ namespace App\Utils;
 use Nette;
 
 /**
- * Class create pretty output in specific format
+ * @brief Class create pretty output in specific format
  */
 class Pretty
 {

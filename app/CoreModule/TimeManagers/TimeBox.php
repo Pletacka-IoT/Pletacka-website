@@ -8,6 +8,7 @@ use Nette;
 use Nette\Database\Table\Selection;
 use DateInterval;
 
+
 /**
  * @brief The main time counting class
  *

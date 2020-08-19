@@ -10,7 +10,9 @@ use App\CoreModule\Model\RoomManager;
 use Latte;
 
 
-
+/**
+ * @brief Homepage presenter
+ */
 final class HomepagePresenter extends BasePresenter
 {
     private $sensorsManager;

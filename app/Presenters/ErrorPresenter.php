@@ -15,6 +15,9 @@ use Error;
 use Exception;
 
 
+/**
+ * @brief Presenter for errors
+ */
 final class ErrorPresenter implements Nette\Application\IPresenter
 {
 	use Nette\SmartObject;

@@ -8,7 +8,6 @@ use Nette\Configurator;
 
 /**
  * @brief Configuration file
- * @package App
  */
 class Bootstrap
 {

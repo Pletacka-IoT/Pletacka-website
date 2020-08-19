@@ -11,6 +11,9 @@ use Apitte\Presenter\ApiRoute;
 
 
 
+/**
+ * @brief Factory for routes
+ */
 final class RouterFactory
 {
 	use Nette\StaticClass;

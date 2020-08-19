@@ -9,7 +9,7 @@ use Nette\Security\Passwords;
 
 
 /**
- * Users management.
+ * @brief Users management.
  */
 final class UserManager implements Nette\Security\IAuthenticator
 {
@@ -86,7 +86,9 @@ final class UserManager implements Nette\Security\IAuthenticator
 }
 
 
-
+/**
+ * @brief Exception for duplicate name
+ */
 class DuplicateNameException extends \Exception
 {
 	protected $message = 'Uživatel s tímto jménem je již zaregistrovaný.';

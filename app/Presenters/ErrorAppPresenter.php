@@ -9,6 +9,9 @@ use Error;
 use App\Exceptions\MyException;
 use Nette\Application\UI\Presenter;
 
+/**
+ * @brief Presenter for app errors
+ */
 final class ErrorAppPresenter extends BasePresenter
 {
 	// public function startup(): void

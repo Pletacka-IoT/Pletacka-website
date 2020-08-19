@@ -6,7 +6,9 @@ namespace App\Presenters;
 
 use Nette;
 
-
+    /**
+     * @brief Presenter for 4xx errors
+     */
 final class Error4xxPresenter extends BasePresenter
 {
 	public function startup(): void

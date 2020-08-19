@@ -9,7 +9,9 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Security\User;
 
-
+/**
+ * @brief Factory for sign-up
+ */
 final class SignUpFormFactory
 {
 	use Nette\SmartObject;

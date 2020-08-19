@@ -8,7 +8,9 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Security\User;
 
-
+/**
+ * @brief Factory for sign-in
+ */
 final class SignInFormFactory
 {
 	use Nette\SmartObject;
