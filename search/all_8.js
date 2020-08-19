@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['getallevents_81',['getAllEvents',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a98056d22191b18ca255a488db42d0fe8',1,'App::CoreModule::Model::ThisSensorManager']]],
-  ['getallsensorsevents_82',['getAllSensorsEvents',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#aad45b8c366e1ce3f5e9e19619175fa25',1,'App::CoreModule::Model::MultiSensorsManager']]],
-  ['getallsensorsname_83',['getAllSensorsName',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a1f4c2b640669baabbafc4dc0fd7e1a2c',1,'App::CoreModule::Model::MultiSensorsManager']]],
-  ['getapilanguage_84',['getAPILanguage',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a288c9e64e400adafd77d754a5fa45296',1,'App::CoreModule::Model::MultiSensorsManager']]],
-  ['getcountsensors_85',['getCountSensors',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a67a105363870924508d8483963647203',1,'App::CoreModule::Model::SensorsManager']]],
-  ['getevents_86',['getEvents',['../classApp_1_1TimeManagers_1_1TimeBox.html#a1616a9bc798112152e1b97ff7627cc0a',1,'App::TimeManagers::TimeBox']]],
-  ['gethttpcode_87',['getHttpCode',['../classApp_1_1Exceptions_1_1MyException.html#aaf2d58ceb290bdcb7e695912aad08796',1,'App::Exceptions::MyException']]],
-  ['gethttpmessage_88',['getHttpMessage',['../classApp_1_1Exceptions_1_1MyException.html#ae21a43f5e4a0a4852778111de0d1bbd0',1,'App::Exceptions::MyException']]],
-  ['getmsglanguage_89',['getMsgLanguage',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#aa4d3e2f82180a5d3f0aff53e64e38e63',1,'App::CoreModule::Model::MultiSensorsManager']]],
-  ['getsensors_90',['getSensors',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a2e1ae9a4831d7ae39daec4247cd9dc4c',1,'App::CoreModule::Model::SensorsManager']]],
-  ['getsensorsnumber_91',['getSensorsNumber',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a276b8f0e704ece560918ec308b86c5d2',1,'App::CoreModule::Model::SensorsManager']]],
-  ['gettitlesettings_92',['getTitleSettings',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a377be1af77f7b310a87011eab464b936',1,'App::CoreModule::Model::SensorsManager']]]
+  ['getallevents_80',['getAllEvents',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a98056d22191b18ca255a488db42d0fe8',1,'App::CoreModule::Model::ThisSensorManager']]],
+  ['getallsensorsevents_81',['getAllSensorsEvents',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#aad45b8c366e1ce3f5e9e19619175fa25',1,'App::CoreModule::Model::MultiSensorsManager']]],
+  ['getallsensorsname_82',['getAllSensorsName',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a1f4c2b640669baabbafc4dc0fd7e1a2c',1,'App::CoreModule::Model::MultiSensorsManager']]],
+  ['getapilanguage_83',['getAPILanguage',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a288c9e64e400adafd77d754a5fa45296',1,'App::CoreModule::Model::MultiSensorsManager']]],
+  ['getcountsensors_84',['getCountSensors',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a67a105363870924508d8483963647203',1,'App::CoreModule::Model::SensorsManager']]],
+  ['getevents_85',['getEvents',['../classApp_1_1TimeManagers_1_1TimeBox.html#a1616a9bc798112152e1b97ff7627cc0a',1,'App::TimeManagers::TimeBox']]],
+  ['gethttpcode_86',['getHttpCode',['../classApp_1_1Exceptions_1_1MyException.html#aaf2d58ceb290bdcb7e695912aad08796',1,'App::Exceptions::MyException']]],
+  ['gethttpmessage_87',['getHttpMessage',['../classApp_1_1Exceptions_1_1MyException.html#ae21a43f5e4a0a4852778111de0d1bbd0',1,'App::Exceptions::MyException']]],
+  ['getmsglanguage_88',['getMsgLanguage',['../classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#aa4d3e2f82180a5d3f0aff53e64e38e63',1,'App::CoreModule::Model::MultiSensorsManager']]],
+  ['getsensors_89',['getSensors',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a2e1ae9a4831d7ae39daec4247cd9dc4c',1,'App::CoreModule::Model::SensorsManager']]],
+  ['getsensorsnumber_90',['getSensorsNumber',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a276b8f0e704ece560918ec308b86c5d2',1,'App::CoreModule::Model::SensorsManager']]],
+  ['gettitlesettings_91',['getTitleSettings',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a377be1af77f7b310a87011eab464b936',1,'App::CoreModule::Model::SensorsManager']]]
 ];

@@ -7,6 +7,5 @@ var searchData=
   ['errorapppresenter_71',['ErrorAppPresenter',['../classApp_1_1Presenters_1_1ErrorAppPresenter.html',1,'App::Presenters']]],
   ['errorapppresenter_2ephp_72',['ErrorAppPresenter.php',['../ErrorAppPresenter_8php.html',1,'']]],
   ['errorpresenter_73',['ErrorPresenter',['../classApp_1_1Presenters_1_1ErrorPresenter.html',1,'App::Presenters']]],
-  ['errorpresenter_2ephp_74',['ErrorPresenter.php',['../ErrorPresenter_8php.html',1,'']]],
-  ['exampleshow_75',['ExampleShow',['../classApp_1_1Exceptions_1_1ExampleShow.html',1,'App::Exceptions']]]
+  ['errorpresenter_2ephp_74',['ErrorPresenter.php',['../ErrorPresenter_8php.html',1,'']]]
 ];
