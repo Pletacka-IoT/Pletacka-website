@@ -92,8 +92,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a189f4a355139fec153c18c2151532435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a503c55b48bb93be2ec3183d557b2537f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a503c55b48bb93be2ec3183d557b2537f">sensorsNumber</a> (ApiRequest $request, ApiResponse $response)</td></tr>
 <tr class="separator:a503c55b48bb93be2ec3183d557b2537f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bf2aee3929d4e5125923f41671c1850"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a9bf2aee3929d4e5125923f41671c1850">scalar</a> ()</td></tr>
-<tr class="separator:a9bf2aee3929d4e5125923f41671c1850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a9258a2b4ccfa985fd13e9f3d0310ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a1a9258a2b4ccfa985fd13e9f3d0310ad">ping</a> (ApiRequest $request, ApiResponse $response)</td></tr>
+<tr class="separator:a1a9258a2b4ccfa985fd13e9f3d0310ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sensor API class - extend <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1BaseV1Controller.html">BaseV1Controller</a> @ControllerPath("/sensors") </p>
@@ -117,21 +117,39 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9bf2aee3929d4e5125923f41671c1850"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bf2aee3929d4e5125923f41671c1850">&#9670;&nbsp;</a></span>scalar()</h2>
+<a id="a1a9258a2b4ccfa985fd13e9f3d0310ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a9258a2b4ccfa985fd13e9f3d0310ad">&#9670;&nbsp;</a></span>ping()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">App\CoreModule\Controllers\SensorsController::scalar </td>
+          <td class="memname">App\CoreModule\Controllers\SensorsController::ping </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">ApiRequest&#160;</td>
+          <td class="paramname"><em>$request</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">ApiResponse&#160;</td>
+          <td class="paramname"><em>$response</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>@Path("/ping") @Method("GET") </p>
+<p>@Path("/ping") @Method("GET") </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">ApiRequest</td><td class="paramname">$request</td><td></td></tr>
+    <tr><td class="paramtype">ApiResponse</td><td class="paramname">$response</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ApiResponse </dd></dl>
 
 </div>
 </div>
@@ -199,7 +217,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 19 2020 16:03:48 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
+Generated on Sun Aug 23 2020 10:47:22 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
 </small></address>
 </body>
 </html>

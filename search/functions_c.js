@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['testpretty_327',['testPretty',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a7baffe66dada5f88bf656cd37487c038',1,'App::CoreModule::Model::ThisSensorManager']]]
+  ['worktime_320',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a3c22c73e8f9d9da7e20c261bb1ddbbfd',1,'App::TimeManagers::TimeBox']]]
 ];
