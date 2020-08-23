@@ -1,4 +1,4 @@
-{block title}{$sensor["number"]}{/block}
+{block title}Info {$sensor["number"]}{/block}
 
 {block content}
 
@@ -31,8 +31,75 @@
 
 <div class="container  p-4 " >
 {*    {include bootstrap-form showForm}*}
-    {include bootstrap-form showChartForm}
+{*    {include bootstrap-form showChartForm}*}
+    {form showChartForm}
+    <table>
+        <tr>
+            <td colspan="2">{input time}
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                </div>
+            </td>
+        </tr>
+
+        {input from}
+        {input to}
+        {input send}
+
+    </table>
+
+    {/form}
 </div>
+
+
+<script type="text/javascript">
+    $(function() {
+
+        var start = moment().startOf('day');
+        var end = moment().endOf('day');
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
+        }
+
+        $('#reportrange span').daterangepicker({
+            timePicker: true,
+            // customRangeLabel: 'Vlastní',
+            startDate: start,
+            endDate: end,
+            timePicker24Hour: true,
+            alwaysShowCalendars: true,
+            autoUpdateInput: true,
+            ranges: {
+                'Dnes': [moment().startOf('day'), moment().endOf('day')],
+                'Včera': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+                'Posledních 7 dnů': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+                'Posledních 30 dní': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
+                'Tento měsíc': [moment().startOf('month'), moment().endOf('month')],
+                'Minulý měsíc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Od počátku věků': [moment().subtract(100, 'years').startOf('year'), moment().add(100, 'year').endOf('year')]
+            },
+            locale: {
+                format: 'MM/DD/YYYY',
+                separator: ' - ',
+                applyLabel: 'Potvrit',
+                cancelLabel: 'Zrušit',
+                fromLabel: 'Od',
+                toLabel: 'Do',
+                customRangeLabel: 'Vlastní',
+                weekLabel: 'T',
+                daysOfWeek: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So','Ne'],
+                monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+                firstDay: 0
+            },
+
+        }, cb);
+
+        cb(start, end);
+
+    });
+</script>
 
 <script>
     function tl(num) {
@@ -42,47 +109,47 @@
             return num
     }
 
-    function setDay() {
-        var mDay = new Date();
-        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
-        document.getElementById('from').value = from;
-
-        var sDay = new Date();
-        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
-        document.getElementById('to').value = to;
-    }
-
-    function setWeek() {
-        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
-        mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);
-        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
-        document.getElementById('from').value = from;
-
-        var sDay = new Date();
-        sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);
-        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
-        document.getElementById('to').value = to;
-    }
-
-    function setMonth() {
-        var mDay = new Date(); //Prevous monday 2020-05-05T23:43
-        var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-01"+"T00:00";
-        document.getElementById('from').value = from;
-
-        var sDay = new Date();
-        sDay.setDate(1);
-        sDay.setMonth(sDay.getMonth() + 1);
-        sDay.setDate(sDay.getDate()-1);
-        var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+sDay.getDate()+"T23:59";
-        document.getElementById('to').value = to;
-
-        console.log(to);
-    }
-
-    function setAll() {
-        document.getElementById('from').value = "2000-01-01T00:00";
-        document.getElementById('to').value = "2100-01-01T00:00";
-    }
+    // function setDay() {
+    //     var mDay = new Date();
+    //     var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+    //     document.getElementById('from').value = from;
+    //
+    //     var sDay = new Date();
+    //     var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+    //     document.getElementById('to').value = to;
+    // }
+    //
+    // function setWeek() {
+    //     var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+    //     mDay.setDate(mDay.getDate() - (mDay.getDay() + 6) % 7);
+    //     var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-"+tl(mDay.getDate())+"T00:00";
+    //     document.getElementById('from').value = from;
+    //
+    //     var sDay = new Date();
+    //     sDay.setDate(sDay.getDate() - ((sDay.getDay() + 6) % 7)+6);
+    //     var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+tl(sDay.getDate())+"T23:59";
+    //     document.getElementById('to').value = to;
+    // }
+    //
+    // function setMonth() {
+    //     var mDay = new Date(); //Prevous monday 2020-05-05T23:43
+    //     var from = mDay.getFullYear()+"-"+tl(mDay.getMonth()+1)+"-01"+"T00:00";
+    //     document.getElementById('from').value = from;
+    //
+    //     var sDay = new Date();
+    //     sDay.setDate(1);
+    //     sDay.setMonth(sDay.getMonth() + 1);
+    //     sDay.setDate(sDay.getDate()-1);
+    //     var to = sDay.getFullYear()+"-"+tl(sDay.getMonth()+1)+"-"+sDay.getDate()+"T23:59";
+    //     document.getElementById('to').value = to;
+    //
+    //     console.log(to);
+    // }
+    //
+    // function setAll() {
+    //     document.getElementById('from').value = "2000-01-01T00:00";
+    //     document.getElementById('to').value = "2100-01-01T00:00";
+    // }
 
     document.getElementById('send').onload = function () {
         console.log("click");

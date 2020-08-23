@@ -8,18 +8,18 @@
 				{first $myColumn}<tr>{/first}
 					{if $bubble["VISIBILITY"] == "VISIBLY"}
 						{if $bubble["LAST_STATE"] == 'OFF'}
-							<th><a  n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a  n:href="Sensors:info $number" ><div class="bubble bubble-off zoom"></div></a></td>
-							<td><a  n:href="Sensors:info $number" ><div class="bubble-text bubble-text-off"></div></a></td>
+							<th><a class="ajax" n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:info $number" ><div class="bubble bubble-off zoom"></div></a></td>
+							<td><a class="ajax" n:href="Sensors:info $number" ><div class="bubble-text bubble-text-off"></div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-							<th><a  n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a  n:href="Sensors:info $number" ><div class="bubble bubble-ok zoom"></div></a></td>
-							<td><a  n:href="Sensors:info $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}</div></a></td>
+							<th><a class="ajax" n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:info $number" ><div class="bubble bubble-ok zoom"></div></a></td>
+							<td><a class="ajax" n:href="Sensors:info $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}</div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'STOP'}
-							<th><a  n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a  n:href="Sensors:info $number" ><div class="bubble bubble-stop zoom"></div></a></td>
+							<th><a class="ajax" n:href="Sensors:info $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:info $number" ><div class="bubble bubble-stop zoom"></div></a></td>
 							<td>
-								<a  n:href="Sensors:info $number" >
+								<a class="ajax" n:href="Sensors:info $number" >
 									<div class="bubble-text bubble-text-stop">
 										{if gmdate("i", $bubble["STOP_TIME"])<60}
 											{if gmdate("H", $bubble["STOP_TIME"])[0] == 0}

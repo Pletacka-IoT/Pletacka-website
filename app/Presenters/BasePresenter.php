@@ -72,9 +72,8 @@ abstract class BasePresenter extends Presenter
 		parent::startup();
 		if (!$this->getUser()->isAllowed($this->getName(), $this->getAction())) {
 			$this->flashMessage('Nejsi přihlášený nebo nemáš dostatečná oprávnění.', "error");
-			$this->redirect('Sign:in');
+			$this->redirect('Sign:in', array('backlink' => $this->storeRequest()));
 		}
 	}
-
 
 }

@@ -25,7 +25,6 @@ Debuger
     <span></span> <i class="fa fa-caret-down"></i>
 </div>
 
-
 <script type="text/javascript">
     $(function() {
 
@@ -34,11 +33,12 @@ Debuger
 
         function cb(start, end) {
             $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
+            $('#from').html(start.format('D. M. Y HH:mm'));
+            $('#to').html(end);
         }
 
         $('#reportrange').daterangepicker({
             timePicker: true,
-            // customRangeLabel: 'Vlastní',
             startDate: start,
             endDate: end,
             timePicker24Hour: true,
@@ -49,7 +49,8 @@ Debuger
                 'Posledních 7 dnů': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
                 'Posledních 30 dní': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
                 'Tento měsíc': [moment().startOf('month'), moment().endOf('month')],
-                'Minulý měsíc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Minulý měsíc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Od počátku věků': [moment().subtract(100, 'years').startOf('year'), moment().add(100, 'year').endOf('year')]
             },
             locale: {
                 format: 'MM/DD/YYYY',
@@ -66,6 +67,11 @@ Debuger
             },
 
             }, cb);
+
+        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
 
         cb(start, end);
 

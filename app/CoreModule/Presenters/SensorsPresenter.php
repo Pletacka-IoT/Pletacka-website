@@ -188,29 +188,32 @@ final class SensorsPresenter extends BasePresenter
     {
         $form = new Form; // means Nette\Application\UI\Form
 
-        $form->addText('from', 'Od')
+        $form->addHidden('time');
+//            ->setHtmlId('reportrange')
+//            ->setRequired(self::FORM_MSG_REQUIRED);
+//            ->setDefaultValue("2020-05-05T05:00")
+
+//        $form->add
+
+        $form->addText('from', 'Do')
             ->setHtmlId('from')
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->setDefaultValue("2020-05-05T05:00")
             ->setHtmlType('datetime-local');
 
         $form->addText('to', 'Do')
             ->setHtmlId('to')
-            ->setRequired(self::FORM_MSG_REQUIRED)
-            ->setDefaultValue("2020-05-05T23:43")
             ->setHtmlType('datetime-local');
-
-        $form->addButton('day', "Den")
-            ->setHtmlAttribute('onclick', 'setDay()');
-
-        $form->addButton('week', "Tyden")
-            ->setHtmlAttribute('onclick', 'setWeek()');
-
-        $form->addButton('month', "Mesic")
-            ->setHtmlAttribute('onclick', 'setMonth()');
-
-        $form->addButton('all', "Vse")
-            ->setHtmlAttribute('onclick', 'setAll()');
+//
+//        $form->addButton('day', "Den")
+//            ->setHtmlAttribute('onclick', 'setDay()');
+//
+//        $form->addButton('week', "Tyden")
+//             ->setHtmlAttribute('onclick', 'setWeek()');
+//
+//        $form->addButton('month', "Mesic")
+//            ->setHtmlAttribute('onclick', 'setMonth()');
+//
+//        $form->addButton('all', "Vse")
+//            ->setHtmlAttribute('onclick', 'setAll()');
 
         $form->addSubmit('send', 'Zobraz')
             ->setHtmlId('send');
