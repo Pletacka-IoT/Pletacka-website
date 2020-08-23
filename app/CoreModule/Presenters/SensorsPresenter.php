@@ -424,6 +424,8 @@ final class SensorsPresenter extends BasePresenter
 
     public function actionDebug()
     {
+
+
         $type = DateSerie::AREA_SPLINE;
 
         $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('Pletacka1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");

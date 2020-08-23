@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/negotiation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/openapi" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/apitte/presenter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />

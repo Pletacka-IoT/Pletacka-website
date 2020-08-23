@@ -49,6 +49,7 @@
       <path value="$PROJECT_DIR$/vendor/jakubandrysek/chart" />
       <path value="$PROJECT_DIR$/vendor/apitte/openapi" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/apitte/negotiation" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

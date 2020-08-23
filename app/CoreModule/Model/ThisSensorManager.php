@@ -52,21 +52,21 @@ class ThisSensorManager
     }  
 
 
-    public function testPretty()
-    {
-         dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
-//         $y = PrettyReturn::return(true, array(1,2,3), "Je to ok");
-        dump(Pretty::return(0,"","Sensor with name  does not exist", "Senzor s názvemneexistuje"));
-        // dump($y);
-        return 1;//$x;
-    }
+//    public function testPretty()
+//    {
+//         dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
+////         $y = PrettyReturn::return(true, array(1,2,3), "Je to ok");
+//        dump(Pretty::return(0,"","Sensor with name  does not exist", "Senzor s názvemneexistuje"));
+//        // dump($y);
+//        return 1;//$x;
+//    }
 
-    
 
     /**
-     * @brief Save sensor status to database
+     * @brief Add sensor status to database
      * @param string $sNumber
-     * @param mixed $state
+     * @param mixed  $state
+     * @return array
      */
     public function addEvent($sNumber, $state)
     {
@@ -87,7 +87,6 @@ class ThisSensorManager
             return $this->pretty(false, "ERROR!!!", "ERROR!!!");
         }
     }
-    //BY NAME//
 
 
     /**

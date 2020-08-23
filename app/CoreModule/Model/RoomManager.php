@@ -36,8 +36,9 @@ class RoomManager
         $this->database = $database;
     }
 
-    /*
-     * Sensor positions in Big Pletarna
+    /**
+     * @brief Sensor positions in Big Pletarna
+     *
      */
     public $roomPletarnaBig = array(
         array( 1,   2,   3,   4),
@@ -47,8 +48,8 @@ class RoomManager
         array(17,  16,  15,  14),
     );
 
-    /*
-     * Sensor positions in Small Pletarna
+    /**
+     * @brief Sensor positions in Small Pletarna
      */
     public $roomPletarnaSmall = array(
         array(20,  23),

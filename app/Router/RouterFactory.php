@@ -41,7 +41,8 @@ final class RouterFactory
 
 		$router[] = new Route('sign/<action>', [
 			'presenter' => 'Core:Sign',
-			'action' => 'in'
+			'action' => 'in',
+
 		]);
 
 		$router[] = new Route('test/<action>[/<number>]', [

@@ -69,32 +69,7 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-        $sName = "Pletacka1";
-
-		$start = "2020-05-05 4:00:00";
-		$end = "2020-05-05 7:00:00";
-
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sName, '2020-01-01 6:54:00', '2020-05-05 9:00:00');
-		
-//		dump($rawEvents);
-		if($rawEvents)
-        {
-            $events = new TimeBox($rawEvents);
-
-            $this->template->events = $events->getEvents();
-//
-            $this->template->countAll = $events->countEvents();
-            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
-            $this->template->countStop = $events->countEvents(TimeBox::STOP);
-            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
-            $this->template->countOn = $events->countEvents(TimeBox::ON);
-            $this->template->countOff = $events->countEvents(TimeBox::OFF);
-            $this->template->allTime = $events->allTime();
-            $this->template->stopTime = $events->stopTime();
-            $this->template->workTime = $events->workTime();
-            $this->template->avgStopTime = $events->avgStopTime();
-            $this->template->avgWorkTime = $events->avgWorkTime();
-        }
+        dump($this->sensorsManager->sensorIsExist( 50, ""));
 	}
 
 	public function renderChart(): void

@@ -36,8 +36,8 @@ session:
 
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=pletacka-ex'
-	user: root
-	password: lopaticka
+	user: pletacka
+	password: ladasmolik
 	options:
 		lazy: yes
 

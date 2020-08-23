@@ -27,7 +27,7 @@ class SensorsManager
 
 
     /**
-     * Get all settings from database
+     * @brief Get all settings from database
      * @return Exception|\Nette\Database\Table\ActiveRow
      * @throws Exceptions\SettingsNotExist
      */
@@ -44,7 +44,7 @@ class SensorsManager
 
     
     /**
-     * Get all sensors from database 
+     * @brief Get all sensors from database
      * @return Nette\Database\Table\Selection
      */    
     public function getSensors()
@@ -53,7 +53,7 @@ class SensorsManager
     }
 
     /**
-     * Get sensor with specific number
+     * @brief Get sensor with specific number
      * @param int $number machine number
      * @return Exception|\Nette\Database\Table\ActiveRow
      * @throws Exceptions\SensorNotExist
@@ -69,7 +69,7 @@ class SensorsManager
 
 
     /**
-     * Get count of rows in table
+     * @brief Get count of rows in table
      * @param $number machine number
      * @return int count of rows
      */
@@ -82,7 +82,7 @@ class SensorsManager
 
 
     /**
-     * Is sensor exist?
+     * @brief Is sensor exist?
      * @param $number machine number
      * @return bool
      */
@@ -93,7 +93,7 @@ class SensorsManager
     }
 
     /**
-     * Add new sensor
+     * @brief Add new sensor
      * @param int $sensorNumber machine number
      * @return bool create status
      */    
@@ -110,7 +110,7 @@ class SensorsManager
     }
 
     /**
-     * Rename sensor table
+     * @brief Rename sensor table
      * @param int $newNumber new machine number
      * @param int $oldNumber ols machine number
      * @return bool rename status
@@ -130,7 +130,7 @@ class SensorsManager
     }  
     
     /**
-     * Delete sensor table
+     * @brief Delete sensor table
      * @param int $sensorNumber machine number
      * @return \Nette\Database\ResultSet
      */     
@@ -142,7 +142,7 @@ class SensorsManager
 
 
     /**
-     * Add new sensor
+     * @brief Add new sensor
      * @param int $number machine number
      * @param string $description machine description (optional)
      * @return array $(bool - STATE,  string - CZ)
@@ -173,7 +173,7 @@ class SensorsManager
     }
 
     /**
-     * Delete sensor
+     * @brief Delete sensor
      * @param $number machine number
      * @return array $(bool - STATE,  string - CZ)
      */
@@ -194,7 +194,7 @@ class SensorsManager
     }
 
     /**
-     * Edit sensor
+     * @brief Edit sensor
      * @param int $oldNumber machine old number
      * @param int $number machine number
      * @param string $description machine description (optional)

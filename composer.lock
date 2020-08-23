@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6325232c35692d352000badd70a9dd9",
+    "content-hash": "b335e320375537128bf27926150c1e21",
     "packages": [
         {
             "name": "apitte/core",
@@ -139,6 +139,65 @@
                 "tracy"
             ],
             "time": "2019-07-07T09:06:18+00:00"
+        },
+        {
+            "name": "apitte/negotiation",
+            "version": "v0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apitte/negotiation.git",
+                "reference": "d74b21bd0acde24add2bb02d00a5e7cbee765023"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apitte/negotiation/zipball/d74b21bd0acde24add2bb02d00a5e7cbee765023",
+                "reference": "d74b21bd0acde24add2bb02d00a5e7cbee765023",
+                "shasum": ""
+            },
+            "require": {
+                "apitte/core": "^0.6.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "nette/di": "~3.0.0",
+                "ninjify/nunjuck": "^0.2.0",
+                "ninjify/qa": "^0.8.0",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan-deprecation-rules": "^0.11",
+                "phpstan/phpstan-nette": "^0.11",
+                "phpstan/phpstan-shim": "^0.11",
+                "phpstan/phpstan-strict-rules": "^0.11"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Apitte\\Negotiation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Šulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "Content-Negotiation support for Apitte stack",
+            "homepage": "https://github.com/apitte/negotiation",
+            "keywords": [
+                "apitte",
+                "content-negotiation",
+                "negotiation",
+                "view-resolver"
+            ],
+            "time": "2019-07-06T19:53:51+00:00"
         },
         {
             "name": "apitte/openapi",
@@ -857,35 +916,6 @@
                 "tracy"
             ],
             "time": "2019-06-16T14:04:06+00:00"
-        },
-        {
-            "name": "dg/adminer-custom",
-            "version": "v1.21.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dg/adminer-custom.git",
-                "reference": "e99a0baef8492d79574b67e58482cbd2a8b1af23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/e99a0baef8492d79574b67e58482cbd2a8b1af23",
-                "reference": "e99a0baef8492d79574b67e58482cbd2a8b1af23",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Customization for Adminer, the best database management tool written in PHP.",
-            "keywords": [
-                "database",
-                "elasticsearch",
-                "mongodb",
-                "mssql",
-                "mysql",
-                "oracle",
-                "postgresql",
-                "sqlite"
-            ],
-            "time": "2019-12-03T17:35:25+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -2772,6 +2802,35 @@
     ],
     "packages-dev": [
         {
+            "name": "dg/adminer-custom",
+            "version": "v1.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/adminer-custom.git",
+                "reference": "e99a0baef8492d79574b67e58482cbd2a8b1af23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/adminer-custom/zipball/e99a0baef8492d79574b67e58482cbd2a8b1af23",
+                "reference": "e99a0baef8492d79574b67e58482cbd2a8b1af23",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Customization for Adminer, the best database management tool written in PHP.",
+            "keywords": [
+                "database",
+                "elasticsearch",
+                "mongodb",
+                "mssql",
+                "mysql",
+                "oracle",
+                "postgresql",
+                "sqlite"
+            ],
+            "time": "2019-12-03T17:35:25+00:00"
+        },
+        {
             "name": "nette/tester",
             "version": "v2.3.2",
             "source": {
@@ -2965,7 +3024,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": ">=7.3"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"

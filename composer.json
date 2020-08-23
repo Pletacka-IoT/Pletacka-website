@@ -44,7 +44,7 @@
         "apitte/openapi": "^0.6.0",
         "apitte/presenter": "^0.6.0",
 		"jakubandrysek/chart": "^3.1",
-		"myclabs/php-enum": "^1.7"		
+		"myclabs/php-enum": "^1.7"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",

@@ -37,11 +37,13 @@ final class SensorsController extends BaseV1Controller
         $sensors = $this->sensorsManager->getSensors();
         foreach($sensors as $sensor)
         {
-            $aSensors[] = array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description);
+            $aSensors[] = array('number'=>$sensor->number, 'description'=>$sensor->description);
         }
 
         //$xout = array('sensors'=>$aSensors);
-		return $response->writeJsonBody($aSensors);
+		return $response
+            ->writeJsonBody($aSensors)
+            ->withStatus(ApiResponse::S200_OK);
 	}
 
 	/**
@@ -54,17 +56,18 @@ final class SensorsController extends BaseV1Controller
 		if($this->sensorsManager->sensorIsExist($number, 'number'))
 		{
 			$sensor = $this->sensorsManager->getSensorsNumber($number);
-			return $response->writeJsonBody(array('number'=>$sensor->number, 'name'=>$sensor->name, 'description'=>$sensor->description));
+			return $response
+                ->writeJsonBody(array('number'=>$sensor->number, 'description'=>$sensor->description))
+                ->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
-			$error = [
-				'status' => 'error',
-				'code' => 404,
-				'message' => 'Sensor with number '. $number .' does not exist.',
-			];
-			return $response->writeJsonBody($error);
+			return $response
+                ->writeBody('Error -> Sensor with number '. $number .' does not exist.')
+                ->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
+
+
 		
 
 	}
@@ -137,14 +140,19 @@ final class SensorsController extends BaseV1Controller
 //	}
 
 
-	/**
-	 * @Path("/ping")
-	 * @Method("GET")
-	 */
-	public function scalar(): string
-	{
-		return 'pong';
-	}
+    /**
+     * @Path("/ping")
+     * @Method("GET")
+     * @param ApiRequest  $request
+     * @param ApiResponse $response
+     * @return ApiResponse
+     */
+    public function ping(ApiRequest $request, ApiResponse $response): ApiResponse
+    {
+        return $response
+            ->writeBody("pong")
+            ->withStatus(ApiResponse::S200_OK);
+    }
 
 
 

@@ -7,6 +7,7 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
+
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 
@@ -56,22 +57,32 @@ final class ThisSensorController extends BaseV1Controller
      * Add sensor event
      * @Path("/add-event/{number}/{state}")
      * @Method("GET")
-     * @param ApiRequest  $request [sensor number, sensor state]
-     * @param ApiResponse $response
-     * @return string
      */
-	public function add_event(ApiRequest $request, ApiResponse $response): string
+	public function add_event(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
-		$number = $request->getParameter('number');
+
+	    $number = $request->getParameter('number');
 		$state = $request->getParameter('state');
+
+		if(!($state == 'FINISHED' || $state == 'STOP' || $state == 'REWORK' || $state == 'ON' || $state == 'OFF'))
+        {
+            return $response
+                ->writeBody("Error -> Invalid state (". $state . ")")
+                ->withStatus(ApiResponse::S400_BAD_REQUEST);
+        }
+
 		$ret = $this->thisSensorManager->addEvent($number, $state);
 		if($ret == true)
 		{
-			return "OK -> ".$number." -> ".$state;
+            return $response
+                ->writeBody("OK -> ".$number." -> ".$state)
+                ->withStatus(ApiResponse::S200_OK);
 		}
 
-		return "Error ->".$ret[2];
-	}	
+        return $response
+            ->writeBody("Error ->".$ret[2])
+            ->withStatus(ApiResponse::S400_BAD_REQUEST);
+	}
 
 
 
@@ -105,13 +116,18 @@ final class ThisSensorController extends BaseV1Controller
 //		return "Error ->".$ret[2];
 //	}
 
-	/**
-	 * @Path("/ping")
-	 * @Method("GET")
-	 */
-	public function ping(): string
+    /**
+     * @Path("/ping")
+     * @Method("GET")
+     * @param ApiRequest  $request
+     * @param ApiResponse $response
+     * @return ApiResponse
+     */
+	public function ping(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
-		return 'pong';
+        return $response
+            ->writeBody("pong")
+            ->withStatus(ApiResponse::S200_OK);
 	}
 
 

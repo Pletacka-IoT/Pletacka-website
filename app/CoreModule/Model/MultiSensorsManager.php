@@ -28,7 +28,7 @@ class MultiSensorsManager
     }
 
     /**
-     * Get all sensors name
+     * @brief Get all sensors name
      * @return array
      */
     public function getAllSensorsName()
@@ -37,7 +37,7 @@ class MultiSensorsManager
     }
 
     /**
-     * Get all sensors events
+     * @brief Get all sensors events
      * @param        $sensorsNumbers
      * @param string $from
      * @param string $to
@@ -60,21 +60,4 @@ class MultiSensorsManager
         }
         return $allSensors;
     }
-
-
-    /**
-     * @return mixed
-     */
-    public function getAPILanguage()
-	{
-		return $this->defaultAPILanguage;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMsgLanguage()
-	{
-		return $this->defaultMsgLanguage;
-	}
 }
