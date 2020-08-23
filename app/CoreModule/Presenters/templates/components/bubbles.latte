@@ -9,7 +9,7 @@
 					{if $bubble["VISIBILITY"] == "VISIBLY"}
 						{if $bubble["LAST_STATE"] == 'OFF'}
 							<th><div class = "bubble-number"><h2>{$number}</h2></div></th>
-							<td><div class="bubble bubble-off"></div></td>
+							<td><a n:href="Sensors:Sensor $number" ><div class="bubble bubble-off"></div></a></td>
 							<td><div class="bubble-text bubble-text-off"></div></td>
 						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
 							<th><div class = "bubble-number "><h2>{$number}</h2></div></th>
@@ -21,13 +21,18 @@
 							<td>
 								<div class="bubble-text bubble-text-stop">
 									{if gmdate("i", $bubble["STOP_TIME"])<60}
-										{if {gmdate("H", $bubble["STOP_TIME"])[0] == 0}
+										{if gmdate("H", $bubble["STOP_TIME"])[0] == 0}
 											{gmdate("H", $bubble["STOP_TIME"])[1]}H
 										{else}
-
+											{gmdate("H", $bubble["STOP_TIME"])}H
+                                        {/if}
 	
 									{else}
-									 	{gmdate("i", $bubble["STOP_TIME"])}M
+										{if gmdate("i", $bubble["STOP_TIME"])[0] == 0}
+											{gmdate("i", $bubble["STOP_TIME"])[1]}M
+										{else}
+											{gmdate("i", $bubble["STOP_TIME"])}M
+										{/if}
 									{/if}
 								</div>
 							</td>
