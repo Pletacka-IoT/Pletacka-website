@@ -85,7 +85,7 @@ div.success {
 .bubble-brim{
     border: 5px solid red;
     width: 100%;
-    max-width: 820px;
+    max-width: 950px;
     margin: auto;
     display: inline-block;
 }

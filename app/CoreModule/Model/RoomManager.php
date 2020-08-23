@@ -55,6 +55,7 @@ class RoomManager
         array(20,  23),
         array(19,  22),
         array(-1,  21),
+        array(30,  -1),
     );
 
 

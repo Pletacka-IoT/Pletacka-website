@@ -18,7 +18,19 @@
 						{elseif $bubble["LAST_STATE"] == 'STOP'}
 							<th><div class = "bubble-number "><h2>{$number}</h2></div></th>
 							<td><div class="bubble bubble-stop"></div></td>
-							<td><div class="bubble-text bubble-text-stop">{gmdate("H", $bubble["STOP_TIME"])."".gmdate("i", $bubble["STOP_TIME"])}</div></td>
+							<td>
+								<div class="bubble-text bubble-text-stop">
+									{if gmdate("i", $bubble["STOP_TIME"])<60}
+										{if {gmdate("H", $bubble["STOP_TIME"])[0] == 0}
+											{gmdate("H", $bubble["STOP_TIME"])[1]}H
+										{else}
+
+	
+									{else}
+									 	{gmdate("i", $bubble["STOP_TIME"])}M
+									{/if}
+								</div>
+							</td>
 						{/if}
 					{else}
 						<th><div class = "bubble-number"><h2></h2></div></th>
