@@ -31,7 +31,7 @@ final class RouterFactory
 				Route::FILTER_TABLE => [
 					// řetězec v URL => akce presenteru
 					'editovat' => 'edit',
-					'info' => 'sensor',
+					'info' => 'info',
 					'smazat' => 'delete',
 					'test' => 'test',
                     'debug' => 'debug',

@@ -152,7 +152,7 @@ final class SensorsPresenter extends BasePresenter
     /*
      * Show sensor info
      */
-    public function renderSensor($number)
+    public function renderInfo($number)
     {
         if(!$this->sensorsManager->sensorIsExist($number))
         {
