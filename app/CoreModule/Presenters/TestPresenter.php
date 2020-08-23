@@ -69,7 +69,6 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-        dump($this->sensorsManager->sensorIsExist( 50, ""));
 	}
 
 	public function renderChart(): void

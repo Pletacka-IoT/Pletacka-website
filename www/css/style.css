@@ -1,4 +1,8 @@
 
+a:hover{
+    text-decoration: none;
+}
+
 /*Muj alert*/
 div.flash{
     color: #0c5460;
@@ -98,6 +102,7 @@ div.success {
     -ms-transform: scale(1.2); /* IE 9 */
     -webkit-transform: scale(1.2); /* Safari 3-8 */
     transform: scale(1.2);
+
 }
 
 .center{
