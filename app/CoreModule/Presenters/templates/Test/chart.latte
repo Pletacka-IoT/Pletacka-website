@@ -34,3 +34,137 @@ Basic chart
 
 
 </div>
+
+
+
+/**
+* @version: 3.1
+* @author: Dan Grossman http://www.dangrossman.info/
+* @copyright: Copyright (c) 2012-2019 Dan Grossman. All rights reserved.
+* @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
+* @website: http://www.daterangepicker.com/
+*/
+// Following the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
+(function (root, factory) {
+if (typeof define === 'function' && define.amd) {
+// AMD. Make globaly available as well
+define(['moment', 'jquery'], function (moment, jquery) {
+if (!jquery.fn) jquery.fn = {}; // webpack server rendering
+if (typeof moment !== 'function' && moment.hasOwnProperty('default')) moment = moment['default']
+return factory(moment, jquery);
+});
+} else if (typeof module === 'object' && module.exports) {
+// Node / Browserify
+//isomorphic issue
+var jQuery = (typeof window != 'undefined') ? window.jQuery : undefined;
+if (!jQuery) {
+jQuery = require('jquery');
+if (!jQuery.fn) jQuery.fn = {};
+}
+var moment = (typeof window != 'undefined' && typeof window.moment != 'undefined') ? window.moment : require('moment');
+module.exports = factory(moment, jQuery);
+} else {
+// Browser globals
+root.daterangepicker = factory(root.moment, root.jQuery);
+}
+}(typeof window !== 'undefined' ? window : this, function(moment, $) {
+var DateRangePicker = function(element, options, cb) {
+
+//default settings for options
+this.parentEl = 'body';
+this.element = $(element);
+this.startDate = moment().startOf('day');
+this.endDate = moment().endOf('day');
+this.minDate = false;
+this.maxDate = false;
+this.maxSpan = false;
+this.autoApply = false;
+this.singleDatePicker = false;
+this.showDropdowns = false;
+this.minYear = moment().subtract(100, 'year').format('YYYY');
+this.maxYear = moment().add(100, 'year').format('YYYY');
+this.showWeekNumbers = false;
+this.showISOWeekNumbers = false;
+this.showCustomRangeLabel = true;
+this.timePicker = false;
+this.timePicker24Hour = false;
+this.timePickerIncrement = 1;
+this.timePickerSeconds = false;
+this.linkedCalendars = true;
+this.autoUpdateInput = true;
+this.alwaysShowCalendars = false;
+this.ranges = {};
+
+this.opens = 'right';
+if (this.element.hasClass('pull-right'))
+this.opens = 'left';
+
+this.drops = 'down';
+if (this.element.hasClass('dropup'))
+this.drops = 'up';
+
+this.buttonClasses = 'btn btn-sm';
+this.applyButtonClasses = 'btn-primary';
+this.cancelButtonClasses = 'btn-default';
+
+this.locale = {
+direction: 'ltr',
+format: moment.localeData().longDateFormat('L'),
+separator: ' - ',
+applyLabel: 'Apply',
+cancelLabel: 'Cancel',
+weekLabel: 'W',
+customRangeLabel: 'Custom Range',
+daysOfWeek: moment.weekdaysMin(),
+monthNames: moment.monthsShort(),
+firstDay: moment.localeData().firstDayOfWeek()
+};
+
+this.callback = function() { };
+
+//some state information
+this.isShowing = false;
+this.leftCalendar = {};
+this.rightCalendar = {};
+
+//custom options from user
+if (typeof options !== 'object' || options === null)
+options = {};
+
+//allow setting options with data attributes
+//data-api options will be overwritten with custom javascript options
+options = $.extend(this.element.data(), options);
+
+//html template for the picker UI
+if (typeof options.template !== 'string' && !(options.template instanceof $))
+options.template =
+'<div class="daterangepicker">' +
+    '<div class="ranges"></div>' +
+    '<div class="drp-calendar left">' +
+        '<div class="calendar-table"></div>' +
+        '<div class="calendar-time"></div>' +
+        '</div>' +
+    '<div class="drp-calendar right">' +
+        '<div class="calendar-table"></div>' +
+        '<div class="calendar-time"></div>' +
+        '</div>' +
+    '<div class="drp-buttons">' +
+        '<span class="drp-selected"></span>' +
+        '<button class="cancelBtn" type="button"></button>' +
+        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
+        '</div>' +
+    '</div>';
+
+this.parentEl = (options.parentEl && $(options.parentEl).length) ? $(options.parentEl) : $(this.parentEl);
+this.container = $(options.template).appendTo(this.parentEl);
+
+//
+// handle all the possible options overriding defaults
+//
+
+if (typeof options.locale === 'object') {
+
+if (typeof options.locale.direction === 'string')
+this.locale.direction = options.locale.direction;
+
+if (typeof options.locale.format

@@ -17,6 +17,8 @@ Debuger
     });
 </script>
 
+{*////////////////////*}
+
 
 <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
     <i class="fa fa-calendar"></i>&nbsp;
@@ -27,11 +29,11 @@ Debuger
 <script type="text/javascript">
     $(function() {
 
-        var start = moment().subtract(29, 'days');
-        var end = moment();
+        var start = moment().startOf('day');
+        var end = moment().endOf('day');
 
         function cb(start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
         }
 
         $('#reportrange').daterangepicker({
@@ -39,13 +41,15 @@ Debuger
             // customRangeLabel: 'Vlastní',
             startDate: start,
             endDate: end,
+            timePicker24Hour: true,
+            alwaysShowCalendars: true,
             ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Dnes': [moment().startOf('day'), moment().endOf('day')],
+                'Včera': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+                'Posledních 7 dnů': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+                'Posledních 30 dní': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
+                'Tento měsíc': [moment().startOf('month'), moment().endOf('month')],
+                'Minulý měsíc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             locale: {
                 format: 'MM/DD/YYYY',
@@ -57,7 +61,7 @@ Debuger
                 customRangeLabel: 'Vlastní',
                 weekLabel: 'T',
                 daysOfWeek: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So','Ne'],
-                monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
                 firstDay: 0
             },
 
