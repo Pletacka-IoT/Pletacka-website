@@ -34,7 +34,7 @@ Debuger
         function cb(start, end) {
             $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
             $('#from').html(start.format('D. M. Y HH:mm'));
-            $('#to').html(end);
+            $('#to').html(end.format('D. M. Y HH:mm'));
         }
 
         $('#reportrange').daterangepicker({

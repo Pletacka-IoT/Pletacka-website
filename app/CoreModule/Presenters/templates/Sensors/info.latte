@@ -32,24 +32,28 @@
 <div class="container  p-4 " >
 {*    {include bootstrap-form showForm}*}
 {*    {include bootstrap-form showChartForm}*}
-    {form showChartForm}
-    <table>
-        <tr>
-            <td colspan="2">{input time}
-                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                    <i class="fa fa-calendar"></i>&nbsp;
-                    <span></span> <i class="fa fa-caret-down"></i>
-                </div>
-            </td>
-        </tr>
+    <form n:name=showChartForm class=" ajax">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </td>
 
-        {input from}
-        {input to}
-        {input send}
+            </tr>
+            <tr>
+                <td>
+                    {input send}
+                </td>
+            </tr>
+            <div id="from">{input from}</div>
+            <div id="to">{input to}</div>
 
-    </table>
 
-    {/form}
+        </table>
+    </form>
 </div>
 
 
@@ -61,6 +65,9 @@
 
         function cb(start, end) {
             $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
+            $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
+            $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
+            $('#test').html("Cus");
         }
 
         $('#reportrange span').daterangepicker({

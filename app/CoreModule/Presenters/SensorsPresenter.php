@@ -195,13 +195,13 @@ final class SensorsPresenter extends BasePresenter
 
 //        $form->add
 
-        $form->addText('from', 'Do')
-            ->setHtmlId('from')
-            ->setHtmlType('datetime-local');
+        $form->addHidden('from');
+//            ->setHtmlId('from');
+//            ->setHtmlType('datetime-local');
 
-        $form->addText('to', 'Do')
-            ->setHtmlId('to')
-            ->setHtmlType('datetime-local');
+        $form->addHidden('to');
+//            ->setHtmlId('to');
+//            ->setHtmlType('datetime-local');
 //
 //        $form->addButton('day', "Den")
 //            ->setHtmlAttribute('onclick', 'setDay()');
