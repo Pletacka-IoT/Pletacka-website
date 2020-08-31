@@ -18,10 +18,12 @@ var searchData=
   ['createcomponentshowform_55',['createComponentShowForm',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a9f6e775be0cee2ff7445d5360847958a',1,'App::CoreModule::Presenters::SensorsPresenter']]],
   ['createcomponentsigninform_56',['createComponentSignInForm',['../classApp_1_1CoreModule_1_1Presenters_1_1SignPresenter.html#a173b4001095a085ed88968c5cb972ce3',1,'App::CoreModule::Presenters::SignPresenter']]],
   ['createcomponentsignupform_57',['createComponentSignUpForm',['../classApp_1_1CoreModule_1_1Presenters_1_1SignPresenter.html#a201b2674e5ad7337e3ac49e37318b8e1',1,'App::CoreModule::Presenters::SignPresenter']]],
-  ['createcreate_58',['createCreate',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#a66337a27660d99b34a3ba0fa351c8a05',1,'App::CoreModule::Forms::SensorsFormFactory']]],
-  ['createdelete_59',['createDelete',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#a9a377a6e15d62a0c9c32f418ebf230a7',1,'App::CoreModule::Forms::SensorsFormFactory']]],
-  ['createedit_60',['createEdit',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#addd48da06bacc938f50c0ba84e6eae33',1,'App::CoreModule::Forms::SensorsFormFactory']]],
-  ['createeditold_61',['createEditOld',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#ae1cc4c527668323845835c12b187436e',1,'App::CoreModule::Forms::SensorsFormFactory']]],
-  ['createrouter_62',['createRouter',['../classApp_1_1Router_1_1RouterFactory.html#a9b1e921301a31ba7b05e93ed4a7bcb19',1,'App::Router::RouterFactory']]],
-  ['customshowchart_63',['customShowChart',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#aab60c024259633e9f141577c959def07',1,'App::CoreModule::Presenters::SensorsPresenter']]]
+  ['createcomponentworkshiftform_58',['createComponentWorkShiftForm',['../classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#ad379bcfca9c501b5c6a155eb48d41e81',1,'App::CoreModule::Presenters::WorkShiftPresenter']]],
+  ['createcreate_59',['createCreate',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#a66337a27660d99b34a3ba0fa351c8a05',1,'App::CoreModule::Forms::SensorsFormFactory']]],
+  ['createdelete_60',['createDelete',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#a9a377a6e15d62a0c9c32f418ebf230a7',1,'App::CoreModule::Forms::SensorsFormFactory']]],
+  ['createedit_61',['createEdit',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#addd48da06bacc938f50c0ba84e6eae33',1,'App::CoreModule::Forms::SensorsFormFactory']]],
+  ['createeditold_62',['createEditOld',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#ae1cc4c527668323845835c12b187436e',1,'App::CoreModule::Forms::SensorsFormFactory']]],
+  ['createrouter_63',['createRouter',['../classApp_1_1Router_1_1RouterFactory.html#a9b1e921301a31ba7b05e93ed4a7bcb19',1,'App::Router::RouterFactory']]],
+  ['createwsselect_64',['createWSselect',['../classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d',1,'App::CoreModule::Forms::WorkShiftFormFactory']]],
+  ['customshowchart_65',['customShowChart',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#aab60c024259633e9f141577c959def07',1,'App::CoreModule::Presenters::SensorsPresenter']]]
 ];

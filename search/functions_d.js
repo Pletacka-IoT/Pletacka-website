@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['zeroadd_335',['zeroAdd',['../classApp_1_1CoreModule_1_1Model_1_1ChartManager.html#a2d62d3543c9bdc69a2dda5ca47903658',1,'App\CoreModule\Model\ChartManager\zeroAdd()'],['../classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#ae1c209d27efc99e3344cc642b5639a0b',1,'App\CoreModule\Model\ThisChartManager\zeroAdd()']]],
-  ['zeroout_336',['zeroOut',['../classApp_1_1CoreModule_1_1Model_1_1ChartManager.html#abeffd1c41b4a1ce42214a8633e755247',1,'App\CoreModule\Model\ChartManager\zeroOut()'],['../classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#afb26e6887f4353f5098c3dc091efa656',1,'App\CoreModule\Model\ThisChartManager\zeroOut()']]]
+  ['worktime_348',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a3c22c73e8f9d9da7e20c261bb1ddbbfd',1,'App::TimeManagers::TimeBox']]]
 ];
