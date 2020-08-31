@@ -2,6 +2,10 @@
 
 {block content}
 
+
+
+
+
 <div class="container text-center p-4 " style="margin-top:80px">
     <h2>Senzor: {$sensor["number"]}</h2>
     <h5><a class="ajax" n:href="edit $number" >Upravit Senzor</a>&nbsp&nbsp&nbsp<a class="ajax" n:href="delete $number" >Smazat Senzor</a></h5>
@@ -29,55 +33,29 @@
 
 {*{include editablaCharts $rawEvents, $showChartForm}*}
 
-<div class="container  p-4 " >
-{*    {include bootstrap-form showForm}*}
-{*    {include bootstrap-form showChartForm}*}
-    <form n:name=showChartForm class=" ajax">
-        <table>
-            <tr>
-                <td colspan="2">
-                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                        <i class="fa fa-calendar"></i>&nbsp;
-                        <span></span> <i class="fa fa-caret-down"></i>
-                    </div>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    {input send}
-                </td>
-            </tr>
-            <div id="from">{input from}</div>
-            <div id="to">{input to}</div>
-
-
-        </table>
-    </form>
-</div>
-
-
 <script type="text/javascript">
     $(function() {
 
-        var start = moment().startOf('day');
-        var end = moment().endOf('day');
+        // var start = moment().startOf('day');
+        // var end = moment().endOf('day');
+
+        var start = new Date("2020-05-05 05:00:00");
+        var end = new Date("2020-05-05 23:00:00");
 
         function cb(start, end) {
-            $('#reportrange span').html(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
+            // $('#reportrange input').val(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
             $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
             $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
-            $('#test').html("Cus");
         }
 
-        $('#reportrange span').daterangepicker({
+        $('#reportrange').daterangepicker({
             timePicker: true,
-            // customRangeLabel: 'Vlastní',
             startDate: start,
             endDate: end,
             timePicker24Hour: true,
             alwaysShowCalendars: true,
-            autoUpdateInput: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
             ranges: {
                 'Dnes': [moment().startOf('day'), moment().endOf('day')],
                 'Včera': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
@@ -88,7 +66,7 @@
                 'Od počátku věků': [moment().subtract(100, 'years').startOf('year'), moment().add(100, 'year').endOf('year')]
             },
             locale: {
-                format: 'MM/DD/YYYY',
+                format: 'Y-DD-MM HH:mm',
                 separator: ' - ',
                 applyLabel: 'Potvrit',
                 cancelLabel: 'Zrušit',
@@ -103,18 +81,53 @@
 
         }, cb);
 
+        // $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
+        // $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
+
+        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+            documet.getElementById("send").click();
+        });
+
+        $('#reportrange').on('hide.daterangepicker', function(ev, picker) {
+            document.getElementById("send").click();
+        });
+
+
+
         cb(start, end);
+        // document.getElementById("send").click();
 
     });
 </script>
 
+<div class="container  p-4 center" >
+{*    {include bootstrap-form showForm}*}
+{*    {include bootstrap-form showChartForm}*}
+    <form n:name=showChartForm class="ajax">
+
+        <div id="reportrange" class="btn btn-dark">Vyber</div>
+{*            <input class="form-control" style="text-align: center">*}
+{*            <button class="btn btn-dark">Vybrat</button>*}
+
+        <input type="submit" n:name="send" style="display:none;">
+
+        <div id="from">{input from}</div>
+        <div id="to">{input to}</div>
+
+    </form>
+</div>
+
+
+
+
+
 <script>
-    function tl(num) {
-        if(num<10)
-            return "0"+num;
-        else
-            return num
-    }
+    // function tl(num) {
+    //     if(num<10)
+    //         return "0"+num;
+    //     else
+    //         return num
+    // }
 
     // function setDay() {
     //     var mDay = new Date();
@@ -158,16 +171,17 @@
     //     document.getElementById('to').value = "2100-01-01T00:00";
     // }
 
-    document.getElementById('send').onload = function () {
-        console.log("click");
-        document.getElementById('send ').click();
-    }
+
 </script>
 
-{var $rawEvents}
+{*{var $rawEvents}*}
+
+
+{dump $rawEvents}
 
 <div class="container">
-    {if $rawEvents !== null}
+    {if !empty($rawEvents)}
+{*        <h2>{$from|date:''}</h2>*}
         <h2>All events: {$countAll}</h2>
 
         <h2>Count</h2>

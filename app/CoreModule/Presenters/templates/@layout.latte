@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/style.css">
 	<link rel="stylesheet" href="{$basePath}/css/c3.css">	
+	<link rel="stylesheet" href="{$basePath}/css/font.min.css">
+	<link rel="stylesheet" type="text/css" href="{$basePath}/css//daterangepicker.css" />
 
 
 	<script src="{$basePath}/js/jquery.min.js"></script>
@@ -27,8 +29,7 @@
 
 	<script type="text/javascript" src="{$basePath}/js/moment.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/daterangepicker.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="{$basePath}/css//daterangepicker.css" />
-	
+
 	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka website Nette</title>
 	{dump} {*VARIABLES DEBUG*}
 	{block head}{/block}
@@ -103,9 +104,9 @@
 			</div>	
 		{/snippet}
 	</div>
-	<div id="loader">
-		Aktualizuji
-	</div>
+{*	<div id="loader">*}
+{*		Aktualizuji*}
+{*	</div>*}
 
 	{block scripts}
 	{* <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script> *}
