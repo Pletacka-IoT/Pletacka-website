@@ -10,6 +10,7 @@ services:
 			- addResource(Core:Test)
 			- addResource(Core:Connect)
 			- addResource(Core:Sensors)
+			- addResource(Core:WorkShift)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -39,6 +40,7 @@ services:
 	- App\CoreModule\Model\ThisChartManager
 	- App\CoreModule\Model\ChartManager
 	- App\CoreModule\Model\RoomManager
+	- App\CoreModule\Model\WorkShiftManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory

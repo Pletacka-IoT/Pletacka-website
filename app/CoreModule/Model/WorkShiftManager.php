@@ -17,41 +17,38 @@ use App\TimeManagers\TimeBox;
 
 
 /**
- * @brief Manage rooms
+ * @brief Manage work shifts
  */
-class RoomManager
+class WorkShiftManager
 {
     use Nette\SmartObject;
 
 
     private $database;
 
-
     public function __construct( Context $database)
     {
         $this->database = $database;
     }
 
-    /**
-     * @brief Sensor positions in Big Pletarna
-     */
-    public $roomPletarnaBig = array(
-        array( 1,   2,   3,   4),
-        array( 8,   7,   6,   5),
-        array( 9,  -1,  -1,  18),
-        array(10,  11,  12,  13),
-        array(17,  16,  15,  14),
-    );
+    public function getWS($year, $week)
+    {
+        $ws =  $this->database->table("workShift")->where("year = ? AND week = ?", $year, $week)->fetch();
+        return array($ws->wsA, $ws->wsB);
+    }
 
-    /**
-     * @brief Sensor positions in Small Pletarna
-     */
-    public $roomPletarnaSmall = array(
-        array(20,  23),
-        array(19,  22),
-        array(-1,  21),
-        array(30,  -1),
-    );
+    public function setWS($year, $week, $wsFirst, $wsSecond)
+    {
+        return $this->database->table("workShift")->insert([
+            'year' => $year,
+            'week' => $week,
+            'wsA' => $wsFirst,
+            'wsB' => $wsSecond
+        ]);
+    }
+
+
+
 
 
 }

@@ -39,6 +39,22 @@ final class RouterFactory
 			]
 		]);
 
+		$router[] = new Route('smeny/<action>[/<year>][/<week>]', [
+			'presenter' => 'Core:WorkShift',
+			'action' => [
+				// Route::FILTER_STRICT => true,
+				Route::VALUE => 'default',
+				Route::FILTER_TABLE => [
+					// řetězec v URL => akce presenteru
+//					'editovat' => 'edit',
+//					'info' => 'info',
+//					'smazat' => 'delete',
+					'test' => 'test',
+//                    'debug' => 'debug',
+				]
+			]
+		]);
+
 		$router[] = new Route('sign/<action>', [
 			'presenter' => 'Core:Sign',
 			'action' => 'in',

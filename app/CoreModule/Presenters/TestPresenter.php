@@ -12,6 +12,7 @@ use App\Presenters\BasePresenter;
 
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use Nette\Http\Request;
 use Nette\Utils\DateTime;
@@ -56,19 +57,24 @@ final class TestPresenter extends BasePresenter
     private $urlParameter;
     private $sensorsFormFactory;
     private $thisSensorManager;
+    private $workShiftManager;
 
-	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory)
+	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory, WorkShiftManager $workShiftManager)
 	{
         
         $this->sensorsManager = $sensorsManager;
         $this->thisSensorManager = $thisSensorManager;
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
+        $this->workShiftManager = $workShiftManager;
 	}
 	
 
 	public function actionDebug($name)
 	{
+	    dump($this->workShiftManager->getWS(2020, 2));
+	    dump($this->workShiftManager->getWS(2020, 2));
+
 	}
 
 	public function renderChart(): void
