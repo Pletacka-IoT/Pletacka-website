@@ -9,5 +9,6 @@ var searchData=
   ['gethttpmessage_86',['getHttpMessage',['../classApp_1_1Exceptions_1_1MyException.html#ae21a43f5e4a0a4852778111de0d1bbd0',1,'App::Exceptions::MyException']]],
   ['getsensors_87',['getSensors',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a2e1ae9a4831d7ae39daec4247cd9dc4c',1,'App::CoreModule::Model::SensorsManager']]],
   ['getsensorsnumber_88',['getSensorsNumber',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a276b8f0e704ece560918ec308b86c5d2',1,'App::CoreModule::Model::SensorsManager']]],
-  ['gettitlesettings_89',['getTitleSettings',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a377be1af77f7b310a87011eab464b936',1,'App::CoreModule::Model::SensorsManager']]]
+  ['gettitlesettings_89',['getTitleSettings',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a377be1af77f7b310a87011eab464b936',1,'App::CoreModule::Model::SensorsManager']]],
+  ['getws_90',['getWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a37edc15f6f9d9da619ca88fb6081604a',1,'App::CoreModule::Model::WorkShiftManager']]]
 ];
