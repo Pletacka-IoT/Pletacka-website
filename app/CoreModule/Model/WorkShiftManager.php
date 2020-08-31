@@ -34,7 +34,15 @@ class WorkShiftManager
     public function getWS($year, $week)
     {
         $ws =  $this->database->table("workShift")->where("year = ? AND week = ?", $year, $week)->fetch();
-        return array($ws->wsA, $ws->wsB);
+        if($ws)
+        {
+            return array($ws->wsA, $ws->wsB);
+        }
+        else
+        {
+            return null;
+        }
+
     }
 
     public function setWS($year, $week, $wsFirst, $wsSecond)
@@ -45,6 +53,60 @@ class WorkShiftManager
             'wsA' => $wsFirst,
             'wsB' => $wsSecond
         ]);
+    }
+
+    public function updateWS($year, $week, $wsFirst, $wsSecond)
+    {
+        return $this->database->table("workShift")
+            ->where("year = ? AND week = ?", $year, $week)
+            ->update([
+            'wsA' => $wsFirst,
+            'wsB' => $wsSecond
+        ]);
+    }
+
+    public function setYear($year, $wsFirst, $wsSecond)
+    {
+        for($i = 1; $i<=52; $i++)
+        {
+            if(!$this->getWS($year, $i))
+            {
+                if($i % 2 == 1) //Odd (lichy)
+                {
+                    $this->setWS($year, $i, $wsFirst, $wsSecond);
+                }else
+                {
+                    $this->setWS($year, $i, $wsSecond, $wsFirst);
+                }
+            }
+            else
+            {
+
+                if($i % 2 == 1) //Odd (lichy)
+                {
+                    $this->updateWS($year, $i, $wsFirst, $wsSecond);
+                }else
+                {
+                    $this->updateWS($year, $i, $wsSecond, $wsFirst);
+                }
+
+            }
+
+        }
+        return "Nastaveno";
+    }
+
+    public function getActualWS()
+    {
+        $act = $this->getWS(date("Y"), date("W"));
+        if(date("H")<14)
+        {
+            return $act[0];
+        }
+        else
+        {
+            return $act[1];
+        }
     }
 
 

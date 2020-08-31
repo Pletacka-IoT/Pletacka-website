@@ -45,5 +45,6 @@ services:
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory
 	- App\CoreModule\Forms\ThisSensorFormFactory
+	- App\CoreModule\Forms\WorkShiftFormFactory
 
 	

@@ -73,7 +73,7 @@ final class SensorsFormFactory
 
     /**
      * Edit sensor Form - with old name parameter
-     */    
+     */
     public function createEditOld(callable $onSuccess): Form
     {
         $form = $this->formFactory->create();

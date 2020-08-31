@@ -8,7 +8,11 @@ use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\RoomManager;
 use App\CoreModule\Model\WorkShiftManager;
+
+use App\CoreModule\Forms\WorkShiftFormFactory;
+
 use Latte;
+use Nette\Application\UI\Form;
 
 
 /**
@@ -20,21 +24,45 @@ final class WorkShiftPresenter extends BasePresenter
     private $chartManager;
     private $roomManager;
     private $workShiftManager;
+    private $workShiftFormFactory;
 //    private $9
 
-	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager)
+	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager, WorkShiftFormFactory $workShiftFormFactory)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
 		$this->roomManager = $roomManager;
 		$this->workShiftManager = $workShiftManager;
+		$this->workShiftFormFactory = $workShiftFormFactory;
 
+    }
+
+    public function createComponentWorkShiftForm(): Form
+    {
+        return $this->workShiftFormFactory->createWSselect(function (Form $form, \stdClass $values) {
+            if($values->ws == "c")
+            {
+                $wsFirst = "Cahovi";
+                $wsSecond = "Vaňkovi";
+            }
+            else
+            {
+                $wsFirst = "Vaňkovi";
+                $wsSecond = "Cahovi";
+            }
+
+            $ret = $this->workShiftManager->setYear($values->year, $wsFirst, $wsSecond);
+
+            $this->flashMessage($ret, "success");
+
+        });
     }
 
     public function renderDefault() : void
     {
-        dump($this->workShiftManager->getWS(2020, 1));
-        dump($this->workShiftManager->setWS(2020, 1, ));
+//        dump($this->workShiftManager->getWS(2020, 1));
+
+
 
 
     }
@@ -42,6 +70,7 @@ final class WorkShiftPresenter extends BasePresenter
     public function renderTest() : void
     {
 
+        dump($this->workShiftManager->getActualWS());
 
     }
 }

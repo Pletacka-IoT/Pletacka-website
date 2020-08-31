@@ -45,12 +45,7 @@ final class RouterFactory
 				// Route::FILTER_STRICT => true,
 				Route::VALUE => 'default',
 				Route::FILTER_TABLE => [
-					// řetězec v URL => akce presenteru
-//					'editovat' => 'edit',
-//					'info' => 'info',
-//					'smazat' => 'delete',
 					'test' => 'test',
-//                    'debug' => 'debug',
 				]
 			]
 		]);
