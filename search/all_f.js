@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sensorchartdata_125',['sensorChartData',['../classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a19f3d321a866c4e00f1d9e036287231a',1,'App::CoreModule::Model::ThisChartManager']]],
+  ['sensorchartdatastate_125',['sensorChartDataState',['../classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a6642959b32441d0198b59c37f3f4c8ed',1,'App::CoreModule::Model::ThisChartManager']]],
   ['sensorisexist_126',['sensorIsExist',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#af5df7fea49ba5cb5e74da95faa6811ea',1,'App::CoreModule::Model::SensorsManager']]],
   ['sensornotexist_127',['SensorNotExist',['../classApp_1_1Exceptions_1_1SensorNotExist.html',1,'App::Exceptions']]],
   ['sensors_128',['sensors',['../classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a189f4a355139fec153c18c2151532435',1,'App::CoreModule::Controllers::SensorsController']]],

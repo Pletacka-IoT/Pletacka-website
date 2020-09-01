@@ -82,11 +82,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3ba5eccc28409f21f2f470728e4e473f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a3ba5eccc28409f21f2f470728e4e473f">__construct</a> (Context $database, <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html">ThisSensorManager</a> $thisSensorManager)</td></tr>
 <tr class="separator:a3ba5eccc28409f21f2f470728e4e473f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb26e6887f4353f5098c3dc091efa656"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#afb26e6887f4353f5098c3dc091efa656">zeroOut</a> ($number)</td></tr>
+<tr class="memdesc:afb26e6887f4353f5098c3dc091efa656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove zero from short number.  <a href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#afb26e6887f4353f5098c3dc091efa656">More...</a><br /></td></tr>
 <tr class="separator:afb26e6887f4353f5098c3dc091efa656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1c209d27efc99e3344cc642b5639a0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#ae1c209d27efc99e3344cc642b5639a0b">zeroAdd</a> ($number)</td></tr>
+<tr class="memdesc:ae1c209d27efc99e3344cc642b5639a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add zero before short number.  <a href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#ae1c209d27efc99e3344cc642b5639a0b">More...</a><br /></td></tr>
 <tr class="separator:ae1c209d27efc99e3344cc642b5639a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19f3d321a866c4e00f1d9e036287231a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a19f3d321a866c4e00f1d9e036287231a">sensorChartData</a> ($rawData, $type, $interval, $state)</td></tr>
-<tr class="separator:a19f3d321a866c4e00f1d9e036287231a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6642959b32441d0198b59c37f3f4c8ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a6642959b32441d0198b59c37f3f4c8ed">sensorChartDataState</a> ($rawData, $type, $interval, $stateType)</td></tr>
+<tr class="separator:a6642959b32441d0198b59c37f3f4c8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage chart data. </p>
@@ -120,14 +122,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a19f3d321a866c4e00f1d9e036287231a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19f3d321a866c4e00f1d9e036287231a">&#9670;&nbsp;</a></span>sensorChartData()</h2>
+<a id="a6642959b32441d0198b59c37f3f4c8ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6642959b32441d0198b59c37f3f4c8ed">&#9670;&nbsp;</a></span>sensorChartDataState()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">App\CoreModule\Model\ThisChartManager::sensorChartData </td>
+          <td class="memname">App\CoreModule\Model\ThisChartManager::sensorChartDataState </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$rawData</em>, </td>
@@ -148,7 +150,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$state</em>&#160;</td>
+          <td class="paramname"><em>$stateType</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -176,6 +178,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Add zero before short number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$number</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
 </div>
 </div>
 <a id="afb26e6887f4353f5098c3dc091efa656"></a>
@@ -194,6 +205,15 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Remove zero from short number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$number</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -202,7 +222,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 1 2020 18:05:39 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
+Generated on Tue Sep 1 2020 18:41:03 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
 </small></address>
 </body>
 </html>
