@@ -16,16 +16,16 @@
 <script type="text/javascript">
     $(function() {
 
-        // var start = moment().startOf('day');
-        // var end = moment().endOf('day');
+        var start = moment().startOf('day');
+        var end = moment().endOf('day');
 
-        var start = new Date("2020-05-05 05:00:00");
-        var end = new Date("2020-05-05 23:00:00");
+        // var start = new Date("2020-05-05 05:00:00");
+        // var end = new Date("2020-05-05 23:00:00");
 
         function cb(start, end) {
             // $('#reportrange input').val(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
-            $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
-            $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
+            $('#from input').val(start.format('Y-MM-DD HH:mm:ss'));
+            $('#to input').val(end.format('Y-MM-DD HH:mm:ss')); //2000-01-01 00:00:00
         }
 
         $('#reportrange').daterangepicker({
@@ -33,7 +33,7 @@
             startDate: start,
             endDate: end,
             timePicker24Hour: true,
-            alwaysShowCalendars: true,
+            alwaysShowCalendars: false,
             showDropdowns: true,
             autoUpdateInput: false,
             opens: "center",
@@ -47,7 +47,7 @@
                 'Od počátku věků': [moment().subtract(100, 'years').startOf('year'), moment().add(100, 'year')]
             },
             locale: {
-                format: 'Y-DD-MM HH:mm',
+                format: 'Y-MM-DD HH:mm',
                 separator: ' - ',
                 applyLabel: 'Potvrit',
                 cancelLabel: 'Zrušit',

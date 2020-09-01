@@ -33,6 +33,11 @@ class ThisChartManager
 
     }
 
+    /**
+     * @brief Remove zero from short number
+     * @param $number
+     * @return string
+     */
     public function zeroOut($number)
     {
         if($number[0] == 0)
@@ -41,6 +46,11 @@ class ThisChartManager
             return $number;
     }
 
+    /**
+     * @brief Add zero before short number
+     * @param $number
+     * @return string
+     */
     public function zeroAdd($number)
     {
         if($number<=9)
@@ -51,17 +61,17 @@ class ThisChartManager
             return $number;
     }
 
-    public function sensorChartData($rawData, $type, $interval, $state)
+    public function sensorChartDataState($rawData, $type, $interval, $stateType)
     {
         $chartData = array();
 
 
         switch($type)
         {
-            case 'minute':
+            case 'm':
                 foreach($rawData as $data)
                 {
-                    if($data->state == $state)                          //If correct state
+                    if($data->state == $stateType)                          //If correct state
                     {
                         $time = $data->time;                            //Get time
                         $hour = $this->zeroOut($time->format('H'));     //Filter hour
@@ -88,10 +98,10 @@ class ThisChartManager
                 }
                 break;
 
-            case 'hour':
+            case 'h':
                 foreach($rawData as $data)
                 {
-                    if($data->state == $state)
+                    if($data->state == $stateType)
                     {
                         $time = $data->time;
                         $day = $this->zeroOut($time->format('d'));
@@ -122,7 +132,7 @@ class ThisChartManager
                 }
                 break;
 
-//            case 'day':
+//            case 'd':
 //                foreach($rawData as $data)
 //                {
 //                    if($data->state == $state)

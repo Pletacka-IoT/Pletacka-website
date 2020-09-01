@@ -93,32 +93,41 @@ final class SensorsPresenter extends BasePresenter
         $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
         $this->template->number = $number;
 
-
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 
-//        $this->template->rawEvents = null;
-//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-//
-//        if($rawEvents)
-//        {
-//            $events = new TimeBox($rawEvents);
-//
-//            $this->template->events = $events->getEvents();
-//            $this->template->countAll = $events->countEvents();
-//            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
-//            $this->template->countStop = $events->countEvents(TimeBox::STOP);
-//            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
-//            $this->template->countOn = $events->countEvents(TimeBox::ON);
-//            $this->template->countOff = $events->countEvents(TimeBox::OFF);
-//            $this->template->allTime = $events->allTime();
-//            $this->template->stopTime = $events->stopTime();
-//            $this->template->workTime = $events->workTime();
-//            $this->template->avgStopTime = $events->avgStopTime();
-//            $this->template->avgWorkTime = $events->avgWorkTime();
-//        }
-//        echo("");
+        $type = DateSerie::AREA_SPLINE;
 
-//        dump($rawEvents);
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
+
+        $interval = 15;
+
+        ($dataChartF = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'FINISHED'));
+        dump($dataChartF);
+
+        ($dataChartS = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'STOP'));
+
+        $dayChart = new DateChart();
+        $dayChart->enableTimePrecision(); // Enable time accurate to seconds
+
+        $serie = new DateSerie($type, 'Upleteno - kusů', 'green');
+        foreach($dataChartF as $data)
+        {
+            if($data[0] != 0 || $data[1] != 0)
+            {
+                $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+            }
+        }
+        $dayChart->addSerie($serie);
+
+        $serie = new DateSerie($type, 'Zastaveno - počet', 'red');
+        foreach($dataChartS as $data)
+        {
+            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+        }
+        $dayChart->addSerie($serie);
+
+        $this->template->dayChart = $dayChart;
+
 
 
     }
