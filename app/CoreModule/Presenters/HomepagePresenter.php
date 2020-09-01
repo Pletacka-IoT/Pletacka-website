@@ -7,6 +7,7 @@ use App\Presenters\BasePresenter;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\RoomManager;
+use App\CoreModule\Model\WorkShiftManager;
 use Latte;
 
 
@@ -18,19 +19,23 @@ final class HomepagePresenter extends BasePresenter
     private $sensorsManager;
     private $chartManager;
     private $roomManager;
-//    private $9
+    private $workShiftManager;
 
-	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager)
+
+	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
 		$this->roomManager = $roomManager;
+		$this->workShiftManager = $workShiftManager;
 
     }
 
     public function renderDefault() : void
     {
         $this->template->settings = $this->sensorsManager->getTitleSettings();
+
+        $this->template->actualWS = $this->workShiftManager->getActualWS();
 
         ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
 
