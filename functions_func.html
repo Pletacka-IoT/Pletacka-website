@@ -66,8 +66,10 @@ $(function() {
 
 <h3><a id="index__5F"></a>- _ -</h3><ul>
 <li>__construct()
-: <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a6f28615c5d96e74be30c606fbf2182e7">App\CoreModule\Controllers\SensorsController</a>
+: <a class="el" href="classApp_1_1CoreModule_1_1Control_1_1PletackaChartControl.html#ad7abeb96a4ad7f0740ab50a692738422">App\CoreModule\Control\PletackaChartControl</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a6f28615c5d96e74be30c606fbf2182e7">App\CoreModule\Controllers\SensorsController</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#ab24759a131e608395367e7e3eb00eea0">App\CoreModule\Controllers\ThisSensorController</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Factory_1_1PletackaChartControlFactory.html#ab51e55f01f4e3c86ba8456bf6b9d77ff">App\CoreModule\Factory\PletackaChartControlFactory</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#a48e7cfeb0dbe66a40179677faff1faf1">App\CoreModule\Forms\SensorsFormFactory</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1ThisSensorFormFactory.html#ae7ddd37be4e1e1004fd4abef43852293">App\CoreModule\Forms\ThisSensorFormFactory</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7782f5bb7455de73d2958a8795af2bcc">App\CoreModule\Forms\WorkShiftFormFactory</a>
@@ -79,7 +81,7 @@ $(function() {
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a7585eab24318e93bdd6b3db6a1992bb9">App\CoreModule\Model\ThisSensorManager</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#aa863ceede4a1e519f0f0d97dc3c1ac80">App\CoreModule\Model\WorkShiftManager</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1HomepagePresenter.html#aaa9e7265aab859f5b70bbedcc53705a0">App\CoreModule\Presenters\HomepagePresenter</a>
-, <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#ab3375ddab0bb386bd3bd9051afb48a80">App\CoreModule\Presenters\SensorsPresenter</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#ab9fde889138e3f211e54e8ebdc183679">App\CoreModule\Presenters\SensorsPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#ac5193bd67af7f96860c105a3e3a5800f">App\CoreModule\Presenters\SensorsSettingsPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SignPresenter.html#a8f69d95a3735e05cc9d4a868330edf4e">App\CoreModule\Presenters\SignPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a3496bf6de90ed358395c3ddde9ba24ba">App\CoreModule\Presenters\TestPresenter</a>
@@ -156,7 +158,8 @@ $(function() {
 : <a class="el" href="classApp_1_1TimeManagers_1_1TimeBox.html#a0f8f9b747902f00b44772beecf5dde54">App\TimeManagers\TimeBox</a>
 </li>
 <li>create()
-: <a class="el" href="classApp_1_1Forms_1_1FormFactory.html#a2372af3a254dbbf5476db5c755f86324">App\Forms\FormFactory</a>
+: <a class="el" href="classApp_1_1CoreModule_1_1Factory_1_1PletackaChartControlFactory.html#a2e60c6d5c83c610685dfe5b181983f04">App\CoreModule\Factory\PletackaChartControlFactory</a>
+, <a class="el" href="classApp_1_1Forms_1_1FormFactory.html#a2372af3a254dbbf5476db5c755f86324">App\Forms\FormFactory</a>
 , <a class="el" href="classApp_1_1Forms_1_1SignInFormFactory.html#a8c83119262216acde4444c40707231f4">App\Forms\SignInFormFactory</a>
 , <a class="el" href="classApp_1_1Forms_1_1SignUpFormFactory.html#a5a2e63877c80565acae24751a63b293d">App\Forms\SignUpFormFactory</a>
 </li>
@@ -168,6 +171,9 @@ $(function() {
 </li>
 <li>createComponentEditSensorForm()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#a8facbca32f00cd0ff07926bae2d72e8e">App\CoreModule\Presenters\SensorsSettingsPresenter</a>
+</li>
+<li>createComponentPletackaChart()
+: <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a57e97b6ac76f235a8102c5ec3d26bb60">App\CoreModule\Presenters\SensorsPresenter</a>
 </li>
 <li>createComponentShowChartForm()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a33f80aab2a28b03b07091013d7447583">App\CoreModule\Presenters\SensorsPresenter</a>
@@ -297,6 +303,9 @@ $(function() {
 <li>renameThisSensor()
 : <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a17fbb8b683914048ab4ac53bde3d356d">App\CoreModule\Model\SensorsManager</a>
 </li>
+<li>render()
+: <a class="el" href="classApp_1_1CoreModule_1_1Control_1_1PletackaChartControl.html#a5e4fabcca2d19b7a0d0e0a365ded731d">App\CoreModule\Control\PletackaChartControl</a>
+</li>
 <li>renderChart()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a2614bdd8f7766d322505ffb68f4795e8">App\CoreModule\Presenters\TestPresenter</a>
 </li>
@@ -404,7 +413,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Sep 1 2020 18:41:03 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
+Generated on Tue Sep 1 2020 20:17:44 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19
 </small></address>
 </body>
 </html>
