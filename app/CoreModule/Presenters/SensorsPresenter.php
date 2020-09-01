@@ -9,10 +9,11 @@ use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Model\ThisChartManager;
 use App\CoreModule\Model\ChartManager;
-use Nette\Application\UI\Form;
+use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use App\CoreModule\Forms\ThisSensorFormFactory;
 use Nette\Http\Request;
+use Nette\Application\UI\Form;
 use Nette\Http\UrlScript;
 use App\Presenters\BasePresenter;
 use App\TimeManagers\TimeBox;
@@ -46,6 +47,7 @@ final class SensorsPresenter extends BasePresenter
     private $thisSensorFormFactory;
     private $thisChartManager;
     private $chartManager;
+    private $workShiftManager;
 
 
 	public function __construct(
@@ -55,7 +57,8 @@ final class SensorsPresenter extends BasePresenter
         SensorsFormFactory $sensorsFormFactory,
         ThisSensorFormFactory $thisSensorFormFactory,
         ThisChartManager $thisChartManager,
-        ChartManager $chartManager
+        ChartManager $chartManager,
+        WorkShiftManager $workShiftManager
     )
 	{
         
@@ -66,6 +69,7 @@ final class SensorsPresenter extends BasePresenter
         $this->thisSensorFormFactory = $thisSensorFormFactory;
         $this->thisChartManager = $thisChartManager;
         $this->chartManager = $chartManager;
+        $this->workShiftManager = $workShiftManager;
     }
 
 
@@ -73,9 +77,9 @@ final class SensorsPresenter extends BasePresenter
     {
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = Pretty::return(false, "", "Tento senzor neexistuje");
+            $message = Pretty::return(false, "", "Senzor s číslem " . $number . " neexistuje!");
             $this->flashMessage($message[2], 'error');
-            $this->redirect('Sensors:default');
+            $this->redirect('Homepage:default');
             
         }
 
@@ -88,6 +92,9 @@ final class SensorsPresenter extends BasePresenter
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
         $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
         $this->template->number = $number;
+
+
+        $this->template->workShift = $this->workShiftManager->getWeekWS();
 
 //        $this->template->rawEvents = null;
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
@@ -146,13 +153,13 @@ final class SensorsPresenter extends BasePresenter
         // Get sensor name
         $url = $this->request->getHeaders()["referer"];
         $exUrl = explode('/', $url);
-        $exUrl = explode('?', $exUrl[5]);
+        $exUrl = explode('?', $exUrl[4]);
         $sNumber = $exUrl[0];
         if(!is_numeric($sNumber))
         {
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
-            $exUrl = explode('?', $exUrl[7]);
+            $exUrl = explode('?', $exUrl[6]);
             $sNumber = $exUrl[0];
         }
 
