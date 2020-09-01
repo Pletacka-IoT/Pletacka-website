@@ -1,0 +1,20 @@
+{block title}Smazání {$sensor["number"]}{/block}
+
+{block content}
+
+
+<div class="container text-center p-4 " >
+    <h2>Smazat senzor: {$sensor["number"]}</h2>
+    <h5><a class="ajax" n:href="SensorsSettings:default" >Zpět na senzor</a></h5>
+</div>
+    
+
+<div class="container text-center " >
+    Opravdu si přejete smazat senzor s číslem {$sensor["number"]}?
+</div>
+
+<div class="container text-center p-4 " >
+    <form n:name=deleteSensorForm class="ajax">
+        <input type="submit" n:name="send" class="btn btn-dark">
+    </form>
+</div>

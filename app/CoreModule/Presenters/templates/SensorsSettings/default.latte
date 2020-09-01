@@ -1,0 +1,43 @@
+{block title}Senzory{/block}
+
+{block content}
+
+<div class="container text-center p-4 " style="margin-top:80px" >
+
+    <h1>Výpis senzorů </h1>
+    <p><a class="ajax" n:href="SensorsSettings:add " >Přidat senzor</a></p>
+    <a class="ajax btn btn-warning btn-sm" n:href="ReloadSensorTable!">Aktualizovat</a>
+    {snippet sensorTable}
+        <div class="table-responsive">
+            {$time}
+            {foreach $sensors as $sensor}
+                {if $iterator->first}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Číslo</th>
+                                <th>Popis</th>
+                                <th>Datum změny</th>
+                                <th>Zobrazit</th>
+                                <th>Upravit</th>
+                                <th>Smazat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                {/if}
+                            <tr id="row-{$iterator->counter}">
+                                <td>{$sensor->number}</td>
+                                <td>{$sensor->description}</td>
+                                <td>{$sensor->date}</td>
+                                <td><a class="ajax" n:href="Sensors:default $sensor->number" >Zobrazit</a></td>
+                                <td><a class="ajax" n:href="edit $sensor->number" >Upravit</a></td>
+                                <td><a class="ajax" n:href="delete $sensor->number" >Smazat</a></td>
+                            </tr>
+                {if $iterator->last}
+                        </tbody>
+                    </table>
+                {/if}
+            {/foreach}
+        </div>
+    {/snippet}
+</div>

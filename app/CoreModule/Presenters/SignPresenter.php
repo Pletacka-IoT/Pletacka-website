@@ -40,7 +40,7 @@ final class SignPresenter extends BasePresenter
 		return $this->signInFactory->create(function (): void {
 			$this->restoreRequest($this->backlink);
 			$this->flashMessage('Byl jste úspěšně přihlášen.', "success");
-			// $this->redirect('Homepage:');
+			 $this->redirect('Homepage:');
 			parent::redrawAll();
 		});
 	}

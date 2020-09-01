@@ -23,18 +23,24 @@ final class RouterFactory
 		$router = new RouteList;
 		$router[] = new ApiRoute('api');
 
-		$router[] = new Route('senzory/<action>[/<number>]', [
+		$router[] = new Route('pletacka[/<number>]', [
 			'presenter' => 'Core:Sensors',
+			'action' => "default"
+		]);
+
+		$router[] = new Route('senzory/<action>[/<number>]', [
+			'presenter' => 'Core:SensorsSettings',
 			'action' => [
 				// Route::FILTER_STRICT => true,
 				Route::VALUE => 'default',
 				Route::FILTER_TABLE => [
 					// řetězec v URL => akce presenteru
-					'editovat' => 'edit',
+					'upravit' => 'edit',
 					'info' => 'info',
 					'smazat' => 'delete',
 					'test' => 'test',
                     'debug' => 'debug',
+                    'pridat' => 'add',
 				]
 			]
 		]);

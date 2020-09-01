@@ -11,6 +11,7 @@ services:
 			- addResource(Core:Connect)
 			- addResource(Core:Sensors)
 			- addResource(Core:WorkShift)
+			- addResource(Core:SensorsSettings)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -20,7 +21,6 @@ services:
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
-			- allow(guest, Core:Sensors, info)
 			# - allow(guest, Error)
 			# - allow(guest, Error4xx)
 

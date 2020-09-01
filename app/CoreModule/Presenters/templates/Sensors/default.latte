@@ -1,63 +1,182 @@
-{block title}Senzory{/block}
+{block title}Pletačka {$sensor["number"]}{/block}
 
 {block content}
 
-<div class="container text-center p-4 " style="margin-top:80px" >
 
-    <h1>Výpis senzorů </h1>
-    <a class="ajax btn btn-warning btn-sm" n:href="ReloadSensorTable!">Aktualizovat</a>
-    {snippet sensorTable}
-        <div class="table-responsive">
-            {$time}
-            {foreach $sensors as $sensor}
+<div class="container text-center p-4 " style="margin-top:80px">
+    <h5><a class="ajax" n:href="Homepage:default" >Domů</a></h5>
+
+    <h2>Senzor: {$sensor["number"]}</h2>
+
+
+</div>
+
+{*{include editablaCharts $rawEvents, $showChartForm}*}
+
+<script type="text/javascript">
+    $(function() {
+
+        // var start = moment().startOf('day');
+        // var end = moment().endOf('day');
+
+        var start = new Date("2020-05-05 05:00:00");
+        var end = new Date("2020-05-05 23:00:00");
+
+        function cb(start, end) {
+            // $('#reportrange input').val(start.format('D. M. Y HH:mm') + ' - ' + end.format('D. M. Y HH:mm'));
+            $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
+            $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
+        }
+
+        $('#reportrange').daterangepicker({
+            // timePicker: true,
+            startDate: start,
+            endDate: end,
+            timePicker24Hour: true,
+            alwaysShowCalendars: true,
+            showDropdowns: true,
+            autoUpdateInput: false,
+            ranges: {
+                'Dnes': [moment().startOf('day'), moment().endOf('day')],
+                'Včera': [moment().subtract(1, 'days').startOf('day'), moment().subtract(1, 'days').endOf('day')],
+                'Posledních 7 dnů': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
+                'Posledních 30 dní': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
+                'Tento měsíc': [moment().startOf('month'), moment().endOf('month')],
+                'Minulý měsíc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Od počátku věků': [moment().subtract(100, 'years').startOf('year'), moment().add(100, 'year')]
+            },
+            locale: {
+                format: 'Y-DD-MM HH:mm',
+                separator: ' - ',
+                applyLabel: 'Potvrit',
+                cancelLabel: 'Zrušit',
+                fromLabel: 'Od',
+                toLabel: 'Do',
+                customRangeLabel: 'Vlastní',
+                weekLabel: 'T',
+                daysOfWeek: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So','Ne'],
+                monthNames: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+                firstDay: 0
+            },
+
+        }, cb);
+
+        // $('#from input').val(start.format('Y-DD-MM HH:mm:ss'));
+        // $('#to input').val(end.format('Y-DD-MM HH:mm:ss')); //2000-01-01 00:00:00
+
+        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+            documet.getElementById("send").click();
+        });
+
+        $('#reportrange').on('hide.daterangepicker', function(ev, picker) {
+            document.getElementById("send").click();
+        });
+
+        cb(start, end);
+
+    });
+</script>
+
+<div class="container  p-4 center" >
+    {*    {include bootstrap-form showForm}*}
+    {*    {include bootstrap-form showChartForm}*}
+    <form n:name=showChartForm class="ajax">
+
+        <div id="reportrange" class="btn btn-dark">Vyber</div>
+        {*            <input class="form-control" style="text-align: center">*}
+        {*            <button class="btn btn-dark">Vybrat</button>*}
+
+        <input type="submit" n:name="send" style="display:none;">
+
+        <div id="from">{input from}</div>
+        <div id="to">{input to}</div>
+
+    </form>
+</div>
+
+
+
+
+{snippet sensorCharts}
+
+    <div class="container">
+        {if !empty($rawEvents)}
+            {*        <h2>{$from|date:''}</h2>*}
+            <h2>All events: {$countAll}</h2>
+
+            <h2>Count</h2>
+            <div class="move-right">
+                <h4>All events count: {$countAll}</h4>
+                <h4>All events state count (FINISHED): {$countFinished}</h4>
+                <h4>All events state count (STOP): {$countStop}</h4>
+                <h4>All events state count (REWORK): {$countRework}</h4>
+                <h4>All events state count (ON): {$countOn}</h4>
+                <h4>All events state count (OFF): {$countOff}</h4>
+            </div>
+
+            <h2>Times</h2>
+            <div class="move-right">
+                <h4>All time: {gmdate("H:i:s", $allTime)}</h4>
+                <h4>Stop time: {gmdate("H:i:s", $stopTime)}</h4>
+                <h4>Work time: {gmdate("H:i:s", $workTime)}</h4>
+            </div>
+
+            <h2>Average</h2>
+            <div class="move-right">
+                <h4>Stop average time: {gmdate("H:i:s", $avgStopTime)}</h4>
+                <h4>Work average time: {gmdate("H:i:s", $avgWorkTime)}</h4>
+            </div>
+
+
+            {foreach $events as $event}
                 {if $iterator->first}
                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Číslo</th>
-                                <th>Popis</th>
-                                <th>Datum změny</th>
-                                <th>Zobrazit</th>
-                                <th>Upravit</th>
-                                <th>Smazat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>State</th>
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 {/if}
-                            <tr id="row-{$iterator->counter}">
-                                <td>{$sensor->number}</td>
-                                <td>{$sensor->description}</td>
-                                <td>{$sensor->date}</td>
-                                <td><a class="ajax" n:href="info $sensor->number" >Zobrazit</a></td>
-                                <td><a class="ajax" n:href="edit $sensor->number" >Upravit</a></td>
-                                <td><a class="ajax" n:href="delete $sensor->number" >Smazat</a></td>
-                            </tr>
+                <tr id="row-{$iterator->counter}">
+                    <td>{$event->id}</td>
+                    {if $event->state == "FINISHED"}
+                        <td class="text-success">
+                            {$event->state}
+                        </td>
+                    {elseif  $event->state == "STOP"}
+                        <td class="text-danger">
+                            {$event->state}
+                        </td>
+                    {elseif  $event->state == "REWORK"}
+                        <td class="text-info">
+                            {$event->state}
+                        </td>
+                    {else}
+                        <td class="">
+                            {$event->state}
+                        </td>
+                    {/if}
+
+
+
+                    <td>{$event->time}</td>
+                </tr>
                 {if $iterator->last}
-                        </tbody>
+                    </tbody>
                     </table>
                 {/if}
             {/foreach}
-        </div>
-    {/snippet}
-</div>
 
-<div class="container">
 
-    <h1>Přidání</h1>
 
-    {include bootstrap-form addSensorForm}
-    <br>
-    <br>
+        {else}
+            <h2>No data available</h2>
+        {/if}
+    </div>
+{/snippet}
 
-    <h1>Editace</h1>
 
-    {include bootstrap-form editSensorxForm}
-
-    <br>
-    <br>
-
-    <h1>Smazani</h1>
-
-    {include bootstrap-form deleteSensorForm}
-</div>    
 
