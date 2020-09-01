@@ -12,6 +12,7 @@ use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use App\CoreModule\Forms\ThisSensorFormFactory;
+use App\CoreModule\Factory\PletackaChartControlFactory;
 use Nette\Http\Request;
 use Nette\Application\UI\Form;
 use Nette\Http\UrlScript;
@@ -48,6 +49,7 @@ final class SensorsPresenter extends BasePresenter
     private $thisChartManager;
     private $chartManager;
     private $workShiftManager;
+    private $pletackaChartControlFactory;
 
 
 	public function __construct(
@@ -58,7 +60,8 @@ final class SensorsPresenter extends BasePresenter
         ThisSensorFormFactory $thisSensorFormFactory,
         ThisChartManager $thisChartManager,
         ChartManager $chartManager,
-        WorkShiftManager $workShiftManager
+        WorkShiftManager $workShiftManager,
+        PletackaChartControlFactory $pletackaChartControlFactory
     )
 	{
         
@@ -70,8 +73,13 @@ final class SensorsPresenter extends BasePresenter
         $this->thisChartManager = $thisChartManager;
         $this->chartManager = $chartManager;
         $this->workShiftManager = $workShiftManager;
+        $this->pletackaChartControlFactory = $pletackaChartControlFactory;
     }
 
+    protected function createComponentPletackaChart()
+    {
+        return $this->pletackaChartControlFactory->create(555);
+    }
 
     public function renderDefault($number)
     {
@@ -95,38 +103,40 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 
-        $type = DateSerie::AREA_SPLINE;
 
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
 
-        $interval = 15;
-
-        ($dataChartF = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'FINISHED'));
-        dump($dataChartF);
-
-        ($dataChartS = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'STOP'));
-
-        $dayChart = new DateChart();
-        $dayChart->enableTimePrecision(); // Enable time accurate to seconds
-
-        $serie = new DateSerie($type, 'Upleteno - kusů', 'green');
-        foreach($dataChartF as $data)
-        {
-            if($data[0] != 0 || $data[1] != 0)
-            {
-                $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
-            }
-        }
-        $dayChart->addSerie($serie);
-
-        $serie = new DateSerie($type, 'Zastaveno - počet', 'red');
-        foreach($dataChartS as $data)
-        {
-            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
-        }
-        $dayChart->addSerie($serie);
-
-        $this->template->dayChart = $dayChart;
+//        $type = DateSerie::AREA_SPLINE;
+//
+//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
+//
+//        $interval = 15;
+//
+//        ($dataChartF = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'FINISHED'));
+//        dump($dataChartF);
+//
+//        ($dataChartS = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'STOP'));
+//
+//        $dayChart = new DateChart();
+//        $dayChart->enableTimePrecision(); // Enable time accurate to seconds
+//
+//        $serie = new DateSerie($type, 'Upleteno - kusů', 'green');
+//        foreach($dataChartF as $data)
+//        {
+//            if($data[0] != 0 || $data[1] != 0)
+//            {
+//                $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+//            }
+//        }
+//        $dayChart->addSerie($serie);
+//
+//        $serie = new DateSerie($type, 'Zastaveno - počet', 'red');
+//        foreach($dataChartS as $data)
+//        {
+//            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
+//        }
+//        $dayChart->addSerie($serie);
+//
+//        $this->template->dayChart = $dayChart;
 
 
 
