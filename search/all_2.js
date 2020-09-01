@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['actiondebug_7',['actionDebug',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a8c769d8b21ee5608897b84cfed3e6d7e',1,'App\CoreModule\Presenters\SensorsPresenter\actionDebug()'],['../classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#ad1b1373277f5b931d5899686834885c2',1,'App\CoreModule\Presenters\TestPresenter\actionDebug()']]],
-  ['actiondelete_8',['actionDelete',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a9172788aa9b3ae526ff34b9d30a03cbe',1,'App::CoreModule::Presenters::SensorsPresenter']]],
+  ['actiondebug_7',['actionDebug',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#a2543e41b331c2692bf4294dd24239c47',1,'App\CoreModule\Presenters\SensorsSettingsPresenter\actionDebug()'],['../classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#ad1b1373277f5b931d5899686834885c2',1,'App\CoreModule\Presenters\TestPresenter\actionDebug()']]],
+  ['actiondelete_8',['actionDelete',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#a86c19f77465b7b596c3225b171ecbcfb',1,'App::CoreModule::Presenters::SensorsSettingsPresenter']]],
   ['actionout_9',['actionOut',['../classApp_1_1CoreModule_1_1Presenters_1_1SignPresenter.html#a4a141a7e846d3a56ab151f56663cab26',1,'App::CoreModule::Presenters::SignPresenter']]],
   ['actiontime_10',['actionTime',['../classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a6480b8682891136e63bb7aeee1faaea3',1,'App::CoreModule::Presenters::TestPresenter']]],
   ['add_11',['add',['../classApp_1_1Model_1_1UserManager.html#a68c14de4ebee3a0dba4b253fd794d431',1,'App::Model::UserManager']]],
