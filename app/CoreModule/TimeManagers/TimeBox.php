@@ -28,14 +28,18 @@ class TimeBox
 
 
 	private $tableSelection;
+	private $startTime;
+	private $endTime;
 
 	/**
 	 * @brief Constructor
 	 * @param Selection $tableSelection
 	 */
-	public function __construct($tableSelection)
+	public function __construct($tableSelection, $startTime, $endTime)
 	{
 		$this->tableSelection = $tableSelection;
+		$this->startTime = $startTime;
+		$this->endTime = $endTime;
 	}
 
     /**
@@ -75,7 +79,7 @@ class TimeBox
 
     /**
      * @brief Get all pletacka time
-     * @return array [Date interval, time in second]
+     * @return int time in seconds
      */
     public function allTime()
     {
@@ -118,13 +122,14 @@ class TimeBox
             $time += $stop - $start;
         }
 
-        return array(new DateInterval("PT" . $time . "S"), $time);
+        return $time;
+
     }
 
 
     /**
      * @brief Get stop time
-     * @return array [Date interval, time in second]
+     * @return int time in seconds
      */
     public function stopTime()
     {
@@ -170,49 +175,50 @@ class TimeBox
                     break;
             }
         }
-        return array(new DateInterval("PT".$time."S"), $time);
-
+        return $time;
     }
 
     /**
      * @brief Get work time
-     * @return array [Date interval, time in second]
+     * @return array time in second
      */
     public function workTime()
     {
-        $time = $this->allTime()[1]-$this->stopTime()[1];
-        return array(new DateInterval("PT".$time."S"), $time);
+        $time = $this->allTime()-$this->stopTime();
+        return $time;
     }
 
     /**
      * @brief Get average stop time
-     * @return array [Date interval, time in second]
+     * @return int time in seconds
      */
     public function avgStopTime()
     {
-        if($this->countEvents(self::STOP)>0)
+        $count = $this->countEvents(self::STOP);
+
+        if($count>0)
         {
-            $time = ceil($this->stopTime()[1]/$this->countEvents(self::STOP));
-            return array(new DateInterval("PT".$time."S"), $time);
+            return ceil($this->stopTime()/$count);
         }
         else
-            return array(new DateInterval("PT0S"), 0);
+            return 0;
 
     }
 
     /**
      * @brief Get average work time
-     * @return array [Date interval, time in second]
+     * @return int time in seconds
      */
     public function avgWorkTime()
     {
-        if($this->countEvents(self::FINISHED)>0)
+        $count = $this->countEvents(self::FINISHED);
+
+        if($count>0)
         {
-            $time = ceil($this->workTime()[1]/$this->countEvents(self::FINISHED));
-            return array(new DateInterval("PT".$time."S"), $time);
+            return ceil($this->workTime()/$count);
         }
         else
-            return array(new DateInterval("PT0S"), 0);
+            return 0;
     }
     
 }

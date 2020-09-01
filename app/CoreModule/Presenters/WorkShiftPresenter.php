@@ -71,6 +71,7 @@ final class WorkShiftPresenter extends BasePresenter
     {
 
         dump($this->workShiftManager->getActualWS());
+        dump($this->workShiftManager->getWeekWS());
 
     }
 }

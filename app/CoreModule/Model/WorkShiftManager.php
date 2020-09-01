@@ -109,6 +109,15 @@ class WorkShiftManager
         }
     }
 
+    public function getWeekWS()
+    {
+        $act = $this->getWS(date("Y"), date("W"));
+        return $act[0];
+    }
+
+
+
+
 
 
 

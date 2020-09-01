@@ -78,7 +78,7 @@ final class SensorsPresenter extends BasePresenter
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$values->number);
+                $this->redirect('Sensors:info',$values->number);
             }
             else
             {
@@ -99,7 +99,7 @@ final class SensorsPresenter extends BasePresenter
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$values->number);
+                $this->redirect('Sensors:info',$values->number);
             }
             else
             {
@@ -272,7 +272,7 @@ final class SensorsPresenter extends BasePresenter
 
         if($rawEvents)
         {
-            $events = new TimeBox($rawEvents);
+            $events = new TimeBox($rawEvents, 0, 24);
 
             $this->template->events = $events->getEvents();
 
@@ -311,8 +311,15 @@ final class SensorsPresenter extends BasePresenter
             // Get sensor name
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
-            $exUrl = explode('?', $exUrl[7]);
+            $exUrl = explode('?', $exUrl[5]);
             $sNumber = $exUrl[0];
+            if(!is_numeric($sNumber))
+            {
+                $url = $this->request->getHeaders()["referer"];
+                $exUrl = explode('/', $url);
+                $exUrl = explode('?', $exUrl[7]);
+                $sNumber = $exUrl[0];
+            }
 
             $from = $values->from;
             $to = $values->to;
@@ -327,7 +334,7 @@ final class SensorsPresenter extends BasePresenter
 
             if($rawEvents)
             {
-                $events = new TimeBox($rawEvents);
+                $events = new TimeBox($rawEvents, 0, 24);
 
                 $this->template->events = $events->getEvents();
                 //
@@ -350,7 +357,7 @@ final class SensorsPresenter extends BasePresenter
 //            if($returnMessage[0])
 //            {
 //                $this->flashMessage($returnMessage[2], 'success');
-//                $this->redirect('Sensors:sensor',$values->number);
+//                $this->redirect('Sensors:info',$values->number);
 //            }
 //            else
 //            {
@@ -368,10 +375,18 @@ final class SensorsPresenter extends BasePresenter
     public function createComponentEditSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createEdit(function (Form $form, \stdClass $values) {
+            // Get sensor name
             $url = $this->request->getHeaders()["referer"];
             $exUrl = explode('/', $url);
-            $exUrl = explode('?', $exUrl[7]);
+            $exUrl = explode('?', $exUrl[5]);
             $sNumber = $exUrl[0];
+            if(!is_numeric($sNumber))
+            {
+                $url = $this->request->getHeaders()["referer"];
+                $exUrl = explode('/', $url);
+                $exUrl = explode('?', $exUrl[7]);
+                $sNumber = $exUrl[0];
+            }
 
             echo"";
             
@@ -380,7 +395,7 @@ final class SensorsPresenter extends BasePresenter
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
-                $this->redirect('Sensors:sensor',$values->number);
+                $this->redirect('Sensors:info',$values->number);
             }
             else
             {

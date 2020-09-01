@@ -85,7 +85,7 @@ class ChartManager
         {
             if(!empty($data))
             {
-                $sensor = new TimeBox($data);   //Create object TimeBox
+                $sensor = new TimeBox($data, 0, 24);//Create object TimeBox
 
                 if($first)
                 {
@@ -96,11 +96,11 @@ class ChartManager
                     $chartData += array(TimeBox::REWORK => $sensor->countEvents(TimeBox::REWORK));
                     $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
                     $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
-                    $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
-                    $chartData += array("STOP_TIME" => $sensor->stopTime()[1]);
-                    $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
-                    $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
-                    $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
+                    $chartData += array("ALL_TIME" => $sensor->allTime());
+                    $chartData += array("STOP_TIME" => $sensor->stopTime());
+                    $chartData += array("WORK_TIME" => $sensor->workTime());
+                    $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime());
+                    $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime());
                     $first = false;
                 }
                 else
@@ -113,11 +113,11 @@ class ChartManager
                     $chartData[TimeBox::REWORK] += $sensor->countEvents(TimeBox::REWORK);
                     $chartData[TimeBox::ON] += $sensor->countEvents(TimeBox::ON);
                     $chartData[TimeBox::OFF] += $sensor->countEvents(TimeBox::OFF);
-                    $chartData["ALL_TIME"] += $sensor->allTime()[1];
-                    $chartData["STOP_TIME"] += $sensor->stopTime()[1];
-                    $chartData["WORK_TIME"] += $sensor->workTime()[1];
-                    $chartData["AVG_STOP_TIME"] += $sensor->avgStopTime()[1];
-                    $chartData["AVG_WORK_TIME"] += $sensor->avgWorkTime()[1];
+                    $chartData["ALL_TIME"] += $sensor->allTime();
+                    $chartData["STOP_TIME"] += $sensor->stopTime();
+                    $chartData["WORK_TIME"] += $sensor->workTime();
+                    $chartData["AVG_STOP_TIME"] += $sensor->avgStopTime();
+                    $chartData["AVG_WORK_TIME"] += $sensor->avgWorkTime();
                 }
 
 
@@ -186,7 +186,7 @@ class ChartManager
         {
             if(!empty($data))
             {
-                $sensor = new TimeBox($data);   //Create object TimeBox
+                $sensor = new TimeBox($data, 0, 24);;   //Create object TimeBox
 
                 if($first)
                 {
@@ -197,11 +197,11 @@ class ChartManager
                     $chartData += array(TimeBox::REWORK => $sensor->countEvents(TimeBox::REWORK));
                     $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
                     $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
-                    $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
-                    $chartData += array("STOP_TIME" => $sensor->stopTime()[1]);
-                    $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
-                    $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
-                    $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
+                    $chartData += array("ALL_TIME" => $sensor->allTime());
+                    $chartData += array("STOP_TIME" => $sensor->stopTime());
+                    $chartData += array("WORK_TIME" => $sensor->workTime());
+                    $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime());
+                    $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime());
                     $chartData += array("ALL_SENSORS" => $allSensors);
 
                     $first = false;
@@ -216,11 +216,11 @@ class ChartManager
                     $chartData[TimeBox::REWORK] += $sensor->countEvents(TimeBox::REWORK);
                     $chartData[TimeBox::ON] += $sensor->countEvents(TimeBox::ON);
                     $chartData[TimeBox::OFF] += $sensor->countEvents(TimeBox::OFF);
-                    $chartData["ALL_TIME"] += $sensor->allTime()[1];
-                    $chartData["STOP_TIME"] += $sensor->stopTime()[1];
-                    $chartData["WORK_TIME"] += $sensor->workTime()[1];
-                    $chartData["AVG_STOP_TIME"] += $sensor->avgStopTime()[1];
-                    $chartData["AVG_WORK_TIME"] += $sensor->avgWorkTime()[1];
+                    $chartData["ALL_TIME"] += $sensor->allTime();
+                    $chartData["STOP_TIME"] += $sensor->stopTime();
+                    $chartData["WORK_TIME"] += $sensor->workTime();
+                    $chartData["AVG_STOP_TIME"] += $sensor->avgStopTime();
+                    $chartData["AVG_WORK_TIME"] += $sensor->avgWorkTime();
                 }
 
 
@@ -289,7 +289,7 @@ class ChartManager
             {
 
 
-                $sensor = new TimeBox($data);   //Create object TimeBox
+                $sensor = new TimeBox($data, 0, 24);   //Create object TimeBox
 
                 //                $sensorData += array("SENSORS" => 1);
                 //                $chartData += array("ALL_EVENTS" => $sensor->countEvents());
@@ -299,7 +299,7 @@ class ChartManager
                 //                $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
                 //                $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
                 //                $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
-                $sensorData += array("STOP_TIME" => $sensor->stopTime()[1]);
+                $sensorData += array("STOP_TIME" => $sensor->stopTime());
                 //                $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
                 //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
                 //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
@@ -386,7 +386,7 @@ class ChartManager
             {
 
 
-                $sensor = new TimeBox($data);   //Create object TimeBox
+                $sensor = new TimeBox($data, 0, 24);   //Create object TimeBox
 
 //                $sensorData += array("SENSORS" => 1);
 //                $chartData += array("ALL_EVENTS" => $sensor->countEvents());
@@ -396,7 +396,7 @@ class ChartManager
 //                $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
 //                $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
 //                $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
-                $sensorData += array("STOP_TIME" => $sensor->stopTime()[1]);
+                $sensorData += array("STOP_TIME" => $sensor->stopTime());
 //                $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
 //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
 //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);

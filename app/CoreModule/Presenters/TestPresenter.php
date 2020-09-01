@@ -249,6 +249,11 @@ final class TestPresenter extends BasePresenter
 
 	}
 
+	public function actionTime()
+    {
+
+    }
+
 
 }
 
