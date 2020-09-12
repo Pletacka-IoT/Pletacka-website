@@ -91,11 +91,6 @@ final class SensorsPresenter extends BasePresenter
             
         }
 
-        // Get sensor name
-//        $url = $this->request->getHeaders()["referer"];
-//        $exUrl = explode('/', $url);
-//        dump($exUrl);
-
 
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
         $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
@@ -103,9 +98,12 @@ final class SensorsPresenter extends BasePresenter
 
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 
+        $this['showChartForm']->setDefaults(array("num"=>$number));
 
 
-//        $type = DateSerie::AREA_SPLINE;
+
+
+        //        $type = DateSerie::AREA_SPLINE;
 //
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
 //
@@ -150,6 +148,8 @@ final class SensorsPresenter extends BasePresenter
         $form = new Form; // means Nette\Application\UI\Form
 
 
+        $form->addHidden("num");
+
         $form->addButton("choose");
 
 
@@ -169,18 +169,7 @@ final class SensorsPresenter extends BasePresenter
     {
         $this->flashMessage($values->from."->".$values->to);
 
-        // Get sensor name
-        $url = $this->request->getHeaders()["referer"];
-        $exUrl = explode('/', $url);
-        $exUrl = explode('?', $exUrl[4]);
-        $sNumber = $exUrl[0];
-        if(!is_numeric($sNumber))
-        {
-            $url = $this->request->getHeaders()["referer"];
-            $exUrl = explode('/', $url);
-            $exUrl = explode('?', $exUrl[6]);
-            $sNumber = $exUrl[0];
-        }
+        $sNumber = $values->num;
 
         $this->flashMessage($sNumber);
 
