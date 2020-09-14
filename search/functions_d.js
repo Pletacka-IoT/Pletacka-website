@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['worktime_364',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a3c22c73e8f9d9da7e20c261bb1ddbbfd',1,'App::TimeManagers::TimeBox']]]
+  ['worktime_366',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a337ddf4aeb0bd22981ff57ac16b94cd6',1,'App::TimeManagers::TimeBox']]]
 ];
