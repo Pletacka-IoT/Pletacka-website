@@ -101,6 +101,12 @@ class ThisSensorManager
         return $this->database->table("A".$sNumber)->where("time >=? AND time <=?", $from, $to)->fetchAll();
     }
 
+    public function getPreviousEvent($sNumber, $events)
+    {
+        $previous = array_key_first($events)-1;
+        return $this->database->table("A".$sNumber)->where("id =?",$previous)->fetch();
+    }
+
 
     /**
      * @brief  Reset debug sensor to default values

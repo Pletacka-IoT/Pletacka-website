@@ -78,8 +78,9 @@ class ChartManager
         $chartData = array();
         $chartDataAvg = array();
 
-        $sensorsName = $this->multiSensorsManager->getAllSensorsName();
-        dump($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsName, $from, $to));
+        $sensorsNumber = $this->multiSensorsManager->getAllSensorsName();
+        dump($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsNumber, $from, $to));
+
 
         foreach($allSensors as $number => $data)
         {

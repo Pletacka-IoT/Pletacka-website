@@ -78,7 +78,7 @@ final class SensorsPresenter extends BasePresenter
 
     protected function createComponentPletackaChart()
     {
-        return $this->pletackaChartControlFactory->create(555);
+        return $this->pletackaChartControlFactory->create(123);
     }
 
     public function renderDefault($number)
@@ -135,6 +135,34 @@ final class SensorsPresenter extends BasePresenter
 //        $dayChart->addSerie($serie);
 //
 //        $this->template->dayChart = $dayChart;
+        $from = "2020-04-24 22:01:00";
+        $to = "2020-04-24 23:00:00";
+
+        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents(33, $from, $to);
+        $previousEvent = $this->thisSensorManager->getPreviousEvent(33, $rawEvents);
+        if($previousEvent){$previousEvent = $previousEvent->state;}
+        dump("MAIN-".$previousEvent);
+        //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
+
+        if($rawEvents)
+        {
+            $events = new TimeBox($rawEvents, $from, $to);
+
+            $this->template->events = $events->getEvents();
+
+            $this->template->countAll = $events->countEvents();
+            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+            $this->template->countStop = $events->countEvents(TimeBox::STOP);
+            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+            $this->template->countOn = $events->countEvents(TimeBox::ON);
+            $this->template->countOff = $events->countEvents(TimeBox::OFF);
+            $this->template->allTime = $events->allTime($previousEvent);
+            $this->template->stopTime = $events->stopTime($previousEvent);
+            $this->template->workTime = $events->workTime($previousEvent);
+            $this->template->avgStopTime = $events->avgStopTime($previousEvent);
+            $this->template->avgWorkTime = $events->avgWorkTime($previousEvent);
+        }
+        echo("");
 
 
 
