@@ -51,11 +51,21 @@ class MultiSensorsManager
         {
             if($inputFromDatabase)
             {
-                $allSensors += array($sensor->number => $this->thisSensorManager->getAllEvents($sensor->number, $from, $to));
+                // Example $sensor = database output
+                $rawEvents = $this->thisSensorManager->getAllEvents($sensor->number, $from, $to);
+                $previousEvent = $this->thisSensorManager->getPreviousEvent($sensor->number, $rawEvents);
+                if($previousEvent){$previousEvent = $previousEvent->state;}
+
+                $allSensors += array($sensor->number => array("raw" => $rawEvents, "previous" => $previousEvent, "from" => $from, "to" => $to));
             }
             else
             {
-                $allSensors += array($sensor => $this->thisSensorManager->getAllEvents($sensor, $from, $to));
+                // Example $sensor = array(1, 5, 8);
+                $rawEvents = $this->thisSensorManager->getAllEvents($sensor, $from, $to);
+                $previousEvent = $this->thisSensorManager->getPreviousEvent($sensor, $rawEvents);
+                if($previousEvent){$previousEvent = $previousEvent->state;}
+
+                $allSensors += array($sensor => array("raw" => $rawEvents, "previous" => $previousEvent, "from" => $from, "to" => $to));
             }
         }
         return $allSensors;

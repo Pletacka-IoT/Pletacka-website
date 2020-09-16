@@ -7,15 +7,15 @@
 	<div class="row pusInfo">
 		<div class="col-sm-4 ">
 			<h5>{$settings->title_pair_count}</h5>
-			<h2>{floor(($pletackyAll["FINISHED"]/$pletackyAll["SENSORS"])/2)}</h2>
+			<h2>{if $pletackyAll["DATA"]} {floor(($pletackyAll["FINISHED"]/$pletackyAll["SENSORS"])/2)} {else}-{/if}</h2>
 		</div>
 		<div class="col-sm-4">
 			<h5>{$settings->title_succes_rate}</h5>
-			<h2>{floor((($pletackyAll["WORK_TIME"]/$pletackyAll["SENSORS"])*100)/($pletackyAll["ALL_TIME"]/$pletackyAll["SENSORS"]))}%</h2>
+			<h2>{if $pletackyAll["DATA"]}{floor((($pletackyAll["WORK_TIME"]/$pletackyAll["SENSORS"])*100)/($pletackyAll["ALL_TIME"]/$pletackyAll["SENSORS"]))}% {else}-{/if}</h2>
 		</div>
 		<div class="col-sm-4">
 			<h5>{$settings->title_stop_time}</h5>
-			<h3>{gmdate("H:i:s", $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"])}</h3>
+			<h3>{if $pletackyAll["DATA"]}{gmdate("H:i:s", $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"])}  {else}-{/if}</h3>
 		</div>
 	</div>
 {/define}
