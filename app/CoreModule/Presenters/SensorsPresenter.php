@@ -141,7 +141,6 @@ final class SensorsPresenter extends BasePresenter
         $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents(33, $from, $to);
         $previousEvent = $this->thisSensorManager->getPreviousEvent(33, $rawEvents);
         if($previousEvent){$previousEvent = $previousEvent->state;}
-        dump("MAIN-".$previousEvent);
         //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
 
         if($rawEvents)
@@ -162,7 +161,6 @@ final class SensorsPresenter extends BasePresenter
             $this->template->avgStopTime = $events->avgStopTime($previousEvent);
             $this->template->avgWorkTime = $events->avgWorkTime($previousEvent);
         }
-        echo("");
 
 
 

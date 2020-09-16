@@ -94,11 +94,9 @@ class TimeBox
             if($state != self::OFF)
             {
                 $state = self::ON;
-                dump("ONNN");
             }
             $x = new DateTime($this->startTime);
             $start = $x->getTimestamp();
-            dump("PR");
         }
         else
         {
