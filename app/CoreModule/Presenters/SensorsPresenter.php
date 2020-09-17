@@ -12,7 +12,7 @@ use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use App\CoreModule\Forms\ThisSensorFormFactory;
-use App\CoreModule\Factory\PletackaChartControlFactory;
+use App\CoreModule\Controls\PletackaChartControl\PletackaChartControlFactory;
 use Nette\Http\Request;
 use Nette\Application\UI\Form;
 use Nette\Http\UrlScript;
@@ -51,6 +51,8 @@ final class SensorsPresenter extends BasePresenter
     private $workShiftManager;
     private $pletackaChartControlFactory;
 
+    private $sNumber;
+
 
 	public function __construct(
 	    SensorsManager $sensorsManager,
@@ -78,11 +80,13 @@ final class SensorsPresenter extends BasePresenter
 
     protected function createComponentPletackaChart()
     {
-        return $this->pletackaChartControlFactory->create(123);
+        return $this->pletackaChartControlFactory->create($this->sNumber);
     }
+
 
     public function renderDefault($number)
     {
+
         if(!$this->sensorsManager->sensorIsExist($number))
         {
             $message = Pretty::return(false, "", "Senzor s číslem " . $number . " neexistuje!");
@@ -90,6 +94,9 @@ final class SensorsPresenter extends BasePresenter
             $this->redirect('Homepage:default');
             
         }
+
+        //Setup component number
+        $this->sNumber = $number;
 
 
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
@@ -103,64 +110,34 @@ final class SensorsPresenter extends BasePresenter
 
 
 
-        //        $type = DateSerie::AREA_SPLINE;
+
+
+//        $from = "2020-04-24 22:01:00";
+//        $to = "2020-04-24 23:00:00";
 //
-//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents('1', "2020-05-05 04:01:00", "2020-05-05 14:00:00");
+//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, $from, $to);
+//        $previousEvent = $this->thisSensorManager->getPreviousEvent($number, $rawEvents);
+//        if($previousEvent){$previousEvent = $previousEvent->state;}
+//        //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
 //
-//        $interval = 15;
-//
-//        ($dataChartF = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'FINISHED'));
-//        dump($dataChartF);
-//
-//        ($dataChartS = $this->thisChartManager->sensorChartDataState($rawEvents, 'm', $interval, 'STOP'));
-//
-//        $dayChart = new DateChart();
-//        $dayChart->enableTimePrecision(); // Enable time accurate to seconds
-//
-//        $serie = new DateSerie($type, 'Upleteno - kusů', 'green');
-//        foreach($dataChartF as $data)
+//        if($rawEvents)
 //        {
-//            if($data[0] != 0 || $data[1] != 0)
-//            {
-//                $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
-//            }
-//        }
-//        $dayChart->addSerie($serie);
+//            $events = new TimeBox($rawEvents, $from, $to);
 //
-//        $serie = new DateSerie($type, 'Zastaveno - počet', 'red');
-//        foreach($dataChartS as $data)
-//        {
-//            $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
-//        }
-//        $dayChart->addSerie($serie);
+//            $this->template->events = $events->getEvents();
 //
-//        $this->template->dayChart = $dayChart;
-        $from = "2020-04-24 22:01:00";
-        $to = "2020-04-24 23:00:00";
-
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents(33, $from, $to);
-        $previousEvent = $this->thisSensorManager->getPreviousEvent(33, $rawEvents);
-        if($previousEvent){$previousEvent = $previousEvent->state;}
-        //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-
-        if($rawEvents)
-        {
-            $events = new TimeBox($rawEvents, $from, $to);
-
-            $this->template->events = $events->getEvents();
-
-            $this->template->countAll = $events->countEvents();
-            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
-            $this->template->countStop = $events->countEvents(TimeBox::STOP);
-            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
-            $this->template->countOn = $events->countEvents(TimeBox::ON);
-            $this->template->countOff = $events->countEvents(TimeBox::OFF);
-            $this->template->allTime = $events->allTime($previousEvent);
-            $this->template->stopTime = $events->stopTime($previousEvent);
-            $this->template->workTime = $events->workTime($previousEvent);
-            $this->template->avgStopTime = $events->avgStopTime($previousEvent);
-            $this->template->avgWorkTime = $events->avgWorkTime($previousEvent);
-        }
+//            $this->template->countAll = $events->countEvents();
+//            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+//            $this->template->countStop = $events->countEvents(TimeBox::STOP);
+//            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+//            $this->template->countOn = $events->countEvents(TimeBox::ON);
+//            $this->template->countOff = $events->countEvents(TimeBox::OFF);
+//            $this->template->allTime = $events->allTime($previousEvent);
+//            $this->template->stopTime = $events->stopTime($previousEvent);
+//            $this->template->workTime = $events->workTime($previousEvent);
+//            $this->template->avgStopTime = $events->avgStopTime($previousEvent);
+//            $this->template->avgWorkTime = $events->avgWorkTime($previousEvent);
+//        }
 
 
 

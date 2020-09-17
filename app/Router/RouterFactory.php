@@ -23,7 +23,7 @@ final class RouterFactory
 		$router = new RouteList;
 		$router[] = new ApiRoute('api');
 
-		$router[] = new Route('pletacka[/<number>]', [
+		$router[] = new Route('pletacka[/<number>][/<do>]', [
 			'presenter' => 'Core:Sensors',
 			'action' => "default"
 		]);
