@@ -148,10 +148,6 @@
                 <h5>Dopolední směna</h5>
                 <h2>{$workShift[$ws]}</h2>
             </div>
-            <div class="pletacka-chart">
-                {control pletackaChart:day $ws, "Upleteno" , "red", "FINISHED"}
-
-            </div>
         </div>
 
         <div class="col-md-6">
@@ -160,13 +156,41 @@
                 <h5>Odpolední směna</h5>
                 <h2>{$workShift[$ws]}</h2>
             </div>
-            <div class="pletacka-chart">
-                {control pletackaChart:day $ws, "Upleteno" , "red", "FINISHED"}
-
-            </div>
         </div>
     </div>
 </div>
+
+{control pletackaChart:day "Upleteno" , "red", "FINISHED"}
+
+{control pletackaChart:day "Upleteno" , "red", "FINISHED"}
+
+{*<div class="container-fluid">*}
+{*    <div class="row">*}
+{*        <div class="col-md-6 center-line">*}
+{*            {var $ws = 0}*}
+{*            <div class="text-center">*}
+{*                <h5>Dopolední směna</h5>*}
+{*                <h2>{$workShift[$ws]}</h2>*}
+{*            </div>*}
+{*            <div class="pletacka-chart">*}
+{*                *}
+
+{*            </div>*}
+{*        </div>*}
+
+{*        <div class="col-md-6">*}
+{*            {var $ws = 1}*}
+{*            <div class="text-center">*}
+{*                <h5>Odpolední směna</h5>*}
+{*                <h2>{$workShift[$ws]}</h2>*}
+{*            </div>*}
+{*            <div class="pletacka-chart">*}
+{*                {control pletackaChart:day $ws, "Upleteno" , "red", "FINISHED"}*}
+
+{*            </div>*}
+{*        </div>*}
+{*    </div>*}
+{*</div>*}
 
 
 

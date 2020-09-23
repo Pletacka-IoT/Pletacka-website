@@ -10,6 +10,7 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Model\ThisChartManager;
+use App\CoreModule\Model\WorkShiftManager;
 use Jakubandrysek\Chart\Serie\DateSerie;
 use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Segment\DateSegment;
@@ -24,17 +25,19 @@ class PletackaChartControl extends  Control{
 
     private $thisChartManager;
     private $thisSensorManager;
+    private $workShiftManager;
     private $sNumber;
     private $from;
     private $to;
     private $color;
 
 
-    public function __construct($sNumber, ThisSensorManager $thisSensorManager, ThisChartManager $thisChartManager)
+    public function __construct($sNumber, ThisSensorManager $thisSensorManager, ThisChartManager $thisChartManager, WorkShiftManager $workShiftManager)
     {
         $this->sNumber = $sNumber;
         $this->thisSensorManager = $thisSensorManager;
         $this->thisChartManager = $thisChartManager;
+        $this->workShiftManager = $workShiftManager;
     }
 
     private function setTestWS(int $wShift)
@@ -79,6 +82,8 @@ class PletackaChartControl extends  Control{
 
         $dayChart = new DateChart();
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
+//        $dayChart->setMinValue(2);
+        $dayChart->setMaxValue(6);
 
         $serie = new DateSerie($serieType, $nameType, $color);
         foreach($dataChart as $data)
@@ -94,10 +99,12 @@ class PletackaChartControl extends  Control{
         return $dayChart;
     }
 
-    public function renderDay(int $wShift, string $nameType, string $color, string $stateType = null)
+    public function renderDay( string $nameType, string $color, string $stateType = null)
     {
+        $this->template->workShift = $workShift = $this->workShiftManager->getWeekWS();
 
-        $this->setTestWS($wShift);
+
+        $this->setTestWS(0);
 //        $this->setWS($wShift);
 
         $this->setDate();
@@ -115,7 +122,8 @@ class PletackaChartControl extends  Control{
             $dayChart = $this->getStates($rawEvents, "m", 15, $nameType, $color, $stateType);
 
             // Send chart to latte
-            $this->template->pletackaChart = $dayChart;
+            $this->template->pletackaChartA = $dayChart;
+
 
             // Render
             $this->template->render(__DIR__ . '/PletackaChartControl.latte');
