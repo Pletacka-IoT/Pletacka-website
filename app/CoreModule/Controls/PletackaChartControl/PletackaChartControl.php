@@ -27,8 +27,12 @@ class PletackaChartControl extends  Control{
     private $thisSensorManager;
     private $workShiftManager;
     private $sNumber;
-    private $from;
-    private $to;
+    private $fromA;
+    private $fromB;
+    private $min;
+    private $max;
+    private $toA;
+    private $toB;
     private $color;
 
 
@@ -40,37 +44,39 @@ class PletackaChartControl extends  Control{
         $this->workShiftManager = $workShiftManager;
     }
 
-    private function setTestWS(int $wShift)
+    /**
+     * Set time variables - TEST
+     */
+    private function setTestTime()
     {
-        if($wShift == 0)
-        {
-            $this->from = date_create("2020-05-05 04:00:00");
-            $this->to = date_create("2020-05-05 14:00:00");
-        }
-        else
-        {
-            $this->from = date_create("2020-05-05 14:00:00");
-            $this->to = date_create("2020-05-05 23:59:00");
-        }
+        $this->fromA = date_create("2020-05-05 04:00:00");
+        $this->toA = date_create("2020-05-05 14:00:00");
+        $this->fromB = date_create("2020-05-05 14:00:00");
+        $this->toB = date_create("2020-05-05 23:59:00");
     }
 
-    private function setWS(int $wShift)
+    /**
+     * Set time variables
+     */
+    private function setTime()
     {
-        if($wShift == 0)
-        {
-            $this->from = date_create(date("Y-m-d")." 04:00:00");
-            $this->to = date_create(date("Y-m-d")." 14:00:00");
-        }
-        else
-        {
-            $this->from = date_create(date("Y-m-d")." 14:00:00");
-            $this->to = date_create(date("Y-m-d")." 23:59:00");
-        }
+        $this->fromA = date_create(date("Y-m-d")." 06:00:00");
+        $this->toA = date_create(date("Y-m-d")." 14:00:00");
+        $this->fromB = date_create(date("Y-m-d")." 14:00:00");
+        $this->toB = date_create(date("Y-m-d")." 23:00:00");
     }
 
-    private  function setDate()
+    /**
+     * Set format info date for chart
+     */
+    private  function setInfoDate(/*$type*/)
     {
-        $this->template->date = date_format($this->from, "H:i")." - ".date_format($this->to, "H:i");
+//        switch($type)
+//        {
+//            case $
+//        }
+        $this->template->dateA = date_format($this->fromA, "H:i")." - ".date_format($this->toA, "H:i");
+        $this->template->dateB = date_format($this->fromB, "H:i")." - ".date_format($this->toB, "H:i");
 
     }
 
@@ -79,6 +85,7 @@ class PletackaChartControl extends  Control{
         $serieType = DateSerie::AREA_SPLINE;
 
         $dataChart = $this->thisChartManager->sensorChartDataState($rawEvents, $type, $interval, $states);
+//        dump($dataChart);
 
         $dayChart = new DateChart();
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
@@ -86,8 +93,14 @@ class PletackaChartControl extends  Control{
         $dayChart->setMaxValue(6);
 
         $serie = new DateSerie($serieType, $nameType, $color);
+        $first = true;
         foreach($dataChart as $data)
         {
+            if($first)
+            {
+                $this->min = $this->max = 8;//$data[0];
+                $first = false;
+            }
             if($data[0] != 0 || $data[1] != 0)
             {
                 $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
@@ -99,37 +112,63 @@ class PletackaChartControl extends  Control{
         return $dayChart;
     }
 
-    public function renderDay( string $nameType, string $color, string $stateType = null)
+    public function renderDay( string $color, string $nameType, string $stateType = null)
     {
-        $this->template->workShift = $workShift = $this->workShiftManager->getWeekWS();
+        // Set ws time
+        $this->setTestTime();
+//        $this->setTime();
 
-
-        $this->setTestWS(0);
-//        $this->setWS($wShift);
-
-        $this->setDate();
-
+        $this->setInfoDate();
 
         $this->template->name = $nameType;
 
-        $type = DateSerie::AREA_SPLINE;
+        $rawEventsA = $this->thisSensorManager->getAllEvents($this->sNumber, $this->fromA, $this->toA);
+        $rawEventsB = $this->thisSensorManager->getAllEvents($this->sNumber, $this->fromB, $this->toB);
 
 
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($this->sNumber, $this->from, $this->to);
-
-        if(!empty($rawEvents))
+        if(!(empty($rawEventsA) and empty($rawEventsB)))
         {
-            $dayChart = $this->getStates($rawEvents, "m", 15, $nameType, $color, $stateType);
-
-            // Send chart to latte
-            $this->template->pletackaChartA = $dayChart;
-
+            $this->template->pletackaChartA = $this->getStates($rawEventsA, "hour", 15, $nameType, $color, $stateType);
+            $this->template->pletackaChartB = $this->getStates($rawEventsB, "hour", 15, $nameType, $color, $stateType);
 
             // Render
             $this->template->render(__DIR__ . '/PletackaChartControl.latte');
 
         }
     }
+
+
+//    public function renderDay( string $nameType, string $color, string $stateType = null)
+//    {
+//        $this->template->workShift = $workShift = $this->workShiftManager->getWeekWS();
+//
+//
+//        $this->setTestWS(0);
+////        $this->setWS($wShift);
+//
+//        $this->setDate();
+//
+//
+//        $this->template->name = $nameType;
+//
+//        $type = DateSerie::AREA_SPLINE;
+//
+//
+//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($this->sNumber, $this->from, $this->to);
+//
+//        if(!empty($rawEvents))
+//        {
+//            $dayChart = $this->getStates($rawEvents, "m", 15, $nameType, $color, $stateType);
+//
+//            // Send chart to latte
+//            $this->template->pletackaChartA = $dayChart;
+//
+//
+//            // Render
+//            $this->template->render(__DIR__ . '/PletackaChartControl.latte');
+//
+//        }
+//    }
 
     public function renderSet($color)
     {

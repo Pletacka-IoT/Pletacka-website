@@ -68,7 +68,7 @@ class ThisChartManager
 
         switch($type)
         {
-            case 'm':
+            case 'hour':
                 foreach($rawData as $data)
                 {
                     if($data->state == $stateType)                          //If correct state
@@ -98,7 +98,7 @@ class ThisChartManager
                 }
                 break;
 
-            case 'h':
+            case 'day':
                 foreach($rawData as $data)
                 {
                     if($data->state == $stateType)

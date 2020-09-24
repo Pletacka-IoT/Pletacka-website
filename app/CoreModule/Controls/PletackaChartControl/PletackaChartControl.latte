@@ -1,23 +1,12 @@
 {block content}
 
-{*<div class="text-center">*}
-{*    <h5>{$name}</h5>*}
-{*    <h6>{$date}</h6>*}
-{*</div>*}
-{*<div class="chart-chart">*}
-{*    {$pletackaChart|noescape}*}
-{*</div>*}
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 center-line">
-            {var $ws = 0}
             <div class="pletacka-chart">
                 <div class="text-center">
                     <h5>{$name}</h5>
-                    <h6>{$date}</h6>
+                    <h6>{$dateA}</h6>
                 </div>
                 <div class="chart-chart">
                     {$pletackaChartA|noescape}
@@ -26,20 +15,17 @@
         </div>
 
         <div class="col-md-6">
-            {var $ws = 1}
             <div class="pletacka-chart">
                 <div class="text-center">
                     <h5>{$name}</h5>
-                    <h6>{$date}</h6>
+                    <h6>{$dateB}</h6>
                 </div>
                 <div class="chart-chart">
-                    {$pletackaChartA|noescape}
+                    {$pletackaChartB|noescape}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div></div>
 
 {*<a n:href="click!" class="ajax">click here</a>*}

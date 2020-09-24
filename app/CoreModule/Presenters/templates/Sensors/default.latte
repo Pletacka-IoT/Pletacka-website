@@ -160,9 +160,9 @@
     </div>
 </div>
 
-{control pletackaChart:day "Upleteno" , "red", "FINISHED"}
+{control pletackaChart:day "red", "Upleteno", "FINISHED"}
 
-{control pletackaChart:day "Upleteno" , "red", "FINISHED"}
+{control pletackaChart:day "red", "Upleteno", "FINISHED"}
 
 {*<div class="container-fluid">*}
 {*    <div class="row">*}
@@ -196,88 +196,88 @@
 
 
 
-{snippet sensorCharts}
+{*{snippet sensorCharts}*}
 
-    <div class="container">
-        {if !empty($rawEvents)}
-            {*        <h2>{$from|date:''}</h2>*}
-            <h2>All events: {$countAll}</h2>
+{*    <div class="container">*}
+{*        {if !empty($rawEvents)}*}
+{*            *}{*        <h2>{$from|date:''}</h2>*}
+{*            <h2>All events: {$countAll}</h2>*}
 
-            <h2>Count</h2>
-            <div class="move-right">
-                <h4>All events count: {$countAll}</h4>
-                <h4>All events state count (FINISHED): {$countFinished}</h4>
-                <h4>All events state count (STOP): {$countStop}</h4>
-                <h4>All events state count (REWORK): {$countRework}</h4>
-                <h4>All events state count (ON): {$countOn}</h4>
-                <h4>All events state count (OFF): {$countOff}</h4>
-            </div>
+{*            <h2>Count</h2>*}
+{*            <div class="move-right">*}
+{*                <h4>All events count: {$countAll}</h4>*}
+{*                <h4>All events state count (FINISHED): {$countFinished}</h4>*}
+{*                <h4>All events state count (STOP): {$countStop}</h4>*}
+{*                <h4>All events state count (REWORK): {$countRework}</h4>*}
+{*                <h4>All events state count (ON): {$countOn}</h4>*}
+{*                <h4>All events state count (OFF): {$countOff}</h4>*}
+{*            </div>*}
 
-            <h2>Times</h2>
-            <div class="move-right">
-                <h4>All time: {gmdate("H:i:s", $allTime)}</h4>
-                <h4>Stop time: {gmdate("H:i:s", $stopTime)}</h4>
-                <h4>Work time: {gmdate("H:i:s", $workTime)}</h4>
-            </div>
+{*            <h2>Times</h2>*}
+{*            <div class="move-right">*}
+{*                <h4>All time: {gmdate("H:i:s", $allTime)}</h4>*}
+{*                <h4>Stop time: {gmdate("H:i:s", $stopTime)}</h4>*}
+{*                <h4>Work time: {gmdate("H:i:s", $workTime)}</h4>*}
+{*            </div>*}
 
-            <h2>Average</h2>
-            <div class="move-right">
-                <h4>Stop average time: {gmdate("H:i:s", $avgStopTime)}</h4>
-                <h4>Work average time: {gmdate("H:i:s", $avgWorkTime)}</h4>
-            </div>
-
-
-            {foreach $events as $event}
-                {if $iterator->first}
-                    <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>State</th>
-                        <th>Time</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                {/if}
-                <tr id="row-{$iterator->counter}">
-                    <td>{$event->id}</td>
-                    {if $event->state == "FINISHED"}
-                        <td class="text-success">
-                            {$event->state}
-                        </td>
-                    {elseif  $event->state == "STOP"}
-                        <td class="text-danger">
-                            {$event->state}
-                        </td>
-                    {elseif  $event->state == "REWORK"}
-                        <td class="text-info">
-                            {$event->state}
-                        </td>
-                    {else}
-                        <td class="">
-                            {$event->state}
-                        </td>
-                    {/if}
+{*            <h2>Average</h2>*}
+{*            <div class="move-right">*}
+{*                <h4>Stop average time: {gmdate("H:i:s", $avgStopTime)}</h4>*}
+{*                <h4>Work average time: {gmdate("H:i:s", $avgWorkTime)}</h4>*}
+{*            </div>*}
 
 
-
-                    <td>{$event->time}</td>
-                </tr>
-                {if $iterator->last}
-                    </tbody>
-                    </table>
-                {/if}
-            {/foreach}
+{*            {foreach $events as $event}*}
+{*                {if $iterator->first}*}
+{*                    <table class="table table-striped">*}
+{*                    <thead>*}
+{*                    <tr>*}
+{*                        <th>ID</th>*}
+{*                        <th>State</th>*}
+{*                        <th>Time</th>*}
+{*                    </tr>*}
+{*                    </thead>*}
+{*                    <tbody>*}
+{*                {/if}*}
+{*                <tr id="row-{$iterator->counter}">*}
+{*                    <td>{$event->id}</td>*}
+{*                    {if $event->state == "FINISHED"}*}
+{*                        <td class="text-success">*}
+{*                            {$event->state}*}
+{*                        </td>*}
+{*                    {elseif  $event->state == "STOP"}*}
+{*                        <td class="text-danger">*}
+{*                            {$event->state}*}
+{*                        </td>*}
+{*                    {elseif  $event->state == "REWORK"}*}
+{*                        <td class="text-info">*}
+{*                            {$event->state}*}
+{*                        </td>*}
+{*                    {else}*}
+{*                        <td class="">*}
+{*                            {$event->state}*}
+{*                        </td>*}
+{*                    {/if}*}
 
 
 
-        {else}
-            <br>
-            <br>
-            <h2 class="text-center">No data available</h2>
-        {/if}
-    </div>
-{/snippet}
+{*                    <td>{$event->time}</td>*}
+{*                </tr>*}
+{*                {if $iterator->last}*}
+{*                    </tbody>*}
+{*                    </table>*}
+{*                {/if}*}
+{*            {/foreach}*}
+
+
+
+{*        {else}*}
+{*            <br>*}
+{*            <br>*}
+{*            <h2 class="text-center">No data available</h2>*}
+{*        {/if}*}
+{*    </div>*}
+{*{/snippet}*}
 
 
 
