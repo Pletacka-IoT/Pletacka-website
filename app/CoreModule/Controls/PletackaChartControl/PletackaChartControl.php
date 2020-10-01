@@ -80,27 +80,22 @@ class PletackaChartControl extends  Control{
 
     }
 
-    private  function getStates($rawEvents, $type, int $interval, $nameType, $color, string $states)
+    private  function getStates($dataChart, $type, int $interval, $nameType, $color, string $states)
     {
         $serieType = DateSerie::AREA_SPLINE;
 
-        $dataChart = $this->thisChartManager->sensorChartDataState($rawEvents, $type, $interval, $states);
+//        $dataChart = $this->thisChartManager->sensorChartDataState($rawEvents, $type, $interval, $states);
 //        dump($dataChart);
 
         $dayChart = new DateChart();
         $dayChart->enableTimePrecision(); // Enable time accurate to seconds
-//        $dayChart->setMinValue(2);
-        $dayChart->setMaxValue(6);
+        $dayChart->setMinValue($this->min);
+        $dayChart->setMaxValue($this->max);
 
         $serie = new DateSerie($serieType, $nameType, $color);
         $first = true;
         foreach($dataChart as $data)
         {
-            if($first)
-            {
-                $this->min = $this->max = 8;//$data[0];
-                $first = false;
-            }
             if($data[0] != 0 || $data[1] != 0)
             {
                 $serie->addSegment(new DateSegment(new DateTimeImmutable($data[1]), $data[0]));
@@ -112,8 +107,41 @@ class PletackaChartControl extends  Control{
         return $dayChart;
     }
 
-    public function renderDay( string $color, string $nameType, string $stateType = null)
+
+
+    private function setMinMax($dataChart, $first = false)
     {
+
+        foreach($dataChart as $dataA)
+        {
+            if($first)
+            {
+                $this->min = $this->max = $dataA[0];
+                $first = false;
+            }
+            else
+            {
+                if($dataA[0] < $this->min)
+                {
+                    $this->min = $dataA[0];
+                }
+
+                if($dataA[0] > $this->max)
+                {
+                    $this->max = $dataA[0];
+                }
+            }
+
+        }
+
+    }
+
+    public function renderDay( string $color, string $nameType, string $state, string $stateType = null)
+    {
+        $type = "hour";
+        $interval = 4; //4 times per hour -> 15 minutes
+
+
         // Set ws time
         $this->setTestTime();
 //        $this->setTime();
@@ -125,16 +153,41 @@ class PletackaChartControl extends  Control{
         $rawEventsA = $this->thisSensorManager->getAllEvents($this->sNumber, $this->fromA, $this->toA);
         $rawEventsB = $this->thisSensorManager->getAllEvents($this->sNumber, $this->fromB, $this->toB);
 
-
-        if(!(empty($rawEventsA) and empty($rawEventsB)))
+        switch($state)
         {
-            $this->template->pletackaChartA = $this->getStates($rawEventsA, "hour", 15, $nameType, $color, $stateType);
-            $this->template->pletackaChartB = $this->getStates($rawEventsB, "hour", 15, $nameType, $color, $stateType);
+            case "STATE":
+                if(!(empty($rawEventsA) or empty($rawEventsB)))
+                {
+                    $dataChartA = $this->thisChartManager->sensorChartDataState($rawEventsA, $this->fromA, $this->toA, $type, 4, $stateType);
+                    $dataChartB = $this->thisChartManager->sensorChartDataState($rawEventsB, $this->fromB, $this->toB, $type, 4, $stateType);
 
-            // Render
-            $this->template->render(__DIR__ . '/PletackaChartControl.latte');
+
+                    $this->setMinMax($dataChartA, true);
+                    $this->setMinMax($dataChartB);
+
+                    dump($dataChartA);
+
+
+
+                    $this->template->pletackaChartA = $this->getStates($dataChartA, $type, 4, $nameType, $color, $stateType);
+                    $this->template->pletackaChartB = $this->getStates($dataChartB, $type, 4, $nameType, $color, $stateType);
+
+                    // Render
+                    $this->template->render(__DIR__ . '/PletackaChartControl.latte');
+
+                }
+                break;
+
+            case "WORK_TIME":
+                //$this->template->render(__DIR__ . '/PletackaChartControl.latte');
+                echo "AHOJ";
+
+                break;
 
         }
+
+
+
     }
 
 

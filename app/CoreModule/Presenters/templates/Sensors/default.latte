@@ -132,11 +132,6 @@
 {*    </div>*}
 {*</div>*}
 
-{control pletackaChart:set "Green"}
-{control pletackaChart:get }
-
-{control pletackaChart:set "Blue"}
-{control pletackaChart:get }
 
 
 
@@ -160,9 +155,56 @@
     </div>
 </div>
 
-{control pletackaChart:day "red", "Upleteno", "FINISHED"}
+{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}
 
-{control pletackaChart:day "red", "Upleteno", "FINISHED"}
+
+{control pletackaChart:day "red", "Upleteno", "STATE","FINISHED"}
+{control pletackaChart:day "blue", "Upleteno", "STATE","STOP"}
+{control pletackaChart:day "green", "Upleteno", "STATE", "REWORK"}
+
+
+<div id="accordion" style="margin: 20px 0">
+    <div class="card">
+        <div class="card-header">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="card-link collapsed" aria-expanded="false">
+                Collapsible Group Item #1
+            </a>
+        </div>
+
+        <div id="collapseOne" class="collapse show" style="">
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false">
+                Collapsible Group Item #2
+            </a>
+        </div>
+        <div id="collapseTwo" class="collapse" style="">
+            <div class="card-body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a class="card-link collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false">
+                Collapsible Group Item #3
+            </a>
+        </div>
+        <div id="collapseThree" class="collapse" style="">
+            <div class="card-body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{*{control pletackaChart:day "red", "Upleteno", "FINISHED"}*}
 
 {*<div class="container-fluid">*}
 {*    <div class="row">*}

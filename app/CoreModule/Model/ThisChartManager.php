@@ -61,7 +61,23 @@ class ThisChartManager
             return $number;
     }
 
-    public function sensorChartDataState($rawData, $type, $interval, $stateType)
+    private function chartDataOutputRepairer($chartData, string $type, int $interval)
+    {
+        switch($type)
+        {
+            case "HOUR":
+
+        }
+    }
+
+    /**
+     * @param        $rawData
+     * @param string $type type of interval (hour, day, week, month)
+     * @param int    $interval count of events per type (4 times per hour)
+     * @param        $stateType
+     * @return array
+     */
+    public function sensorChartDataState($rawData, $from, $to, string $type, int $interval, string $stateType)
     {
         $chartData = array();
 
@@ -69,6 +85,8 @@ class ThisChartManager
         switch($type)
         {
             case 'hour':
+
+                $periode = 60/$interval;
                 foreach($rawData as $data)
                 {
                     if($data->state == $stateType)                          //If correct state
@@ -76,8 +94,8 @@ class ThisChartManager
                         $time = $data->time;                            //Get time
                         $hour = $this->zeroOut($time->format('H'));     //Filter hour
                         $minute = $this->zeroOut($time->format('i'));   //Filter minute
-                        $minute = intval(ceil($minute/$interval));
-                        $minute *= $interval;                           //Calculate and ceil minute
+                        $minute = intval(ceil($minute/$periode));
+                        $minute *= $periode;                           //Calculate and ceil minute
                         if($minute==60)                                 //Overfloat hour
                         {
                             $hour++;
@@ -99,6 +117,8 @@ class ThisChartManager
                 break;
 
             case 'day':
+                $periode = 60/$interval;
+
                 foreach($rawData as $data)
                 {
                     if($data->state == $stateType)
@@ -107,8 +127,8 @@ class ThisChartManager
                         $day = $this->zeroOut($time->format('d'));
                         $hour = $this->zeroOut($time->format('H'));
 
-                        $hour = intval(ceil($hour/$interval));
-                        $hour *= $interval;
+                        $hour = intval(ceil($hour/$periode));
+                        $hour *= $periode;
 
                         if($hour==24)
                         {
@@ -140,8 +160,8 @@ class ThisChartManager
 //                        $time = $data->time;
 //                        $month = $this->zeroOut($time->format('d'));
 //                        $day = $this->zeroOut($time->format('H'));
-//                        $day = intval($day/$interval);
-//                        $day *= $interval;
+//                        $day = intval($day/$periode);
+//                        $day *= $periode;
 //
 //                        if(!isset($chartData[$month.$day][0]))
 //                            $chartData[$month.$day][0] = 0;
