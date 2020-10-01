@@ -87,8 +87,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae1c209d27efc99e3344cc642b5639a0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#ae1c209d27efc99e3344cc642b5639a0b">zeroAdd</a> ($number)</td></tr>
 <tr class="memdesc:ae1c209d27efc99e3344cc642b5639a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add zero before short number.  <a href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#ae1c209d27efc99e3344cc642b5639a0b">More...</a><br /></td></tr>
 <tr class="separator:ae1c209d27efc99e3344cc642b5639a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6642959b32441d0198b59c37f3f4c8ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a6642959b32441d0198b59c37f3f4c8ed">sensorChartDataState</a> ($rawData, $type, $interval, $stateType)</td></tr>
-<tr class="separator:a6642959b32441d0198b59c37f3f4c8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65b0d3360798a245fef11fd52007a09a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a65b0d3360798a245fef11fd52007a09a">sensorChartDataState</a> ($rawData, $from, $to, string $type, int $interval, string $stateType)</td></tr>
+<tr class="separator:a65b0d3360798a245fef11fd52007a09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage chart data. </p>
@@ -122,8 +122,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6642959b32441d0198b59c37f3f4c8ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6642959b32441d0198b59c37f3f4c8ed">&#9670;&nbsp;</a></span>sensorChartDataState()</h2>
+<a id="a65b0d3360798a245fef11fd52007a09a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65b0d3360798a245fef11fd52007a09a">&#9670;&nbsp;</a></span>sensorChartDataState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,18 +138,30 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>$type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>$interval</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>$stateType</em>&#160;</td>
         </tr>
         <tr>
@@ -159,6 +171,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"></td><td class="paramname">$rawData</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$type</td><td>type of interval (hour, day, week, month) </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$interval</td><td>count of events per type (4 times per hour) </td></tr>
+    <tr><td class="paramtype"></td><td class="paramname">$stateType</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 </div>
 </div>
@@ -222,7 +244,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 24 2020 14:57:01 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Thu Oct 1 2020 14:21:21 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>
