@@ -253,15 +253,18 @@ class ChartManager
         }
         else
         {
-            $from = date("Y-m-d 04:00:00");
+            $from = date("Y-m-d 14:00:00");
             $to = date("Y-m-d 23:59:00");
         }
 
 
 
 //
-        $from="2020-05-05 00:00:00"; //For testing
-        $to="2020-05-05 10:00:00";
+//        $from="2020-04-24 08:00:00"; //For testing
+//        $to="2020-04-24 23:00:00";
+
+        $from="2020-05-05 04:00:00"; //For testing
+        $to="2020-05-05 12:29:00";
 
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         $roomSensorsArray = array();
@@ -287,7 +290,7 @@ class ChartManager
         }
 
         /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($roomSensorsArray, $from, $to, false));
-
+        echo "";
 //        dump($allSensors);
 
         foreach($allSensors as $number => $data)
@@ -307,14 +310,18 @@ class ChartManager
                 //                $chartData += array(TimeBox::REWORK => $sensor->countEvents(TimeBox::REWORK));
                 //                $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
                 //                $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
-                //                $chartData += array("ALL_TIME" => $sensor->allTime()[1]);
+//                                $chartData += array("ALL_TIME" => $sensor->allTime($data["previous"])[1]);
                 $sensorData += array("STOP_TIME" => $sensor->stopTime($data["previous"]));
-                //                $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
+//                                $chartData += array("WORK_TIME" => $sensor->workTime($data["previous"])[1]);
                 //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
                 //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
 
-                $sensorData += array("LAST_STATE" => $data[array_key_last($data)]->state);
+                $sensorData += array("LAST_STATE" => $data["last"]);
 //                dump($data[array_key_last($data)]);
+
+                $x = $sensor->allTime($data["previous"]);
+                $y = $sensor->workTime($data["previous"]);
+                $z = $sensor->stopTime($data["previous"]);
             }
             else
             {

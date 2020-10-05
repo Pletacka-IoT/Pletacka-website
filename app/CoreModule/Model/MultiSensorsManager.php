@@ -47,6 +47,7 @@ class MultiSensorsManager
     public function getAllSensorsEvents($sensorsNumbers, $from="2000-01-01 00:00:00" , $to="2100-01-01 00:00:00", $inputFromDatabase = true)
     {
         $allSensors = array();
+        $lastState = null;
         foreach($sensorsNumbers as $sensor)
         {
             if($inputFromDatabase)
@@ -54,9 +55,12 @@ class MultiSensorsManager
                 // Example $sensor = database output
                 $rawEvents = $this->thisSensorManager->getAllEvents($sensor->number, $from, $to);
                 $previousEvent = $this->thisSensorManager->getPreviousEvent($sensor->number, $rawEvents);
+
+                if($lastKey = array_key_last($rawEvents)){$lastState = $rawEvents[array_key_last($rawEvents)]->state;}
+
                 if($previousEvent){$previousEvent = $previousEvent->state;}
 
-                $allSensors += array($sensor->number => array("raw" => $rawEvents, "previous" => $previousEvent, "from" => $from, "to" => $to));
+                $allSensors += array($sensor->number => array("raw" => $rawEvents, "previous" => $previousEvent, "last" => array_key_last($rawEvents),"from" => $from, "to" => $to));
             }
             else
             {
@@ -65,7 +69,9 @@ class MultiSensorsManager
                 $previousEvent = $this->thisSensorManager->getPreviousEvent($sensor, $rawEvents);
                 if($previousEvent){$previousEvent = $previousEvent->state;}
 
-                $allSensors += array($sensor => array("raw" => $rawEvents, "previous" => $previousEvent, "from" => $from, "to" => $to));
+                if($lastKey = array_key_last($rawEvents)){$lastState = $rawEvents[array_key_last($rawEvents)]->state;}
+
+                $allSensors += array($sensor => array("raw" => $rawEvents, "previous" => $previousEvent, "last" => $lastState, "from" => $from, "to" => $to));
             }
         }
         return $allSensors;

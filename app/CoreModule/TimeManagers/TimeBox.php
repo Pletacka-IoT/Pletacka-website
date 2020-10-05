@@ -199,6 +199,58 @@ class TimeBox
     }
 
     /**
+     * @brief Get last stop time
+     * @param $previousEvent
+     * @return int time in seconds
+     */
+    public function lastStopTime($previousEvent)
+    {
+        $sState = self::STOP;
+        $time = 0;
+        $start = 0;
+
+        foreach($this->tableSelection as $event)
+        {
+            switch ($sState) {
+                case self::STOP:
+                    if($event->state == self::STOP)
+                    {
+                        $sState = self::REWORK;
+                        $start = $event->time->getTimestamp();
+//                        echo " -> STOP -> ".$start;
+                    }
+                    else if($event->state == self::OFF)
+                    {
+                        $start = $stop = 0;
+                        $sState = self::OFF;
+                    }
+                    break;
+                case self::REWORK:
+                    if($event->state == self::REWORK)
+                    {
+                        $stop = $event->time->getTimestamp();
+                        $sState = self::STOP;
+                        $time += $stop-$start;
+//                        echo " -> REWORK -> ".$stop."-> ALL: ". $time;
+                    }
+                    else if($event->state == self::OFF)
+                    {
+                        $start = $stop = 0;
+                        $sState = self::OFF;
+                    }
+                    break;
+                case self::OFF:
+                    if($event->state == self::ON)
+                    {
+                        $sState = self::STOP;
+                    }
+                    break;
+            }
+        }
+        return $time;
+    }
+
+    /**
      * @brief Get work time
      * @param $previousEvent
      * @return int time in second

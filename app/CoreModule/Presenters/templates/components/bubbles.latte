@@ -14,25 +14,28 @@
 						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
 							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
 							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-ok zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}</div></a></td>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"])}-P</div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'STOP'}
 							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
 							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-stop zoom"></div></a></td>
 							<td>
 								<a class="ajax" n:href="Sensors:default $number" >
 									<div class="bubble-text bubble-text-stop">
-										{if gmdate("i", $bubble["STOP_TIME"])<60}
+{*										{gmdate("H:i:s", $bubble["STOP_TIME"])}H*}
+
+{*										{dump $bubble["STOP_TIME"]}*}
+										{if $bubble["STOP_TIME"]>3600}
 											{if gmdate("H", $bubble["STOP_TIME"])[0] == 0}
-												{gmdate("H", $bubble["STOP_TIME"])[1]}H
+												{gmdate("H", $bubble["STOP_TIME"])[1]}&nbsp;hod
 											{else}
-												{gmdate("H", $bubble["STOP_TIME"])}H
+												{gmdate("H", $bubble["STOP_TIME"])}&nbsp;hod
 											{/if}
 
 										{else}
 											{if gmdate("i", $bubble["STOP_TIME"])[0] == 0}
-												{gmdate("i", $bubble["STOP_TIME"])[1]}M
+												{gmdate("i", $bubble["STOP_TIME"])[1]}&nbsp;min
 											{else}
-												{gmdate("i", $bubble["STOP_TIME"])}M
+												{gmdate("i", $bubble["STOP_TIME"])}&nbsp;min
 											{/if}
 										{/if}
 									</div>
