@@ -79,7 +79,7 @@ class ChartManager
         $chartDataAvg = array();
 
         $sensorsNumber = $this->multiSensorsManager->getAllSensorsName();
-        dump($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsNumber, $from, $to));
+//        dump($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsNumber, $from, $to));
 
 
 
@@ -260,8 +260,8 @@ class ChartManager
 
 
 //
-//        $from="2020-05-05 00:00:00"; //For testing
-//        $to="2020-05-05 10:00:00";
+        $from="2020-05-05 00:00:00"; //For testing
+        $to="2020-05-05 10:00:00";
 
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         $roomSensorsArray = array();
@@ -288,6 +288,8 @@ class ChartManager
 
         /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($roomSensorsArray, $from, $to, false));
 
+//        dump($allSensors);
+
         foreach($allSensors as $number => $data)
         {
             $sensorData = array();
@@ -310,8 +312,9 @@ class ChartManager
                 //                $chartData += array("WORK_TIME" => $sensor->workTime()[1]);
                 //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
                 //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
-                $sensorData += array("LAST_STATE" => $data[array_key_last($data)]->state);
 
+                $sensorData += array("LAST_STATE" => $data[array_key_last($data)]->state);
+//                dump($data[array_key_last($data)]);
             }
             else
             {

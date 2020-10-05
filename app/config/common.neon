@@ -64,4 +64,3 @@ services:
 includes:
 	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	
 
-

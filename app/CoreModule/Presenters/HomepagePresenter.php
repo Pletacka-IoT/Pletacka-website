@@ -28,7 +28,6 @@ final class HomepagePresenter extends BasePresenter
 		$this->chartManager = $chartManager;
 		$this->roomManager = $roomManager;
 		$this->workShiftManager = $workShiftManager;
-
     }
 
     public function renderDefault() : void
@@ -37,11 +36,14 @@ final class HomepagePresenter extends BasePresenter
 
         $this->template->actualWS = $this->workShiftManager->getActualWS();
 
+        // Info table
         ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
 
+        // Big pletacka room
         $plBig = $this->roomManager->roomPletarnaBig;
         ($bubblesBig = $this->template->bubblesBig = $this->chartManager->sensorsChartBubbles($plBig));
 
+        // Small pletacka room
         $plSmall = $this->roomManager->roomPletarnaSmall;
         ($bubblesSmall = $this->template->bubblesSmall = $this->chartManager->sensorsChartBubbles($plSmall));
 

@@ -138,8 +138,8 @@ class PletackaChartControl extends  Control{
 
     public function renderDay( string $color, string $nameType, string $state, string $stateType = null)
     {
-        $type = "hour";
-        $interval = 4; //4 times per hour -> 15 minutes
+        $type = "DAY";
+        $interval = 15; //4 times per hour -> 15 minutes
 
 
         // Set ws time
@@ -158,8 +158,8 @@ class PletackaChartControl extends  Control{
             case "STATE":
                 if(!(empty($rawEventsA) or empty($rawEventsB)))
                 {
-                    $dataChartA = $this->thisChartManager->sensorChartDataState($rawEventsA, $this->fromA, $this->toA, $type, 4, $stateType);
-                    $dataChartB = $this->thisChartManager->sensorChartDataState($rawEventsB, $this->fromB, $this->toB, $type, 4, $stateType);
+                    $dataChartA = $this->thisChartManager->sensorChartDataState($rawEventsA, $this->fromA, $this->toA, $type, $interval, $stateType);
+                    $dataChartB = $this->thisChartManager->sensorChartDataState($rawEventsB, $this->fromB, $this->toB, $type, $interval, $stateType);
 
 
                     $this->setMinMax($dataChartA, true);

@@ -84,9 +84,8 @@ class ThisChartManager
 
         switch($type)
         {
-            case 'hour':
+            case 'DAY':
 
-                $periode = 60/$interval;
                 foreach($rawData as $data)
                 {
                     if($data->state == $stateType)                          //If correct state
@@ -94,8 +93,8 @@ class ThisChartManager
                         $time = $data->time;                            //Get time
                         $hour = $this->zeroOut($time->format('H'));     //Filter hour
                         $minute = $this->zeroOut($time->format('i'));   //Filter minute
-                        $minute = intval(ceil($minute/$periode));
-                        $minute *= $periode;                           //Calculate and ceil minute
+                        $minute = intval(ceil($minute/$interval));
+                        $minute *= $interval;                           //Calculate and ceil minute
                         if($minute==60)                                 //Overfloat hour
                         {
                             $hour++;
