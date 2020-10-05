@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['worktime_372',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a337ddf4aeb0bd22981ff57ac16b94cd6',1,'App::TimeManagers::TimeBox']]]
+  ['updatews_373',['updateWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a8fb20eaf3a79c96a37bfbc084e554a53',1,'App::CoreModule::Model::WorkShiftManager']]]
 ];

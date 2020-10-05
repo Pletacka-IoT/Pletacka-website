@@ -1,22 +1,12 @@
 var searchData=
 [
-  ['readme_2emd_119',['README.md',['../README_8md.html',1,'']]],
-  ['redrawall_120',['redrawAll',['../classApp_1_1Presenters_1_1BasePresenter.html#a6f8b81c36a56f163395e2b556eb74128',1,'App::Presenters::BasePresenter']]],
-  ['renamethissensor_121',['renameThisSensor',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a17fbb8b683914048ab4ac53bde3d356d',1,'App::CoreModule::Model::SensorsManager']]],
-  ['render_122',['render',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControl.html#a4c6f90a5e3b09a2ed1c48462b6edac47',1,'App::CoreModule::Controls::PletackaChartControl::PletackaChartControl']]],
-  ['renderchart_123',['renderChart',['../classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a2614bdd8f7766d322505ffb68f4795e8',1,'App::CoreModule::Presenters::TestPresenter']]],
-  ['renderday_124',['renderDay',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControl.html#a169114f39de66c5cd35fe4dd151052ae',1,'App::CoreModule::Controls::PletackaChartControl::PletackaChartControl']]],
-  ['renderdefault_125',['renderDefault',['../classApp_1_1CoreModule_1_1Presenters_1_1ConnectPresenter.html#a0f676d52197c5d51f05a1586fa968854',1,'App\CoreModule\Presenters\ConnectPresenter\renderDefault()'],['../classApp_1_1CoreModule_1_1Presenters_1_1HomepagePresenter.html#a3a3ae43c53177958fdd90d2cd236be58',1,'App\CoreModule\Presenters\HomepagePresenter\renderDefault()'],['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#aae22b0640aa8b4390e6f71f8afb2e7cc',1,'App\CoreModule\Presenters\SensorsPresenter\renderDefault()'],['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#ab3f5061544a3d1bced60891c3de8c8d6',1,'App\CoreModule\Presenters\SensorsSettingsPresenter\renderDefault()'],['../classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#a3e8aaef76cff8853efaed2895c155114',1,'App\CoreModule\Presenters\WorkShiftPresenter\renderDefault()'],['../classApp_1_1Presenters_1_1Error4xxPresenter.html#a7b1526f98943508230687ae594873c1d',1,'App\Presenters\Error4xxPresenter\renderDefault()'],['../classApp_1_1Presenters_1_1ErrorAppPresenter.html#a736d34bf34e5d377cea0958483ae1f12',1,'App\Presenters\ErrorAppPresenter\renderDefault()']]],
-  ['renderedit_126',['renderEdit',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#ad3482b9b8e807e7d3896ab921a74739c',1,'App::CoreModule::Presenters::SensorsSettingsPresenter']]],
-  ['renderget_127',['renderGet',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControl.html#aa7ca85464e1a2e7d87f82d5913cb7877',1,'App::CoreModule::Controls::PletackaChartControl::PletackaChartControl']]],
-  ['renderset_128',['renderSet',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControl.html#a6de60140955602972eed78fc1b807034',1,'App::CoreModule::Controls::PletackaChartControl::PletackaChartControl']]],
-  ['rendertest_129',['renderTest',['../classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#af57d07a037d4d280cd3dbd1c61f7a169',1,'App::CoreModule::Presenters::WorkShiftPresenter']]],
-  ['resetdb_130',['resetDB',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a0d90e5ef9f1dad38a0c09d0108457f31',1,'App::CoreModule::Model::ThisSensorManager']]],
-  ['return_131',['return',['../classApp_1_1Utils_1_1Pretty.html#a62bb6a72daec0ee5d9d1055dee9cf20c',1,'App::Utils::Pretty']]],
-  ['rework_132',['REWORK',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a46ee8cfc19163203308365e4b6270322',1,'App\CoreModule\Model\ThisSensorManager\REWORK()'],['../classApp_1_1TimeManagers_1_1TimeBox.html#ad030c3c506b2b3dde864265ff176700b',1,'App\TimeManagers\TimeBox\REWORK()']]],
-  ['roommanager_133',['RoomManager',['../classApp_1_1CoreModule_1_1Model_1_1RoomManager.html',1,'App::CoreModule::Model']]],
-  ['roommanager_2ephp_134',['RoomManager.php',['../RoomManager_8php.html',1,'']]],
-  ['routerfactory_135',['RouterFactory',['../classApp_1_1Router_1_1RouterFactory.html',1,'App::Router']]],
-  ['routerfactory_2ephp_136',['RouterFactory.php',['../RouterFactory_8php.html',1,'']]],
-  ['run_137',['run',['../classApp_1_1Presenters_1_1ErrorPresenter.html#adc5204ef5298be3322789e1ddbc443fb',1,'App::Presenters::ErrorPresenter']]]
+  ['pletacka_2dwebsite_2dnette_111',['Pletacka-website-nette',['../index.html',1,'']]],
+  ['ping_112',['ping',['../classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a1a9258a2b4ccfa985fd13e9f3d0310ad',1,'App\CoreModule\Controllers\SensorsController\ping()'],['../classApp_1_1CoreModule_1_1Controllers_1_1ThisSensorController.html#a2c3eb345f7c4b45317a876dfe149430c',1,'App\CoreModule\Controllers\ThisSensorController\ping()']]],
+  ['pletackachartcontrol_113',['PletackaChartControl',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControl.html',1,'App::CoreModule::Controls::PletackaChartControl']]],
+  ['pletackachartcontrol_2ephp_114',['PletackaChartControl.php',['../PletackaChartControl_8php.html',1,'']]],
+  ['pletackachartcontrolfactory_115',['PletackaChartControlFactory',['../classApp_1_1CoreModule_1_1Controls_1_1PletackaChartControl_1_1PletackaChartControlFactory.html',1,'App::CoreModule::Controls::PletackaChartControl']]],
+  ['pletackachartcontrolfactory_2ephp_116',['PletackaChartControlFactory.php',['../PletackaChartControlFactory_8php.html',1,'']]],
+  ['plete_117',['PLETE',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a69a55b2477443a5368afabe6e69c7348',1,'App\CoreModule\Presenters\SensorsPresenter\PLETE()'],['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#a3e6fcf815ffcf6ed4a52899f60cfb359',1,'App\CoreModule\Presenters\SensorsSettingsPresenter\PLETE()']]],
+  ['pretty_118',['Pretty',['../classApp_1_1Utils_1_1Pretty.html',1,'App\Utils\Pretty'],['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#aee7bb5fcd446d54382d1fe704964acf8',1,'App\CoreModule\Model\ThisSensorManager\pretty()']]],
+  ['pretty_2ephp_119',['Pretty.php',['../Pretty_8php.html',1,'']]]
 ];
