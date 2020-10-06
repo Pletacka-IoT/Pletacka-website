@@ -1,6 +1,5 @@
 {define bubbles $bubblesData}
 
-
 	<div class="table-responsive bubble-brim center">
 		{foreach $bubblesData as $number => $bubble}
 		{var myColumn = $bubble["COLUMN"]}
@@ -14,7 +13,7 @@
 						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
 							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
 							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-ok zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"])}-P</div></a></td>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}-P</div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'STOP'}
 							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
 							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-stop zoom"></div></a></td>

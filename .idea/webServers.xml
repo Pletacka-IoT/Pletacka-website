@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="aaac846f-fe2d-44fe-8518-77d36a9b5ef5" name="PI-Hamachi" url="http://25.73.172.2">
+        <fileTransfer rootFolder="/home/pi/Server" accessType="SFTP" host="25.73.172.2" port="22" sshConfigId="52de0597-7ce9-431a-8474-abb40292c530" sshConfig="pi@25.73.172.2:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

@@ -198,56 +198,45 @@ class TimeBox
         return $time;
     }
 
-    /**
-     * @brief Get last stop time
-     * @param $previousEvent
-     * @return int time in seconds
-     */
-    public function lastStopTime($previousEvent)
+	/**
+	 * @brief Get last stop time
+	 * @param Nette\Utils\DateTime $now
+	 * @return int time in seconds
+	 */
+    public function lastStopTime(Nette\Utils\DateTime $now)
     {
-        $sState = self::STOP;
-        $time = 0;
-        $start = 0;
+		if(($stop = $this->tableSelection[array_key_last($this->tableSelection)])->state != self::STOP)
+		{
+			return null;
+		}
 
-        foreach($this->tableSelection as $event)
-        {
-            switch ($sState) {
-                case self::STOP:
-                    if($event->state == self::STOP)
-                    {
-                        $sState = self::REWORK;
-                        $start = $event->time->getTimestamp();
-//                        echo " -> STOP -> ".$start;
-                    }
-                    else if($event->state == self::OFF)
-                    {
-                        $start = $stop = 0;
-                        $sState = self::OFF;
-                    }
-                    break;
-                case self::REWORK:
-                    if($event->state == self::REWORK)
-                    {
-                        $stop = $event->time->getTimestamp();
-                        $sState = self::STOP;
-                        $time += $stop-$start;
-//                        echo " -> REWORK -> ".$stop."-> ALL: ". $time;
-                    }
-                    else if($event->state == self::OFF)
-                    {
-                        $start = $stop = 0;
-                        $sState = self::OFF;
-                    }
-                    break;
-                case self::OFF:
-                    if($event->state == self::ON)
-                    {
-                        $sState = self::STOP;
-                    }
-                    break;
-            }
-        }
-        return $time;
+	    $stop = $stop->time->getTimestamp();
+		$start = $now->getTimestamp();
+
+		return $start-$stop;
+
+
+
+//    	$table = array_reverse($this->tableSelection);
+//        $first = true;
+//
+//        foreach($table as $event)
+//        {
+//            if($first)
+//            {
+//				$stop = $event->time->getTimestamp();
+//            }
+//            else if($event->state == self::)
+//            {
+//
+//            }
+
+
+//        }
+//
+//        return ;
+//
+//        return $time;
     }
 
     /**

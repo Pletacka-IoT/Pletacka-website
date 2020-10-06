@@ -15,7 +15,26 @@
 		</div>
 		<div class="col-sm-4">
 			<h5>{$settings->title_stop_time}</h5>
-			<h3>{if $pletackyAll["DATA"]}{gmdate("H:i:s", $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"])}  {else}-{/if}</h3>
+			<h3>{if $pletackyAll["DATA"]}
+					{var $sTime = $pletackyAll["STOP_TIME"]/$pletackyAll["SENSORS"];}
+					{if $sTime>3600}
+						{if gmdate("H", $sTime)[0] == 0}
+							{gmdate("H", $sTime)[1]}&nbsp;hod
+						{else}
+							{gmdate("H", $sTime)}&nbsp;hod
+						{/if}
+
+					{else}
+						{if gmdate("i", $sTime)[0] == 0}
+							{gmdate("i", $sTime)[1]}&nbsp;min
+						{else}
+							{gmdate("i", $sTime)}&nbsp;min
+						{/if}
+					{/if}
+				{else}
+					-
+				{/if}
+			</h3>
 		</div>
 	</div>
 {/define}

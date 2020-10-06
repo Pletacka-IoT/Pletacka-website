@@ -15,6 +15,7 @@ use DateTimeImmutable;
 use Nette\Database\UniqueConstraintViolationException;
 use App\Utils\Pretty;
 use App\TimeManagers\TimeBox;
+use Cassandra\Date;
 
 
 /**
@@ -182,13 +183,20 @@ class ChartManager
 //        $from="2020-05-05 00:00:00"; //For testing
 //        $to="2020-05-05 10:00:00";
 
+//	    $from="2020-04-24 11:03:00"; //For testing
+//	    $to="2020-04-24 23:00:00";
+
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         /*dump*/($allSensors = $this->multiSensorsManager->getAllSensorsEvents($sensorsName, $from, $to));
+
+        $dataOk = false;
 
         foreach($allSensors as $number => $data)
         {
             if(!empty($data["raw"]))
             {
+            	$dataOk = true;
+
                 $sensor = new TimeBox($data["raw"], $data["from"], $data["to"]);;   //Create object TimeBox
 
                 if($first)
@@ -231,11 +239,13 @@ class ChartManager
                 echo("");
 
             }
-            else
-            {
-                $chartData += array("DATA" => false);
-            }
         }
+
+        if(!$dataOk)
+        {
+	        $chartData += array("DATA" => false);
+        }
+
         return $chartData;
     }
 
@@ -256,15 +266,17 @@ class ChartManager
             $from = date("Y-m-d 14:00:00");
             $to = date("Y-m-d 23:59:00");
         }
+	    $now = new DateTime();
 
 
 
 //
 //        $from="2020-04-24 08:00:00"; //For testing
 //        $to="2020-04-24 23:00:00";
+//        $now = new DateTime("2020-04-24 22:30:00");
 
-        $from="2020-05-05 04:00:00"; //For testing
-        $to="2020-05-05 12:29:00";
+//        $from="2020-05-05 04:00:00"; //For testing
+//        $to="2020-05-05 12:29:00";
 
         $sensorsName = $this->multiSensorsManager->getAllSensorsName();
         $roomSensorsArray = array();
@@ -311,7 +323,7 @@ class ChartManager
                 //                $chartData += array(TimeBox::ON => $sensor->countEvents(TimeBox::ON));
                 //                $chartData += array(TimeBox::OFF => $sensor->countEvents(TimeBox::OFF));
 //                                $chartData += array("ALL_TIME" => $sensor->allTime($data["previous"])[1]);
-                $sensorData += array("STOP_TIME" => $sensor->stopTime($data["previous"]));
+                $sensorData += array("STOP_TIME" => $sensor->lastStopTime($now));
 //                                $chartData += array("WORK_TIME" => $sensor->workTime($data["previous"])[1]);
                 //                $chartData += array("AVG_STOP_TIME" => $sensor->avgStopTime()[1]);
                 //                $chartData += array("AVG_WORK_TIME" => $sensor->avgWorkTime()[1]);
@@ -319,9 +331,9 @@ class ChartManager
                 $sensorData += array("LAST_STATE" => $data["last"]);
 //                dump($data[array_key_last($data)]);
 
-                $x = $sensor->allTime($data["previous"]);
-                $y = $sensor->workTime($data["previous"]);
-                $z = $sensor->stopTime($data["previous"]);
+//                $s = $sensor->lastStopTime($now);
+                echo"";
+
             }
             else
             {

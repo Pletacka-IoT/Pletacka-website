@@ -30,6 +30,12 @@ final class HomepagePresenter extends BasePresenter
 		$this->workShiftManager = $workShiftManager;
     }
 
+	public function handleReloadBubbles(): void
+	{
+		$this->redrawControl('sBubbles');
+		$this->redrawControl('sPusInfo');
+	}
+
     public function renderDefault() : void
     {
         $this->template->settings = $this->sensorsManager->getTitleSettings();
