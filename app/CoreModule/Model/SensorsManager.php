@@ -18,6 +18,12 @@ class SensorsManager
 {
 	use Nette\SmartObject;
 
+    public const
+        HOUR = "H",
+        DAY = "D",
+        MONTH = "M",
+        YEAR = "Y";
+
     private $database;
     
     public function __construct( Context $database )
@@ -58,7 +64,7 @@ class SensorsManager
      * @return Exception|\Nette\Database\Table\ActiveRow
      * @throws Exceptions\SensorNotExist
      */
-    public function getSensorsNumber($number)
+    public function getSensorsNumber(int $number)
     {
         if(($out = $this->database->table("sensors")->where("number", $number )->fetch())==null)
         {
@@ -75,9 +81,8 @@ class SensorsManager
      */
     public function getCountSensors($number) :int
     {
-        //$result =  $this->database->query('SELECT * FROM sensors WHERE ' . $column . ' = ?', $name);
-        //return $result->getRowCount();
         return $this->database->table("sensors")->where("number = ?", $number)->count();
+
     }
 
 
@@ -92,6 +97,16 @@ class SensorsManager
 
     }
 
+
+
+
+    /**
+     * ********************************************************************************************
+     */
+
+
+
+
     /**
      * @brief Add new sensor
      * @param int $sensorNumber machine number
@@ -101,7 +116,9 @@ class SensorsManager
     {
         $sensorNumber = "A".$sensorNumber;
         
-        $this->database->query("CREATE TABLE $sensorNumber (
+        $this->database->query("
+            DROP TABLE IF EXISTS `A1-H`;            
+            CREATE TABLE $sensorNumber (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
             time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -109,13 +126,39 @@ class SensorsManager
         return true;
     }
 
+
+    /**
+     * @brief Add new sensor
+     * @param int $sensorNumber machine number
+     * @param $selection
+     * @return bool create status
+     */
+    public function addThisSensorSelection($sensorNumber, $selection)
+    {
+        $sensorNumber = "A".$sensorNumber."_".$selection;
+
+        $this->database->query("
+            DROP TABLE IF EXISTS $sensorNumber;
+            CREATE TABLE $sensorNumber (
+              id int(11) NOT NULL AUTO_INCREMENT,
+              time datetime NOT NULL,
+              t_stop int(11) NOT NULL DEFAULT 0,
+              t_work int(11) NOT NULL DEFAULT 0,
+              c_FINISHED int(11) NOT NULL DEFAULT 0,
+              c_STOP int(11) NOT NULL DEFAULT 0,
+              PRIMARY KEY (id)
+            )
+        ");
+        return true;
+    }
+
     /**
      * @brief Rename sensor table
-     * @param int $newNumber new machine number
      * @param int $oldNumber ols machine number
+     * @param int $newNumber new machine number
      * @return bool rename status
      */
-    public function renameThisSensor($oldNumber, $newNumber)
+    public function renameThisSensor(int $oldNumber, int $newNumber)
     {
         $oldNumber = "A".$oldNumber;
         $newNumber = "A".$newNumber;
@@ -127,7 +170,29 @@ class SensorsManager
             return $this->addThisSensor($newNumber); //
         }
         return true;
-    }  
+    }
+
+
+    /**
+     * @brief Rename sensor table
+     * @param int $newNumber new machine number
+     * @param int $oldNumber ols machine number
+     * @param string $selection
+     * @return bool rename status
+     */
+    public function renameThisSensorSelection(int $oldNumber, int $newNumber, string $selection)
+    {
+        $oldNumber = "A".$oldNumber."_".$selection;
+        $newNumber = "A".$newNumber."_".$selection;
+        try{
+            $this->database->query("ALTER TABLE $oldNumber
+            RENAME TO $newNumber");
+        } catch (Nette\Database\DriverException $e) {
+            //if sensor does no exist add new sensor to DB
+            return $this->addThisSensorSelection($newNumber, $selection); //
+        }
+        return true;
+    }
     
     /**
      * @brief Delete sensor table
@@ -136,9 +201,32 @@ class SensorsManager
      */     
     public function deleteThisSensor($sensorNumber)
     {
-        $sensorNumber = "A".$sensorNumber;
-        return $this->database->query("DROP TABLE $sensorNumber");
+        if($this->sensorIsExist($sensorNumber))
+        {
+            $sensorNumber = "A".$sensorNumber;
+            return $this->database->query("DROP TABLE $sensorNumber");
+        }
     }
+
+    /**
+     * @brief Delete sensor table
+     * @param int $sensorNumber machine number
+     * @return \Nette\Database\ResultSet
+     */
+    public function deleteThisSensorSelection($sensorNumber, $selection)
+    {
+        if($this->sensorIsExist($sensorNumber)) {
+            $sensorNumber = "A" . $sensorNumber . "_" . $selection;
+            return $this->database->query("DROP TABLE $sensorNumber");
+        }
+    }
+
+
+
+    /**
+     **********************************************************************
+     */
+
 
 
     /**
@@ -156,6 +244,10 @@ class SensorsManager
         }
 
         $this->addThisSensor($number);
+        $this->addThisSensorSelection($number, self::HOUR);
+        $this->addThisSensorSelection($number, self::DAY);
+        $this->addThisSensorSelection($number, self::MONTH);
+        $this->addThisSensorSelection($number, self::YEAR);
 
 
         if($success = $this->database->table("sensors")->insert([
@@ -189,6 +281,10 @@ class SensorsManager
             ->delete();
 
         $this->deleteThisSensor($number);
+        $this->deleteThisSensorSelection($number, self::HOUR);
+        $this->deleteThisSensorSelection($number, self::DAY);
+        $this->deleteThisSensorSelection($number, self::MONTH);
+        $this->deleteThisSensorSelection($number, self::YEAR);
 
         return Pretty::return(true, $count , "Senzor byl smazán");
     }
@@ -207,27 +303,16 @@ class SensorsManager
         {
             if($this->sensorIsExist($number))
             {
-                return Pretty::return(false, "" , "Senzor který chceš upravit neexistuje");
-            }
-
-        }
-
-        $oldSen = $this->getSensorsNumber($oldNumber);
-
-
-        //Is not same?
-        if(($oldSen->number!=$number)==true)
-        {
-            //Is exist?
-            if($this->sensorIsExist($number, "number") )
-            {
                 return Pretty::return(false, "" , "Senzor s tímto číslem již existuje");
             }
+
         }
 
-
-
         $this->renameThisSensor($oldNumber, $number);
+        $this->renameThisSensorSelection($oldNumber, $number, self::HOUR);
+        $this->renameThisSensorSelection($oldNumber, $number, self::DAY);
+        $this->renameThisSensorSelection($oldNumber, $number, self::MONTH);
+        $this->renameThisSensorSelection($oldNumber, $number, self::YEAR);
 
 
         $result = $this->database->query('UPDATE sensors  SET', [ 

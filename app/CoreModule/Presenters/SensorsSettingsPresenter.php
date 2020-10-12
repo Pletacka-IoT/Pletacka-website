@@ -97,9 +97,7 @@ final class SensorsSettingsPresenter extends BasePresenter
 
     public function renderDefault() : void
     {
-
         $this->template->sensors = $this->sensorsManager->getSensors();
-
     }
 
 
@@ -110,7 +108,6 @@ final class SensorsSettingsPresenter extends BasePresenter
 	}
 
 
-
     ////////////////////////////////////////////////
     //  Edit page
     ////////////////////////////////////////////////
@@ -119,22 +116,22 @@ final class SensorsSettingsPresenter extends BasePresenter
     {
 		return $this->sensorsFormFactory->createEdit(function (Form $form, \stdClass $values) {
             // Get sensor name
-            $url = $this->request->getHeaders()["referer"];
-            $exUrl = explode('/', $url);
-            $exUrl = explode('?', $exUrl[5]);
-            $sNumber = $exUrl[0];
-            if(!is_numeric($sNumber))
-            {
-                $url = $this->request->getHeaders()["referer"];
-                $exUrl = explode('/', $url);
-                $exUrl = explode('?', $exUrl[7]);
-                $sNumber = $exUrl[0];
-            }
+//            $url = $this->request->getHeaders()["referer"];
+//            $exUrl = explode('/', $url);
+//            $exUrl = explode('?', $exUrl[5]);
+//            $sNumber = $exUrl[0];
+//            if(!is_numeric($sNumber))
+//            {
+//                $url = $this->request->getHeaders()["referer"];
+//                $exUrl = explode('/', $url);
+//                $exUrl = explode('?', $exUrl[7]);
+//                $sNumber = $exUrl[0];
+//            }
+//
+//            echo($values->number);
 
-            echo"";
 
-
-            $returnMessage = $this->sensorsManager->editSensor($sNumber,$values->number, $values->description);
+            $returnMessage = $this->sensorsManager->editSensor($values->oldNumber,$values->number, $values->description);
             if($returnMessage[0])
             {
                 $this->flashMessage($returnMessage[2], 'success');
@@ -159,10 +156,11 @@ final class SensorsSettingsPresenter extends BasePresenter
             $this->flashMessage($message[2], 'error');
             $this->redirect('Sensors:default');
         }
-        $sensor = $this->sensorsManager->getSensorsNumber($number);
-        $this->template->sensor = $sensor;
+//        $sensor = $this->sensorsManager->getSensorsNumber(intval($number));
+
+
         $this->template->number = $number;
-        $this['editSensorForm']->setDefaults($sensor);
+        $this['editSensorForm']->setDefaults(array('number'=>$number, 'oldNumber'=>$number));
 
     }
 
@@ -202,7 +200,7 @@ final class SensorsSettingsPresenter extends BasePresenter
             $this->flashMessage($message[2], 'error');
             $this->redirect('SensorsSettings:default');
         }
-        $sensor = $this->sensorsManager->getSensorsNumber($number);
+        $sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->sensor = $sensor;
         $this->template->number = $number;
         $this['deleteSensorForm']->setDefaults($sensor);

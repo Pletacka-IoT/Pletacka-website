@@ -55,6 +55,8 @@ final class SensorsFormFactory
     public function createEdit(callable $onSuccess): Form
     {
         $form = $this->formFactory->create();
+
+        $form->addHidden('oldNumber');
         
         $form->addText('number', 'Číslo:')
             ->setRequired(self::FORM_MSG_REQUIRED)

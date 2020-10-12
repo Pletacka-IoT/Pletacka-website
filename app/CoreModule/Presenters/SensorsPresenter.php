@@ -100,7 +100,7 @@ final class SensorsPresenter extends BasePresenter
 
 
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-        $this->template->sensor = $this->sensorsManager->getSensorsNumber($number);
+        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->number = $number;
 
         $this->template->workShift = $this->workShiftManager->getWeekWS();
