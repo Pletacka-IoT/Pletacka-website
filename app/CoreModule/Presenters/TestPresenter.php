@@ -95,13 +95,13 @@ final class TestPresenter extends BasePresenter
 
 //		$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-05 07:02"));
 //
-//        if($returnMessage[0])
+//        if($returnMessage->state)
 //        {
-//	        $this->flashMessage($returnMessage[2], 'success');
+//	        $this->flashMessage($returnMessage->msg, 'success');
 //        }
 //        else
 //        {
-//            $this->flashMessage($returnMessage[2], 'error');
+//            $this->flashMessage($returnMessage->msg, 'error');
 //        }
 
 	}

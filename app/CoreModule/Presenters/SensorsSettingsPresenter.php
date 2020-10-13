@@ -75,15 +75,15 @@ final class SensorsSettingsPresenter extends BasePresenter
     {
 		return $this->sensorsFormFactory->createCreate(function (Form $form, \stdClass $values) {
             $returnMessage = $this->sensorsManager->addNewSensor($values->number, $values->description);
-            if($returnMessage[0])
+            if($returnMessage->state)
             {
-                $this->flashMessage($returnMessage[2], 'success');
+                $this->flashMessage($returnMessage->msg, 'success');
                 $this->redirect('SensorsSettings:edit',$values->number);
             }
             else
             {
                 
-                $this->flashMessage($returnMessage[2], 'error');
+                $this->flashMessage($returnMessage->msg, 'error');
                 $this->redirect('this');
             }  
 		});        
@@ -131,33 +131,32 @@ final class SensorsSettingsPresenter extends BasePresenter
 //            echo($values->number);
 
 
-            $returnMessage = $this->sensorsManager->editSensor($values->oldNumber,$values->number, $values->description);
-            if($returnMessage[0])
+            $returnMessage = $this->sensorsManager->editSensor(intval($values->oldNumber),intval($values->number), $values->description);
+            if($returnMessage->state)
             {
-                $this->flashMessage($returnMessage[2], 'success');
+                $this->flashMessage($returnMessage->msg, 'success');
                 $this->redirect('this',$values->number);
             }
             else
             {
 
-                $this->flashMessage($returnMessage[2], 'error');
+                $this->flashMessage($returnMessage->msg, 'error');
                 $this->redirect('this');
             }
 		});
     }
 
 
-    public function renderEdit($number)
+    public function renderEdit(int $number)
     {
 
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = Pretty::return(false,"", "Tento senzor neexistuje");
-            $this->flashMessage($message[2], 'error');
+            $this->flashMessage("Tento senzor neexistuje", 'error');
             $this->redirect('Sensors:default');
         }
-//        $sensor = $this->sensorsManager->getSensorsNumber(intval($number));
 
+        ISSUE
 
         $this->template->number = $number;
         $this['editSensorForm']->setDefaults(array('number'=>$number, 'oldNumber'=>$number));
@@ -172,15 +171,15 @@ final class SensorsSettingsPresenter extends BasePresenter
     {
 		return $this->sensorsFormFactory->createDelete(function (Form $form, \stdClass $values) {
             $returnMessage = $this->sensorsManager->deleteSensor($values->number);
-            if($returnMessage[0])
+            if($returnMessage->state)
             {
-                $this->flashMessage($returnMessage[2], 'success');
+                $this->flashMessage($returnMessage->msg, 'success');
                 $this->redirect('SensorsSettings:default');
             }
             else
             {
 
-                $this->flashMessage($returnMessage[2], 'error');
+                $this->flashMessage($returnMessage->msg, 'error');
                 $this->redirect('this');
             }
 		});
@@ -196,42 +195,14 @@ final class SensorsSettingsPresenter extends BasePresenter
 
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = Pretty::return(false,"", "Senzor s číslem " . $number . " neexistuje!");
-            $this->flashMessage($message[2], 'error');
+            $this->flashMessage("Senzor s číslem " . $number . " neexistuje!", 'error');
             $this->redirect('SensorsSettings:default');
         }
         $sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->sensor = $sensor;
         $this->template->number = $number;
         $this['deleteSensorForm']->setDefaults($sensor);
-
-
-//        if (!$this->getUser()->isLoggedIn()) {
-//            $this->redirect('Sign:in');
-//        }
-//
-//
-//
-//
-//        if(!$this->sensorsManager->sensorIsExist($number))
-//        {
-//            $message = Pretty::return(false,"", "Tento senzor neexistuje");
-//            $this->flashMessage($message[2], 'error');
-//            $this->redirect('Sensors:default');
-//        }
-//
-//        $returnMessage = $this->sensorsManager->deleteSensor($number);
-//        if($returnMessage[0])
-//        {
-//            $this->flashMessage($returnMessage[2], 'success');
-//            $this->redirect('Sensors:default');
-//        }
-//        else
-//        {
-//
-//            $this->flashMessage($returnMessage[2], 'error');
-//            $this->redirect('Sensors:default');
-//        }
+        
 
     }
 

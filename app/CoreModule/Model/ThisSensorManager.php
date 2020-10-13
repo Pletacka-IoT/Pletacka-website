@@ -45,46 +45,28 @@ class ThisSensorManager
 
     }
 
-    public function pretty($state = true, $main, $englishMsg = "", $czechMsg = "" )
-    {
-        return( array($state, $main, $czechMsg));
-        
-    }  
-
-
-//    public function testPretty()
-//    {
-//         dump($x = Pretty::return(true, array(1,2,3), "IT is ok", "Je to ok"));
-////         $y = PrettyReturn::return(true, array(1,2,3), "Je to ok");
-//        dump(Pretty::return(0,"","Sensor with name  does not exist", "Senzor s názvemneexistuje"));
-//        // dump($y);
-//        return 1;//$x;
-//    }
-
-
     /**
      * @brief Add sensor status to database
      * @param string $sNumber
      * @param mixed  $state
-     * @return array
+     * @return Pretty
      */
-    public function addEvent($sNumber, $state)
+    public function addEvent($sNumber, $state) :Pretty
     {
         if(!$this->sensorsManager->sensorIsExist($sNumber))
         {
-            // return array(false, "Sensor with name ".$sNumber." delete does not exist", "Senzor s názvem".$sNumber." neexistuje");
-            return $this->pretty(0,"","Sensor with name ".$sNumber." does not exist", "Senzor s názvem".$sNumber." neexistuje");
+            return new Pretty(0,"", "Senzor s názvem".$sNumber." neexistuje");
         }
 
-        if($succes = $this->database->table("A".$sNumber)->insert([
+        if($success = $this->database->table("A".$sNumber)->insert([
             'state' => $state,
         ]))
         {
-            return $this->pretty(true, "Event created", "Záznam byl vytvořen", $sNumber, $state);
+            return new Pretty(true, array($sNumber, $state), "Záznam byl vytvořen");
         }
         else
         {
-            return $this->pretty(false, "ERROR!!!", "ERROR!!!");
+            return new Pretty(false, "ERROR!!!", "ERROR!!!");
         }
     }
 
@@ -107,30 +89,6 @@ class ThisSensorManager
         return $this->database->table("A".$sNumber)->where("id =?",$previous)->fetch();
     }
 
-
-//    /**
-//     * @brief  Reset debug sensor to default values
-//     * @param $sNumber
-//     */
-//    public function resetDB($sNumber)
-//    {
-//        for ($i = 0;$i<=8;$i++ )
-//        {
-//            $this->database->table("A".$sNumber)->where("id = ?", $i)->update([ "work"=>"0"]);
-//        }
-//
-//        $this->database->table("A".$sNumber)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
-//        $this->database->table("A".$sNumber)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
-//        $this->database->table("A".$sNumber)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
-//
-//        $this->database->table("A".$sNumber)->where("id = ?", 10)->update([ "work"=>"0"]);
-//
-//    }
 
 }
 

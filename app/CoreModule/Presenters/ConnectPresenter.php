@@ -15,16 +15,19 @@ use App\Presenters\BasePresenter;
 final class ConnectPresenter extends BasePresenter
 {
 
-	
+	// To test paste to browser URL/connect?token=eb0f21d63594e58d6b9995a7d2ac156c => output "Connect"
 	public function renderDefault(): void
 	{
 		Debugger::$showBar = false;
-		$request = $this->getHttpRequest();
-		echo "cau";
-        if ($request->getHeader('token') == 'eb0f21d63594e58d6b9995a7d2ac156c') {
-			echo "Uspech";
-			//$this->error('Invalid or missing access token.', IResponse::S403_FORBIDDEN);
+
+        if ($this->request->parameters["token"] == 'eb0f21d63594e58d6b9995a7d2ac156c') {
+			echo "Connect";
 		}
+        else
+        {
+        	echo "ERROR connect, try paste to browser URL/connect?token=eb0f21d63594e58d6b9995a7d2ac156c";
+        }
+
 
 	}
 

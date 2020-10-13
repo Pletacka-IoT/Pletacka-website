@@ -65,7 +65,12 @@ final class RouterFactory
 		$router[] = new Route('test/<action>[/<number>]', [
 			'presenter' => 'Core:Test',
 			'action' => 'default'
-		]);		
+		]);
+
+		$router[] = new Route('connect', [
+			'presenter' => 'Core:Connect',
+			'action' => 'default'
+		]);
 
 
 		$router[] = new Route('<presenter>/<action>[/<number>]', 'Core:Homepage:default');

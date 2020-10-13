@@ -158,12 +158,12 @@ class DatabaseSelectionManager
     {
 	    if(!$this->sensorIsExist($sNumber))
 	    {
-		    return Pretty::return(false, "", "Sensor with this name does not exist");
+		    return new Pretty(false, "", "Sensor with this name does not exist");
 	    }
 
 	    if(($lowSelection = $this->getLowerSelection($selection))== "ERROR")
 	    {
-	    	return Pretty::return(false,"", "Input selection is not accepted, only (DAY, MONTH, YEAR)");
+	    	return new Pretty(false,"", "Input selection is not accepted, only (DAY, MONTH, YEAR)");
 	    }
 
 
@@ -205,7 +205,7 @@ class DatabaseSelectionManager
 		    }
 		    else
 		    {
-			    return Pretty::return(false, "", "No input data");
+			    return new Pretty(false, "", "No input data");
 		    }
 	    }
 	    else  //Generate day, month, year database - using addition lower database
@@ -230,7 +230,7 @@ class DatabaseSelectionManager
 		    }
 		    else
 		    {
-			    return Pretty::return(false,"", "No input data");
+			    return new Pretty(false,"", "No input data");
 		    }
 
 	    }
@@ -248,7 +248,7 @@ class DatabaseSelectionManager
 			    'c_STOP' => $databaseOutput->c_STOP,
 		    ]);
 
-		    return Pretty::return(true, $databaseOutput, "OK - Insert");
+		    return new Pretty(true, $databaseOutput, "OK - Insert");
 	    }
 	    else
 	    {
@@ -261,7 +261,7 @@ class DatabaseSelectionManager
 			    'c_STOP' => $databaseOutput->c_STOP,
 		    ]);
 
-		    return Pretty::return(true, $databaseOutput, "OK - Update");
+		    return new Pretty(true, $databaseOutput, "OK - Update");
 	    }
 
     }

@@ -89,8 +89,7 @@ final class SensorsPresenter extends BasePresenter
 
         if(!$this->sensorsManager->sensorIsExist($number))
         {
-            $message = Pretty::return(false, "", "Senzor s číslem " . $number . " neexistuje!");
-            $this->flashMessage($message[2], 'error');
+            $this->flashMessage("Senzor s číslem " . $number . " neexistuje!", 'error');
             $this->redirect('Homepage:default');
             
         }

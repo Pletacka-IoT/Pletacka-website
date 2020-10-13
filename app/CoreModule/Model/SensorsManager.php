@@ -213,7 +213,7 @@ class SensorsManager
      * @param int $sensorNumber machine number
      * @return \Nette\Database\ResultSet
      */
-    public function deleteThisSensorSelection($sensorNumber, $selection)
+    public function deleteThisSensorSelection($sensorNumber, $selection) :\Nette\Database\ResultSet
     {
         if($this->sensorIsExist($sensorNumber)) {
             $sensorNumber = "A" . $sensorNumber . "_" . $selection;
@@ -233,14 +233,14 @@ class SensorsManager
      * @brief Add new sensor
      * @param int $number machine number
      * @param string $description machine description (optional)
-     * @return array $(bool - STATE,  string - CZ)
+     * @return Pretty pretty output
      */
     public function addNewSensor($number, $description = "")
     {
 
         if($this->sensorIsExist($number) )
         {
-            return Pretty::return(false, "" , "Senzor s tímto číslem již existuje");
+            return new Pretty(false, "" , "Senzor s tímto číslem již existuje");
         }
 
         $this->addThisSensor($number);
@@ -255,11 +255,11 @@ class SensorsManager
             'description' => $description,
         ]))
         {
-            return Pretty::return(true, "" ,"Senzor byl vytvořen");
+            return new Pretty(true, "" ,"Senzor byl vytvořen");
         }
         else
         {
-            return Pretty::return(false, "" , "ERROR!!!");
+            return new Pretty(false, "" , "ERROR!!!");
         }        
         
     }
@@ -267,13 +267,13 @@ class SensorsManager
     /**
      * @brief Delete sensor
      * @param $number machine number
-     * @return array $(bool - STATE,  string - CZ)
+     * @return Pretty pretty output
      */
     public function deleteSensor($number)
     {
         if(!$this->sensorIsExist($number) )
         {
-            return Pretty::return(false, "" , "Senzor který chceš smazat neexistuje");
+            return new Pretty(false, "" , "Senzor který chceš smazat neexistuje");
         }
 
         $count = $this->database->table("sensors")
@@ -286,24 +286,23 @@ class SensorsManager
         $this->deleteThisSensorSelection($number, self::MONTH);
         $this->deleteThisSensorSelection($number, self::YEAR);
 
-        return Pretty::return(true, $count , "Senzor byl smazán");
+        return new Pretty(true, $count , "Senzor byl smazán");
     }
 
-    /**
-     * @brief Edit sensor
-     * @param int $oldNumber machine old number
-     * @param int $number machine number
-     * @param string $description machine description (optional)
-     * @return array $(bool - STATE,  string - CZ)
-     * @throws Exceptions\SensorNotExist
-     */
-    public function editSensor($oldNumber, $number, $description = "")
+	/**
+	 * @brief Edit sensor
+	 * @param int $oldNumber machine old number
+	 * @param int $number machine number
+	 * @param string $description machine description (optional)
+	 * @return Pretty pretty output
+	 */
+    public function editSensor(int $oldNumber, int $number, string $description = "") :Pretty
     {
         if($oldNumber != $number)
         {
             if($this->sensorIsExist($number))
             {
-                return Pretty::return(false, "" , "Senzor s tímto číslem již existuje");
+                return new Pretty(false, "" , "Senzor s tímto číslem již existuje");
             }
 
         }
@@ -320,7 +319,7 @@ class SensorsManager
             'description' => $description,
         ], 'WHERE number = ?', $oldNumber);
 
-        return Pretty::return(true, $result , "Senzor byl upraven");
+        return new Pretty(true, $result , "Senzor byl upraven");
     }
     
 

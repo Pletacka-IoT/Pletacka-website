@@ -15,11 +15,13 @@ class Pretty
 
 	public $state;
 	public $main="";
-	public $Msg="";
+	public $msg="";
 
-	public function __construct($state)
+	public function __construct(bool $state, $main = "", $msg = "")
 	{
 		$this->state = $state;
+		$this->main = $main;
+		$this->msg = $msg;
 	}
 
 	/**
