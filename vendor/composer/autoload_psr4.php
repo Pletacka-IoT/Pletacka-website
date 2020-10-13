@@ -25,7 +25,6 @@ return array(
     'Contributte\\Application\\' => array($vendorDir . '/contributte/application/src'),
     'Apitte\\Presenter\\' => array($vendorDir . '/apitte/presenter/src'),
     'Apitte\\OpenApi\\' => array($vendorDir . '/apitte/openapi/src'),
-    'Apitte\\Negotiation\\' => array($vendorDir . '/apitte/negotiation/src'),
     'Apitte\\Debug\\' => array($vendorDir . '/apitte/debug/src'),
     'Apitte\\Core\\' => array($vendorDir . '/apitte/core/src'),
 );

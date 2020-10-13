@@ -23,7 +23,6 @@
       <path value="$PROJECT_DIR$/vendor/nette/caching" />
       <path value="$PROJECT_DIR$/vendor/latte/latte" />
       <path value="$PROJECT_DIR$/vendor/tracy/tracy" />
-      <path value="$PROJECT_DIR$/vendor/dg/adminer-custom" />
       <path value="$PROJECT_DIR$/vendor/nette/tester" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-nette" />
@@ -49,7 +48,7 @@
       <path value="$PROJECT_DIR$/vendor/jakubandrysek/chart" />
       <path value="$PROJECT_DIR$/vendor/apitte/openapi" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/vendor/apitte/negotiation" />
+      <path value="$PROJECT_DIR$/vendor/dg/adminer-custom" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

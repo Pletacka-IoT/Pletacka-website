@@ -13,6 +13,7 @@ use App\Presenters\BasePresenter;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Model\WorkShiftManager;
+use App\CoreModule\Model\DatabaseSelectionManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use Nette\Http\Request;
 use Nette\Utils\DateTime;
@@ -58,8 +59,16 @@ final class TestPresenter extends BasePresenter
     private $sensorsFormFactory;
     private $thisSensorManager;
     private $workShiftManager;
+    private $databaseSelectionManager;
 
-	public function __construct(SensorsManager $sensorsManager, ThisSensorManager $thisSensorManager, Request $request,  SensorsFormFactory $sensorsFormFactory, WorkShiftManager $workShiftManager)
+	public function __construct(
+	    SensorsManager $sensorsManager,
+        ThisSensorManager $thisSensorManager,
+        Request $request,
+        SensorsFormFactory $sensorsFormFactory,
+        WorkShiftManager $workShiftManager,
+        DatabaseSelectionManager $databaseSelectionManager
+    )
 	{
         
         $this->sensorsManager = $sensorsManager;
@@ -67,13 +76,23 @@ final class TestPresenter extends BasePresenter
         $this->request = $request;
         $this->sensorsFormFactory = $sensorsFormFactory;
         $this->workShiftManager = $workShiftManager;
+        $this->databaseSelectionManager = $databaseSelectionManager;
 	}
 	
 
 	public function actionDebug($name)
 	{
-	    dump($this->workShiftManager->getWS(2020, 2));
-	    dump($this->workShiftManager->getWS(2020, 2));
+        $returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::YEAR, DateTime::from("2020-10-05 03:02"));
+        if($returnMessage[0])
+        {
+	        $this->flashMessage($returnMessage[2], 'success');
+        }
+        else
+        {
+            $this->flashMessage($returnMessage[2], 'error');
+        }
+
+		$y = 5;
 
 	}
 

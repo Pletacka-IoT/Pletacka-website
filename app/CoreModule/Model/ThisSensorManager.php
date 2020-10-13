@@ -108,31 +108,30 @@ class ThisSensorManager
     }
 
 
-    /**
-     * @brief  Reset debug sensor to default values
-     * @param $sNumber
-     */
-    public function resetDB($sNumber)
-    {
-        for ($i = 0;$i<=8;$i++ )
-        {
-            $this->database->table("A".$sNumber)->where("id = ?", $i)->update([ "work"=>"0"]);
-        }
+//    /**
+//     * @brief  Reset debug sensor to default values
+//     * @param $sNumber
+//     */
+//    public function resetDB($sNumber)
+//    {
+//        for ($i = 0;$i<=8;$i++ )
+//        {
+//            $this->database->table("A".$sNumber)->where("id = ?", $i)->update([ "work"=>"0"]);
+//        }
+//
+//        $this->database->table("A".$sNumber)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
+//        $this->database->table("A".$sNumber)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
+//        $this->database->table("A".$sNumber)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
+//
+//        $this->database->table("A".$sNumber)->where("id = ?", 10)->update([ "work"=>"0"]);
+//
+//    }
 
-        $this->database->table("A".$sNumber)->where("id = 1")->update(["time"=>"2020-04-24 22:03:00", "work"=>"0"]);
-        $this->database->table("A".$sNumber)->where("id = 2")->update(["time"=>"2020-04-24 22:06:00"]);
-        $this->database->table("A".$sNumber)->where("id = 3")->update(["time"=>"2020-04-24 22:08:00"]);
-        $this->database->table("A".$sNumber)->where("id = 4")->update(["time"=>"2020-04-24 22:13:00"]);
-        $this->database->table("A".$sNumber)->where("id = 5")->update(["time"=>"2020-04-24 22:16:00"]);
-        $this->database->table("A".$sNumber)->where("id = 6")->update(["time"=>"2020-04-24 22:19:00"]);
-        $this->database->table("A".$sNumber)->where("id = 7")->update(["time"=>"2020-04-24 22:21:00"]);
-        $this->database->table("A".$sNumber)->where("id = 8")->update(["time"=>"2020-04-24 22:22:50"]);
-
-        $this->database->table("A".$sNumber)->where("id = ?", 10)->update([ "work"=>"0"]);
-
-
-
-    }
 }
 
 

@@ -58,7 +58,7 @@ class SettingsNotExist extends MyException
  */
 class TableNotExist extends MyException
 {
-	protected $message = 'Table with this name is not exist';
+	protected $message = 'Table with this name does not exist';
 }
 
 
@@ -69,5 +69,5 @@ class TableNotExist extends MyException
  */
 class SensorNotExist extends MyException
 {
-	protected $message = 'Sensor with this name is not exist';
+	protected $message = 'Sensor with this name does not exist';
 }

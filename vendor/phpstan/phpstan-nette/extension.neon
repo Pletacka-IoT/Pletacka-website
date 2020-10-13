@@ -1,4 +1,6 @@
 parameters:
+	additionalConstructors:
+		- Nette\Application\UI\Presenter::startup
 	stubFiles:
 		- stubs/Application/Routers/RouteList.stub
 		- stubs/Application/UI/Component.stub
@@ -26,6 +28,7 @@ parameters:
 			- sendJson
 			- sendPayload
 			- sendResponse
+			- sendTemplate
 			- error
 			- terminate
 			- forward

@@ -25,19 +25,15 @@ can be checked before you run the actual line.
 
 ## Sponsors
 
-<a href="https://mike-pretzlaw.de/"><img src="https://i.imgur.com/TW2US6H.png" alt="Mike Pretzlaw" width="247" height="64"></a>
-&nbsp;&nbsp;&nbsp;
 <a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/PmMC45f.png" alt="Private Packagist" width="326" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://stackoverflow.com/jobs/273089/backend-software-engineer-musement-spa"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
+<a href="https://musement.recruiterbox.com/jobs/f661d5d5676e4c578d289bcf2fb40b02"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://jobs.ticketswap.com/"><img src="https://i.imgur.com/lhzcutK.png" alt="TicketSwap" width="269" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -58,6 +54,20 @@ All the documentation lives on the [phpstan.org website](https://phpstan.org/):
 * [PHPDocs Basics](https://phpstan.org/writing-php-code/phpdocs-basics) & [PHPDoc Types](https://phpstan.org/writing-php-code/phpdoc-types)
 * [Extension Library](https://phpstan.org/user-guide/extension-library)
 * [Developing Extensions](https://phpstan.org/developing-extensions/extension-types)
+
+## PHPStan Pro
+
+PHPStan Pro is a paid add-on on top of open-source PHPStan Static Analysis Tool with these premium features:
+
+* Web UI for browsing found errors, you can click and open your editor of choice on the offending line.
+* Continuous analysis (watch mode): scans changed files in the background, refreshes the UI automatically.
+* Interactive fixer: lets you choose the right fix for found errors :blush:
+
+Try it on PHPStan 0.12.45 or later by running it with the `--pro` option. You can create an account either by following the on-screen instructions, or by visiting [account.phpstan.com](https://account.phpstan.com/).
+
+After 30-day free trial period it costs 7 EUR for individuals monthly, 70 EUR for teams (up to 25 members). By paying for PHPStan Pro, you're supporting the development of open-source PHPStan.
+
+You can read more about it on [PHPStan's website](https://phpstan.org/blog/introducing-phpstan-pro).
 
 ## Code of Conduct
 
