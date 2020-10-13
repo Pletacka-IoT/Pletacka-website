@@ -88,18 +88,21 @@ final class TestPresenter extends BasePresenter
 //        	if($x<10){$x = "0".$x;}
 //        	$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-05 ".$x.":02"));
 //        }
+		$ff = $this->databaseSelectionManager->test();
+
+		dump($ff->state);
 
 
-		$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-05 07:02"));
-
-        if($returnMessage[0])
-        {
-	        $this->flashMessage($returnMessage[2], 'success');
-        }
-        else
-        {
-            $this->flashMessage($returnMessage[2], 'error');
-        }
+//		$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-05 07:02"));
+//
+//        if($returnMessage[0])
+//        {
+//	        $this->flashMessage($returnMessage[2], 'success');
+//        }
+//        else
+//        {
+//            $this->flashMessage($returnMessage[2], 'error');
+//        }
 
 	}
 

@@ -104,6 +104,12 @@ class DatabaseSelectionManager
 		}
     }
 
+	/**
+	 *
+	 * @param string $selection
+	 * @param DateTime $from
+	 * @return array
+	 */
 	private function getSelectionTime(string $selection, DateTime $from)
 	{
 
@@ -141,8 +147,14 @@ class DatabaseSelectionManager
     }
 
 
-
-    public function createSelection($sNumber, $selection, DateTime $from)
+	/**
+	 * @brief Generate database selection
+	 * @param $sNumber Sensor number
+	 * @param $selection Type of selection [self::H, D, M, Y]
+	 * @param DateTime $from
+	 * @return Pretty
+	 */
+    public function createSelection($sNumber, $selection, DateTime $from) :array
     {
 	    if(!$this->sensorIsExist($sNumber))
 	    {
@@ -163,7 +175,8 @@ class DatabaseSelectionManager
 
 	    $databaseOutput = new DatabaseSelection();
 
-	    if ($lowSelection == "none")
+
+	    if ($lowSelection == "none") //Generate hour database - with TimeBox
 	    {
 		    $rawData = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
 		    $previousData = $this->thisSensorManager->getPreviousEvent($sNumber, $rawData);
@@ -195,7 +208,7 @@ class DatabaseSelectionManager
 			    return Pretty::return(false, "", "No input data");
 		    }
 	    }
-	    else
+	    else  //Generate day, month, year database - using addition lower database
 	    {
 		    $lowDbSectionName = $this->getDbSelectionName($sNumber, $lowSelection);
 		    $lowSelectionTime = $this->getSelectionTime($lowSelection, $from);
@@ -221,6 +234,8 @@ class DatabaseSelectionManager
 		    }
 
 	    }
+
+	    //Insert or update data in database
 
 	    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
 	    {
@@ -249,6 +264,14 @@ class DatabaseSelectionManager
 		    return Pretty::return(true, $databaseOutput, "OK - Update");
 	    }
 
+    }
+
+	/**
+	 * @return Pretty
+	 */
+	public function test() :Pretty
+    {
+    	return new Pretty(true);
     }
 
 }
