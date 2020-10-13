@@ -86,6 +86,9 @@ class DatabaseSelectionManager
     {
 		switch ($selection)
 		{
+			case self::HOUR:
+				return "none";
+
 			case self::DAY:
 				return self::HOUR;
 				break;
@@ -137,91 +140,9 @@ class DatabaseSelectionManager
 		return array("from"=>$from, "to"=>$to);
     }
 
-    /**
-     * @param $sNumber
-     * @param $selection
-     * @param DateTime $from
-     * @return array
-     */
-    public function createSelection_H($sNumber, $selection, DateTime $from)
-    {
-        if(!$this->sensorIsExist($sNumber))
-        {
-            return Pretty::return(false, "", "Sensor with this name does not exist");
-        }
-
-        $sectionName = $this->getDbSelectionName($sNumber, $selection);
 
 
-
-		$selectionTime = $this->getSelectionTime($selection, $from);
-		$from = $selectionTime["from"];
-		$to = $selectionTime["to"];
-
-
-        $rawData = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
-		$previousData = $this->thisSensorManager->getPreviousEvent($sNumber, $rawData);
-
-	    $databaseOutput = new DatabaseSelection();
-
-	    if($rawData)
-	    {
-	        foreach($rawData as $data)
-	        {
-				if($data->state == "FINISHED")
-				{
-					$databaseOutput->c_FINISHED++;
-				}
-				if($data->state == "STOP")
-				{
-					$databaseOutput->c_STOP++;
-				}
-	        }
-
-	        $timeBox = new TimeBox($rawData, $from, $to);
-
-	        $databaseOutput->t_stop += $timeBox->stopTime($previousData);
-		    $databaseOutput->t_all += $timeBox->allTime($previousData);
-		    $databaseOutput->t_work = $databaseOutput->t_all - $databaseOutput->t_stop;
-
-	    }
-	    else
-	    {
-		    return Pretty::return(false, $databaseOutput, "No input data");
-	    }
-
-	    if(!$this->database->table($sectionName)->where("time = ?", $from)->fetch())
-	    {
-		    $this->database->table($sectionName)->insert([
-		        'time' => $from,
-		        't_stop' => $databaseOutput->t_stop,
-			    't_work' => $databaseOutput->t_work,
-			    't_all' => $databaseOutput->t_all,
-			    'c_FINISHED' => $databaseOutput->c_FINISHED,
-			    'c_STOP' => $databaseOutput->c_STOP,
-		    ]);
-
-		    return Pretty::return(true, $databaseOutput, "Insert");
-	    }
-	    else
-	    {
-		    $this->database->table($sectionName)->where("time = ?", $from)->update([
-			    'time' => $from,
-			    't_stop' => $databaseOutput->t_stop,
-			    't_work' => $databaseOutput->t_work,
-			    't_all' => $databaseOutput->t_all,
-			    'c_FINISHED' => $databaseOutput->c_FINISHED,
-			    'c_STOP' => $databaseOutput->c_STOP,
-		    ]);
-
-		    return Pretty::return(true, $databaseOutput, "Update");
-	    }
-
-
-    }
-
-
-    public function createSelection_DMY($sNumber, $selection, DateTime $from)
+    public function createSelection($sNumber, $selection, DateTime $from)
     {
 	    if(!$this->sensorIsExist($sNumber))
 	    {
@@ -233,38 +154,72 @@ class DatabaseSelectionManager
 	    	return Pretty::return(false,"", "Input selection is not accepted, only (DAY, MONTH, YEAR)");
 	    }
 
-	    $lowDbSectionName = $this->getDbSelectionName($sNumber, $lowSelection);
-	    $dbSelectionName = $this->getDbSelectionName($sNumber, $selection);
 
+	    $dbSelectionName = $this->getDbSelectionName($sNumber, $selection);
 
 	    $selectionTime = $this->getSelectionTime($selection, $from);
 	    $from = $selectionTime["from"];
 	    $to = $selectionTime["to"];
 
-	    $lowSelectionTime = $this->getSelectionTime($lowSelection, $from);
-	    $lowFrom = $selectionTime["from"];
-	    $lowTo = $selectionTime["to"];
-
-
-	    $allData = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $lowFrom, $lowTo)->fetchAll();
-
-
 	    $databaseOutput = new DatabaseSelection();
 
-	    if($allData)
+	    if ($lowSelection == "none")
 	    {
-		    foreach($allData as $data)
+		    $rawData = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
+		    $previousData = $this->thisSensorManager->getPreviousEvent($sNumber, $rawData);
+
+
+		    if($rawData)
 		    {
-			    $databaseOutput->t_stop += $data->t_stop;
-			    $databaseOutput->t_all += $data->t_all;
-			    $databaseOutput->t_work += $data->t_work;
-			    $databaseOutput->c_FINISHED += $data->c_FINISHED;
-			    $databaseOutput->c_STOP += $data->c_STOP;
+			    foreach($rawData as $data)
+			    {
+				    if($data->state == "FINISHED")
+				    {
+					    $databaseOutput->c_FINISHED++;
+				    }
+				    if($data->state == "STOP")
+				    {
+					    $databaseOutput->c_STOP++;
+				    }
+			    }
+
+			    $timeBox = new TimeBox($rawData, $from, $to);
+
+			    $databaseOutput->t_stop += $timeBox->stopTime($previousData);
+			    $databaseOutput->t_all += $timeBox->allTime($previousData);
+			    $databaseOutput->t_work = $databaseOutput->t_all - $databaseOutput->t_stop;
+
+		    }
+		    else
+		    {
+			    return Pretty::return(false, "", "No input data");
 		    }
 	    }
 	    else
 	    {
-		    return Pretty::return(false, $databaseOutput, "No input data");
+		    $lowDbSectionName = $this->getDbSelectionName($sNumber, $lowSelection);
+		    $lowSelectionTime = $this->getSelectionTime($lowSelection, $from);
+//		    $lowFrom = $selectionTime["from"];
+//		    $lowTo = $selectionTime["to"];
+
+		    $allData = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
+
+		    if($allData)
+		    {
+			    foreach($allData as $data)
+			    {
+				    $databaseOutput->t_stop += $data->t_stop;
+				    $databaseOutput->t_all += $data->t_all;
+				    $databaseOutput->t_work += $data->t_work;
+				    $databaseOutput->c_FINISHED += $data->c_FINISHED;
+				    $databaseOutput->c_STOP += $data->c_STOP;
+			    }
+		    }
+		    else
+		    {
+			    return Pretty::return(false,"", "No input data");
+		    }
+
 	    }
 
 	    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
@@ -278,7 +233,7 @@ class DatabaseSelectionManager
 			    'c_STOP' => $databaseOutput->c_STOP,
 		    ]);
 
-		    return Pretty::return(true, $databaseOutput, "Insert");
+		    return Pretty::return(true, $databaseOutput, "OK - Insert");
 	    }
 	    else
 	    {
@@ -291,14 +246,11 @@ class DatabaseSelectionManager
 			    'c_STOP' => $databaseOutput->c_STOP,
 		    ]);
 
-		    return Pretty::return(true, $databaseOutput, "Update");
+		    return Pretty::return(true, $databaseOutput, "OK - Update");
 	    }
 
-
-
-
-
     }
+
 }
 
 
