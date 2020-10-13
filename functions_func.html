@@ -74,6 +74,7 @@ $(function() {
 , <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1ThisSensorFormFactory.html#ae7ddd37be4e1e1004fd4abef43852293">App\CoreModule\Forms\ThisSensorFormFactory</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7782f5bb7455de73d2958a8795af2bcc">App\CoreModule\Forms\WorkShiftFormFactory</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ChartManager.html#a2834d33cc97546856499e1754ecb9e1c">App\CoreModule\Model\ChartManager</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a5b0eac5c8d908652d98e1b95155de66b">App\CoreModule\Model\DatabaseSelectionManager</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a38d391e340561708e61d3c19fe051ec5">App\CoreModule\Model\MultiSensorsManager</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1RoomManager.html#adae42cc3427f789b2f112dd8d939c36e">App\CoreModule\Model\RoomManager</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a1d5011d02949eb044e1432b67e7a4170">App\CoreModule\Model\SensorsManager</a>
@@ -84,7 +85,7 @@ $(function() {
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#ab9fde889138e3f211e54e8ebdc183679">App\CoreModule\Presenters\SensorsPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#ac5193bd67af7f96860c105a3e3a5800f">App\CoreModule\Presenters\SensorsSettingsPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SignPresenter.html#a8f69d95a3735e05cc9d4a868330edf4e">App\CoreModule\Presenters\SignPresenter</a>
-, <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a3496bf6de90ed358395c3ddde9ba24ba">App\CoreModule\Presenters\TestPresenter</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a290c8cc470a72ff6af1ca92e4303256b">App\CoreModule\Presenters\TestPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#ae8980e4654fccc13355ca78d981804a3">App\CoreModule\Presenters\WorkShiftPresenter</a>
 , <a class="el" href="classApp_1_1Exceptions_1_1MyException.html#a3339051dff737e4c1fd027092426a2ed">App\Exceptions\MyException</a>
 , <a class="el" href="classApp_1_1Forms_1_1SignInFormFactory.html#ab5b4f3f6e1aa826e527131ffee061971">App\Forms\SignInFormFactory</a>
@@ -205,6 +206,9 @@ $(function() {
 <li>createRouter()
 : <a class="el" href="classApp_1_1Router_1_1RouterFactory.html#a9b1e921301a31ba7b05e93ed4a7bcb19">App\Router\RouterFactory</a>
 </li>
+<li>createSelection()
+: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#ac1df5b8d16343e812e436b7dc6242809">App\CoreModule\Model\DatabaseSelectionManager</a>
+</li>
 <li>createWSselect()
 : <a class="el" href="classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d">App\CoreModule\Forms\WorkShiftFormFactory</a>
 </li>
@@ -245,7 +249,8 @@ $(function() {
 : <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1MultiSensorsManager.html#a1f4c2b640669baabbafc4dc0fd7e1a2c">App\CoreModule\Model\MultiSensorsManager</a>
 </li>
 <li>getCountSensors()
-: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a67a105363870924508d8483963647203">App\CoreModule\Model\SensorsManager</a>
+: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#af87f9386e60c486cec0cab6681982421">App\CoreModule\Model\DatabaseSelectionManager</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a67a105363870924508d8483963647203">App\CoreModule\Model\SensorsManager</a>
 </li>
 <li>getEvents()
 : <a class="el" href="classApp_1_1TimeManagers_1_1TimeBox.html#a1616a9bc798112152e1b97ff7627cc0a">App\TimeManagers\TimeBox</a>
@@ -258,6 +263,9 @@ $(function() {
 </li>
 <li>getPreviousEvent()
 : <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a672a7433f0fbd620146a53d13035fb0b">App\CoreModule\Model\ThisSensorManager</a>
+</li>
+<li>getSectionName()
+: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a7b9f5aeeedc9b6a63dece119915caa48">App\CoreModule\Model\DatabaseSelectionManager</a>
 </li>
 <li>getSensors()
 : <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a2e1ae9a4831d7ae39daec4247cd9dc4c">App\CoreModule\Model\SensorsManager</a>
@@ -358,9 +366,6 @@ $(function() {
 <li>renderTest()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#af57d07a037d4d280cd3dbd1c61f7a169">App\CoreModule\Presenters\WorkShiftPresenter</a>
 </li>
-<li>resetDB()
-: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a0d90e5ef9f1dad38a0c09d0108457f31">App\CoreModule\Model\ThisSensorManager</a>
-</li>
 <li>return()
 : <a class="el" href="classApp_1_1Utils_1_1Pretty.html#a62bb6a72daec0ee5d9d1055dee9cf20c">App\Utils\Pretty</a>
 </li>
@@ -375,7 +380,8 @@ $(function() {
 : <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1ThisChartManager.html#a65b0d3360798a245fef11fd52007a09a">App\CoreModule\Model\ThisChartManager</a>
 </li>
 <li>sensorIsExist()
-: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#af5df7fea49ba5cb5e74da95faa6811ea">App\CoreModule\Model\SensorsManager</a>
+: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a8ab380bf5a3441fc1021c1bcb908cccf">App\CoreModule\Model\DatabaseSelectionManager</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#af5df7fea49ba5cb5e74da95faa6811ea">App\CoreModule\Model\SensorsManager</a>
 </li>
 <li>sensors()
 : <a class="el" href="classApp_1_1CoreModule_1_1Controllers_1_1SensorsController.html#a189f4a355139fec153c18c2151532435">App\CoreModule\Controllers\SensorsController</a>
@@ -444,7 +450,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 12 2020 22:18:49 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Tue Oct 13 2020 13:56:23 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>
