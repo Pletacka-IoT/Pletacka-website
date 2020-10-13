@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pletacka_2dwebsite_2dnette_438',['Pletacka-website-nette',['../index.html',1,'']]]
+  ['pletacka_2dwebsite_2dnette_436',['Pletacka-website-nette',['../index.html',1,'']]]
 ];
