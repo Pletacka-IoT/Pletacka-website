@@ -23,6 +23,7 @@ var searchData=
   ['createedit_69',['createEdit',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#addd48da06bacc938f50c0ba84e6eae33',1,'App::CoreModule::Forms::SensorsFormFactory']]],
   ['createeditold_70',['createEditOld',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#ae1cc4c527668323845835c12b187436e',1,'App::CoreModule::Forms::SensorsFormFactory']]],
   ['createrouter_71',['createRouter',['../classApp_1_1Router_1_1RouterFactory.html#a9b1e921301a31ba7b05e93ed4a7bcb19',1,'App::Router::RouterFactory']]],
-  ['createselection_72',['createSelection',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#ac1df5b8d16343e812e436b7dc6242809',1,'App::CoreModule::Model::DatabaseSelectionManager']]],
-  ['createwsselect_73',['createWSselect',['../classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d',1,'App::CoreModule::Forms::WorkShiftFormFactory']]]
+  ['createselection_5fdmy_72',['createSelection_DMY',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a41d10088be0f5bf36fb0e0df4b6b7ed3',1,'App::CoreModule::Model::DatabaseSelectionManager']]],
+  ['createselection_5fh_73',['createSelection_H',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a4ad21afc79b0664b40e6eef727df1314',1,'App::CoreModule::Model::DatabaseSelectionManager']]],
+  ['createwsselect_74',['createWSselect',['../classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d',1,'App::CoreModule::Forms::WorkShiftFormFactory']]]
 ];
