@@ -82,17 +82,25 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-        $returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::YEAR, DateTime::from("2020-10-05 03:02"));
-        if($returnMessage[0])
-        {
-	        $this->flashMessage($returnMessage[2], 'success');
-        }
-        else
-        {
-            $this->flashMessage($returnMessage[2], 'error');
-        }
+//        for($i = 0; $i<24; $i++)
+//        {
+//            $x = $i;
+//        	if($x<10){$x = "0".$x;}
+//        	$returnMessage =  $this->databaseSelectionManager->createSelection_H(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-05 ".$x.":02"));
+//        }
 
-		$y = 5;
+
+//		$returnMessage =  $this->databaseSelectionManager->createSelection_H(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-05 07:02"));
+		$returnMessage =  $this->databaseSelectionManager->createSelection_DMY(17, DatabaseSelectionManager::YEAR, DateTime::from("2020-10-05 07:02"));
+
+//        if($returnMessage[0])
+//        {
+//	        $this->flashMessage($returnMessage[2], 'success');
+//        }
+//        else
+//        {
+//            $this->flashMessage($returnMessage[2], 'error');
+//        }
 
 	}
 
