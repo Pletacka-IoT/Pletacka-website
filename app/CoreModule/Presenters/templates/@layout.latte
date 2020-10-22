@@ -15,23 +15,21 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" href="{$basePath}/images/Pletacka-IoT-100.png" />
 
-	<link rel="stylesheet" href="{$basePath}/css/boostrap.css">
+	<link rel="stylesheet" href="{$basePath}/css/external/boostrap.css">
+	<link rel="stylesheet" href="{$basePath}/css/external/c3.css">
+	<link rel="stylesheet" href="{$basePath}/css/external/font.min.css">
+	<link rel="stylesheet" href="{$basePath}/css/external/daterangepicker.css" />
 	<link rel="stylesheet" href="{$basePath}/css/style.css">
-	<link rel="stylesheet" href="{$basePath}/css/c3.css">	
-	<link rel="stylesheet" href="{$basePath}/css/font.min.css">
-	<link rel="stylesheet" type="text/css" href="{$basePath}/css//daterangepicker.css" />
 
 
-	<script src="{$basePath}/js/jquery.min.js"></script>
-	<script src="{$basePath}/js/bootstrap.min.js"></script>
-	<script src="{$basePath}/js/c3.js"></script>
-	<script src="{$basePath}/js/d3.js"></script>
+	<script src="{$basePath}/js/external/jquery.min.js"></script>
+	<script src="{$basePath}/js/external/bootstrap.min.js"></script>
+	<script src="{$basePath}/js/external/c3.js"></script>
+	<script src="{$basePath}/js/external/d3.js"></script>
+	<script src="{$basePath}/js/external/moment.min.js"></script>
+	<script src="{$basePath}/js/external/daterangepicker.min.js"></script>
 
-	<script type="text/javascript" src="{$basePath}/js/moment.min.js"></script>
-	<script type="text/javascript" src="{$basePath}/js/daterangepicker.min.js"></script>
-
-	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka website Nette</title>
-	{dump} {*VARIABLES DEBUG*}
+	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka IoT</title>
 	{block head}{/block}
 
 
@@ -48,7 +46,7 @@
 					<img src="{$basePath}/images/Pletacka-IoT-100.png" alt="logo" style="width:40px;">
 				</a>
 
-				<a class="navbar-brand ajax" n:href="Homepage:default">Pletačka</a>
+				<a class="navbar-brand ajax" n:href="Homepage:default">Pletačka IoT</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -101,7 +99,7 @@
 		</div>
 		{snippet footer}
 			<div class="container-fluid text-center p-4 bg-secondary text-white" style="margin-bottom:0">
-				<p>© {date('Y')} Pletacka website Nette</p>
+				<p>© {date('Y')} Pletacka IoT</p>
 
 			</div>	
 		{/snippet}
@@ -112,8 +110,9 @@
 
 	{block scripts}
 	{* <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script> *}
-	<script src="{$basePath}/js/netteForms.min.js"></script>
-	<script src="{$basePath}/js/Naja_v1.8.1.js"></script>
+	<script src="{$basePath}/js/external/netteForms.min.js"></script>
+{*	<script src="{$basePath}/js/external/Naja_v1.8.1.js"></script>*}
+	<script src="{$basePath}/js/external/Naja-2-0-1.min.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
 	{/block}
 </body>
