@@ -156,10 +156,10 @@ final class SensorsSettingsPresenter extends BasePresenter
             $this->redirect('Sensors:default');
         }
 
-        ISSUE
+	    $desciption = $this->sensorsManager->getSensorsNumber($number)->description;
 
         $this->template->number = $number;
-        $this['editSensorForm']->setDefaults(array('number'=>$number, 'oldNumber'=>$number));
+        $this['editSensorForm']->setDefaults(array('number'=>$number, 'oldNumber'=>$number, 'description'=>$desciption));
 
     }
 
@@ -170,16 +170,16 @@ final class SensorsSettingsPresenter extends BasePresenter
     public function createComponentDeleteSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createDelete(function (Form $form, \stdClass $values) {
-            $returnMessage = $this->sensorsManager->deleteSensor($values->number);
-            if($returnMessage->state)
-            {
-                $this->flashMessage($returnMessage->msg, 'success');
-                $this->redirect('SensorsSettings:default');
-            }
-            else
-            {
+			$returnMessage = $this->sensorsManager->deleteSensor($values->number);
+			if($returnMessage->state)
+			{
+				$this->flashMessage($returnMessage->msg, 'success');
+				$this->redirect('SensorsSettings:default');
+			}
+			else
+			{
 
-                $this->flashMessage($returnMessage->msg, 'error');
+				$this->flashMessage($returnMessage->msg, 'error');
                 $this->redirect('this');
             }
 		});
