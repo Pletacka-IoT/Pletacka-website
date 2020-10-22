@@ -15,5 +15,6 @@ var searchData=
   ['getsensorsnumber_111',['getSensorsNumber',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a258dc572fd208110c21d0164b7d2c5ea',1,'App::CoreModule::Model::SensorsManager']]],
   ['gettitlesettings_112',['getTitleSettings',['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a377be1af77f7b310a87011eab464b936',1,'App::CoreModule::Model::SensorsManager']]],
   ['getweekws_113',['getWeekWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#ae07266b2cf0bc69956adb98b2d984bf1',1,'App::CoreModule::Model::WorkShiftManager']]],
-  ['getws_114',['getWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a37edc15f6f9d9da619ca88fb6081604a',1,'App::CoreModule::Model::WorkShiftManager']]]
+  ['getws_114',['getWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#ab523ed36411db642994f48244798aae3',1,'App::CoreModule::Model::WorkShiftManager']]],
+  ['getwshour_115',['getWSHour',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a0716a1d229289ab5f98c2d6c6a494848',1,'App::CoreModule::Model::WorkShiftManager']]]
 ];
