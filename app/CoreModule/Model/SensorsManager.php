@@ -138,16 +138,17 @@ class SensorsManager
         $sensorNumber = "A".$sensorNumber."_".$selection;
 
         $this->database->query("
-            DROP TABLE IF EXISTS $sensorNumber;
-            CREATE TABLE $sensorNumber (
-              id int(11) NOT NULL AUTO_INCREMENT,
-              time datetime NOT NULL,
-              t_stop int(11) NOT NULL DEFAULT 0,
-              t_work int(11) NOT NULL DEFAULT 0,
-              c_FINISHED int(11) NOT NULL DEFAULT 0,
-              c_STOP int(11) NOT NULL DEFAULT 0,
-              PRIMARY KEY (id)
-            )
+	        DROP TABLE IF EXISTS $sensorNumber;
+	        CREATE TABLE $sensorNumber (
+	          id int(11) NOT NULL AUTO_INCREMENT,
+	          time datetime NOT NULL,
+						workShift varchar(20) NOT NULL,
+	          t_stop int(11) NOT NULL DEFAULT 0,
+	          t_work int(11) NOT NULL DEFAULT 0,
+	          c_FINISHED int(11) NOT NULL DEFAULT 0,
+	          c_STOP int(11) NOT NULL DEFAULT 0,
+	          PRIMARY KEY (id)
+	        )
         ");
         return true;
     }

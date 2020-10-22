@@ -31,12 +31,34 @@ class WorkShiftManager
         $this->database = $database;
     }
 
-    public function getWS($year, $week)
+    public function getWS(int $year, int $week): ?array
     {
         $ws =  $this->database->table("workShift")->where("year = ? AND week = ?", $year, $week)->fetch();
         if($ws)
         {
             return array($ws->wsA, $ws->wsB);
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    public function getWSHour(DateTime $dt): ?string
+    {
+        $ws =  $this->database->table("workShift")->where("year = ? AND week = ?", $dt->format("Y"), $dt->format("W"))->fetch();
+        if($ws)
+        {
+            if($dt->format("H")<14)
+            {
+	            return $ws->wsA;
+            }
+            else
+            {
+	            return $ws->wsB;
+            }
+
         }
         else
         {

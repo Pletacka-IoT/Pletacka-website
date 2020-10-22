@@ -19,19 +19,6 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	// naja.registerExtension(LoaderExtension, '#loader');
 	naja.initialize();
 	console.log(naja);
 });
-
-naja.addEventListener('before', (event) => {
-    console.log(event.request);
-});
-
-naja.snippetHandler.addEventListener('afterUpdate', (event) => {
-    if (event.snippet.id === 'snippet--sensorTable') {
-		//window.alert(event.content);
-		console.log("Tabulka");
-    }
-});
-

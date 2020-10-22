@@ -7,6 +7,7 @@ use Nette;
 use Nette\Database\Context;
 use App\CoreModule\Model\MultiSensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
+use App\CoreModule\Model\WorkShiftManager;
 use DateInterval;
 use DateTimeZone;
 use Nette\Utils\DateTime;
@@ -43,11 +44,18 @@ class DatabaseSelectionManager
 
     private $database;
     private $thisSensorManager;
+	/**
+	 * @var WorkShiftManager
+	 */
+	private $workShiftManager;
 
-    public function __construct( Context $database, ThisSensorManager $thisSensorManager)
+	public function __construct(Context $database,
+	                            ThisSensorManager $thisSensorManager,
+	                            WorkShiftManager $workShiftManager)
     {
         $this->database = $database;
         $this->thisSensorManager = $thisSensorManager;
+	    $this->workShiftManager = $workShiftManager;
     }
 
     /**
@@ -58,10 +66,6 @@ class DatabaseSelectionManager
     public function getCountSensors($number) :int
     {
         return $this->database->table("sensors")->where("number = ?", $number)->count();
-//        try {
-//            $this->database->table("sensors")->where("number = ?", $number)->count();
-//        } catch (Nette\InvalidArgumentException $e)
-
     }
 
     /**
@@ -143,18 +147,18 @@ class DatabaseSelectionManager
 				$to = "2100-01-01 00:00:00";
 		}
 
-		return array("from"=>$from, "to"=>$to);
+		return array("from"=>$from, "to"=>$to, "fromB"=>$fromB, "toB"=>$toB);
     }
 
 
 	/**
 	 * @brief Generate database selection
-	 * @param $sNumber Sensor number
-	 * @param $selection Type of selection [self::H, D, M, Y]
+	 * @param int $sNumber Sensor number
+	 * @param string $selection Type of selection [self::H, D, M, Y]
 	 * @param DateTime $from
 	 * @return Pretty
 	 */
-    public function createSelection($sNumber, $selection, DateTime $from) :array
+	public function createSelection(int $sNumber,string $selection, DateTime $from) :Pretty
     {
 	    if(!$this->sensorIsExist($sNumber))
 	    {
@@ -173,13 +177,19 @@ class DatabaseSelectionManager
 	    $from = $selectionTime["from"];
 	    $to = $selectionTime["to"];
 
+	    $ws = "";
+
+
 	    $databaseOutput = new DatabaseSelection();
+	    $databaseOutputB = new DatabaseSelection();
 
 
 	    if ($lowSelection == "none") //Generate hour database - with TimeBox
 	    {
 		    $rawData = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
 		    $previousData = $this->thisSensorManager->getPreviousEvent($sNumber, $rawData);
+
+		    $ws = $this->workShiftManager->getWSHour($from);
 
 
 		    if($rawData)
@@ -215,7 +225,8 @@ class DatabaseSelectionManager
 //		    $lowFrom = $selectionTime["from"];
 //		    $lowTo = $selectionTime["to"];
 
-		    $allData = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
+		    $allDataA = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
+		    $allDataB = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
 
 		    if($allData)
 		    {
@@ -241,6 +252,7 @@ class DatabaseSelectionManager
 	    {
 		    $this->database->table($dbSelectionName)->insert([
 			    'time' => $from,
+			    'workShift'=> $ws,
 			    't_stop' => $databaseOutput->t_stop,
 			    't_work' => $databaseOutput->t_work,
 			    't_all' => $databaseOutput->t_all,
@@ -254,6 +266,7 @@ class DatabaseSelectionManager
 	    {
 		    $this->database->table($dbSelectionName)->where("time = ?", $from)->update([
 			    'time' => $from,
+			    'workShift'=> $ws,
 			    't_stop' => $databaseOutput->t_stop,
 			    't_work' => $databaseOutput->t_work,
 			    't_all' => $databaseOutput->t_all,
