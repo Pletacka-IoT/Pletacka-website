@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test_407',['test',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a584c79386fa11204d78d1d90ede7cc0b',1,'App::CoreModule::Model::DatabaseSelectionManager']]]
+  ['updatews_408',['updateWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a8fb20eaf3a79c96a37bfbc084e554a53',1,'App::CoreModule::Model::WorkShiftManager']]]
 ];
