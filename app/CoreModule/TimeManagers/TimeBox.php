@@ -39,7 +39,7 @@ class TimeBox
      * @param           $startTime
      * @param           $endTime
      */
-	public function __construct($tableSelection, String $startTime, $endTime)
+	public function __construct($tableSelection, String $startTime, String $endTime)
 	{
 		$this->tableSelection = $tableSelection;
 		$this->startTime = $startTime;
@@ -90,24 +90,24 @@ class TimeBox
         $time = 0;
         if($previousEvent)
         {
-            $state = $previousEvent;
+            $state = $previousEvent->state;
             if($state != self::OFF)
             {
                 $state = self::ON;
+	            $x = new DateTime($this->startTime);
+	            $start = $x->getTimestamp();
             }
-            $x = new DateTime($this->startTime);
-            $start = $x->getTimestamp();
+            else
+            {
+	            $state = self::OFF;
+	            $start = $this->tableSelection[array_key_first($this->tableSelection)]->time->getTimestamp();
+            }
         }
         else
         {
-            $state = self::ON;
+            $state = self::OFF;
             $start = $this->tableSelection[array_key_first($this->tableSelection)]->time->getTimestamp();
         }
-
-
-
-//      $stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
-
 
         foreach($this->tableSelection as $event)
         {
@@ -127,17 +127,24 @@ class TimeBox
                     $state = self::ON;
                     break;
 
-
-//                case default:
-//                    $time +=
-
+                case self::FINISHED:
+                case self::REWORK:
+                case self::STOP:
+                	if($state == self::OFF)
+	                {
+		                $start = $event->time->getTimestamp();
+		                $state = self::ON;
+	                }
+	                break;
             }
-
         }
 
         if($state != self::OFF)
         {
-            $stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
+	        $y = new DateTime($this->endTime);
+	        $stop = $y->getTimestamp();
+
+//        	$stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
             $time += $stop - $start;
         }
 
@@ -156,6 +163,9 @@ class TimeBox
         $sState = self::STOP;
         $time = 0;
         $start = 0;
+
+        // Fix time after last $event
+//	    ISSUE
 
         foreach($this->tableSelection as $event)
         {

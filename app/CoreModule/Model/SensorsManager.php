@@ -40,7 +40,7 @@ class SensorsManager
     public function getTitleSettings()
     {
         try {
-            $ret = $this->database->table("settings")->get(1); //number is ID in table settings
+            $ret = $this->database->table("settings")->fetch(); //number is ID in table settings
         } catch (Nette\InvalidArgumentException $e) {
             throw new Exceptions\SettingsNotExist;
         }

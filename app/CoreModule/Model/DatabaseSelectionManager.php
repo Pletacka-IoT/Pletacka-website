@@ -41,6 +41,10 @@ class DatabaseSelectionManager
         MONTH = "M",
         YEAR = "Y";
 
+    public const
+        WsA = "Cahovi",
+	    WsB = "Vaňkovi";
+
 
     private $database;
     private $thisSensorManager;
@@ -91,7 +95,7 @@ class DatabaseSelectionManager
 		switch ($selection)
 		{
 			case self::HOUR:
-				return "none";
+				return "HourDatabase";
 
 			case self::DAY:
 				return self::HOUR;
@@ -122,32 +126,32 @@ class DatabaseSelectionManager
 			case self::HOUR:
 				$from->setTime($from->format("H"), 0, 0);
 				$to = DateTime::from($from);
-				$to->add(DateInterval::createFromDateString("1 hour"))->sub(DateInterval::createFromDateString("1 second"));
+				$to->add(DateInterval::createFromDateString("1 hour"));
 				break;
 
 			case self::DAY:
 				$from->setTime(0, 0, 0);
 				$to = DateTime::from($from);
-				$to->add(DateInterval::createFromDateString("1 day"))->sub(DateInterval::createFromDateString("1 second"));
+				$to->add(DateInterval::createFromDateString("1 day"));
 				break;
 
 			case self::MONTH:
 				$from->setTime(0,0,0)->setDate($from->format("Y"), $from->format("m"), 1);
 				$to = DateTime::from($from);
-				$to->add(DateInterval::createFromDateString("1 month"))->sub(DateInterval::createFromDateString("1 second"));
+				$to->add(DateInterval::createFromDateString("1 month"));
 				break;
 
 			case self::YEAR:
 				$from->setTime(0,0,0)->setDate($from->format("Y"), 1, 1);
 				$to = DateTime::from($from);
-				$to->add(DateInterval::createFromDateString("1 year"))->sub(DateInterval::createFromDateString("1 second"));
+				$to->add(DateInterval::createFromDateString("1 year"));
 				break;
 
 			default:
 				$to = "2100-01-01 00:00:00";
 		}
 
-		return array("from"=>$from, "to"=>$to, "fromB"=>$fromB, "toB"=>$toB);
+		return array("from"=>$from, "to"=>$to);
     }
 
 
@@ -184,7 +188,7 @@ class DatabaseSelectionManager
 	    $databaseOutputB = new DatabaseSelection();
 
 
-	    if ($lowSelection == "none") //Generate hour database - with TimeBox
+	    if ($lowSelection == "HourDatabase") //Generate hour database - with TimeBox
 	    {
 		    $rawData = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
 		    $previousData = $this->thisSensorManager->getPreviousEvent($sNumber, $rawData);
@@ -192,9 +196,13 @@ class DatabaseSelectionManager
 		    $ws = $this->workShiftManager->getWSHour($from);
 
 
-		    if($rawData)
+		    if(!$rawData)
 		    {
-			    foreach($rawData as $data)
+			    return new Pretty(false, "", "No input data");
+		    }
+		    else
+		    {
+		    	foreach($rawData as $data)
 			    {
 				    if($data->state == "FINISHED")
 				    {
@@ -208,29 +216,56 @@ class DatabaseSelectionManager
 
 			    $timeBox = new TimeBox($rawData, $from, $to);
 
-			    $databaseOutput->t_stop += $timeBox->stopTime($previousData);
 			    $databaseOutput->t_all += $timeBox->allTime($previousData);
+			    $databaseOutput->t_stop += $timeBox->stopTime($previousData);
 			    $databaseOutput->t_work = $databaseOutput->t_all - $databaseOutput->t_stop;
 
+			    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
+			    {
+				    $this->database->table($dbSelectionName)->insert([
+					    'time' => $from,
+					    'workShift' => $ws,
+					    't_stop' => $databaseOutput->t_stop,
+					    't_work' => $databaseOutput->t_work,
+					    't_all' => $databaseOutput->t_all,
+					    'c_FINISHED' => $databaseOutput->c_FINISHED,
+					    'c_STOP' => $databaseOutput->c_STOP,
+				    ]);
+
+				    return new Pretty(true, $databaseOutput, "OK - Insert");
+			    }
+			    else
+			    {
+				    $this->database->table($dbSelectionName)->where("time = ?", $from)->update([
+					    't_stop' => $databaseOutput->t_stop,
+					    't_work' => $databaseOutput->t_work,
+					    't_all' => $databaseOutput->t_all,
+					    'c_FINISHED' => $databaseOutput->c_FINISHED,
+					    'c_STOP' => $databaseOutput->c_STOP,
+				    ]);
+
+				    return new Pretty(true, $databaseOutput, "OK - Update");
+			    }
 		    }
-		    else
-		    {
-			    return new Pretty(false, "", "No input data");
-		    }
+
+
+
 	    }
 	    else  //Generate day, month, year database - using addition lower database
 	    {
 		    $lowDbSectionName = $this->getDbSelectionName($sNumber, $lowSelection);
-		    $lowSelectionTime = $this->getSelectionTime($lowSelection, $from);
-//		    $lowFrom = $selectionTime["from"];
-//		    $lowTo = $selectionTime["to"];
 
-		    $allDataA = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
-		    $allDataB = $this->database->table($lowDbSectionName)->where("time >=? AND time <=?", $from, $to)->fetchAll();
 
-		    if($allData)
+		    $allDataA = $this->database->table($lowDbSectionName)->where("time >=? AND time <=? AND workShift = ?", $from, $to, self::WsA)->fetchAll();
+		    $allDataB = $this->database->table($lowDbSectionName)->where("time >=? AND time <=? AND workShift = ?", $from, $to, self::WsB)->fetchAll();
+
+		    if(!($allDataA or $allDataB))
 		    {
-			    foreach($allData as $data)
+			    return new Pretty(false,"", "No input data");
+		    }
+		    else
+		    {
+			    foreach($allDataA as $data)
 			    {
 				    $databaseOutput->t_stop += $data->t_stop;
 				    $databaseOutput->t_all += $data->t_all;
@@ -238,55 +273,68 @@ class DatabaseSelectionManager
 				    $databaseOutput->c_FINISHED += $data->c_FINISHED;
 				    $databaseOutput->c_STOP += $data->c_STOP;
 			    }
+			    foreach($allDataB as $data)
+			    {
+				    $databaseOutputB->t_stop += $data->t_stop;
+				    $databaseOutputB->t_all += $data->t_all;
+				    $databaseOutputB->t_work += $data->t_work;
+				    $databaseOutputB->c_FINISHED += $data->c_FINISHED;
+				    $databaseOutputB->c_STOP += $data->c_STOP;
+			    }
+
+
+			    if(!$this->database->table($dbSelectionName)->where("time = ? AND workShift = ?", $from, self::WsA)->fetch())
+			    {
+				    $this->database->table($dbSelectionName)->insert([
+					    'time' => $from,
+					    'workShift'=> self::WsA,
+					    't_stop' => $databaseOutput->t_stop,
+					    't_work' => $databaseOutput->t_work,
+					    't_all' => $databaseOutput->t_all,
+					    'c_FINISHED' => $databaseOutput->c_FINISHED,
+					    'c_STOP' => $databaseOutput->c_STOP,
+				    ]);
+			    }
+			    else
+			    {
+				    $this->database->table($dbSelectionName)->where("time = ? AND workShift = ?", $from, self::WsA)->update([
+					    't_stop' => $databaseOutput->t_stop,
+					    't_work' => $databaseOutput->t_work,
+					    't_all' => $databaseOutput->t_all,
+					    'c_FINISHED' => $databaseOutput->c_FINISHED,
+					    'c_STOP' => $databaseOutput->c_STOP,
+				    ]);
+			    }
+
+			    if(!$this->database->table($dbSelectionName)->where("time = ? AND workShift = ?", $from, self::WsB)->fetch())
+			    {
+				    $this->database->table($dbSelectionName)->insert([
+					    'time' => $from,
+					    'workShift'=> self::WsB,
+					    't_stop' => $databaseOutputB->t_stop,
+					    't_work' => $databaseOutputB->t_work,
+					    't_all' => $databaseOutputB->t_all,
+					    'c_FINISHED' => $databaseOutputB->c_FINISHED,
+					    'c_STOP' => $databaseOutputB->c_STOP,
+				    ]);
+
+			    }
+			    else
+			    {
+				    $this->database->table($dbSelectionName)->where("time = ? AND workShift = ?", $from, self::WsB)->update([
+					    't_stop' => $databaseOutputB->t_stop,
+					    't_work' => $databaseOutputB->t_work,
+					    't_all' => $databaseOutputB->t_all,
+					    'c_FINISHED' => $databaseOutputB->c_FINISHED,
+					    'c_STOP' => $databaseOutputB->c_STOP,
+				    ]);
+
+
+			    }
+			    return new Pretty(true);
 		    }
-		    else
-		    {
-			    return new Pretty(false,"", "No input data");
-		    }
-
 	    }
-
-	    //Insert or update data in database
-
-	    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
-	    {
-		    $this->database->table($dbSelectionName)->insert([
-			    'time' => $from,
-			    'workShift'=> $ws,
-			    't_stop' => $databaseOutput->t_stop,
-			    't_work' => $databaseOutput->t_work,
-			    't_all' => $databaseOutput->t_all,
-			    'c_FINISHED' => $databaseOutput->c_FINISHED,
-			    'c_STOP' => $databaseOutput->c_STOP,
-		    ]);
-
-		    return new Pretty(true, $databaseOutput, "OK - Insert");
-	    }
-	    else
-	    {
-		    $this->database->table($dbSelectionName)->where("time = ?", $from)->update([
-			    'time' => $from,
-			    'workShift'=> $ws,
-			    't_stop' => $databaseOutput->t_stop,
-			    't_work' => $databaseOutput->t_work,
-			    't_all' => $databaseOutput->t_all,
-			    'c_FINISHED' => $databaseOutput->c_FINISHED,
-			    'c_STOP' => $databaseOutput->c_STOP,
-		    ]);
-
-		    return new Pretty(true, $databaseOutput, "OK - Update");
-	    }
-
     }
-
-	/**
-	 * @return Pretty
-	 */
-	public function test() :Pretty
-    {
-    	return new Pretty(true);
-    }
-
 }
 
 
