@@ -205,6 +205,14 @@ class TimeBox
                     break;
             }
         }
+
+
+        if($sState == self::REWORK)
+        {
+	        $x = new DateTime($this->endTime);
+        	$stop = $x->getTimestamp();
+	        $time += $stop-$start;
+        }
         return $time;
     }
 

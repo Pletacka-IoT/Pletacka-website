@@ -82,22 +82,22 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-        for($s = 5; $s<=9; $s++)
-        {
-			for($i = 0; $i<24; $i++)
-	        {
-	            $x = $i;
-	            if($x<10){$x = "0".$x;}
-	            $returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-0".$s." ".$x.":02"));
-	        }
+//        for($s = 5; $s<=9; $s++)
+//        {
+//			for($i = 0; $i<24; $i++)
+//	        {
+//	            $x = $i;
+//	            if($x<10){$x = "0".$x;}
+//	            $returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-0".$s." ".$x.":02"));
+//	        }
+//
+//			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-0".$s." 07:02"));
+//
+//        }
 
-			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-0".$s." 07:02"));
-
-        }
 
 
-
-//		$this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-08 05:00:00"));
+		$this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-04-24 22:00:00"));
 
 
 
