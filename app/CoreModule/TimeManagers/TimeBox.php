@@ -41,6 +41,7 @@ class TimeBox
      */
 	public function __construct($tableSelection, String $startTime, String $endTime)
 	{
+		//TODO change times to DateTime
 		$this->tableSelection = $tableSelection;
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
@@ -209,7 +210,8 @@ class TimeBox
 
         if($sState == self::REWORK)
         {
-	        $x = new DateTime($this->endTime);
+
+        	$x = new DateTime($this->endTime);
         	$stop = $x->getTimestamp();
 	        $time += $stop-$start;
         }
