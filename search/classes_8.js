@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['roommanager_244',['RoomManager',['../classApp_1_1CoreModule_1_1Model_1_1RoomManager.html',1,'App::CoreModule::Model']]],
-  ['routerfactory_245',['RouterFactory',['../classApp_1_1Router_1_1RouterFactory.html',1,'App::Router']]]
+  ['roommanager_248',['RoomManager',['../classApp_1_1CoreModule_1_1Model_1_1RoomManager.html',1,'App::CoreModule::Model']]],
+  ['routerfactory_249',['RouterFactory',['../classApp_1_1Router_1_1RouterFactory.html',1,'App::Router']]]
 ];
