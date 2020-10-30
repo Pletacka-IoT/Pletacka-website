@@ -198,7 +198,7 @@ class DatabaseSelectionManager
 
 		    if(!$rawData)
 		    {
-			    return new Pretty(false, "", "No input data");
+			    return new Pretty(true, "Number:".$sNumber."; State:".$selection."; From:".$from, "No input data");
 		    }
 		    else
 		    {
@@ -227,7 +227,7 @@ class DatabaseSelectionManager
 					    'workShift' => $ws,
 					    't_stop' => $databaseOutput->t_stop,
 					    't_work' => $databaseOutput->t_work,
-					    't_all' => $databaseOutput->t_all,
+//					    't_all' => $databaseOutput->t_all,
 					    'c_FINISHED' => $databaseOutput->c_FINISHED,
 					    'c_STOP' => $databaseOutput->c_STOP,
 				    ]);
@@ -239,7 +239,7 @@ class DatabaseSelectionManager
 				    $this->database->table($dbSelectionName)->where("time = ?", $from)->update([
 					    't_stop' => $databaseOutput->t_stop,
 					    't_work' => $databaseOutput->t_work,
-					    't_all' => $databaseOutput->t_all,
+//					    't_all' => $databaseOutput->t_all,
 					    'c_FINISHED' => $databaseOutput->c_FINISHED,
 					    'c_STOP' => $databaseOutput->c_STOP,
 				    ]);
@@ -261,7 +261,7 @@ class DatabaseSelectionManager
 
 		    if(!($allDataA or $allDataB))
 		    {
-			    return new Pretty(false,"", "No input data");
+			    return new Pretty(true,"", "No input data");
 		    }
 		    else
 		    {
@@ -317,6 +317,7 @@ class DatabaseSelectionManager
 					    'c_FINISHED' => $databaseOutputB->c_FINISHED,
 					    'c_STOP' => $databaseOutputB->c_STOP,
 				    ]);
+				    return new Pretty(true, "Number:".$sNumber."; State:".$selection."; From:".$from, "OK - Insert");
 
 			    }
 			    else
@@ -329,10 +330,44 @@ class DatabaseSelectionManager
 					    'c_STOP' => $databaseOutputB->c_STOP,
 				    ]);
 
+			        return new Pretty(true, "Number:".$sNumber."; State:".$selection."; From:".$from, "OK - Update");
 
 			    }
-			    return new Pretty(true);
 		    }
+	    }
+    }
+
+
+    public function createSelections(object $sensors, string $selection, DateTime $from) :Pretty
+    {
+    	if(!$sensors)
+    		return new Pretty(false, "", "No sensors");
+
+	    $returnJson = array();
+	    $returnState = true;
+
+	    foreach ($sensors as $sensor)
+	    {
+		    $ret = $this->createSelection(intval($sensor->number), $selection, $from);
+
+		    if($ret->state)
+		    {
+			    $returnJson[$sensor->number] = array("state"=>true, "msg"=>$ret->msg, "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+		    }
+		    else
+		    {
+		    	$returnState = false;
+			    $returnJson[$sensor->number] = array("state"=>false, "msg"=>$ret->msg, "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+		    }
+	    }
+
+	    if($returnState)
+	    {
+		    return new Pretty(true, $returnJson, "OK");
+	    }
+	    else
+	    {
+		    return new Pretty(false, $returnJson, "ERROR");
 	    }
     }
 }

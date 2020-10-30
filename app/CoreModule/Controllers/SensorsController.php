@@ -86,21 +86,22 @@ final class SensorsController extends BaseV1Controller
 //	 * @Path("/create")
 //	 * @Method("POST")
 //	 */
-//	public function create(ApiRequest $request): array
+//	public function create(ApiRequest $request, ApiResponse $response): ApiResponse
 //	{
 //		$post = $request->getJsonBody();
-//		$returnMessage = $this->sensorsManager->addNewSensor($post['number'], $post['name'], $post['description']);
-//		if($returnMessage[0])
+//		$ret = $this->sensorsManager->addNewSensor($post['number'], $post['description']);
+//		if($ret->state)
 //		{
-//			return ['message'=>$returnMessage[$this->language]];
+//			return $response
+//				->writeJsonBody(array("state"=>$ret->state, "msg"=>$ret->msg))
+//				->withStatus(ApiResponse::S200_OK);
 //
 //		}
 //		else
 //		{
-//
-//			throw MessageException::create()
-//			->withCode(405)
-//			->withMessage($returnMessage[$this->language]);
+//			return $response
+//				->writeJsonBody(array("state"=>$ret->state, "msg"=>$ret->msg))
+//				->withStatus(ApiResponse::S400_BAD_REQUEST);
 //		}
 //	}
 //

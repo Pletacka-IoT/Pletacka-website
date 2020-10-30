@@ -99,39 +99,23 @@ final class DatabaseSelectionController extends BaseV1Controller
 
 
 		$from = new DateTime();
-		$from->setTime($from->format("H")-1,0 );
+		$from->setTime(intval($from->format("H"))-1,0 );
 		$selection = DatabaseSelectionManager::HOUR;
 
-		$returnJson = array();
-		$returnState = true;
-
 		$sensors = $this->sensorsManager->getSensors();
+		$ret = $this->databaseSelectionManager->createSelections($sensors, $selection, $from);
 
-		foreach ($sensors as $sensor)
-		{
-			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
 
-			if($ret->state)
-			{
-				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
-			}
-			else
-			{
-				$returnState = false;
-				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
-			}
-		}
-
-		if($returnState)
+		if($ret->state)
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
 	}
@@ -146,45 +130,24 @@ final class DatabaseSelectionController extends BaseV1Controller
 	{
 
 
-		$from = new DateTime("2020-10-06 12:53:20");
+		$from = new DateTime();
 		$from->setTime(0,0 );
 		$from->setDate(intval($from->format("Y")), intval($from->format("m")),intval($from->format("d"))-1);
 		$selection = DatabaseSelectionManager::DAY;
 
-
-		$returnJson = array();
-		$returnState = true;
-
 		$sensors = $this->sensorsManager->getSensors();
+		$ret = $this->databaseSelectionManager->createSelections($sensors, $selection, $from);
 
-
-
-		foreach ($sensors as $sensor)
-		{
-			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
-
-			if($ret->state)
-			{
-				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
-			}
-			else
-			{
-				$returnState = false;
-				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
-			}
-		}
-
-
-		if($returnState)
+		if($ret->state)
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
 	}
@@ -199,45 +162,27 @@ final class DatabaseSelectionController extends BaseV1Controller
 	{
 
 
-		$from = new DateTime("2020-10-05 12:53:20");
-		$from->setTime($from->format("H")-1,0 );
-		$selection = DatabaseSelectionManager::HOUR;
-
-		$returnJson = array();
-		$returnState = true;
+		$from = new DateTime("2020-10-06 12:53:20");
+		$from->setTime(0,0 );
+		$from->setDate(intval($from->format("Y")), intval($from->format("m"))-1,0);
+		$selection = DatabaseSelectionManager::MONTH;
 
 		$sensors = $this->sensorsManager->getSensors();
+		$ret = $this->databaseSelectionManager->createSelections($sensors, $selection, $from);
 
-		foreach ($sensors as $sensor)
-		{
-			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
-
-			if($ret->state)
-			{
-				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
-			}
-			else
-			{
-				$returnState = false;
-				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
-			}
-		}
-
-		if($returnState)
+		if($ret->state)
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
 	}
-
-
 
 	/**
 	 * @Path("/last-year")
@@ -247,43 +192,30 @@ final class DatabaseSelectionController extends BaseV1Controller
 	{
 
 
-		$from = new DateTime("2020-10-05 12:53:20");
-		$from->setTime($from->format("H")-1,0 );
-		$selection = DatabaseSelectionManager::HOUR;
-
-		$returnJson = array();
-		$returnState = true;
+		$from = new DateTime("2020-10-06 12:53:20");
+		$from->setTime(0,0 );
+		$from->setDate(intval($from->format("Y"))-1, 0,0);
+		$selection = DatabaseSelectionManager::YEAR;
 
 		$sensors = $this->sensorsManager->getSensors();
+		$ret = $this->databaseSelectionManager->createSelections($sensors, $selection, $from);
 
-		foreach ($sensors as $sensor)
-		{
-			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
-
-			if($ret->state)
-			{
-				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
-			}
-			else
-			{
-				$returnState = false;
-				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
-			}
-		}
-
-		if($returnState)
+		if($ret->state)
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
 			return $response
-				->writeJsonBody($returnJson)
+				->writeJsonBody(array("state"=>$ret->state, "main"=>$ret->main))
 				->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
 	}
+
+
+
 
 
 //	/**
