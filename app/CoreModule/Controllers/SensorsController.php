@@ -7,6 +7,10 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
+use Apitte\Core\Annotation\Controller\RequestParameters;
+use Apitte\Core\Annotation\Controller\RequestParameter;
+
+
 use App\CoreModule\Model\SensorsManager;
 
 use Apitte\Core\Exception\Api\MessageException;
@@ -49,6 +53,9 @@ final class SensorsController extends BaseV1Controller
 	/**
 	 * @Path("/{number}")
 	 * @Method("GET")
+	 * @RequestParameters({
+	 *      @RequestParameter(name="number", type="int", description="Sensor number")
+	 * })
 	 */
 	public function sensorsNumber(ApiRequest $request, ApiResponse $response): ApiResponse
 	{

@@ -5,6 +5,9 @@ namespace App\CoreModule\Controllers;
 use Apitte\Core\Annotation\Controller\ControllerPath;
 use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
+use Apitte\Core\Annotation\Controller\RequestParameters;
+use Apitte\Core\Annotation\Controller\RequestParameter;
+use Apitte\Core\Annotation\Controller\OpenApi;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
 
@@ -35,118 +38,270 @@ final class DatabaseSelectionController extends BaseV1Controller
 		$this->databaseSelectionManager = $databaseSelectionManager;
 	}
 
-	
 
 
 
-//
-//	/**
-//	 * @Path("/add-pletacka1/{state}")
-//	 * @Method("GET")
-//	 */
-//	public function pletac1(ApiRequest $request, ApiResponse $response): string
-//	{
-//		$state = $request->getParameter('state');
-//		$aSensors = array();
-//		$ret = $this->thisSensorManager->addEvent("Pletacka1", $state);
-//		if($ret == true)
-//		{
-//			return "OK";
-//		}
-//
-//		return "Error ->".$ret[2];
-//	}
 
 
-    /**
-     * Run database selection - DAY
-     * @Path("/day/{number}")
-     * @Method("GET")
-     */
-	public function genNumStateFrom(ApiRequest $request, ApiResponse $response): ApiResponse
+	/**
+	 * @Path("/")
+	 * @Method("GET")
+	 */
+	public function cron(ApiRequest $request, ApiResponse $response): ApiResponse
 	{
 
-	    $number = $request->getParameter('number');
+		return $response
+			->writeBody("Cron API is running")
+			->withStatus(ApiResponse::S200_OK);
+	}
 
-		$x = new DateTime($from);
+	/**
+	 * @Path("/last-hour/{number}")
+	 * @Method("GET")
+	 * @RequestParameters({
+	 *      @RequestParameter(name="number", type="int", description="Sensor number")
+	 * })
+	 */
+	public function lastHourNum(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+		/** @var int $id Perfectly valid integer */
+		$number = $request->getParameter('number');
 
-		$ret = $this->databaseSelectionManager->createSelection(intval($number), $selection, $x );
+		$from = new DateTime("2020-10-05 12:53:20");
+		$from->setTime($from->format("H")-1,0 );
+
+		$selection = DatabaseSelectionManager::HOUR;
+
+		$ret = $this->databaseSelectionManager->createSelection(intval($number), $selection, $from);
 
 		if($ret->state)
 		{
 			return $response
-				->writeBody("OK -> Num:".$number."; Select:".$selection."; From:".$x)
+				->writeJsonBody(array("state"=>"OK", "number"=>$number, "selection"=>$selection, "from"=>$from))
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
-		{
-	        return $response
-	            ->writeBody("Error ->".$ret->msg)
-	            ->withStatus(ApiResponse::S400_BAD_REQUEST);
-		}
-	}
-
-    /**
-     * Add sensor event
-     * @Path("/gen/{number}/{selection}/{from}")
-     * @Method("GET")
-     */
-	public function genNumStateFrom(ApiRequest $request, ApiResponse $response): ApiResponse
-	{
-
-	    $number = $request->getParameter('number');
-		$selection = $request->getParameter('selection');
-		$from = $request->getParameter('from');
-
-		$x = new DateTime($from);
-
-		$ret = $this->databaseSelectionManager->createSelection(intval($number), $selection, $x );
-
-		if($ret->state)
 		{
 			return $response
-				->writeBody("OK -> Num:".$number."; Select:".$selection."; From:".$x)
+				->writeJsonBody(array("state"=>"ERROR", "msg"=>$ret->msg))
+				->withStatus(ApiResponse::S400_BAD_REQUEST);
+		}
+
+		// Return response with error or user
+	}
+
+	/**
+	 * @Path("/last-hour")
+	 * @Method("GET")
+	 */
+	public function lastHour(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+
+
+		$from = new DateTime();
+		$from->setTime($from->format("H")-1,0 );
+		$selection = DatabaseSelectionManager::HOUR;
+
+		$returnJson = array();
+		$returnState = true;
+
+		$sensors = $this->sensorsManager->getSensors();
+
+		foreach ($sensors as $sensor)
+		{
+			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
+
+			if($ret->state)
+			{
+				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+			}
+			else
+			{
+				$returnState = false;
+				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
+			}
+		}
+
+		if($returnState)
+		{
+			return $response
+				->writeJsonBody($returnJson)
 				->withStatus(ApiResponse::S200_OK);
 		}
 		else
 		{
-	        return $response
-	            ->writeBody("Error ->".$ret->msg)
-	            ->withStatus(ApiResponse::S400_BAD_REQUEST);
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S400_BAD_REQUEST);
 		}
 	}
 
 
 
+	/**
+	 * @Path("/last-day")
+	 * @Method("GET")
+	 */
+	public function lastDay(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+
+
+		$from = new DateTime("2020-10-06 12:53:20");
+		$from->setTime(0,0 );
+		$from->setDate(intval($from->format("Y")), intval($from->format("m")),intval($from->format("d"))-1);
+		$selection = DatabaseSelectionManager::DAY;
+
+
+		$returnJson = array();
+		$returnState = true;
+
+		$sensors = $this->sensorsManager->getSensors();
+
+
+
+		foreach ($sensors as $sensor)
+		{
+			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
+
+			if($ret->state)
+			{
+				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+			}
+			else
+			{
+				$returnState = false;
+				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
+			}
+		}
+
+
+		if($returnState)
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S200_OK);
+		}
+		else
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S400_BAD_REQUEST);
+		}
+	}
+
+
+
+	/**
+	 * @Path("/last-month")
+	 * @Method("GET")
+	 */
+	public function lastMonth(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+
+
+		$from = new DateTime("2020-10-05 12:53:20");
+		$from->setTime($from->format("H")-1,0 );
+		$selection = DatabaseSelectionManager::HOUR;
+
+		$returnJson = array();
+		$returnState = true;
+
+		$sensors = $this->sensorsManager->getSensors();
+
+		foreach ($sensors as $sensor)
+		{
+			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
+
+			if($ret->state)
+			{
+				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+			}
+			else
+			{
+				$returnState = false;
+				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
+			}
+		}
+
+		if($returnState)
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S200_OK);
+		}
+		else
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S400_BAD_REQUEST);
+		}
+	}
+
+
+
+	/**
+	 * @Path("/last-year")
+	 * @Method("GET")
+	 */
+	public function lastYear(ApiRequest $request, ApiResponse $response): ApiResponse
+	{
+
+
+		$from = new DateTime("2020-10-05 12:53:20");
+		$from->setTime($from->format("H")-1,0 );
+		$selection = DatabaseSelectionManager::HOUR;
+
+		$returnJson = array();
+		$returnState = true;
+
+		$sensors = $this->sensorsManager->getSensors();
+
+		foreach ($sensors as $sensor)
+		{
+			$ret = $this->databaseSelectionManager->createSelection(intval($sensor->number), $selection, $from);
+
+			if($ret->state)
+			{
+				$returnJson[$sensor->number] = array("state"=>"OK", "number"=>$sensor->number, "selection"=>$selection, "from"=>$from);
+			}
+			else
+			{
+				$returnState = false;
+				$returnJson[$sensor->number] = array("state"=>"ERROR", "msg"=>$ret->msg);
+			}
+		}
+
+		if($returnState)
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S200_OK);
+		}
+		else
+		{
+			return $response
+				->writeJsonBody($returnJson)
+				->withStatus(ApiResponse::S400_BAD_REQUEST);
+		}
+	}
+
 
 //	/**
-//	 * @Path("/plet")
+//	 * @Path("/day")
 //	 * @Method("GET")
 //	 */
-//	public function sensors(ApiRequest $request, ApiResponse $response): ApiResponse
+//	public function detail(ApiRequest $request, ApiResponse $response): ApiResponse
 //	{
-//		$events = $this->thisSensorManager->getAllEvents("Pletacka1", '2020-05-05 6:57:00', '2020-05-05 7:00:00');
+//		$num
+//		return $response
+//			->writeBody("Jede-".$id)
+//			->withStatus(ApiResponse::S200_OK);
 //
-//        //$xout = array('sensors'=>$aSensors);
-//		return $response->writeJsonBody($events);
+//		// Return response with error or user
 //	}
 
 
-//	/**
-//	 * @Path("/")
-//	 * @Method("GET")
-//	 */
-//	public function scalar1(): string
-//	{
-//		// return 'pong';
-//		$ret = $this->thisSensorManager->addEvent("Pletacka1", "work");
-//		if($ret == true)
-//		{
-//			return "OK";
-//		}
-//
-//		return "Error ->".$ret[2];
-//	}
+
 
     /**
      * @Path("/ping")

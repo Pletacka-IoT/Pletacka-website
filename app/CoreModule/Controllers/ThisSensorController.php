@@ -7,6 +7,8 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
+use Apitte\Core\Annotation\Controller\RequestParameters;
+use Apitte\Core\Annotation\Controller\RequestParameter;
 
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -57,6 +59,10 @@ final class ThisSensorController extends BaseV1Controller
      * Add sensor event
      * @Path("/add-event/{number}/{state}")
      * @Method("GET")
+     * @RequestParameters({
+     *      @RequestParameter(name="number", type="int", description="Sensor number"),
+     *      @RequestParameter(name="state", type="string", description="Sensor state")
+     * })
      */
 	public function add_event(ApiRequest $request, ApiResponse $response): ApiResponse
 	{

@@ -19,6 +19,12 @@ api:
 	plugins:
 		Apitte\Debug\DI\DebugPlugin:
 		Apitte\OpenApi\DI\OpenApiPlugin:
+			definition:
+#				openapi: "3.0.2"
+				info:
+					title: Pletacka-IoT Api specification
+					version: "1.0.0"
+		Apitte\Core\DI\Plugin\CoreMappingPlugin:
 
 
 
