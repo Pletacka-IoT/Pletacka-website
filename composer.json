@@ -41,11 +41,12 @@
         "contributte/latte": "^0.4.0",
 		"contributte/tracy": "^0.4.0",
 		"apitte/core": "^0.6.0",
-        "apitte/debug": "^v0.6.0",
+        "apitte/debug": "^0.6.0",
         "apitte/openapi": "^0.6.0",
         "apitte/presenter": "^0.6.0",
 		"jakubandrysek/chart": "^3.1",
-		"myclabs/php-enum": "^1.7"
+		"myclabs/php-enum": "^1.7",
+		"apitte/negotiation": "^0.6.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0",

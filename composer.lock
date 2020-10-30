@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a42c613685c37d81a279dda6f6c6cbcd",
+    "content-hash": "2951d1534015e9098a0c58560cde91ed",
     "packages": [
         {
             "name": "apitte/core",
@@ -139,6 +139,65 @@
                 "tracy"
             ],
             "time": "2019-07-07T09:06:18+00:00"
+        },
+        {
+            "name": "apitte/negotiation",
+            "version": "v0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apitte/negotiation.git",
+                "reference": "d74b21bd0acde24add2bb02d00a5e7cbee765023"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apitte/negotiation/zipball/d74b21bd0acde24add2bb02d00a5e7cbee765023",
+                "reference": "d74b21bd0acde24add2bb02d00a5e7cbee765023",
+                "shasum": ""
+            },
+            "require": {
+                "apitte/core": "^0.6.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "nette/di": "~3.0.0",
+                "ninjify/nunjuck": "^0.2.0",
+                "ninjify/qa": "^0.8.0",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan-deprecation-rules": "^0.11",
+                "phpstan/phpstan-nette": "^0.11",
+                "phpstan/phpstan-shim": "^0.11",
+                "phpstan/phpstan-strict-rules": "^0.11"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.7.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Apitte\\Negotiation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Felix Šulc",
+                    "homepage": "https://f3l1x.io"
+                }
+            ],
+            "description": "Content-Negotiation support for Apitte stack",
+            "homepage": "https://github.com/apitte/negotiation",
+            "keywords": [
+                "apitte",
+                "content-negotiation",
+                "negotiation",
+                "view-resolver"
+            ],
+            "time": "2019-07-06T19:53:51+00:00"
         },
         {
             "name": "apitte/openapi",

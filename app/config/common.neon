@@ -21,6 +21,7 @@ api:
 		Apitte\OpenApi\DI\OpenApiPlugin:
 
 
+
 application:
 	errorPresenter: Error
 

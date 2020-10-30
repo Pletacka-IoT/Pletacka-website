@@ -57,6 +57,7 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
         array (
             'Apitte\\Presenter\\' => 17,
             'Apitte\\OpenApi\\' => 15,
+            'Apitte\\Negotiation\\' => 19,
             'Apitte\\Debug\\' => 13,
             'Apitte\\Core\\' => 12,
         ),
@@ -138,6 +139,10 @@ class ComposerStaticInit758e2c80a90d503463e43aeab167c1be
         'Apitte\\OpenApi\\' => 
         array (
             0 => __DIR__ . '/..' . '/apitte/openapi/src',
+        ),
+        'Apitte\\Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/apitte/negotiation/src',
         ),
         'Apitte\\Debug\\' => 
         array (
