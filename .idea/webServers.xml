@@ -16,6 +16,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="7cee494e-f527-4fb1-a8fb-2f3d8d1486a3" name="Pletacka-IoT" url="http://192.168.0.2">
+        <fileTransfer rootFolder="/home/pi/Server/Pletacka-website" accessType="SFTP" host="pletacka.local" port="22" sshConfigId="7affc406-d214-43cb-a45c-6f7e40a2d562" sshConfig="pi@pletacka.local:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

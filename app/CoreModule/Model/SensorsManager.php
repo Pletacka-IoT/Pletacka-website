@@ -250,10 +250,12 @@ class SensorsManager
         $this->addThisSensorSelection($number, self::MONTH);
         $this->addThisSensorSelection($number, self::YEAR);
 
+        $now = new \DateTime();
 
         if($success = $this->database->table("sensors")->insert([
             'number' => $number,
             'description' => $description,
+	        'date' => $now,
         ]))
         {
             return new Pretty(true, "" ,"Senzor byl vytvořen");
