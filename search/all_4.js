@@ -24,5 +24,7 @@ var searchData=
   ['createeditold_73',['createEditOld',['../classApp_1_1CoreModule_1_1Forms_1_1SensorsFormFactory.html#ae1cc4c527668323845835c12b187436e',1,'App::CoreModule::Forms::SensorsFormFactory']]],
   ['createrouter_74',['createRouter',['../classApp_1_1Router_1_1RouterFactory.html#a9b1e921301a31ba7b05e93ed4a7bcb19',1,'App::Router::RouterFactory']]],
   ['createselection_75',['createSelection',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a98d7fa6d22446ac6f7c6545f7bfb5701',1,'App::CoreModule::Model::DatabaseSelectionManager']]],
-  ['createwsselect_76',['createWSselect',['../classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d',1,'App::CoreModule::Forms::WorkShiftFormFactory']]]
+  ['createselections_76',['createSelections',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#ab3348a7689da0c2386aab4e02c5378c6',1,'App::CoreModule::Model::DatabaseSelectionManager']]],
+  ['createwsselect_77',['createWSselect',['../classApp_1_1CoreModule_1_1Forms_1_1WorkShiftFormFactory.html#a7a3c4e311d43e1cc4bef6b2033023b4d',1,'App::CoreModule::Forms::WorkShiftFormFactory']]],
+  ['cron_78',['cron',['../classApp_1_1CoreModule_1_1Controllers_1_1DatabaseSelectionController.html#aad9a1184bc6024682ffe39fc15ab34d0',1,'App::CoreModule::Controllers::DatabaseSelectionController']]]
 ];
