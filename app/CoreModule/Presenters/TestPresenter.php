@@ -82,7 +82,7 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
-//        for($s = 9; $s<=9; $s++)
+//        for($s = 1; $s<=20; $s++)
 //        {
 //			for($i = 0; $i<24; $i++)
 //	        {
@@ -91,21 +91,26 @@ final class TestPresenter extends BasePresenter
 //	            $returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-2".$s." ".$x.":02"));
 //	        }
 //
-//			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-2".$s." 07:02"));
-//			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::MONTH, DateTime::from("2020-10-2".$s." 07:02"));
-//			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::YEAR, DateTime::from("2020-10-2".$s." 07:02"));
-//
+////			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::DAY, DateTime::from("2020-10-2".$s." 07:02"));
+////			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::MONTH, DateTime::from("2020-10-2".$s." 07:02"));
+////			$returnMessage =  $this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::YEAR, DateTime::from("2020-10-2".$s." 07:02"));
+////
 //        }
-//		$sensors = $this->sensorsManager->getSensors();
+//		echo "Ahoj";
+//		for($i = 10; $i<=19; $i++)
+//		{
+//			$sensors = $this->sensorsManager->getSensors();
+//	//
+//			dump($this->databaseSelectionManager->createSelections($sensors, DatabaseSelectionManager::HOUR, new DateTime("2020-10-30 ".$i.":02:32")));
 //
-//		dump($this->databaseSelectionManager->createSelections($sensors, DatabaseSelectionManager::HOUR, new DateTime("2020-10-30 18:02:32")));
+//		}
 
-//		$this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-29 11:02:32"));
-		for($i = 1; $i<=23; $i++)
-			if($i != 17)
-				$this->sensorsManager->addNewSensor($i, "Pletacka - ".$i);
-//				$this->sensorsManager->deleteSensor($i);
-
+////		$this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-29 11:02:32"));
+//		for($i = 1; $i<=23; $i++)
+//			if($i != 17)
+//				$this->sensorsManager->addNewSensor($i, "Pletacka - ".$i);
+////				$this->sensorsManager->deleteSensor($i);
+//
 
 //
 //        if($returnMessage->state)

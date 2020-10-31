@@ -59,7 +59,7 @@ div.success {
     left: -85px;
     top: 20px;
     color: #ffffff;
-    width: 30px;
+    width: 45px;
     z-index: 5;
 }
 
@@ -89,7 +89,7 @@ div.success {
 .bubble-brim{
     border: 5px solid red;
     width: 100%;
-    max-width: 950px;
+    max-width: 1000px;
     margin: auto;
     display: inline-block;
 }

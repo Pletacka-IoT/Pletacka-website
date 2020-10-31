@@ -344,7 +344,7 @@ class DatabaseSelectionManager
     		return new Pretty(false, "", "No sensors");
 
 	    $returnJson = array();
-	    $returnState = true;
+	    $returnState = c231912a160deba03df5d6c6466234c808d203bftrue;
 
 	    foreach ($sensors as $sensor)
 	    {
