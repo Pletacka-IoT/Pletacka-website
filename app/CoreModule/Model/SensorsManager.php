@@ -145,6 +145,7 @@ class SensorsManager
 				workShift varchar(20) NOT NULL,
 	          	t_stop int(11) NOT NULL DEFAULT 0,
 	          	t_work int(11) NOT NULL DEFAULT 0,
+	          	t_all int(11) NOT NULL DEFAULT 0,
 	          	c_FINISHED int(11) NOT NULL DEFAULT 0,
 	          	c_STOP int(11) NOT NULL DEFAULT 0,
 	        	PRIMARY KEY (id)

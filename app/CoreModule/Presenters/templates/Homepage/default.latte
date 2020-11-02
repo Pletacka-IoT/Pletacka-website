@@ -12,7 +12,7 @@
 
 <div class="container-fluid bg-info p-4" >
 
-    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>
+{*    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>*}
     {snippet sBubbles}
         <div class="row">
             <div class="col-lg-7 " style="max-width: 1080px">
@@ -24,6 +24,15 @@
                 {include bubbles $bubblesSmall}
             </div>
         </div>
+    {/snippet}
+</div>
+
+
+<div class="container-fluid bg-info p-4" >
+
+    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>
+    {snippet xBubbles}
+        {control statusBubbles $plBig}
     {/snippet}
 </div>
 

@@ -1,0 +1,31 @@
+{block content}
+
+
+
+<div class="table-responsive bubble-brim center">
+    <table class="table table-borderless">
+       {foreach $bubblesAll as $bubblesRow}
+           <tr>
+                {first}{/first}
+                {foreach $bubblesRow as $bubbleNumber => $bubbleSensor}
+                   {if $bubbleNumber > 0}
+                       <td>
+                           <div class="">{$bubbleNumber}</div>
+                       </td>
+
+                       <td>
+{*                           Dump:{dump $bubbleSensor}*}
+{*                       Val: {$bubbleSensor["stop"]}*}
+{*                           <div>{var_dump($bubbleSensor)}</div>*}
+                           <div>State: {$bubbleSensor->state} Val:{$bubbleSensor->value}</div>
+                       </td>
+                   {else}
+                       <td></td>
+                       <td></td>
+                   {/if}
+                {/foreach}
+                {last}{/last}
+           </tr>
+        {/foreach}
+    </table>
+</div>

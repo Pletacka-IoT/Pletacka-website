@@ -100,17 +100,17 @@ final class TestPresenter extends BasePresenter
 //		for($i = 10; $i<=19; $i++)
 //		{
 //			$sensors = $this->sensorsManager->getSensors();
-//	//
+////	//
 //			dump($this->databaseSelectionManager->createSelections($sensors, DatabaseSelectionManager::HOUR, new DateTime("2020-10-30 ".$i.":02:32")));
-//
-//		}
+////
+////		}
 
 ////		$this->databaseSelectionManager->createSelection(17, DatabaseSelectionManager::HOUR, DateTime::from("2020-10-29 11:02:32"));
 //		for($i = 1; $i<=23; $i++)
 //			if($i != 17)
 //				$this->sensorsManager->addNewSensor($i, "Pletacka - ".$i);
-////				$this->sensorsManager->deleteSensor($i);
-//
+//				$this->sensorsManager->deleteSensor($i);
+
 
 //
 //        if($returnMessage->state)

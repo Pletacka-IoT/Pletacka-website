@@ -9,6 +9,11 @@ do
     git reset --hard origin/master
     git clean -f
 
+#    sudo chmod -R 777 temp/
+#    sudo rm -Rd temp/
+#    sudo chmod 777 git-updater.sh
+
+
     # Restart your services here
 
     while :

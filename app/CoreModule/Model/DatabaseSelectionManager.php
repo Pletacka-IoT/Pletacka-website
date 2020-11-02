@@ -227,7 +227,7 @@ class DatabaseSelectionManager
 					    'workShift' => $ws,
 					    't_stop' => $databaseOutput->t_stop,
 					    't_work' => $databaseOutput->t_work,
-//					    't_all' => $databaseOutput->t_all,
+					    't_all' => $databaseOutput->t_all,
 					    'c_FINISHED' => $databaseOutput->c_FINISHED,
 					    'c_STOP' => $databaseOutput->c_STOP,
 				    ]);
@@ -239,7 +239,7 @@ class DatabaseSelectionManager
 				    $this->database->table($dbSelectionName)->where("time = ?", $from)->update([
 					    't_stop' => $databaseOutput->t_stop,
 					    't_work' => $databaseOutput->t_work,
-//					    't_all' => $databaseOutput->t_all,
+					    't_all' => $databaseOutput->t_all,
 					    'c_FINISHED' => $databaseOutput->c_FINISHED,
 					    'c_STOP' => $databaseOutput->c_STOP,
 				    ]);
@@ -344,7 +344,7 @@ class DatabaseSelectionManager
     		return new Pretty(false, "", "No sensors");
 
 	    $returnJson = array();
-	    $returnState = c231912a160deba03df5d6c6466234c808d203bftrue;
+	    $returnState = true;
 
 	    foreach ($sensors as $sensor)
 	    {

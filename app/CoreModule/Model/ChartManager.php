@@ -258,13 +258,13 @@ class ChartManager
 
         if(date("H")<14)
         {
-            $from = date("Y-m-d 04:00:00");
-            $to = date("Y-m-d 14:00:00");
+            $from = new DateTime(date("Y-m-d 04:00:00"));
+            $to = new DateTime(date("Y-m-d 14:00:00"));
         }
         else
         {
-            $from = date("Y-m-d 14:00:00");
-            $to = date("Y-m-d 23:59:00");
+            $from = new DateTime(date("Y-m-d 14:00:00"));
+            $to = new DateTime(date("Y-m-d 23:59:00"));
         }
 	    $now = new DateTime();
 

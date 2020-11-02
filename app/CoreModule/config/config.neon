@@ -47,4 +47,5 @@ services:
 	- App\CoreModule\Forms\SensorsFormFactory
 	- App\CoreModule\Forms\ThisSensorFormFactory
 	- App\CoreModule\Forms\WorkShiftFormFactory
-	- App\CoreModule\Controls\PletackaChartControl\PletackaChartControlFactory
+	- App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory
+	- App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory

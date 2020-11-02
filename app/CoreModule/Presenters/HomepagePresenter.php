@@ -8,6 +8,7 @@ use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\RoomManager;
 use App\CoreModule\Model\WorkShiftManager;
+use App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory;
 use Latte;
 
 
@@ -20,20 +21,31 @@ final class HomepagePresenter extends BasePresenter
     private $chartManager;
     private $roomManager;
     private $workShiftManager;
+	/**
+	 * @var StatusBubblesControlFactory
+	 */
+	private $statusBubblesControlFactory;
 
 
-	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager)
+	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager, StatusBubblesControlFactory $statusBubblesControlFactory)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
 		$this->roomManager = $roomManager;
 		$this->workShiftManager = $workShiftManager;
-    }
+		$this->statusBubblesControlFactory = $statusBubblesControlFactory;
+	}
+
+
+	protected function createComponentStatusBubbles()
+	{
+		return $this->statusBubblesControlFactory->create();
+	}
 
 	public function handleReloadBubbles(): void
 	{
-		$this->redrawControl('sBubbles');
-		$this->redrawControl('sPusInfo');
+//		$this->redrawControl('sBubbles');
+//		$this->redrawControl('sPusInfo');
 	}
 
     public function renderDefault() : void
@@ -46,11 +58,11 @@ final class HomepagePresenter extends BasePresenter
         ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
 
         // Big pletacka room
-        $plBig = $this->roomManager->roomPletarnaBig;
+	    $this->template->plBig = $plBig = $this->roomManager->roomPletarnaBig;
         ($bubblesBig = $this->template->bubblesBig = $this->chartManager->sensorsChartBubbles($plBig));
 
         // Small pletacka room
-        $plSmall = $this->roomManager->roomPletarnaSmall;
+	    $this->template->plSmall = $plSmall = $this->roomManager->roomPletarnaSmall;
         ($bubblesSmall = $this->template->bubblesSmall = $this->chartManager->sensorsChartBubbles($plSmall));
 
 //        $last = $pletackyAll["ALL_SENSORS"]["Pletacka1"];
