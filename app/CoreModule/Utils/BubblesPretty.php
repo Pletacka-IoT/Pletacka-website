@@ -17,7 +17,7 @@ class BubblesPretty
 	public $value = 0;
 	public $class = "";
 
-	public function __construct(string $state, int $value = 0, string $class = "")
+	public function __construct(string $state, string $value = "", string $class = "bubble-off")
 	{
 		$this->state = $state;
 		$this->value = $value;

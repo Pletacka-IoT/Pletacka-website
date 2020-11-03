@@ -1,25 +1,25 @@
 {define bubbles $bubblesData}
 
-	<div class="table-responsive bubble-brim center">
+	<div class="table-responsive xbubble-brim center">
 		{foreach $bubblesData as $number => $bubble}
 		{var myColumn = $bubble["COLUMN"]}
 			{first}<table class="table table-borderless">{/first}
 				{first $myColumn}<tr>{/first}
 					{if $bubble["VISIBILITY"] == "VISIBLY"}
 						{if $bubble["LAST_STATE"] == 'OFF'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-off zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-off"></div></a></td>
+							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-off zoom"></div></a></td>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-off"></div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-ok zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-text bubble-text-ok">{floor($bubble["FINISHED"]/2)}-P</div></a></td>
+							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-ok zoom"></div></a></td>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-ok">{floor($bubble["FINISHED"]/2)}-P</div></a></td>
 						{elseif $bubble["LAST_STATE"] == 'STOP'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="bubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="bubble bubble-stop zoom"></div></a></td>
+							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
+							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-stop zoom"></div></a></td>
 							<td>
 								<a class="ajax" n:href="Sensors:default $number" >
-									<div class="bubble-text bubble-text-stop">
+									<div class="xbubble-text xbubble-text-stop">
 {*										{gmdate("H:i:s", $bubble["STOP_TIME"])}H*}
 
 {*										{dump $bubble["STOP_TIME"]}*}
@@ -42,9 +42,9 @@
 							</td>
 						{/if}
 					{else}
-						<th><div class = "bubble-number"><h2></h2></div></th>
-						<td><div class="bubble bubble-hide"></div></td>
-						<td><div class="bubble-text"></div></td>
+						<th><div class = "xbubble-number"><h2></h2></div></th>
+						<td><div class="xbubble xbubble-hide"></div></td>
+						<td><div class="xbubble-text"></div></td>
 					{/if}
 
 				{last $myColumn}</tr>{/last}

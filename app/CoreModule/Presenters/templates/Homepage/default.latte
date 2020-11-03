@@ -10,29 +10,39 @@
     {/snippet}
 </div>
 
-<div class="container-fluid bg-info p-4" >
+{*<div class="container-fluid bg-info p-4" >*}
 
 {*    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>*}
-    {snippet sBubbles}
-        <div class="row">
-            <div class="col-lg-7 " style="max-width: 1080px">
-                {include bubbles $bubblesBig}
-            </div>
+{*    {snippet sBubbles}*}
+{*        <div class="row">*}
+{*            <div class="col-lg-7 " style="max-width: 1080px">*}
+{*                {include bubbles $bubblesBig}*}
+{*            </div>*}
 
 
-            <div class="col-lg-5 " style="max-width: 500px">
-                {include bubbles $bubblesSmall}
-            </div>
-        </div>
-    {/snippet}
-</div>
+{*            <div class="col-lg-5 " style="max-width: 500px">*}
+{*                {include bubbles $bubblesSmall}*}
+{*            </div>*}
+{*        </div>*}
+{*    {/snippet}*}
+{*</div>*}
 
 
 <div class="container-fluid bg-info p-4" >
 
     <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>
     {snippet xBubbles}
-        {control statusBubbles $plBig}
+
+        <div class="row">
+            <div class="col-lg-7">
+                {control statusBubbles $plBig, "Velká pletárna"}
+            </div>
+
+
+            <div class="col-lg-5">
+                {control statusBubbles $plSmall, "Malá pletárna"}
+            </div>
+        </div>
     {/snippet}
 </div>
 

@@ -1,30 +1,32 @@
 {block content}
-
-
-
-<div class="table-responsive bubble-brim center">
-    <table class="table table-borderless">
+<h3 class="text-center text-white" style="margin-top: 15px">{$textName}</h3>
+<div class="table-responsive bubble-border center">
+    <table class="table table-borderless ">
        {foreach $bubblesAll as $bubblesRow}
            <tr>
-                {first}{/first}
                 {foreach $bubblesRow as $bubbleNumber => $bubbleSensor}
                    {if $bubbleNumber > 0}
-                       <td>
-                           <div class="">{$bubbleNumber}</div>
+                       <td style="padding-left: 10px; padding-right: 5px">
+                           <a class="ajax" href="{plink Sensors:default $bubbleNumber}">
+                               <div class="bubble-number">
+                                   <h2>{$bubbleNumber}</h2>
+{*                                   {$bubbleNumber}*}
+                               </div>
+                           </a>
                        </td>
 
-                       <td>
-{*                           Dump:{dump $bubbleSensor}*}
-{*                       Val: {$bubbleSensor["stop"]}*}
-{*                           <div>{var_dump($bubbleSensor)}</div>*}
-                           <div>State: {$bubbleSensor->state} Val:{$bubbleSensor->value}</div>
+                       <td style="padding-left: 5px">
+                           <a class="ajax" href="{plink Sensors:default $bubbleNumber}">
+                               <div class="bubble {$bubbleSensor->class} zoom">
+                                   {$bubbleSensor->value}
+                               </div>
+                           </a>
                        </td>
                    {else}
                        <td></td>
                        <td></td>
                    {/if}
                 {/foreach}
-                {last}{/last}
            </tr>
         {/foreach}
     </table>

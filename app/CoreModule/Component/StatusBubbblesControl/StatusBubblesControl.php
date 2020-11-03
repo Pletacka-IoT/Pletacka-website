@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\CoreModule\Component\StatusBubblesControl;
 
 use App\CoreModule\Model\MultiSensorsManager;
+use App\TimeManagers\TimeBox;
 use App\Utils\BubblesPretty;
 use Nette;
 use App\Forms\FormFactory;
 use Nette\Application\UI\Form;
+use Nette\Database\Context;
 use Nette\Application\UI\Control;
 use App\CoreModule\Model\ThisSensorManager;
 use App\CoreModule\Model\ThisChartManager;
@@ -34,20 +36,97 @@ class StatusBubblesControl extends  Control{
 	 * @var MultiSensorsManager
 	 */
 	private $multiSensorsManager;
+	/**
+	 * @var Context
+	 */
+	private $database;
 
 
 	public function __construct(MultiSensorsManager $multiSensorsManager,
-	                            ThisSensorManager $thisSensorManager)
+	                            ThisSensorManager $thisSensorManager,
+								Context $database)
     {
 	    $this->multiSensorsManager = $multiSensorsManager;
 	    $this->thisSensorManager = $thisSensorManager;
+	    $this->database = $database;
     }
 
-     public function prepareBubbleBox(int $number): BubblesPretty
-     {
+    public function timeRemoveFirstNull($text)
+    {
+    	if($text[0] == 0)
+	    {
+	    	return $text[1];
+	    }
+    	else
+	    {
+	    	return $text;
+	    }
+    }
+
+    public function humanTime(int $timeSeconds)
+    {
+    	if($timeSeconds>3600)
+	    {
+		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))." hod";
+	    }
+    	else
+	    {
+		    return $this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." mim";
+	    }
+    }
+
+    public function getCountFinishedTodayWS(int $number, DateTime $from, string $state)
+    {
+    	return $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
+    }
+
+    public function getClassName(string $sting): string
+    {
+    	return "bubble-".strtolower($sting);
+    }
+
+
+
+    public function prepareBubbleBox(int $number, DateTime $from): BubblesPretty
+    {
 		if($lastEvent = $this->thisSensorManager->getLastEvent($number))
 		{
-			return new BubblesPretty($lastEvent->state, 55, "class-".strtolower($lastEvent->state));
+			$lastEventState = $lastEvent->state;
+
+			if($lastEvent->time>$from)
+			{
+				if($lastEventState == TimeBox::STOP)
+				{
+					$now  = new DateTime();
+					return new BubblesPretty($lastEventState,
+						$this->humanTime($now->getTimestamp() - $lastEvent->time->getTimestamp()),
+						$this->getClassName($lastEventState));
+				}
+				else
+				{
+					$finishedPairs = floor($this->getCountFinishedTodayWS($number, $from, "FINISHED")/2);
+
+					if($finishedPairs>0)
+					{
+						if($lastEventState == TimeBox::OFF)
+						{
+							return new BubblesPretty($lastEventState, $finishedPairs." p", $this->getClassName($lastEventState));
+						}
+						else
+						{
+							return new BubblesPretty($lastEventState, $finishedPairs." p", $this->getClassName("finished"));
+						}
+					}
+					else
+					{
+						return new BubblesPretty("EMPTY");
+					}
+				}
+			}
+			else
+			{
+				return new BubblesPretty("EMPTY");
+			}
 
 		}
 		else
@@ -55,7 +134,7 @@ class StatusBubblesControl extends  Control{
 			return new BubblesPretty("EMPTY");
 		}
 
-     }
+    }
 
 
 
@@ -64,20 +143,20 @@ class StatusBubblesControl extends  Control{
 
     }
 
-    public function render(array $roomAll)
+    public function render(array $roomAll, string $textName)
     {
 	    $chartData = array();
 	    $counter = 0;
 
 	    if(date("H")<14)
 	    {
-		    $from = date("Y-m-d 04:00:00");
-		    $to = date("Y-m-d 14:00:00");
+		    $from = new DateTime(date("Y-m-d 0:00:00"));
+		    $to = new DateTime(date("Y-m-d 14:00:00"));
 	    }
 	    else
 	    {
-		    $from = date("Y-m-d 14:00:00");
-		    $to = date("Y-m-d 23:59:00");
+		    $from = new DateTime(date("Y-m-d 14:00:00"));
+		    $to = new DateTime(date("Y-m-d 23:59:59"));
 	    }
 	    $now = new DateTime();
 
@@ -90,6 +169,7 @@ class StatusBubblesControl extends  Control{
 	    $row = 0;
 	    $empty = -1;
 
+//	    dump(new DateTime("Y-m-d 04:00:00"));
 
 
 	    foreach($roomAll as $roomRow)
@@ -100,7 +180,7 @@ class StatusBubblesControl extends  Control{
 
 		    	if(array_key_exists($roomSensorNumber, $allSensorNumbers))
 			    {
-					$bubbleBox = $this->prepareBubbleBox(intval($roomSensorNumber));
+					$bubbleBox = $this->prepareBubbleBox(intval($roomSensorNumber), $from);
 			    	$bubbleSensor = array($roomSensorNumber => $bubbleBox);
 			    }
 		    	else
@@ -114,11 +194,10 @@ class StatusBubblesControl extends  Control{
 	    	$row++;
 	    }
 	    $this->template->bubblesAll = $bubblesAll;
+	    $this->template->textName = $textName;
 
 //	    $allSensors = $this->multiSensorsManager->getAllSensorsEvents($roomSensorsArray, $from, $to, false);
-		$x= new BubblesPretty("ASD", 55, "aws");
-	    $this->template->bub = $x;
-	    dump($x);
+//	    dump($url = $this->link("core:ahoj"));
 
     	$this->template->render(__DIR__ . '/StatusBubblesControl.latte');
     }
