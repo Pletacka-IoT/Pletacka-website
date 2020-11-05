@@ -49,3 +49,4 @@ services:
 	- App\CoreModule\Forms\WorkShiftFormFactory
 	- App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory
 	- App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory
+	- App\CoreModule\Component\StatusNumbersControl\StatusNumbersControlFactory

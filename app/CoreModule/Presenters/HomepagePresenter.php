@@ -9,6 +9,7 @@ use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\RoomManager;
 use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory;
+use App\CoreModule\Component\StatusNumbersControl\StatusNumbersControlFactory;
 use Latte;
 
 
@@ -25,18 +26,32 @@ final class HomepagePresenter extends BasePresenter
 	 * @var StatusBubblesControlFactory
 	 */
 	private $statusBubblesControlFactory;
+	/**
+	 * @var StatusNumbersControlFactory
+	 */
+	private $statusNumbersControlFactory;
 
 
-	public function __construct(SensorsManager $sensorsManager, ChartManager $chartManager, RoomManager $roomManager, WorkShiftManager $workShiftManager, StatusBubblesControlFactory $statusBubblesControlFactory)
+	public function __construct(SensorsManager $sensorsManager,
+	                            ChartManager $chartManager,
+	                            RoomManager $roomManager,
+	                            WorkShiftManager $workShiftManager,
+	                            StatusBubblesControlFactory $statusBubblesControlFactory,
+	                            StatusNumbersControlFactory $statusNumbersControlFactory)
 	{
 		$this->sensorsManager = $sensorsManager;
 		$this->chartManager = $chartManager;
 		$this->roomManager = $roomManager;
 		$this->workShiftManager = $workShiftManager;
 		$this->statusBubblesControlFactory = $statusBubblesControlFactory;
+		$this->statusNumbersControlFactory = $statusNumbersControlFactory;
 	}
 
 
+	protected function createComponentStatusNumbers()
+	{
+		return $this->statusNumbersControlFactory->create();
+	}
 	protected function createComponentStatusBubbles()
 	{
 		return $this->statusBubblesControlFactory->create();
