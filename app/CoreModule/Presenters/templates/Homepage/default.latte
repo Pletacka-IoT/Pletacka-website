@@ -1,19 +1,19 @@
 {block title}Home{/block}
 
 {block content}
+{*<div class="container-fluid  p-4 bg-primary text-white text-center"  >*}
+{*    <h1 class="display-4">*}
+{*        {$actualWS}*}
+{*    </h1>*}
+{*    {snippet ssPusInfo}*}
+{*        {include pusInfo $settings}*}
+{*    {/snippet}*}
+{*</div>*}
+
 <div class="container-fluid  p-4 bg-primary text-white text-center"  >
     <h1 class="display-4">
         {$actualWS}
     </h1>
-    {snippet ssPusInfo}
-        {include pusInfo $settings}
-    {/snippet}
-</div>
-
-<div class="container-fluid  p-4 bg-primary text-white text-center"  >
-{*    <h1 class="display-4">*}
-{*        {$actualWS}*}
-{*    </h1>*}
     {snippet sPusInfo}
         {control statusNumbers, array($plBig, $plSmall), $actualWS}
     {/snippet}

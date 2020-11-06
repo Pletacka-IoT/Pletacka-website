@@ -98,20 +98,30 @@ class StatusNumbersControl extends  Control{
 
 
 
-    public function prepareNumberBox(array $allSenNumbers, string $workShift, DateTime $from, DateTime $to): NumbersPretty
+    public function prepareNumberBox(array $allSenNumbers, string $workShift, DateTime $selectionFrom, DateTime $timeboxTo): NumbersPretty
     {
-		$numberBox = new NumbersPretty();
+		$selectionTo = new DateTime();
+	    $selectionTo->setTime($selectionTo->format("H")-1, 0);
+	    // One hour between times is generated in selection
+	    $timeboxFrom = new DateTime();
+	    $timeboxFrom->setTime(intval($timeboxFrom->format("H")), 0);
+    	$numberBox = new NumbersPretty();
 		$sensorCount = 0;
 
     	foreach ($allSenNumbers as $sensorNumber)
 		{
-			$sensorNumberData = $this->databaseSelectionManager->getSelectionData($sensorNumber, DatabaseSelectionManager::HOUR,$workShift, $from, $to);
+			$sensorNumberData = $this->databaseSelectionManager->getSelectionData($sensorNumber, DatabaseSelectionManager::HOUR,$workShift, $selectionFrom, $timeboxTo);
 			if($sensorNumberData->t_all)
 			{
 				$numberBox->finished += $sensorNumberData->c_FINISHED;
 				$numberBox->stopTime += $sensorNumberData->t_stop;
 				$numberBox->workTime += $sensorNumberData->t_work;
 				$numberBox->allTime += $sensorNumberData->t_all;
+
+
+				$sensorEvents = $this->thisSensorManager->getAllEvents($sensorNumber, $timeboxFrom, $timeboxTo);
+				$lastEvent = $this->thisSensorManager->getPreviousEvent($sensorNumber, $sensorEvents);
+				$timebox = new TimeBox($sensorEvents, $timeboxFrom, $timeboxTo);
 				$sensorCount++;
 			}
 		}

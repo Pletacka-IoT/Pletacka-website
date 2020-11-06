@@ -31,15 +31,17 @@ class TimeBox
 
 	private $tableSelection;
 	private $startTime;
+
 	private $endTime;
 
-    /**
+
+	/**
      * @brief Constructor
      * @param Selection $tableSelection
      * @param           $startTime
      * @param           $endTime
      */
-	public function __construct($tableSelection, String $startTime, String $endTime)
+	public function __construct($tableSelection, DateTime $startTime, DateTime  $endTime)
 	{
 		//TODO change times to DateTime
 		$this->tableSelection = $tableSelection;
@@ -95,8 +97,7 @@ class TimeBox
             if($state != self::OFF)
             {
                 $state = self::ON;
-	            $x = new DateTime($this->startTime);
-	            $start = $x->getTimestamp();
+	            $this->startTime->getTimestamp();
             }
             else
             {
@@ -142,9 +143,7 @@ class TimeBox
 
         if($state != self::OFF)
         {
-	        $y = new DateTime($this->endTime);
-	        $stop = $y->getTimestamp();
-
+	        $this->endTime->getTimestamp();
 //        	$stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
             $time += $stop - $start;
         }
@@ -210,9 +209,7 @@ class TimeBox
 
         if($sState == self::REWORK)
         {
-
-        	$x = new DateTime($this->endTime);
-        	$stop = $x->getTimestamp();
+	        $this->endTime->getTimestamp();
 	        $time += $stop-$start;
         }
         return $time;
@@ -259,50 +256,96 @@ class TimeBox
 //        return $time;
     }
 
-    /**
-     * @brief Get work time
-     * @param $previousEvent
-     * @return int time in second
-     */
-    public function workTime($previousEvent)
-    {
-        $time = $this->allTime($previousEvent)-$this->stopTime($previousEvent);
-        return $time;
-    }
+//    /**
+//     * @brief Get work time
+//     * @param $previousEvent
+//     * @return int time in second
+//     */
+//    public function workTime($previousEvent)
+//    {
+//        $time = $this->allTime($previousEvent)-$this->stopTime($previousEvent);
+//        return $time;
+//    }
 
-    /**
-     * @brief Get average stop time
-     * @param $previousEvent
-     * @return int time in seconds
-     */
-    public function avgStopTime($previousEvent)
-    {
-        $count = $this->countEvents(self::STOP);
 
-        if($count>0)
+	/**
+	 * @brief Get work time
+	 * @param int $allTime
+	 * @param int $stopTime
+	 * @return int time in second
+	 */
+	public function workTime(int $allTime, int $stopTime)
+	{
+		return $allTime-$stopTime;
+	}
+
+//    /**
+//     * @brief Get average stop time
+//     * @param $previousEvent
+//     * @return int time in seconds
+//     */
+//    public function avgStopTime($previousEvent)
+//    {
+//        $count = $this->countEvents(self::STOP);
+//
+//        if($count>0)
+//        {
+//            return ceil($this->stopTime($previousEvent)/$count);
+//        }
+//        else
+//            return 0;
+//
+//    }
+	/**
+	 * @brief Get average stop time
+	 * @param int $stopTime
+	 * @param int $countEvents
+	 * @return int time in seconds
+	 */
+    public function avgStopTime(int $stopTime, int $countEvents)
+    {
+        if($countEvents>0)
         {
-            return ceil($this->stopTime($previousEvent)/$count);
+            return ceil($stopTime/$countEvents);
         }
         else
             return 0;
 
     }
 
-    /**
-     * @brief Get average work time
-     * @param $previousEvent
-     * @return int time in seconds
-     */
-    public function avgWorkTime($previousEvent)
-    {
-        $count = $this->countEvents(self::FINISHED);
 
-        if($count>0)
-        {
-            return ceil($this->workTime($previousEvent)/$count);
-        }
-        else
-            return 0;
-    }
+//	/**
+//	 * @brief Get average work time
+//	 * @param $previousEvent
+//	 * @return int time in seconds
+//	 */
+//	public function avgWorkTime($previousEvent)
+//	{
+//		$count = $this->countEvents(self::FINISHED);
+//
+//		if($count>0)
+//		{
+//			return ceil($this->workTime($previousEvent)/$count);
+//		}
+//		else
+//			return 0;
+//	}
+
+	/**
+	 * @brief Get average work time
+	 * @param int $workTime
+	 * @param int $countEvents
+	 * @return int time in seconds
+	 */
+	public function avgWorkTime(int $workTime, int $countEvents)
+	{
+		if($countEvents>0)
+		{
+			return ceil($workTime/$countEvents);
+		}
+		else
+			return 0;
+
+	}
     
 }
