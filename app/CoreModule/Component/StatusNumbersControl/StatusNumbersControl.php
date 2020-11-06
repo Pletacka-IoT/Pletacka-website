@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Component\StatusNumbersControl;
 
+use App\CoreModule\Model\DatabaseSelectionManager;
 use App\CoreModule\Model\MultiSensorsManager;
 use App\TimeManagers\TimeBox;
 use App\Utils\BubblesPretty;
-use App\Utils\NumbersPreparePretty;
+use App\Utils\DatabaseSelectionPretty;
+use App\Utils\NumbersPretty;
 use App\Utils\Pretty;
+use Hoa\Ustring\Bin\Fromcode;
 use Nette;
 use App\Forms\FormFactory;
 use Nette\Application\UI\Form;
@@ -42,15 +45,21 @@ class StatusNumbersControl extends  Control{
 	 * @var Context
 	 */
 	private $database;
+	/**
+	 * @var DatabaseSelectionManager
+	 */
+	private $databaseSelectionManager;
 
 
 	public function __construct(MultiSensorsManager $multiSensorsManager,
 	                            ThisSensorManager $thisSensorManager,
-								Context $database)
+								Context $database,
+								DatabaseSelectionManager $databaseSelectionManager)
     {
 	    $this->multiSensorsManager = $multiSensorsManager;
 	    $this->thisSensorManager = $thisSensorManager;
 	    $this->database = $database;
+	    $this->databaseSelectionManager = $databaseSelectionManager;
     }
 
     public function timeRemoveFirstNull($text)
@@ -89,34 +98,39 @@ class StatusNumbersControl extends  Control{
 
 
 
-    public function prepareNumberBox(array $allSensorsNumbers, DateTime $from, DateTime $to): BubblesPretty
+    public function prepareNumberBox(array $allSenNumbers, string $workShift, DateTime $from, DateTime $to): NumbersPretty
     {
-		foreach ($allSensorsNumbers as $sensorNumber)
+		$numberBox = new NumbersPretty();
+		$sensorCount = 0;
+
+    	foreach ($allSenNumbers as $sensorNumber)
 		{
-			$sensorNumberData = new NumbersPreparePretty($sensorNumber);
-
-
-
+			$sensorNumberData = $this->databaseSelectionManager->getSelectionData($sensorNumber, DatabaseSelectionManager::HOUR,$workShift, $from, $to);
+			if($sensorNumberData->t_all)
+			{
+				$numberBox->finished += $sensorNumberData->c_FINISHED;
+				$numberBox->stopTime += $sensorNumberData->t_stop;
+				$numberBox->workTime += $sensorNumberData->t_work;
+				$numberBox->allTime += $sensorNumberData->t_all;
+				$sensorCount++;
+			}
 		}
+		$numberBox->finishedCountToPairs();
+    	$numberBox->divideTimeVariablesByCount($sensorCount);
 
+    	$numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
 
+    	$numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
 
-    	return new BubblesPretty("");
+    	return $numberBox;
     }
 
-
-
-    public function renderDay()
-    {
-
-    }
-
-    public function render(array $rooms)
+    public function render(array $rooms, string $workShift)
     {
 	    if(date("H")<14)
 	    {
 		    $from = new DateTime(date("Y-m-d 0:00:00"));
-		    $to = new DateTime(date("Y-m-d 14:00:00"));
+			$to = new DateTime(date("Y-m-d 14:00:00"));
 	    }
 	    else
 	    {
@@ -143,19 +157,13 @@ class StatusNumbersControl extends  Control{
 				    {
 					    array_push($numbersAllUsed, $roomSensorNumber);
 				    }
-				    else
-				    {
-
-				    }
-
 			    }
 
 		    }
 	    }
 
-	    $numbersAll = $this->prepareNumberBox($numbersAllUsed, $from, $to);
-		echo"";
-//	    $this->template->textName = $textName;
+	    $numbersBox = $this->prepareNumberBox($numbersAllUsed, $workShift, $from, $to);
+	    $this->template->numberBox = $numbersBox;
     	$this->template->render(__DIR__ . '/StatusNumbersControl.latte');
     }
 
