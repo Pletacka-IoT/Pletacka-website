@@ -113,6 +113,7 @@ class StatusNumbersControl extends  Control{
 			$sensorNumberData = $this->databaseSelectionManager->getSelectionData($sensorNumber, DatabaseSelectionManager::HOUR,$workShift, $selectionFrom, $timeboxTo);
 			if($sensorNumberData->t_all)
 			{
+				$numberBox->state = true;
 				$numberBox->finished += $sensorNumberData->c_FINISHED;
 				$numberBox->stopTime += $sensorNumberData->t_stop;
 				$numberBox->workTime += $sensorNumberData->t_work;
@@ -120,17 +121,36 @@ class StatusNumbersControl extends  Control{
 
 
 				$sensorEvents = $this->thisSensorManager->getAllEvents($sensorNumber, $timeboxFrom, $timeboxTo);
-				$lastEvent = $this->thisSensorManager->getPreviousEvent($sensorNumber, $sensorEvents);
-				$timebox = new TimeBox($sensorEvents, $timeboxFrom, $timeboxTo);
+
+				if($sensorEvents)
+				{
+					$previousEvent = $this->thisSensorManager->getPreviousEvent($sensorNumber, $sensorEvents);
+					$timebox = new TimeBox($sensorEvents, $timeboxFrom, $timeboxTo);
+					$stopTime = $timebox->stopTime($previousEvent);
+					$numberBox->stopTime += $stopTime;
+					$allTime = $timebox->allTime($previousEvent);
+					$numberBox->allTime += $allTime;
+					$numberBox->workTime += $timebox->workTime($allTime, $stopTime);
+
+					$numberBox->finished += $timebox->countEvents(TimeBox::FINISHED);
+				}
 				$sensorCount++;
 			}
 		}
-		$numberBox->finishedCountToPairs();
-    	$numberBox->divideTimeVariablesByCount($sensorCount);
 
-    	$numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
+    	if($numberBox->state)
+	    {
+		    $numberBox->finishedCountToPairs();
+		    $numberBox->divideTimeVariablesByCount($sensorCount);
 
-    	$numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
+		    $numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
+
+		    $numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
+	    }
+    	else
+	    {
+	    	$numberBox->stopTimeStr = "0 min";
+	    }
 
     	return $numberBox;
     }

@@ -37,8 +37,12 @@ class NumbersPretty
 	 * @var string
 	 */
 	public $stopTimeStr;
+	/**
+	 * @var bool
+	 */
+	public $state;
 
-	public function __construct(int $finished = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
+	public function __construct(bool $state = false, int $finished = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
 	{
 		$this->finished = $finished;
 		$this->rating = $rating;
@@ -46,6 +50,7 @@ class NumbersPretty
 		$this->workTime = $workTime;
 		$this->allTime = $allTime;
 		$this->stopTimeStr = $stopTimeStr;
+		$this->state = $state;
 	}
 
 	public function divideTimeVariablesByCount(int $num)

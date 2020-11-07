@@ -85,12 +85,13 @@ class TimeBox
 
     /**
      * @brief Get all pletacka time
-     * @param string $previousEvent
+     * @param $previousEvent
      * @return int time in seconds
      */
     public function allTime($previousEvent)
     {
         $time = 0;
+	    $start = 0;
         if($previousEvent)
         {
             $state = $previousEvent->state;
@@ -145,7 +146,7 @@ class TimeBox
         {
 	        $this->endTime->getTimestamp();
 //        	$stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
-            $time += $stop - $start;
+            $time += $this->endTime->getTimestamp() - $start;
         }
 
         return $time;
@@ -209,8 +210,8 @@ class TimeBox
 
         if($sState == self::REWORK)
         {
-	        $this->endTime->getTimestamp();
-	        $time += $stop-$start;
+
+	        $time += $this->endTime->getTimestamp()-$start;
         }
         return $time;
     }
