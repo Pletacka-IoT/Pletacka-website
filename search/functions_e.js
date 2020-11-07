@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['worktime_425',['workTime',['../classApp_1_1TimeManagers_1_1TimeBox.html#a337ddf4aeb0bd22981ff57ac16b94cd6',1,'App::TimeManagers::TimeBox']]]
+  ['timeremovefirstnull_489',['timeRemoveFirstNull',['../classApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl_1_1StatusBubblesControl.html#a933cad1ca6671e89480336725dd84a3e',1,'App\CoreModule\Component\StatusBubblesControl\StatusBubblesControl\timeRemoveFirstNull()'],['../classApp_1_1CoreModule_1_1Component_1_1StatusNumbersControl_1_1StatusNumbersControl.html#a5c79149776684d81b51f340d96512069',1,'App\CoreModule\Component\StatusNumbersControl\StatusNumbersControl\timeRemoveFirstNull()']]]
 ];
