@@ -31,7 +31,7 @@ div.success {
     border-color: #c3e6cb;
 }
 
-.bubble {
+.xbubble {
     /*display: inline-block;*/
     position: relative;
     /*left: -10px;*/
@@ -45,7 +45,7 @@ div.success {
 
 }
 
-.bubble-number{
+.xbubble-number{
     color: white;
     position: relative;
     /*left: 10px;*/
@@ -54,7 +54,7 @@ div.success {
     width: 100%;
 }
 
-.bubble-text{
+.xbubble-text{
     position: relative;
     left: -85px;
     top: 20px;
@@ -65,34 +65,82 @@ div.success {
 
 
 
-.bubble-off{
+.xbubble-off{
     background-color: #6a6767;
 }
-/*.bubble-text-off{*/
+/*.xbubble-text-off{*/
 /*    color: #6a6767;*/
 /*}*/
 
-.bubble-ok{
+.xbubble-ok{
     background-color: #1A7E1E;
 }
-/*.bubble-text-ok{*/
+/*.xbubble-text-ok{*/
 /*    color: #1A7E1E;*/
 /*}*/
 
-.bubble-stop{
+.xbubble-stop{
     background-color: #f51026;
 }
-/*.bubble-text-stop{*/
+/*.xbubble-text-stop{*/
 /*    color: #f51026;*/
 /*}*/
 
-.bubble-brim{
+.xbubble-brim{
     border: 5px solid red;
     width: 100%;
     max-width: 1000px;
     margin: auto;
     display: inline-block;
 }
+
+/*///////////////////////////////////*/
+.bubble-border{
+    border: 5px solid red;
+}
+
+.bubble-number{
+    width: 90px;
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-align: center;
+    /*position: relative;*/
+
+    /*width: 80%;*/
+    /*left: 10px;*/
+    /*top: 13px;*/
+    /*text-align: center;*/
+    /*width: 100%;*/
+}
+
+
+.bubble{
+    width: 90px;
+    height: 50px;
+    min-width: 70px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+
+    color: #ffffff;
+
+    border-radius: 15px!important;
+}
+
+.bubble-stop{
+    background-color: #f51026;
+}
+
+.bubble-off{
+    background-color: #6a6767;
+}
+
+.bubble-finished{
+    background-color: #1A7E1E;
+}
+
+/*///////////////////////////////////*/
 
 .zoom {
     transition: transform .2s;
@@ -111,7 +159,7 @@ div.success {
     width: 100%;
 }
 
-/*.bubble-hide{*/
+/*.xbubble-hide{*/
 /*    background-color: ;*/
 /*}*/
 

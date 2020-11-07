@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\CoreModule\Controls\PletackaChartControl;
+namespace App\CoreModule\Component\PletackaChartControl;
 
 use Nette;
 use App\Forms\FormFactory;
@@ -179,7 +179,7 @@ class PletackaChartControl extends  Control{
                 break;
 
             case "WORK_TIME":
-                //$this->template->render(__DIR__ . '/PletackaChartControl.latte');
+                //$this->template->render(__DIR__ . '/StatusBubblesControl.latte');
                 echo "AHOJ";
 
                 break;
@@ -218,7 +218,7 @@ class PletackaChartControl extends  Control{
 //
 //
 //            // Render
-//            $this->template->render(__DIR__ . '/PletackaChartControl.latte');
+//            $this->template->render(__DIR__ . '/StatusBubblesControl.latte');
 //
 //        }
 //    }

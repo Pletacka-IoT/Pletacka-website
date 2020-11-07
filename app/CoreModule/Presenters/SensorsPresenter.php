@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
+use App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -12,7 +13,7 @@ use App\CoreModule\Model\ChartManager;
 use App\CoreModule\Model\WorkShiftManager;
 use App\CoreModule\Forms\SensorsFormFactory;
 use App\CoreModule\Forms\ThisSensorFormFactory;
-use App\CoreModule\Controls\PletackaChartControl\PletackaChartControlFactory;
+use App\CoreModule\Component\PletackaChartControl\PletackaChartControl;
 use Nette\Http\Request;
 use Nette\Application\UI\Form;
 use Nette\Http\UrlScript;
@@ -55,15 +56,15 @@ final class SensorsPresenter extends BasePresenter
 
 
 	public function __construct(
-	    SensorsManager $sensorsManager,
-        ThisSensorManager $thisSensorManager,
-        Request $request,
-        SensorsFormFactory $sensorsFormFactory,
-        ThisSensorFormFactory $thisSensorFormFactory,
-        ThisChartManager $thisChartManager,
-        ChartManager $chartManager,
-        WorkShiftManager $workShiftManager,
-        PletackaChartControlFactory $pletackaChartControlFactory
+		SensorsManager $sensorsManager,
+		ThisSensorManager $thisSensorManager,
+		Request $request,
+		SensorsFormFactory $sensorsFormFactory,
+		ThisSensorFormFactory $thisSensorFormFactory,
+		ThisChartManager $thisChartManager,
+		ChartManager $chartManager,
+		WorkShiftManager $workShiftManager,
+		PletackaChartControlFactory $pletackaChartControlFactory
     )
 	{
         

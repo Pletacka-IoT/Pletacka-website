@@ -1,27 +1,55 @@
 {block title}Home{/block}
 
 {block content}
+{*<div class="container-fluid  p-4 bg-primary text-white text-center"  >*}
+{*    <h1 class="display-4">*}
+{*        {$actualWS}*}
+{*    </h1>*}
+{*    {snippet ssPusInfo}*}
+{*        {include pusInfo $settings}*}
+{*    {/snippet}*}
+{*</div>*}
+
 <div class="container-fluid  p-4 bg-primary text-white text-center"  >
     <h1 class="display-4">
         {$actualWS}
     </h1>
     {snippet sPusInfo}
-        {include pusInfo $settings}
+        {control statusNumbers, array($plBig, $plSmall), $actualWS}
     {/snippet}
 </div>
 
+{*<div class="container-fluid bg-info p-4" >*}
+
+{*    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>*}
+{*    {snippet sBubbles}*}
+{*        <div class="row">*}
+{*            <div class="col-lg-7 " style="max-width: 1080px">*}
+{*                {include bubbles $bubblesBig}*}
+{*            </div>*}
+
+
+{*            <div class="col-lg-5 " style="max-width: 500px">*}
+{*                {include bubbles $bubblesSmall}*}
+{*            </div>*}
+{*        </div>*}
+{*    {/snippet}*}
+{*</div>*}
+
+
 <div class="container-fluid bg-info p-4" >
 
-    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>
-    {snippet sBubbles}
+    <a class="ajax btn btn-warning btn-sm text-center" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>
+    {snippet statusBubbles}
+
         <div class="row">
-            <div class="col-lg-7 " style="max-width: 1080px">
-                {include bubbles $bubblesBig}
+            <div class="col-lg-8">
+                {control statusBubbles $plBig, "Velká pletárna"}
             </div>
 
 
-            <div class="col-lg-5 " style="max-width: 500px">
-                {include bubbles $bubblesSmall}
+            <div class="col-lg-4">
+                {control statusBubbles $plSmall, "Malá pletárna"}
             </div>
         </div>
     {/snippet}
