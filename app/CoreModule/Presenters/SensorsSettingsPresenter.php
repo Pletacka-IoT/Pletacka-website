@@ -90,6 +90,42 @@ final class SensorsSettingsPresenter extends BasePresenter
     }
 
 
+	public function createComponentAddFromToForm(): Form
+	{
+		return $this->sensorsFormFactory->createCreateFromTo(function (Form $form, \stdClass $values) {
+			if($values->from<=$values->to)
+			{
+				$countOK = 0;
+				$countError = 0;
+				for($i = $values->from; $i<=$values->to; $i++)
+				{
+					$returnMessage = $this->sensorsManager->addNewSensor($i, $values->description." - ".$i);
+					if($returnMessage->state)
+					{
+						$countOK++;
+					}
+					else
+					{
+						$countError++;
+
+					}
+
+				}
+				$this->flashMessage("Vytvořeno - ".$countOK, 'success');
+				if($countError>0)
+				{
+					$this->flashMessage("Nevytvořeno - ".$countError, 'error');
+				}
+				$this->redirect('SensorsSettings:default');
+			}
+			else
+			{
+				$this->flashMessage("Neplatné zadání rozmezí", 'success');
+			}
+		});
+	}
+
+
 
     ////////////////////////////////////////////////
     // Default page
