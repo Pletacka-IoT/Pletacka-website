@@ -98,7 +98,7 @@ class TimeBox
             if($state != self::OFF)
             {
                 $state = self::ON;
-	            $this->startTime->getTimestamp();
+	            $start  = $this->startTime->getTimestamp();
             }
             else
             {
@@ -135,7 +135,8 @@ class TimeBox
                 case self::STOP:
                 	if($state == self::OFF)
 	                {
-		                $start = $event->time->getTimestamp();
+
+	                	$start = $event->time->getTimestamp();
 		                $state = self::ON;
 	                }
 	                break;
@@ -144,7 +145,6 @@ class TimeBox
 
         if($state != self::OFF)
         {
-	        $this->endTime->getTimestamp();
 //        	$stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
             $time += $this->endTime->getTimestamp() - $start;
         }
