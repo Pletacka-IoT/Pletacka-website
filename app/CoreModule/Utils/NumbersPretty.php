@@ -55,9 +55,9 @@ class NumbersPretty
 
 	public function divideTimeVariablesByCount(int $num)
 	{
-		$this->stopTime/=$num;
-		$this->workTime/=$num;
-		$this->allTime/=$num;
+		$this->stopTime = intval($this->stopTime/$num);
+		$this->workTime = intval($this->workTime/$num);
+		$this->allTime = intval($this->allTime/$num);
 	}
 
 	public function finishedCountToPairs()

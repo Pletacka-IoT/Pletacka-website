@@ -98,15 +98,18 @@ class StatusNumbersControl extends  Control{
 
 
 
-    public function prepareNumberBox(array $allSenNumbers, string $workShift, DateTime $selectionFrom, DateTime $timeboxTo): NumbersPretty
+    public function prepareNumberBox(array $allSenNumbers, string $workShift, DateTime $selectionFrom, DateTime $to): NumbersPretty
     {
 		$selectionTo = new DateTime();
 	    $selectionTo->setTime($selectionTo->format("H")-1, 0);
 	    // One hour between times is generated in selection
 	    $timeboxFrom = new DateTime();
 	    $timeboxFrom->setTime(intval($timeboxFrom->format("H")), 0);
-    	$numberBox = new NumbersPretty();
-		$sensorCount = 0;
+	    $timeboxTo = new DateTime();
+
+	    $numberBox = new NumbersPretty();
+	    $sensorCount = 0;
+	    $addCounter = false;
 
     	foreach ($allSenNumbers as $sensorNumber)
 		{
@@ -114,6 +117,7 @@ class StatusNumbersControl extends  Control{
 			if($sensorNumberData->t_all)
 			{
 				$numberBox->state = true;
+				$addCounter = true;
 				$numberBox->finished += $sensorNumberData->c_FINISHED;
 				$numberBox->stopTime += $sensorNumberData->t_stop;
 				$numberBox->workTime += $sensorNumberData->t_work;
@@ -124,7 +128,9 @@ class StatusNumbersControl extends  Control{
 			if($sensorEvents)
 			{
 				$numberBox->state = true;
+				$addCounter = true;
 				$previousEvent = $this->thisSensorManager->getPreviousEvent($sensorNumber, $sensorEvents);
+
 				$timebox = new TimeBox($sensorEvents, $timeboxFrom, $timeboxTo);
 				$stopTime = $timebox->stopTime($previousEvent);
 				$numberBox->stopTime += $stopTime;
@@ -134,11 +140,15 @@ class StatusNumbersControl extends  Control{
 
 				$numberBox->finished += $timebox->countEvents(TimeBox::FINISHED);
 			}
+			if($addCounter)
+			{
+				$sensorCount++;
+				$addCounter = false;
+			}
 		}
 
-    	if($numberBox->state)
+	    if($numberBox->state)
 	    {
-		    $sensorCount++;
 	    	$numberBox->finishedCountToPairs();
 		    $numberBox->divideTimeVariablesByCount($sensorCount);
 
