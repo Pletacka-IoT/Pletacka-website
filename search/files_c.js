@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usermanager_2ephp_378',['UserManager.php',['../UserManager_8php.html',1,'']]]
+  ['usermanager_2ephp_380',['UserManager.php',['../UserManager_8php.html',1,'']]]
 ];
