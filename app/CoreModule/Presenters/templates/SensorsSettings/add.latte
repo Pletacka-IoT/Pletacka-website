@@ -7,8 +7,14 @@
     <h1>Přidání senzoru</h1>
     <h5><a class="ajax" n:href="SensorsSettings:default" >Zpět na senzory</a></h5>
 </div>
-    
 
-<div class="container  p-4 " >
+<div class="container" >
+    <h2>Jeden senzor</h2>
     {include bootstrap-form addSensorForm}
 </div>
+
+<div class="container" >
+    <h2>Více senzorů <small>(číslo od - do)</small></h2>
+    {include bootstrap-form addFromToForm}
+</div>
+
