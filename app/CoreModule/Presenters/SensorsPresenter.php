@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\CoreModule\Presenters;
 
 use App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory;
+use App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -25,6 +26,7 @@ use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Serie\DateSerie;
 use Jakubandrysek\Chart\Segment\DateSegment;
 use DateTimeImmutable;
+use Nette\Utils\DateTime;
 
 /**
  * @brief Sensor presenter
@@ -53,6 +55,10 @@ final class SensorsPresenter extends BasePresenter
     private $pletackaChartControlFactory;
 
     private $sNumber;
+	/**
+	 * @var ThisStatusNumbersControlFactory
+	 */
+	private $thisStatusNumbersControlFactory;
 
 
 	public function __construct(
@@ -64,7 +70,8 @@ final class SensorsPresenter extends BasePresenter
 		ThisChartManager $thisChartManager,
 		ChartManager $chartManager,
 		WorkShiftManager $workShiftManager,
-		PletackaChartControlFactory $pletackaChartControlFactory
+		PletackaChartControlFactory $pletackaChartControlFactory,
+		ThisStatusNumbersControlFactory $thisStatusNumbersControlFactory
     )
 	{
         
@@ -77,7 +84,13 @@ final class SensorsPresenter extends BasePresenter
         $this->chartManager = $chartManager;
         $this->workShiftManager = $workShiftManager;
         $this->pletackaChartControlFactory = $pletackaChartControlFactory;
-    }
+		$this->thisStatusNumbersControlFactory = $thisStatusNumbersControlFactory;
+	}
+
+	protected function createComponentThisStatusNumbers()
+	{
+		return $this->thisStatusNumbersControlFactory->create();
+	}
 
     protected function createComponentPletackaChart()
     {
@@ -102,6 +115,8 @@ final class SensorsPresenter extends BasePresenter
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
         $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->number = $number;
+        $this->template->xFrom = new DateTime(date("Y-m-d 0:00:00"));
+	    $this->template->xTo  = new DateTime("2020-11-09 18:50:00");
 
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 

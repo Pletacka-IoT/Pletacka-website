@@ -50,3 +50,4 @@ services:
 	- App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory
 	- App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory
 	- App\CoreModule\Component\StatusNumbersControl\StatusNumbersControlFactory
+	- App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory

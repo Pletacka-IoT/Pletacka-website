@@ -1,17 +1,63 @@
 {block title}Pletačka {$sensor["number"]}{/block}
 
 {block content}
+{var $ws = "Cahovi"}
 
 
 <div class="container text-center p-4 " style="margin-top:80px">
     <h5><a class="ajax" n:href="Homepage:default" >Domů</a></h5>
 
     <h2>Senzor: {$sensor["number"]}</h2>
-
-
 </div>
 
-{*{include editablaCharts $rawEvents, $showChartForm}*}
+
+<div class="container  p-4 center text-center" >
+    {*    {include bootstrap-form showForm}*}
+    {*    {include bootstrap-form showChartForm}*}
+    <form n:name=showChartForm class="ajax">
+        {input num}
+        <div id="reportrange" class="btn btn-dark" style="margin: auto">Vybrat období</div>
+        {*            <input class="form-control" style="text-align: center">*}
+        {*            <button class="btn btn-dark">Vybrat</button>*}
+
+        <input type="submit" n:name="send" style="display:none;">
+        <div id="from">{input from}</div>
+        <div id="to">{input to}</div>
+    </form>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 center-line">
+            <div class="text-center">
+                <h5>Dopolední směna</h5>
+                <h2>{$ws}</h2>
+
+                {snippet statusNumbers}
+                    {control thisStatusNumbers, $number, $xFrom, $xTo}
+                {/snippet}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            {var $ws = "Vaňkovi"}
+            <div class="text-center">
+                <h5>Odpolední směna</h5>
+                <h2>{$ws}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+{*{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}*}
+
+
+{*{control pletackaChart:day "red", "Upleteno", "STATE","FINISHED"}*}
+{*{control pletackaChart:day "blue", "Upleteno", "STATE","STOP"}*}
+{*{control pletackaChart:day "green", "Upleteno", "STATE", "REWORK"}*}
+
+
 
 <script type="text/javascript">
     $(function() {
@@ -77,249 +123,3 @@
 
     });
 </script>
-
-<div class="container  p-4 center text-center" >
-    {*    {include bootstrap-form showForm}*}
-    {*    {include bootstrap-form showChartForm}*}
-    <form n:name=showChartForm class="ajax">
-
-        {input num}
-
-        <div id="reportrange" class="btn btn-dark" style="margin: auto">Vybrat období</div>
-        {*            <input class="form-control" style="text-align: center">*}
-        {*            <button class="btn btn-dark">Vybrat</button>*}
-
-        <input type="submit" n:name="send" style="display:none;">
-
-        <div id="from">{input from}</div>
-        <div id="to">{input to}</div>
-
-    </form>
-</div>
-
-
-{*<div class="container-fluid">*}
-{*    <div class="row">*}
-{*        <div class="col-sm-6 center-line">*}
-{*            yy*}
-{*            {var wsA = 0}*}
-{*            <div class="text-center">*}
-{*                <h5>Dopolední směna</h5>*}
-{*                <h2>{$workShift[$wsA]}</h2>*}
-{*            </div>*}
-{*            <div class="pletacka-chart">*}
-{*                <div class="chart-box">*}
-{*                    {$dayChart[0]}|noescape}*}
-{*                    {control pletackaChart $sensor["number"], $wsA, "", ""}*}
-{*                    {$dayChart|noescape}*}
-{*                </div>*}
-
-{*            </div>*}
-{*        </div>*}
-
-{*        <div class="col-sm-6">*}
-{*            xx*}
-{*            {var wsB = 1}*}
-{*            <div class="text-center">*}
-{*                <h5>Odpolední směna</h5>*}
-{*                <h2>{$workShift[$wsB]}</h2>*}
-{*            </div>*}
-{*            <div class="pletacka-chart">*}
-{*                {control pletackaChart $sensor["number"], $wsA, "", ""}*}
-
-{*            </div>*}
-{*        </div>*}
-{*    </div>*}
-{*</div>*}
-
-
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 center-line">
-            {var $ws = 0}
-            <div class="text-center">
-                <h5>Dopolední směna</h5>
-                <h2>{$workShift[$ws]}</h2>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            {var $ws = 1}
-            <div class="text-center">
-                <h5>Odpolední směna</h5>
-                <h2>{$workShift[$ws]}</h2>
-            </div>
-        </div>
-    </div>
-</div>
-
-{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}
-
-
-{control pletackaChart:day "red", "Upleteno", "STATE","FINISHED"}
-{control pletackaChart:day "blue", "Upleteno", "STATE","STOP"}
-{control pletackaChart:day "green", "Upleteno", "STATE", "REWORK"}
-
-
-<div id="accordion" style="margin: 20px 0">
-    <div class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="card-link collapsed" aria-expanded="false">
-                Collapsible Group Item #1
-            </a>
-        </div>
-
-        <div id="collapseOne" class="collapse show" style="">
-            <div class="card-body">
-
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <a class="card-link collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false">
-                Collapsible Group Item #2
-            </a>
-        </div>
-        <div id="collapseTwo" class="collapse" style="">
-            <div class="card-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <a class="card-link collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false">
-                Collapsible Group Item #3
-            </a>
-        </div>
-        <div id="collapseThree" class="collapse" style="">
-            <div class="card-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </div>
-        </div>
-    </div>
-</div>
-
-
-{*{control pletackaChart:day "red", "Upleteno", "FINISHED"}*}
-
-{*<div class="container-fluid">*}
-{*    <div class="row">*}
-{*        <div class="col-md-6 center-line">*}
-{*            {var $ws = 0}*}
-{*            <div class="text-center">*}
-{*                <h5>Dopolední směna</h5>*}
-{*                <h2>{$workShift[$ws]}</h2>*}
-{*            </div>*}
-{*            <div class="pletacka-chart">*}
-{*                *}
-
-{*            </div>*}
-{*        </div>*}
-
-{*        <div class="col-md-6">*}
-{*            {var $ws = 1}*}
-{*            <div class="text-center">*}
-{*                <h5>Odpolední směna</h5>*}
-{*                <h2>{$workShift[$ws]}</h2>*}
-{*            </div>*}
-{*            <div class="pletacka-chart">*}
-{*                {control pletackaChart:day $ws, "Upleteno" , "red", "FINISHED"}*}
-
-{*            </div>*}
-{*        </div>*}
-{*    </div>*}
-{*</div>*}
-
-
-
-
-
-{*{snippet sensorCharts}*}
-
-{*    <div class="container">*}
-{*        {if !empty($rawEvents)}*}
-{*            *}{*        <h2>{$from|date:''}</h2>*}
-{*            <h2>All events: {$countAll}</h2>*}
-
-{*            <h2>Count</h2>*}
-{*            <div class="move-right">*}
-{*                <h4>All events count: {$countAll}</h4>*}
-{*                <h4>All events state count (FINISHED): {$countFinished}</h4>*}
-{*                <h4>All events state count (STOP): {$countStop}</h4>*}
-{*                <h4>All events state count (REWORK): {$countRework}</h4>*}
-{*                <h4>All events state count (ON): {$countOn}</h4>*}
-{*                <h4>All events state count (OFF): {$countOff}</h4>*}
-{*            </div>*}
-
-{*            <h2>Times</h2>*}
-{*            <div class="move-right">*}
-{*                <h4>All time: {gmdate("H:i:s", $allTime)}</h4>*}
-{*                <h4>Stop time: {gmdate("H:i:s", $stopTime)}</h4>*}
-{*                <h4>Work time: {gmdate("H:i:s", $workTime)}</h4>*}
-{*            </div>*}
-
-{*            <h2>Average</h2>*}
-{*            <div class="move-right">*}
-{*                <h4>Stop average time: {gmdate("H:i:s", $avgStopTime)}</h4>*}
-{*                <h4>Work average time: {gmdate("H:i:s", $avgWorkTime)}</h4>*}
-{*            </div>*}
-
-
-{*            {foreach $events as $event}*}
-{*                {if $iterator->first}*}
-{*                    <table class="table table-striped">*}
-{*                    <thead>*}
-{*                    <tr>*}
-{*                        <th>ID</th>*}
-{*                        <th>State</th>*}
-{*                        <th>Time</th>*}
-{*                    </tr>*}
-{*                    </thead>*}
-{*                    <tbody>*}
-{*                {/if}*}
-{*                <tr id="row-{$iterator->counter}">*}
-{*                    <td>{$event->id}</td>*}
-{*                    {if $event->state == "FINISHED"}*}
-{*                        <td class="text-success">*}
-{*                            {$event->state}*}
-{*                        </td>*}
-{*                    {elseif  $event->state == "STOP"}*}
-{*                        <td class="text-danger">*}
-{*                            {$event->state}*}
-{*                        </td>*}
-{*                    {elseif  $event->state == "REWORK"}*}
-{*                        <td class="text-info">*}
-{*                            {$event->state}*}
-{*                        </td>*}
-{*                    {else}*}
-{*                        <td class="">*}
-{*                            {$event->state}*}
-{*                        </td>*}
-{*                    {/if}*}
-
-
-
-{*                    <td>{$event->time}</td>*}
-{*                </tr>*}
-{*                {if $iterator->last}*}
-{*                    </tbody>*}
-{*                    </table>*}
-{*                {/if}*}
-{*            {/foreach}*}
-
-
-
-{*        {else}*}
-{*            <br>*}
-{*            <br>*}
-{*            <h2 class="text-center">No data available</h2>*}
-{*        {/if}*}
-{*    </div>*}
-{*{/snippet}*}
-
-
-
