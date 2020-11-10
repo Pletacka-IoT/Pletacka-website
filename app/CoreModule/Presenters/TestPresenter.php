@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
+use App\CoreModule\Model\DatabaseDataExtractorManager;
 use Nette\Forms\Form;
 use Tracy\Debugger;
 use Tracy\Dumper;
@@ -60,6 +61,10 @@ final class TestPresenter extends BasePresenter
     private $thisSensorManager;
     private $workShiftManager;
     private $databaseSelectionManager;
+	/**
+	 * @var DatabaseDataExtractorManager
+	 */
+	private $databaseDataExtractorManager;
 
 	public function __construct(
 	    SensorsManager $sensorsManager,
@@ -67,7 +72,8 @@ final class TestPresenter extends BasePresenter
         Request $request,
         SensorsFormFactory $sensorsFormFactory,
         WorkShiftManager $workShiftManager,
-        DatabaseSelectionManager $databaseSelectionManager
+        DatabaseSelectionManager $databaseSelectionManager,
+		DatabaseDataExtractorManager $databaseDataExtractorManager
     )
 	{
         
@@ -77,11 +83,17 @@ final class TestPresenter extends BasePresenter
         $this->sensorsFormFactory = $sensorsFormFactory;
         $this->workShiftManager = $workShiftManager;
         $this->databaseSelectionManager = $databaseSelectionManager;
+		$this->databaseDataExtractorManager = $databaseDataExtractorManager;
 	}
 	
 
 	public function actionDebug($name)
 	{
+
+
+		$date = $this->databaseDataExtractorManager->getDataToHourAfter(17, new DateTime("2020-11-09 11:02:17"));
+
+		dump($date);
 //        for($s = 1; $s<=20; $s++)
 //        {
 //			for($i = 0; $i<24; $i++)

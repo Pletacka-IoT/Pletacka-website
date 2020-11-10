@@ -42,16 +42,9 @@ class DatabaseSelectionPretty
 	 */
 	public $c_STOP;
 
-	public function __construct(int $number, string $workShift = "", int $t_stop = 0, int $t_work = 0, int $t_all = 0, int $c_FINISHED = 0, int $c_STOP = 0)
+	public function __construct(int $number)
 	{
-
 		$this->number = $number;
-		$this->workShift = $workShift;
-		$this->t_stop = $t_stop;
-		$this->t_work = $t_work;
-		$this->t_all = $t_all;
-		$this->c_FINISHED = $c_FINISHED;
-		$this->c_STOP = $c_STOP;
 	}
 
 

@@ -42,6 +42,7 @@ services:
 	- App\CoreModule\Model\RoomManager
 	- App\CoreModule\Model\WorkShiftManager
 	- App\CoreModule\Model\DatabaseSelectionManager
+	- App\CoreModule\Model\DatabaseDataExtractorManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory
