@@ -2,6 +2,7 @@
 
 namespace App\CoreModule\Model;
 
+use App\Utils\DatabaseDataExtractorPretty;
 use App\Utils\DatabaseSelectionPretty;
 use http\Exception;
 use Nette;
@@ -373,21 +374,26 @@ class DatabaseSelectionManager
     }
 
 
-    public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseSelectionPretty
+    public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
     {
-    	$dsPretty = new DatabaseSelectionPretty($number);
+    	$dsPretty = new DatabaseDataExtractorPretty($number);
 	    $dsPretty->workShift = $workShift;
 
-    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time <= ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+
+    	if(!$dSelection)
+	    {
+	    	return new DatabaseDataExtractorPretty(-555, false, "No input data");
+	    }
 
     	foreach ($dSelection as $dRow)
 	    {
-
-		    $dsPretty->t_stop += $dRow->t_stop;
-		    $dsPretty->t_work += $dRow->t_work;
-		    $dsPretty->t_all += $dRow->t_all;
-		    $dsPretty->c_FINISHED += $dRow->c_FINISHED;
-		    $dsPretty->c_STOP += $dRow->c_STOP;
+		    $dsPretty->stopTime += $dRow->t_stop;
+		    $dsPretty->workTime += $dRow->t_work;
+		    $dsPretty->allTime += $dRow->t_all;
+		    $dsPretty->finishedCount += $dRow->c_FINISHED;
+		    $dsPretty->stopCount += $dRow->c_STOP;
+		    $dsPretty->status = true;
 	    }
 
     	return $dsPretty;

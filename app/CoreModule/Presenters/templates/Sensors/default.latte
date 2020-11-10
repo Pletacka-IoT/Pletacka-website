@@ -34,8 +34,8 @@
                 <h5>Dopolední směna</h5>
                 <h2>{$ws}</h2>
 
-                {snippet statusNumbers}
-                    {control thisStatusNumbers, $number, $xFrom, $xTo}
+                {snippet xthisStatusNumbersA}
+                    {control thisStatusNumbers:A, $number, $xFrom, $xTo}
                 {/snippet}
             </div>
         </div>
@@ -45,9 +45,14 @@
             <div class="text-center">
                 <h5>Odpolední směna</h5>
                 <h2>{$ws}</h2>
+
+                {snippet thisStatusNumbersB}
+                    {control thisStatusNumbers:B, $number, $xFrom, $xTo}
+                {/snippet}
             </div>
         </div>
     </div>
+
 </div>
 
 {*{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}*}

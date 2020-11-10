@@ -91,9 +91,11 @@ final class TestPresenter extends BasePresenter
 	{
 
 
-		$date = $this->databaseDataExtractorManager->getDataToHourAfter(17, new DateTime("2020-11-09 11:02:17"));
+//		$date = $this->databaseDataExtractorManager->getDataHourly(17, new DateTime("2020-11-09 11:02:00"), new DateTime("2020-11-09 11:35:00"));
 
-		dump($date);
+//		$datea = $this->databaseDataExtractorManager->getDataToHourBefore(17, new DateTime("2020-11-09 11:35:17"));
+
+//		dump($date);
 //        for($s = 1; $s<=20; $s++)
 //        {
 //			for($i = 0; $i<24; $i++)

@@ -104,7 +104,7 @@ class StatusBubblesControl extends  Control{
 				}
 				else
 				{
-					$finishedPairs = floor($this->getCountFinishedTodayWS($number, $from, "FINISHED")/2);
+					$finishedPairs = ceil($this->getCountFinishedTodayWS($number, $from, "FINISHED")/2);
 
 					if($finishedPairs>0)
 					{

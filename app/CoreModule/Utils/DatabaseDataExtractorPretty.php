@@ -5,49 +5,45 @@ declare(strict_types=1);
 namespace App\Utils;
 
 use Nette;
+use Nette\Utils\DateTime;
 
 /**
  * @brief Class create pretty output in specific format
- * @property bool $status
  * @property int $number
+ * @property bool $status
+ * @property string $msg
+ * @property string $workShift
  * @property int $allTime
  * @property int $stopTime
  * @property int $workTime
  * @property int $finishedCount
  * @property int $stopCount
+ * @property DateTime $from
+ * @property DateTime $to
+ * @property bool $stopThere
  */
 class DatabaseDataExtractorPretty
 {
 	use Nette\SmartObject;
 
+	private $number = -555;
 	private $status = false;
-	private $number = 1;
+	private $msg = "";
+	private $workShift = "";
 	private $allTime = 0;
 	private $stopTime = 0;
 	private $workTime = 0;
 	private $finishedCount = 0;
 	private $stopCount = 0;
+	private $from;
+	private $to;
+	private $stopThere = false;
 
-
-	public function __construct(int $number)
+	public function __construct(int $number = -555, bool $status = false, string $msg = "")
 	{
 		$this->number = $number;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getStatus(): bool
-	{
-		return $this->status;
-	}
-
-	/**
-	 * @param bool $status
-	 */
-	public function setStatus(bool $status): void
-	{
 		$this->status = $status;
+		$this->msg = $msg;
 	}
 
 	/**
@@ -65,11 +61,58 @@ class DatabaseDataExtractorPretty
 	{
 		$this->number = $number;
 	}
+	/**
+	 * @return bool
+	 */
+	protected function getStatus(): bool
+	{
+		return $this->status;
+	}
+
+	/**
+	 * @param bool $status
+	 */
+	protected function setStatus(bool $status): void
+	{
+		$this->status = $status;
+	}
+
+	/**
+	 * @return string
+	 */public function getMsg(): string
+	{
+		return $this->msg;
+	}
+
+
+	/**
+    * @param string $msg
+    */public function setMsg(string $msg): void
+	{
+		$this->msg = $msg;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getWorkShift(): string
+	{
+		return $this->workShift;
+	}
+
+	/**
+	 * @param string $workShift
+	 */
+	public function setWorkShift(string $workShift): void
+	{
+		$this->workShift = $workShift;
+	}
 
 	/**
 	 * @return int
 	 */
-	public function getAllTime(): int
+	protected function getAllTime(): int
 	{
 		return $this->allTime;
 	}
@@ -77,7 +120,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $allTime
 	 */
-	public function setAllTime(int $allTime): void
+	protected function setAllTime(int $allTime): void
 	{
 		$this->allTime = $allTime;
 	}
@@ -85,7 +128,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getStopTime(): int
+	protected function getStopTime(): int
 	{
 		return $this->stopTime;
 	}
@@ -93,7 +136,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $stopTime
 	 */
-	public function setStopTime(int $stopTime): void
+	protected function setStopTime(int $stopTime): void
 	{
 		$this->stopTime = $stopTime;
 	}
@@ -101,7 +144,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getWorkTime(): int
+	protected function getWorkTime(): int
 	{
 		return $this->workTime;
 	}
@@ -109,7 +152,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $workTime
 	 */
-	public function setWorkTime(int $workTime): void
+	protected function setWorkTime(int $workTime): void
 	{
 		$this->workTime = $workTime;
 	}
@@ -117,7 +160,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getFinishedCount(): int
+	protected function getFinishedCount(): int
 	{
 		return $this->finishedCount;
 	}
@@ -125,7 +168,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $finishedCount
 	 */
-	public function setFinishedCount(int $finishedCount): void
+	protected function setFinishedCount(int $finishedCount): void
 	{
 		$this->finishedCount = $finishedCount;
 	}
@@ -133,7 +176,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getStopCount(): int
+	protected function getStopCount(): int
 	{
 		return $this->stopCount;
 	}
@@ -141,9 +184,57 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $stopCount
 	 */
-	public function setStopCount(int $stopCount): void
+	protected function setStopCount(int $stopCount): void
 	{
 		$this->stopCount = $stopCount;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getFrom()
+	{
+		return $this->from;
+	}
+
+	/**
+	 * @param mixed $from
+	 */
+	protected function setFrom($from): void
+	{
+		$this->from = $from;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getTo()
+	{
+		return $this->to;
+	}
+
+	/**
+	 * @param mixed $to
+	 */
+	protected function setTo($to): void
+	{
+		$this->to = $to;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isStopThere(): bool
+	{
+		return $this->stopThere;
+	}
+
+	/**
+	 * @param bool $stopThere
+	 */
+	public function setStopThere(bool $stopThere): void
+	{
+		$this->stopThere = $stopThere;
 	}
 
 

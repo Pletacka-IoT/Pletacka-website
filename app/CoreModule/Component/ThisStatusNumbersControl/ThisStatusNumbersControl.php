@@ -78,7 +78,7 @@ class ThisStatusNumbersControl extends  Control{
     {
     	if($timeSeconds>3600)
 	    {
-		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))." hod";
+		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))." hod ".$this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." mim";
 	    }
     	else
 	    {
@@ -86,10 +86,6 @@ class ThisStatusNumbersControl extends  Control{
 	    }
     }
 
-    public function getCountFinishedTodayWS(int $number, DateTime $from, string $state)
-    {
-    	return $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
-    }
 
     public function getClassName(string $sting): string
     {
@@ -98,61 +94,31 @@ class ThisStatusNumbersControl extends  Control{
 
 
 
-    public function prepareThisNumberBox(int $number, string $workShift, DateTime $selectionFrom, DateTime $timeboxTo): NumbersPretty
+    public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to): NumbersPretty
     {
-	    $selectionTo = new $timeboxTo;
-	    $selectionTo->setTime($timeboxTo->format("H")-1, 0);
-	    // One hour between times is generated in selection
-	    $timeboxFrom = new $timeboxTo;
-	    $timeboxFrom->setTime(intval($timeboxTo->format("H")), 0);
+//	    $selectionTo = new DateTime($to);
+//	    $selectionTo->setTime($timeboxTo->format("H")-1, 0);
+//	    // One hour between times is generated in selection
+//	    $timeboxFrom = new $timeboxTo;
+//	    $timeboxFrom->setTime(intval($timeboxTo->format("H")), 0);
 
 	    $numberBox = new NumbersPretty();
-	    $sensorCount = 0;
-	    $addCounter = false;
 
-
-
-		$sensorNumberData = $this->databaseSelectionManager->getSelectionData($number, DatabaseSelectionManager::HOUR,$workShift, $selectionFrom, $timeboxTo);
-		if($sensorNumberData->t_all)
+		$sensorNumberData = $this->databaseSelectionManager->getSelectionData($number, DatabaseSelectionManager::HOUR,$workShift, $from, $to);
+		if($sensorNumberData->allTime)
 		{
 			$numberBox->state = true;
 			$addCounter = true;
-			$numberBox->finished += $sensorNumberData->c_FINISHED;
-			$numberBox->stopTime += $sensorNumberData->t_stop;
-			$numberBox->workTime += $sensorNumberData->t_work;
-			$numberBox->allTime += $sensorNumberData->t_all;
+			$numberBox->finishedCount = $sensorNumberData->finishedCount;
+			$numberBox->stopTime = $sensorNumberData->stopTime;
+			$numberBox->workTime = $sensorNumberData->workTime;
+			$numberBox->allTime = $sensorNumberData->allTime;
+
+			$numberBox->finishedCountToPairs();
+			$numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
+
+			$numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
 		}
-
-		$sensorEvents = $this->thisSensorManager->getAllEvents($number, $timeboxFrom, $timeboxTo);
-		if($sensorEvents)
-		{
-			$numberBox->state = true;
-			$addCounter = true;
-			$previousEvent = $this->thisSensorManager->getPreviousEvent($number, $sensorEvents);
-
-			$timebox = new TimeBox($sensorEvents, $timeboxFrom, $timeboxTo);
-			$stopTime = $timebox->stopTime($previousEvent);
-			$numberBox->stopTime += $stopTime;
-			$allTime = $timebox->allTime($previousEvent);
-			$numberBox->allTime += $allTime;
-			$numberBox->workTime += $timebox->workTime($allTime, $stopTime);
-
-			$numberBox->finished += $timebox->countEvents(TimeBox::FINISHED);
-		}
-		if($addCounter)
-		{
-			$sensorCount++;
-			$addCounter = false;
-		}
-
-
-	    if($numberBox->state)
-	    {
-	    	$numberBox->finishedCountToPairs();
-		    $numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
-
-		    $numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
-	    }
     	else
 	    {
 	    	$numberBox->stopTimeStr = "0 min";
@@ -161,21 +127,42 @@ class ThisStatusNumbersControl extends  Control{
     	return $numberBox;
     }
 
-    public function render(int $number, DateTime $from, DateTime $to)
+    public function render(int $number, string $workShift, DateTime $from, DateTime $to)
     {
-		$wsAll = array("Cahovi", "Vaňkovi");
-		$thisNumberBox = array();
+//		$wsAll = array("Cahovi", "Vaňkovi");
+//		$thisNumberBox = array();
+//
+//		foreach ($wsAll as $ws)
+//		{
+//			$thisNumberBoxWs = $this->prepareThisNumberBox($number, $ws, $from, $to);
+//			 array_push($thisNumberBox, $thisNumberBoxWs);
+//
+//		}
 
-		foreach ($wsAll as $ws)
-		{
-			$thisNumberBoxWs = $this->prepareThisNumberBox($number, $ws, $from, $to);
-			 array_push($thisNumberBox, $thisNumberBoxWs);
 
-		}
+	    $thisNumberBox = $this->prepareThisNumberBox($number, $workShift, $from, $to);
+
 
 	    $this->template->thisNumberBox = $thisNumberBox;
+		dump($thisNumberBox);
     	$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
     }
+
+    public function renderA(int $number, DateTime $from, DateTime $to)
+    {
+	    $thisNumberBox = $this->prepareThisNumberBox($number, "Cahovi", $from, $to);
+	    $this->template->thisNumberBox = $thisNumberBox;
+	    dump($thisNumberBox);
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+    }
+
+	public function renderB(int $number, DateTime $from, DateTime $to)
+	{
+		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
+		$this->template->thisNumberBox = $thisNumberBox;
+		dump($thisNumberBox);
+		$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+	}
 
     public function handleClick()
     {

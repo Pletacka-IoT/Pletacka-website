@@ -16,7 +16,7 @@ class NumbersPretty
 	/**
 	 * @var int
 	 */
-	public $finished;
+	public $finishedCount;
 	/**
 	 * @var int
 	 */
@@ -42,9 +42,9 @@ class NumbersPretty
 	 */
 	public $state;
 
-	public function __construct(bool $state = false, int $finished = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
+	public function __construct(bool $state = false, int $finishedCount = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
 	{
-		$this->finished = $finished;
+		$this->finishedCount = $finishedCount;
 		$this->rating = $rating;
 		$this->stopTime = $stopTime;
 		$this->workTime = $workTime;
@@ -62,7 +62,7 @@ class NumbersPretty
 
 	public function finishedCountToPairs()
 	{
-		$this->finished = intval($this->finished/2);
+		$this->finishedCount = intval(ceil($this->finishedCount/2));
 	}
 
 
