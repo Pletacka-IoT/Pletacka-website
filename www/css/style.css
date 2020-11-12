@@ -142,6 +142,42 @@ div.success {
 
 /*///////////////////////////////////*/
 
+.tsNumberHead{
+    text-align: center;
+    color: white;
+
+}
+
+.tsNumberBubble{
+    border-radius: 15px!important;
+    text-align: center;
+    color: white;
+    width: 120%;
+    /*margin 15px;*/
+/*    height: 50px;*/
+/*    min-width: 70px;*/
+
+}
+
+.tsNumberGreen{
+    background-color: #1A7E1E;
+}
+
+.tsNumberBlue{
+    background-color: #0a5ece;
+}
+
+.tsNumberRed{
+    background-color: #d03f4a;
+}
+
+
+
+
+
+
+/*///////////////////////////////////*/
+
 .zoom {
     transition: transform .2s;
 }

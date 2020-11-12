@@ -1,5 +1,31 @@
 {block content}
 
+{if $thisNumberBox->status}
+    <div class="table-responsive center">
+        <table class="table table-borderless ">
+            <tr>
+
+                <td>
+                    <div class="tsNumberBubble tsNumberGreen">
+                        <div class="">Upleteno</div>
+                        <h2>{$thisNumberBox->finishedCount}</h2>
+                    </div>
+                </td>
+                <td  class="tsNumberBubble tsNumberRed">
+                        <div class="">Počet zastavení</div>
+                        <h2>{$thisNumberBox->stopCount}</h2>
+                </td>
+                <td  class="tsNumberBubble tsNumberGreen">
+                        <div class=""></div>
+                        <h2>{$thisNumberBox->finishedCount}</h2>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+{/if}
+
+
 <div class="row">
 {*    <div class="col-sm-4 ">*}
 {*        <h5>Upleteno</h5>*}

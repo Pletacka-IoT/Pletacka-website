@@ -14,10 +14,14 @@ use Nette\Utils\DateTime;
  * @property string $msg
  * @property string $workShift
  * @property int $allTime
+ * @property string $allTimeStr
  * @property int $stopTime
+ * @property string $stopTimeStr
  * @property int $workTime
+ * @property string $workTimeStr
  * @property int $finishedCount
  * @property int $stopCount
+ * @property int $rating
  * @property DateTime $from
  * @property DateTime $to
  * @property bool $stopThere
@@ -31,10 +35,14 @@ class DatabaseDataExtractorPretty
 	private $msg = "";
 	private $workShift = "";
 	private $allTime = 0;
+	private $allTimeStr = "";
 	private $stopTime = 0;
+	private $stopTimeStr = "";
 	private $workTime = 0;
+	private $workTimeStr = "";
 	private $finishedCount = 0;
 	private $stopCount = 0;
+	private $rating = 0;
 	private $from;
 	private $to;
 	private $stopThere = false;
@@ -61,6 +69,71 @@ class DatabaseDataExtractorPretty
 	{
 		$this->number = $number;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getAllTimeStr(): string
+	{
+		return $this->allTimeStr;
+	}
+
+	/**
+	 * @param string $allTimeStr
+	 */
+	public function setAllTimeStr(string $allTimeStr): void
+	{
+		$this->allTimeStr = $allTimeStr;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStopTimeStr(): string
+	{
+		return $this->stopTimeStr;
+	}
+
+	/**
+	 * @param string $stopTimeStr
+	 */
+	public function setStopTimeStr(string $stopTimeStr): void
+	{
+		$this->stopTimeStr = $stopTimeStr;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getWorkTimeStr(): string
+	{
+		return $this->workTimeStr;
+	}
+
+	/**
+	 * @param string $workTimeStr
+	 */
+	public function setWorkTimeStr(string $workTimeStr): void
+	{
+		$this->workTimeStr = $workTimeStr;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRating(): int
+	{
+		return $this->rating;
+	}
+
+	/**
+	 * @param int $rating
+	 */
+	public function setRating(int $rating): void
+	{
+		$this->rating = $rating;
+	}
+
 	/**
 	 * @return bool
 	 */

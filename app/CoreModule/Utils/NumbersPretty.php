@@ -42,7 +42,7 @@ class NumbersPretty
 	 */
 	public $state;
 
-	public function __construct(bool $state = false, int $finishedCount = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
+	public function __construct(bool $state = false, int $finishedCount = 0, int $stopCount = 0, int $rating = 0, int $stopTime = 0, string $stopTimeStr = "", int $workTime = 0, int $allTime = 0)
 	{
 		$this->finishedCount = $finishedCount;
 		$this->rating = $rating;
