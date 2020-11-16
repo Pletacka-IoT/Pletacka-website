@@ -142,22 +142,29 @@ div.success {
 
 /*///////////////////////////////////*/
 
-.tsNumberHead{
-    text-align: center;
-    color: white;
-
-}
 
 .tsNumberBubble{
     border-radius: 15px!important;
     text-align: center;
     color: white;
-    width: 120%;
+    /*width: 120%;*/
+    /*height: 50px;*/
     /*margin 15px;*/
-/*    height: 50px;*/
+    height: 85px;
 /*    min-width: 70px;*/
 
 }
+
+.tsNumberName{
+
+}
+
+
+.tsNumberDate{
+
+
+}
+
 
 .tsNumberGreen{
     background-color: #1A7E1E;
@@ -170,6 +177,43 @@ div.success {
 .tsNumberRed{
     background-color: #d03f4a;
 }
+
+.tsNumberOrange{
+    background-color: #f84705;
+}
+
+.tsNumberLightRed{
+    background-color: #d03f4a;
+}
+
+.tsNumberLightGreen{
+    background-color: #0ece0e;
+}
+
+.tsNumberRedPurple{
+    background-color: #6f42c1;
+}
+
+.tsNumberDarkRed{
+    background-color: #491217;
+}
+
+.tsNumberDarkYellow{
+    background-color: #ba8b00;
+}
+
+.tsNumberPink{
+    background-color: #e83e8c;
+}
+
+.tsNumberYellow{
+    background-color: yellow;
+}
+
+.tsNumberSkyblue{
+    background-color: skyblue;
+}
+
 
 
 
@@ -186,7 +230,16 @@ div.success {
     -ms-transform: scale(1.2); /* IE 9 */
     -webkit-transform: scale(1.2); /* Safari 3-8 */
     transform: scale(1.2);
+}
 
+.zoom-sm{
+    transition: transform .2s;
+}
+
+.zoom-sm:hover {
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1);
 }
 
 .center{

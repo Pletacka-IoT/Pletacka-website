@@ -77,7 +77,8 @@ class StatusBubblesControl extends  Control{
 
     public function getCountFinishedTodayWS(int $number, DateTime $from, string $state)
     {
-    	return $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
+    	$x = $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
+	    return $x;
     }
 
     public function getClassName(string $sting): string

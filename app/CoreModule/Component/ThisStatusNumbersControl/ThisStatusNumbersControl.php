@@ -12,6 +12,7 @@ use App\Utils\DatabaseDataExtractorPretty;
 use App\Utils\DatabaseSelectionPretty;
 use App\Utils\NumbersPretty;
 use App\Utils\Pretty;
+use DateInterval;
 use Hoa\Ustring\Bin\Fromcode;
 use Nette;
 use App\Forms\FormFactory;
@@ -65,6 +66,8 @@ class ThisStatusNumbersControl extends  Control{
 
     public function timeRemoveFirstNull($text)
     {
+    	$text = strval($text);
+    	if($text == 0){return 0;}
     	if($text[0] == 0)
 	    {
 	    	return $text[1];
@@ -75,29 +78,85 @@ class ThisStatusNumbersControl extends  Control{
 	    }
     }
 
+	function secondsToTime($secs)
+	{
+		$dt = new DateTime('@' . $secs);
+		return array(
+//			'months'    => intval($dt->format('z')/30),
+//			'days'    => $dt->format('z')%30,
+//			'days'    => ,
+			'hours'   => $this->timeRemoveFirstNull(intval($dt->format('G')) + $dt->format('z')*24),
+			'minutes' => $this->timeRemoveFirstNull($dt->format('i')),
+			'seconds' => $this->timeRemoveFirstNull($dt->format('s')));
+	}
+
+
     public function humanTime(int $timeSeconds)
     {
-    	if($timeSeconds>3600)
+	    $time = $this->secondsToTime($timeSeconds);
+	    if($time["months"]>=1)
 	    {
-		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))." hod ".$this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." mim";
+		    return $time["months"]." měs ".$time["days"]." d";
 	    }
-    	else
+	    else if($time["days"]>=1)
 	    {
-		    return $this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." mim";
+		    return $time["days"]." d ".$time["hours"]." hod";
+	    }
+	    else if($time["hours"]>=1)
+	    {
+		    return $time["hours"]." hod ".$time["minutes"]." min";
+	    }
+	    else if($time["minutes"]>=1)
+	    {
+		    return $time["minutes"]." min ".$time["seconds"]." sec";
+	    }
+	    else
+	    {
+	    	return $time["seconds"]." sec";
 	    }
     }
 
+
     public function humanTimeShort(int $timeSeconds)
     {
-    	if($timeSeconds>3600)
+	    $time = $this->secondsToTime($timeSeconds);
+//	    if($time["months"]>=1)
+//	    {
+//		    return $time["months"]."M ".$time["days"]."D";
+//	    }
+//	    else if($time["days"]>=1)
+//	    {
+//		    return $time["days"]."D ".$time["hours"]."H";
+//	    }
+	    if($time["hours"]>=1)
 	    {
-		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))." h ".$this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." m";
+		    return $time["hours"]."H ".$time["minutes"]."M";
 	    }
-    	else
+	    else if($time["minutes"]>=1)
 	    {
-		    return $this->timeRemoveFirstNull(gmdate("i", $timeSeconds))." m";
+		    return $time["minutes"]."M ".$time["seconds"]."S";
+	    }
+	    else
+	    {
+	    	return $time["seconds"]."S";
 	    }
     }
+
+
+//
+//    public function humanTimeShort(int $timeSeconds)
+//    {
+//    	if($timeSeconds>3600)
+//	    {
+//		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))."h ".$this->timeRemoveFirstNull(gmdate("i", $timeSeconds))."m";
+//	    }
+//    	else
+//	    {
+////		    return $this->timeRemoveFirstNull(gmdate("i", $timeSeconds))."m";
+//		    $dv = new DateInterval('PT'.$timeSeconds.'S');
+//		    return $dv->format("%h:%i:%s");
+//	    }
+//    }
 
 
     public function getClassName(string $sting): string
@@ -147,6 +206,9 @@ class ThisStatusNumbersControl extends  Control{
 	    $timeboxTo = new DateTime();
 
 	    $numberBox = new DatabaseDataExtractorPretty();
+	    $numberBox->workShift = $workShift;
+	    $numberBox->from = $from;
+	    $numberBox->to = $to;
 	    $addCounter = false;
 
 
@@ -184,6 +246,8 @@ class ThisStatusNumbersControl extends  Control{
 			    $numberBox->finishedCount = intval(ceil($numberBox->finishedCount/2));
 
 			    $numberBox->stopTimeStr = $this->humanTimeShort($numberBox->stopTime);
+			    $numberBox->workTimeStr= $this->humanTimeShort($numberBox->workTime);
+			    $numberBox->allTimeStr= $this->humanTimeShort($numberBox->allTime);
 
 			    $numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
 		    }
@@ -193,6 +257,33 @@ class ThisStatusNumbersControl extends  Control{
 	        }
         return $numberBox;
 
+    }
+
+    public function thisNumberBoxes(int $number, string $workShift)
+    {
+	    $thisNumberBoxes = array();
+
+    	$fromDay = new DateTime();
+	    $fromDay->setTimestamp(strtotime("today"));
+	    $toDay = new DateTime();
+	    $toDay->setTimestamp(strtotime("tomorrow")-1);
+    	$thisNumberBoxes["DAY"] = $this->prepareThisNumberBox($number, $workShift, $fromDay, $toDay);
+
+
+    	$fromWeek = new DateTime();
+    	$fromWeek->setTimestamp(strtotime("today"));
+    	$fromWeek->sub(DateInterval::createFromDateString("1 week"));
+	    $toWeek = new DateTime();
+	    $toWeek->setTimestamp(strtotime("tomorrow")-1);
+    	$thisNumberBoxes["WEEK"] = $this->prepareThisNumberBox($number, $workShift, $fromWeek, $toWeek);
+
+    	$fromMonth = new DateTime();
+    	$fromMonth->setTimestamp(strtotime("today"));
+    	$fromMonth->sub(DateInterval::createFromDateString("1 month"));
+	    $toMonth = new DateTime();
+	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
+    	$thisNumberBoxes["MONTH"] = $this->prepareThisNumberBox($number, $workShift, $fromMonth, $toMonth);
+	    return $thisNumberBoxes;
     }
 
     public function render(int $number, string $workShift, DateTime $from, DateTime $to)
@@ -216,17 +307,20 @@ class ThisStatusNumbersControl extends  Control{
     	$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
     }
 
-    public function renderA(int $number, DateTime $from, DateTime $to)
+    public function renderA(int $number)
     {
-	    $thisNumberBox = $this->prepareThisNumberBox($number, "Cahovi", $from, $to);
+//	    $thisNumberBox = $this->prepareThisNumberBox($number, "Cahovi", $from, $to);
+	    $thisNumberBox = $this->thisNumberBoxes($number, "Cahovi");
 	    $this->template->thisNumberBox = $thisNumberBox;
+
 	    dump($thisNumberBox);
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
     }
 
-	public function renderB(int $number, DateTime $from, DateTime $to)
+	public function renderB(int $number)
 	{
-		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
+//		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
+		$thisNumberBox = $this->thisNumberBoxes($number, "Vaňkovi");
 		$this->template->thisNumberBox = $thisNumberBox;
 		dump($thisNumberBox);
 		$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
