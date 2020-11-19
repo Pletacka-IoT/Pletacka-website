@@ -209,6 +209,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $numberBox->workShift = $workShift;
 	    $numberBox->from = $from;
 	    $numberBox->to = $to;
+	    $numberBox->number = $number;
 	    $addCounter = false;
 
 
@@ -249,11 +250,21 @@ class ThisStatusNumbersControl extends  Control{
 			    $numberBox->workTimeStr= $this->humanTimeShort($numberBox->workTime);
 			    $numberBox->allTimeStr= $this->humanTimeShort($numberBox->allTime);
 
+				$numberBox->workTimeAvg = intval($numberBox->workTime/$numberBox->finishedCount);
+			    $numberBox->workTimeAvgStr = $this->humanTimeShort($numberBox->workTimeAvg);
+
+				$numberBox->stopTimeAvg = intval($numberBox->stopTime/$numberBox->stopCount);
+			    $numberBox->stopTimeAvgStr = $this->humanTimeShort($numberBox->stopTimeAvg);
+
+
+
 			    $numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
 		    }
 		    else
 		    {
-			    $numberBox->stopTimeStr = "0 min";
+//			    $numberBox->stopTimeStr = "0 min";
+//			    $numberBox->allTimeStr = "0 min";
+//			    $numberBox->stopTimeStr = "0 min";
 	        }
         return $numberBox;
 
@@ -313,8 +324,8 @@ class ThisStatusNumbersControl extends  Control{
 	    $thisNumberBox = $this->thisNumberBoxes($number, "Cahovi");
 	    $this->template->thisNumberBox = $thisNumberBox;
 
-//	    dump($thisNumberBox);
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+	    dump($thisNumberBox);
     }
 
 	public function renderB(int $number)
@@ -322,8 +333,8 @@ class ThisStatusNumbersControl extends  Control{
 //		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
 		$thisNumberBox = $this->thisNumberBoxes($number, "Vaňkovi");
 		$this->template->thisNumberBox = $thisNumberBox;
-//		dump($thisNumberBox);
 		$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+		dump($thisNumberBox);
 	}
 
     public function handleClick()

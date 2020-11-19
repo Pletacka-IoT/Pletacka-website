@@ -142,18 +142,11 @@ div.success {
 
 /*///////////////////////////////////*/
 
-.tsNumberTr{
-
-}
-
-
-
-td.tsNumberTd{
+.tsNumberCol{
     padding: 5px;
-    display:table-cell;
-    vertical-align:top;
-    height:120px;
 }
+
+
 
 .tsNumberBubble{
     border-radius: 15px!important;
@@ -170,7 +163,7 @@ td.tsNumberTd{
 }
 
 .tsNumberName{
-
+    font: 25px Arial;
 }
 
 
@@ -181,6 +174,7 @@ td.tsNumberTd{
 
 .tsNumberValue{
     text-align: center;
+    font: 30px Arial;
 }
 
 
@@ -231,7 +225,7 @@ td.tsNumberTd{
 }
 
 .tsNumberSkyblue{
-    background-color: skyblue;
+    background-color: #095d7f;
 }
 
 
@@ -252,15 +246,15 @@ td.tsNumberTd{
     transform: scale(1.2);
 }
 
-.zoom-sm{
-    transition: transform .2s;
-}
+/*.zoom-sm{*/
+/*    transition: transform .2s;*/
+/*}*/
 
-.zoom-sm:hover {
-    -ms-transform: scale(1.1); /* IE 9 */
-    -webkit-transform: scale(1.1); /* Safari 3-8 */
-    transform: scale(1.1);
-}
+/*.zoom-sm:hover {*/
+/*    -ms-transform: scale(1.1); !* IE 9 *!*/
+/*    -webkit-transform: scale(1.1); !* Safari 3-8 *!*/
+/*    transform: scale(1.1);*/
+/*}*/
 
 .center{
     margin-left: auto;

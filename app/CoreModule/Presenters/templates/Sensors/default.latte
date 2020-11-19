@@ -4,36 +4,34 @@
 {var $ws = "Cahovi"}
 
 
-<div class="container text-center p-4 " style="margin-top:80px">
+<div class="container text-center " style="margin-top:80px">
     <h5><a class="ajax" n:href="Homepage:default" >Domů</a></h5>
 
     <h2>Senzor: {$sensor["number"]}</h2>
 </div>
 
 
-<div class="container  p-4 center text-center" >
-    {*    {include bootstrap-form showForm}*}
-    {*    {include bootstrap-form showChartForm}*}
-    <form n:name=showChartForm class="ajax">
-        {input num}
-        <div id="reportrange" class="btn btn-dark" style="margin: auto">Vybrat období</div>
-        {*            <input class="form-control" style="text-align: center">*}
-        {*            <button class="btn btn-dark">Vybrat</button>*}
+{*<div class="container  p-4 center text-center" >*}
+{*    *}{*    {include bootstrap-form showForm}*}
+{*    *}{*    {include bootstrap-form showChartForm}*}
+{*    <form n:name=showChartForm class="ajax">*}
+{*        {input num}*}
+{*        <div id="reportrange" class="btn btn-dark" style="margin: auto">Vybrat období</div>*}
+{*        *}{*            <input class="form-control" style="text-align: center">*}
+{*        *}{*            <button class="btn btn-dark">Vybrat</button>*}
 
-        <input type="submit" n:name="send" style="display:none;">
-        <div id="from">{input from}</div>
-        <div id="to">{input to}</div>
-    </form>
-</div>
+{*        <input type="submit" n:name="send" style="display:none;">*}
+{*        <div id="from">{input from}</div>*}
+{*        <div id="to">{input to}</div>*}
+{*    </form>*}
+{*</div>*}
 
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 center-line">
             <div class="text-center">
-                <h5>Dopolední směna</h5>
-                <h2>{$ws}</h2>
-
+                <h1>{$ws}</h1>
                 {snippet xthisStatusNumbersA}
                     {control thisStatusNumbers:A, $number, $xFrom, $xTo}
                 {/snippet}
@@ -43,9 +41,7 @@
         <div class="col-md-6">
             {var $ws = "Vaňkovi"}
             <div class="text-center">
-                <h5>Odpolední směna</h5>
-                <h2>{$ws}</h2>
-
+                <h1>{$ws}</h1>
                 {snippet thisStatusNumbersB}
                     {control thisStatusNumbers:B, $number, $xFrom, $xTo}
                 {/snippet}

@@ -17,8 +17,12 @@ use Nette\Utils\DateTime;
  * @property string $allTimeStr
  * @property int $stopTime
  * @property string $stopTimeStr
+ * @property int $stopTimeAvg
+ * @property string $stopTimeAvgStr
  * @property int $workTime
  * @property string $workTimeStr
+ * @property int $workTimeAvg
+ * @property string $workTimeAvgStr
  * @property int $finishedCount
  * @property int $stopCount
  * @property int $rating
@@ -38,8 +42,12 @@ class DatabaseDataExtractorPretty
 	private $allTimeStr = "-";
 	private $stopTime = 0;
 	private $stopTimeStr = "-";
+	private $stopTimeAvg = 0;
+	private $stopTimeAvgStr = "-";
 	private $workTime = 0;
 	private $workTimeStr = "-";
+	private $workTimeAvg = 0;
+	private $workTimeAvgStr = "-";
 	private $finishedCount = 0;
 	private $stopCount = 0;
 	private $rating = 0;
@@ -132,6 +140,70 @@ class DatabaseDataExtractorPretty
 	public function setRating(int $rating): void
 	{
 		$this->rating = $rating;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getStopTimeAvg(): int
+	{
+		return $this->stopTimeAvg;
+	}
+
+	/**
+	 * @param int $stopTimeAvg
+	 */
+	public function setStopTimeAvg(int $stopTimeAvg): void
+	{
+		$this->stopTimeAvg = $stopTimeAvg;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStopTimeAvgStr(): string
+	{
+		return $this->stopTimeAvgStr;
+	}
+
+	/**
+	 * @param string $stopTimeAvgStr
+	 */
+	public function setStopTimeAvgStr(string $stopTimeAvgStr): void
+	{
+		$this->stopTimeAvgStr = $stopTimeAvgStr;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getWorkTimeAvg(): int
+	{
+		return $this->workTimeAvg;
+	}
+
+	/**
+	 * @param int $workTimeAvg
+	 */
+	public function setWorkTimeAvg(int $workTimeAvg): void
+	{
+		$this->workTimeAvg = $workTimeAvg;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getWorkTimeAvgStr(): string
+	{
+		return $this->workTimeAvgStr;
+	}
+
+	/**
+	 * @param string $workTimeAvgStr
+	 */
+	public function setWorkTimeAvgStr(string $workTimeAvgStr): void
+	{
+		$this->workTimeAvgStr = $workTimeAvgStr;
 	}
 
 	/**
