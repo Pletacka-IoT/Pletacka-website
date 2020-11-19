@@ -32,14 +32,14 @@ class DatabaseDataExtractorPretty
 
 	private $number = -555;
 	private $status = false;
-	private $msg = "";
+	private $msg = "-";
 	private $workShift = "";
 	private $allTime = 0;
-	private $allTimeStr = "";
+	private $allTimeStr = "-";
 	private $stopTime = 0;
-	private $stopTimeStr = "";
+	private $stopTimeStr = "-";
 	private $workTime = 0;
-	private $workTimeStr = "";
+	private $workTimeStr = "-";
 	private $finishedCount = 0;
 	private $stopCount = 0;
 	private $rating = 0;

@@ -1,74 +1,59 @@
 {block content}
 
-{if $thisNumberBox["WEEK"]->status}
+Fix me
+{if true}
     <div class="table-responsive center">
-        <table class="table table-borderless ">
-            <tr>
-                <td>
+        <table class="table table-borderless tsNumberTable">
+            <tr class="tsNumberTr">
+                <td class="tsNumberTd">
                     <div class="tsNumberBubble zoom-sm tsNumberOrange">
-                        <div class="tsNumberName">Doba pletení</div>
-                        <div class="tsNumberDate">Poslední týden</div>
-{*                        <div class="">{$time}</div>*}
-                        <h2>{$thisNumberBox["WEEK"]->workTimeStr}</h2>
+                        <p class="tsNumberName">Doba pletení</p>
+                        <p class="tsNumberDate">Poslední týden</p>
+                        <p class="tsNumberValue">{$thisNumberBox["WEEK"]->workTimeStr}</p>
                     </div>
                 </td>
-                <td>
+                <td class="tsNumberTd">
                     <div class="tsNumberBubble zoom-sm tsNumberGreen">
                         <div class="tsNumberName">Upleteno</div>
                         <div class="tsNumberDate">Dnes</div>
-                        <h2>{$thisNumberBox["DAY"]->finishedCount}</h2>
+                        <div class="tsNumberValue">{$thisNumberBox["DAY"]->finishedCount}</div>
                     </div>
                 </td>
-                <td>
+                <td class="tsNumberTd">
                     <div class="tsNumberBubble zoom-sm tsNumberBlue">
                         <div class="tsNumberName">Úspěšnost</div>
                         <div class="tsNumberDate">Poslední měsíc</div>
-                        <h2>{$thisNumberBox["MONTH"]->rating}%</h2>
+                        <div class="tsNumberValue">{$thisNumberBox["MONTH"]->rating}%</div>
                     </div>
                 </td>
             </tr>
-            {if $thisNumberBox["WEEK"]->status}
-                <tr>
-                    <td>
-                        <div class="tsNumberBubble zoom-sm tsNumberOrange">
-                            <div class="tsNumberName">Doba</div>
-                            <div class="tsNumberDate">Doba</div>
-                            <h2>{$thisNumberBox["WEEK"]->workTimeStr}</h2>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="tsNumberBubble zoom-sm tsNumberRed">
-                            <div class="tsNumberName">Doba</div>
-                            <div class="tsNumberDate">Doba</div>
-                            <h2>{$thisNumberBox["WEEK"]->stopTimeStr}</h2>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="tsNumberBubble zoom-sm tsNumberGreen">
-                            <div class="tsNumberName">Doba</div>
-                            <div class="tsNumberDate">Doba</div>
-                            <h2>{$thisNumberBox["WEEK"]->finishedCount}</h2>
-                        </div>
-                    </td>
-                </tr>
-            {/if}
+{*            {if $thisNumberBox["WEEK"]->status}*}
+{*                <tr>*}
+{*                    <td>*}
+{*                        <div class="tsNumberBubble zoom-sm tsNumberOrange">*}
+{*                            <div class="tsNumberName">Doba</div>*}
+{*                            <div class="tsNumberDate">Doba</div>*}
+{*                            <h2 class="tsNumberValue">{$thisNumberBox["WEEK"]->workTimeStr}</h2>*}
+{*                        </div>*}
+{*                    </td>*}
+{*                    <td>*}
+{*                        <div class="tsNumberBubble zoom-sm tsNumberRed">*}
+{*                            <div class="tsNumberName">Doba</div>*}
+{*                            <div class="tsNumberDate">Doba</div>*}
+{*                            <h2 class="tsNumberValue">{$thisNumberBox["WEEK"]->stopTimeStr}</h2>*}
+{*                        </div>*}
+{*                    </td>*}
+{*                    <td>*}
+{*                        <div class="tsNumberBubble zoom-sm tsNumberGreen">*}
+{*                            <div class="tsNumberName">Doba</div>*}
+{*                            <div class="tsNumberDate">Doba</div>*}
+{*                            <h2 class="tsNumberValue">{$thisNumberBox["WEEK"]->finishedCount}</h2>*}
+{*                        </div>*}
+{*                    </td>*}
+{*                </tr>*}
+{*            {/if}*}
         </table>
     </div>
 {/if}
 
 
-<div class="row">
-{*    <div class="col-sm-4 ">*}
-{*        <h5>Upleteno</h5>*}
-{*        <h2>{$numberBox->finished} p</h2>*}
-{*    </div>*}
-{*    <div class="col-sm-4 ">*}
-{*        <h5>Úspěšnost</h5>*}
-{*        <h2>{$numberBox->rating}%</h2>*}
-{*    </div>*}
-{*    <div class="col-sm-4 ">*}
-{*        <h5>Průměrná doba stání</h5>*}
-{*        <h2>{$numberBox->stopTimeStr}</h2>*}
-{*    </div>*}
-    asd
-</div>

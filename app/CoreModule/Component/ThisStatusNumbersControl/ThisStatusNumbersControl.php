@@ -313,7 +313,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $thisNumberBox = $this->thisNumberBoxes($number, "Cahovi");
 	    $this->template->thisNumberBox = $thisNumberBox;
 
-	    dump($thisNumberBox);
+//	    dump($thisNumberBox);
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
     }
 
@@ -322,7 +322,7 @@ class ThisStatusNumbersControl extends  Control{
 //		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
 		$thisNumberBox = $this->thisNumberBoxes($number, "Vaňkovi");
 		$this->template->thisNumberBox = $thisNumberBox;
-		dump($thisNumberBox);
+//		dump($thisNumberBox);
 		$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
 	}
 

@@ -142,15 +142,29 @@ div.success {
 
 /*///////////////////////////////////*/
 
+.tsNumberTr{
+
+}
+
+
+
+td.tsNumberTd{
+    padding: 5px;
+    display:table-cell;
+    vertical-align:top;
+    height:120px;
+}
 
 .tsNumberBubble{
     border-radius: 15px!important;
+    padding: 3px;
     text-align: center;
     color: white;
-    /*width: 120%;*/
+    height:100%;
+    width: 100%;
     /*height: 50px;*/
     /*margin 15px;*/
-    height: 85px;
+    /*height: 90px;*/
 /*    min-width: 70px;*/
 
 }
@@ -164,6 +178,12 @@ div.success {
 
 
 }
+
+.tsNumberValue{
+    text-align: center;
+}
+
+
 
 
 .tsNumberGreen{

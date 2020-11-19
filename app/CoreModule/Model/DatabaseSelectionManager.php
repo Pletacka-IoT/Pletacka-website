@@ -216,10 +216,10 @@ class DatabaseSelectionManager
 				    }
 			    }
 
-			    $timeBox = new TimeBox($rawData, $from, $to);
+			    $timeBox = new TimeBox($rawData, $previousData, $from, $to);
 
-			    $databaseOutput->t_all += $timeBox->allTime($previousData);
-			    $databaseOutput->t_stop += $timeBox->stopTime($previousData);
+			    $databaseOutput->t_all += $timeBox->allTime();
+			    $databaseOutput->t_stop += $timeBox->stopTime();
 			    $databaseOutput->t_work = $databaseOutput->t_all - $databaseOutput->t_stop;
 
 			    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
