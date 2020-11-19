@@ -7,14 +7,15 @@ a:hover{
 div.flash{
     color: #0c5460;
     background-color: #d1ecf1;
-    border-color: #bee5eb;
-	padding: 1em;
+    border-color: #073608;
+	/*padding: 1em;*/
 
     position: relative;
     padding: .75rem 1.25rem;
 
-    border: 1px solid transparent;
-    border-radius: .25rem;
+    /*border: 1px solid transparent;*/
+    /*border-radius: .25rem;*/
+    text-align: right;
 }
 
 /*Muj alert*/
@@ -31,68 +32,6 @@ div.success {
     border-color: #c3e6cb;
 }
 
-.xbubble {
-    /*display: inline-block;*/
-    position: relative;
-    /*left: -10px;*/
-    width: 90px;
-    height: 50px;
-    /*margin: 6px;!*/
-    margin-top: 6px;
-
-    border-radius: 15px!important;
-    /*z-index: -1;*/
-
-}
-
-.xbubble-number{
-    color: white;
-    position: relative;
-    /*left: 10px;*/
-    top: 13px;
-    text-align: center;
-    width: 100%;
-}
-
-.xbubble-text{
-    position: relative;
-    left: -85px;
-    top: 20px;
-    color: #ffffff;
-    width: 45px;
-    z-index: 5;
-}
-
-
-
-.xbubble-off{
-    background-color: #6a6767;
-}
-/*.xbubble-text-off{*/
-/*    color: #6a6767;*/
-/*}*/
-
-.xbubble-ok{
-    background-color: #1A7E1E;
-}
-/*.xbubble-text-ok{*/
-/*    color: #1A7E1E;*/
-/*}*/
-
-.xbubble-stop{
-    background-color: #f51026;
-}
-/*.xbubble-text-stop{*/
-/*    color: #f51026;*/
-/*}*/
-
-.xbubble-brim{
-    border: 5px solid red;
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-    display: inline-block;
-}
 
 /*///////////////////////////////////*/
 .bubble-border{

@@ -38,17 +38,14 @@
 	<div class="page">
 
 		{snippet header}
-			<nav class="navbar navbar-expand-md bg-dark navbar-dark "><!--fixed-top-->
-				
+				<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top"><!--fixed-top-->
+
 				<!-- Brand/logo -->
 				<a class="navbar-brand ajax" n:href="Homepage:default">
 					<img src="{$basePath}/images/Pletacka-IoT-100.png" alt="logo" style="width:40px;">
 				</a>
 
 				<a class="navbar-brand ajax" n:href=:Core:Homepage:default>Pletačka IoT</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
 
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav">
@@ -57,7 +54,7 @@
 							<a class="nav-link ajax" n:href="Sign:out">Odhlásit se</a>
 						{else}
 							<a class="nav-link ajax" n:href="Sign:in">Přihlásit se</a>
-						{/if}        
+						{/if}
 					</li>
 					{if $user->loggedIn}
 					<li class="nav-item">
@@ -81,15 +78,19 @@
 					{/if}
 					</ul>
 				</div>
-				{snippet msg1}
-					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>  
-				{/snippet}
+
+{*				{snippet msg1}*}
+{*					<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-small">{$flash->message}</div>*}
+{*				{/snippet}*}
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 			</nav>
 		{/snippet}
 
 		<div class="content">
 			{snippet msg2}
-			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, hide-big">{$flash->message}</div> 
+			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, ">{$flash->message}</div>{*hide-big*}
 			{/snippet}
 			
 			{snippet content}

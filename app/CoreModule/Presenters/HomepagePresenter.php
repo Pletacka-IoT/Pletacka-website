@@ -78,6 +78,7 @@ final class HomepagePresenter extends BasePresenter
 
         // Small pletacka room
 	    $this->template->plSmall = $plSmall = $this->roomManager->roomPletarnaSmall;
+
 //        ($bubblesSmall = $this->template->bubblesSmall = $this->chartManager->sensorsChartBubbles($plSmall));
 
 //        $last = $pletackyAll["ALL_SENSORS"]["Pletacka1"];
