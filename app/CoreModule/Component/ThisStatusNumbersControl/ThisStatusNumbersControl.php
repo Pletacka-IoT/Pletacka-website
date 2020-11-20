@@ -297,49 +297,23 @@ class ThisStatusNumbersControl extends  Control{
 	    return $thisNumberBoxes;
     }
 
-    public function render(int $number, string $workShift, DateTime $from, DateTime $to)
+    public function render(int $number, string $workShift)
     {
-//		$wsAll = array("Cahovi", "Vaňkovi");
-//		$thisNumberBox = array();
-//
-//		foreach ($wsAll as $ws)
-//		{
-//			$thisNumberBoxWs = $this->prepareThisNumberBox($number, $ws, $from, $to);
-//			 array_push($thisNumberBox, $thisNumberBoxWs);
-//
-//		}
-
-
-	    $thisNumberBox = $this->prepareThisNumberBox($number, $workShift, $from, $to);
-
-
+	    $thisNumberBox = $this->thisNumberBoxes($number, $workShift);
 	    $this->template->thisNumberBox = $thisNumberBox;
-		dump($thisNumberBox);
-    	$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+//	    dump($thisNumberBox);
     }
 
     public function renderA(int $number)
     {
-//	    $thisNumberBox = $this->prepareThisNumberBox($number, "Cahovi", $from, $to);
-	    $thisNumberBox = $this->thisNumberBoxes($number, "Cahovi");
-	    $this->template->thisNumberBox = $thisNumberBox;
-
-	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
-	    dump($thisNumberBox);
+		$this->render($number, "Cahovi");
     }
 
 	public function renderB(int $number)
 	{
-//		$thisNumberBox = $this->prepareThisNumberBox($number, "Vaňkovi", $from, $to);
-		$thisNumberBox = $this->thisNumberBoxes($number, "Vaňkovi");
-		$this->template->thisNumberBox = $thisNumberBox;
-		$this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
-		dump($thisNumberBox);
+		$this->render($number, "Vaňkovi");
 	}
-
-    public function handleClick()
-    {
-        echo "OK";
-    }
 
 }

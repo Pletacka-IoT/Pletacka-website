@@ -69,9 +69,6 @@ final class HomepagePresenter extends BasePresenter
 
         $this->template->actualWS = $this->workShiftManager->getActualWS();
 
-        // Info table
-        ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
-
         // Big pletacka room
 	    $this->template->plBig = $plBig = $this->roomManager->roomPletarnaBig;
 //        ($bubblesBig = $this->template->bubblesBig = $this->chartManager->sensorsChartBubbles($plBig));

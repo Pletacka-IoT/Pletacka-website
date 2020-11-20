@@ -29,26 +29,35 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 center-line">
+        <div n:snippet="Cahovi" class="col-md-6 center-line">
+            {var $ws = "Cahovi"}
             <div class="text-center">
                 <h1>{$ws}</h1>
-                {snippet xthisStatusNumbersA}
-                    {control thisStatusNumbers:A, $number, $xFrom, $xTo}
-                {/snippet}
             </div>
+
+            <div n:snippet="thisStatusNumbersA" class="thisStatusNumbers">
+                {control thisStatusNumbers:A, $number}
+            </div>
+
         </div>
 
-        <div class="col-md-6">
+        <div n:snippet="Vaňkovi" class="col-md-6">
             {var $ws = "Vaňkovi"}
             <div class="text-center">
                 <h1>{$ws}</h1>
-                {snippet thisStatusNumbersB}
-                    {control thisStatusNumbers:B, $number, $xFrom, $xTo}
-                {/snippet}
+            </div>
+
+            <div n:snippet="thisStatusNumbersB" class="thisStatusNumbers">
+                {control thisStatusNumbers:B, $number}
             </div>
         </div>
     </div>
+</div>
 
+<div class="container-fluid">
+    <div n:snippet="thisChartFin">
+        {control thisChart, $number, "FINISHED", "3 day", "Upleteno", "Poslední 3 dny"}
+    </div>
 </div>
 
 {*{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}*}

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\CoreModule\Presenters;
 
 use App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory;
+use App\CoreModule\Component\ThisChartControl\ThisChartControl;
+use App\CoreModule\Component\ThisChartControl\ThisChartControlFactory;
 use App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
@@ -59,6 +61,10 @@ final class SensorsPresenter extends BasePresenter
 	 * @var ThisStatusNumbersControlFactory
 	 */
 	private $thisStatusNumbersControlFactory;
+	/**
+	 * @var ThisChartControlFactory
+	 */
+	private $thisChartControlFactory;
 
 
 	public function __construct(
@@ -71,7 +77,8 @@ final class SensorsPresenter extends BasePresenter
 		ChartManager $chartManager,
 		WorkShiftManager $workShiftManager,
 		PletackaChartControlFactory $pletackaChartControlFactory,
-		ThisStatusNumbersControlFactory $thisStatusNumbersControlFactory
+		ThisStatusNumbersControlFactory $thisStatusNumbersControlFactory,
+		ThisChartControlFactory $thisChartControlFactory
     )
 	{
         
@@ -85,11 +92,17 @@ final class SensorsPresenter extends BasePresenter
         $this->workShiftManager = $workShiftManager;
         $this->pletackaChartControlFactory = $pletackaChartControlFactory;
 		$this->thisStatusNumbersControlFactory = $thisStatusNumbersControlFactory;
+		$this->thisChartControlFactory = $thisChartControlFactory;
 	}
 
 	protected function createComponentThisStatusNumbers()
 	{
 		return $this->thisStatusNumbersControlFactory->create();
+	}
+
+	protected function createComponentThisChart()
+	{
+		return $this->thisChartControlFactory->create();
 	}
 
     protected function createComponentPletackaChart()

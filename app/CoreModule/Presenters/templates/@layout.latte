@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="{$basePath}/css/external/boostrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/external/c3.css">
 	<link rel="stylesheet" href="{$basePath}/css/external/daterangepicker.css" />
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="{$basePath}/css/app/style.css">
 
 
 	<script src="{$basePath}/js/external/jquery.min.js"></script>
@@ -28,8 +28,10 @@
 	<script src="{$basePath}/js/external/moment.min.js"></script>
 	<script src="{$basePath}/js/external/daterangepicker.min.js"></script>
 
+	{ifset head}{include head|noescape} | {/ifset}
+
 	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka IoT</title>
-	{block head}{/block}
+{*	{block head}{/block}*}
 
 
 </head>
