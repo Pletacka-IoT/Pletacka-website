@@ -31,21 +31,27 @@ class ThisChartControlFactory
 	 * @var DatabaseSelectionManager
 	 */
 	private $databaseSelectionManager;
+	/**
+	 * @var WorkShiftManager
+	 */
+	private $workShiftManager;
 
 
 	public function __construct(MultiSensorsManager $multiSensorsManager,
 	                            ThisSensorManager $thisSensorManager,
 	                            Context $database,
-	                            DatabaseSelectionManager $databaseSelectionManager)
+	                            DatabaseSelectionManager $databaseSelectionManager,
+								WorkShiftManager $workShiftManager)
     {
 	    $this->multiSensorsManager = $multiSensorsManager;
 	    $this->thisSensorManager = $thisSensorManager;
 	    $this->database = $database;
 	    $this->databaseSelectionManager = $databaseSelectionManager;
+	    $this->workShiftManager = $workShiftManager;
     }
 
     public function create()
     {
-        return new ThisChartControl($this->multiSensorsManager, $this->thisSensorManager, $this->database, $this->databaseSelectionManager);
+        return new ThisChartControl($this->multiSensorsManager, $this->thisSensorManager, $this->database, $this->databaseSelectionManager, $this->workShiftManager);
     }
 }

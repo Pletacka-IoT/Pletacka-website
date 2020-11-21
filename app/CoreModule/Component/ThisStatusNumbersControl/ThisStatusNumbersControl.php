@@ -306,14 +306,14 @@ class ThisStatusNumbersControl extends  Control{
 //	    dump($thisNumberBox);
     }
 
-    public function renderA(int $number)
-    {
-		$this->render($number, "Cahovi");
-    }
-
-	public function renderB(int $number)
-	{
-		$this->render($number, "Vaňkovi");
-	}
+//    public function renderA(int $number)
+//    {
+//		$this->render($number, "Cahovi");
+//    }
+//
+//	public function renderB(int $number)
+//	{
+//		$this->render($number, "Vaňkovi");
+//	}
 
 }

@@ -374,7 +374,15 @@ class DatabaseSelectionManager
     }
 
 
-    public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
+	/**
+	 * @param int $number
+	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
+	 * @param string $workShift ["Cahovi" or "Vaňkovi"]
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return DatabaseDataExtractorPretty
+	 */
+	public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
     {
     	$dsPretty = new DatabaseDataExtractorPretty($number);
 	    $dsPretty->workShift = $workShift;
@@ -397,6 +405,62 @@ class DatabaseSelectionManager
 	    }
 
     	return $dsPretty;
+    }
+
+
+	/**
+	 * @param int $number
+	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
+	 * @param string $workShift ["Cahovi" or "Vaňkovi"]
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return array
+	 */
+	public function getSelectionDataDetail(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): array
+    {
+
+	    $dsPrettyArray = array();
+
+	    $min = null;
+	    $max = null;
+
+    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+
+    	if(!$dSelection)
+	    {
+	    	return $dsPrettyArray;
+	    }
+
+    	foreach ($dSelection as $dRow)
+	    {
+		    $dsPretty = new DatabaseDataExtractorPretty($number);
+		    $dsPretty->workShift = $workShift;
+		    $dsPretty->from = $dRow->time;
+
+	    	$dsPretty->stopTime = $dRow->t_stop;
+		    $dsPretty->workTime = $dRow->t_work;
+		    $dsPretty->allTime = $dRow->t_all;
+		    $dsPretty->finishedCount = $dRow->c_FINISHED;
+		    $dsPretty->stopCount = $dRow->c_STOP;
+
+		    if($dRow->c_STOP)
+		    {
+			    $dsPretty->stopTimeAvg = intval($dRow->t_stop/$dRow->c_STOP);
+		    }
+
+		    if($dRow->c_FINISHED)
+		    {
+			    $dsPretty->workTimeAvg = intval($dRow->t_work/$dRow->c_FINISHED);
+		    }
+
+		    $dsPretty->status = true;
+
+//		    if($)
+
+		    array_push($dsPrettyArray, $dsPretty);
+	    }
+
+    	return $dsPrettyArray;
     }
 }
 
