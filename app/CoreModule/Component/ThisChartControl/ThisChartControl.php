@@ -78,23 +78,74 @@ class ThisChartControl extends  Control{
 		$dateTime["from"]->setTime(0, 0);
 		return $dateTime;
 	}
-	
-	
+
+	public function prepareValue(array $chartDataRaw, string $type): array
+	{
+		$chartData = array();
+		$min = null;
+		$max = null;
+
+		$first = true;
+
+		foreach($chartDataRaw as $data)
+		{
+			$x = 5;
+			switch ($type)
+			{
+				case "finishedCount":
+					$hour = array("from"=>$data->from, "value"=>$data->finishedCount);
+					if($first)
+					{
+						$min = $hour["value"];
+						$max = $hour["value"];
+						$first = false;
+					}
+
+					if($hour["value"]>$max)
+						$max = $hour["value"];
+					if($hour["value"]<$min)
+						$min = $hour["value"];
+					array_push($chartData, $hour);
+					break;
+
+				case "stopCount":
+					$value = $data->stopCount;
+					break;
+
+				case "stopTimeAvg":
+					$value = $data->stopTimeAvg;
+					break;
+
+
+			}
+		}
+
+		$chartDataAll = array();
+		$chartDataAll["min"] = $min;
+		$chartDataAll["max"] = $max;
+		$chartDataAll["data"] = $chartData;
+
+
+		return $chartDataAll;
+	}
+
+
 	public function prepareThisChartHour(int $number, string $workShift, string $type, DateTime $from, DateTime $to, string $color, string $name): DateChart
 	{
 		$name = explode("-", $name);
 
-		$chartData = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
+		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
+
+		$chartData = $this->prepareValue($chartDataRaw, $type);
+
+//		$chartData = $chartDataRaw;
+
 
 		$serieType = DateSerie::AREA_SPLINE;
-
-		//        $dataChart = $this->thisChartManager->sensorChartDataState($rawEvents, $type, $interval, $states);
-		//        dump($dataChart);
-
 		$dayChart = new DateChart();
 		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
-//		$dayChart->setMinValue(0);
-//		$dayChart->setMaxValue(40);
+		$dayChart->setMinValue($chartData["min"]-1);
+		$dayChart->setMaxValue($chartData["max"]+1);
 		$dayChart->setValueSuffix($name[1]);
 
 //		$x = new DateTime;
@@ -104,33 +155,9 @@ class ThisChartControl extends  Control{
 
 		$serie = new DateSerie($serieType, $name[0], $color);
 		$first = true;
-		foreach($chartData as $data)
+		foreach($chartData["data"] as $data)
 		{
-			$ok = false;
-			switch ($type)
-			{
-				case "finishedCount":
-					$value = $data->finishedCount;
-					$ok = true;
-					break;
-
-				case "stopCount":
-					$value = $data->stopCount;
-					$ok = true;
-					break;
-
-				case "stopTimeAvg":
-					$value = $data->stopTimeAvg;
-					$ok = true;
-					break;
-
-
-			}
-
-			if($ok)
-			{
-				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($data->from), $value));
-			}
+			$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($data["from"]), $data["value"]));
 		}
 		$dayChart->addSerie($serie);
 
