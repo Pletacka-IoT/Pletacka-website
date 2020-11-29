@@ -8,6 +8,7 @@ use App\CoreModule\Model\DatabaseSelectionManager;
 use App\CoreModule\Model\MultiSensorsManager;
 use App\TimeManagers\TimeBox;
 use App\Utils\BubblesPretty;
+use App\Utils\ChartDataPretty;
 use App\Utils\DatabaseDataExtractorPretty;
 use App\Utils\DatabaseSelectionPretty;
 use App\Utils\NumbersPretty;
@@ -66,147 +67,158 @@ class ThisChartControl extends  Control{
 	    $this->workShiftManager = $workShiftManager;
     }
 
-	public function stringToDateTime(string $text)
-	{
-		$dateTime = array();
-
-		$dateTimeExplode = explode(",", $text);
-
-		$dateTime["to"] = new DateTime();
-		$dateTime["from"] = new DateTime();
-		$dateTime["from"]->sub(DateInterval::createFromDateString($text));
-		$dateTime["from"]->setTime(0, 0);
-		return $dateTime;
-	}
-
-	public function prepareValue(array $chartDataRaw, string $type): array
-	{
-		$chartData = array();
-		$min = null;
-		$max = null;
-
-		$first = true;
-
-		foreach($chartDataRaw as $data)
-		{
-			$x = 5;
-			switch ($type)
-			{
-				case "finishedCount":
-					$hour = array("from"=>$data->from, "value"=>$data->finishedCount);
-					if($first)
-					{
-						$min = $hour["value"];
-						$max = $hour["value"];
-						$first = false;
-					}
-
-					if($hour["value"]>$max)
-						$max = $hour["value"];
-					if($hour["value"]<$min)
-						$min = $hour["value"];
-					array_push($chartData, $hour);
-					break;
-
-				case "stopCount":
-					$value = $data->stopCount;
-					break;
-
-				case "stopTimeAvg":
-					$value = $data->stopTimeAvg;
-					break;
-
-
-			}
-		}
-
-		$chartDataAll = array();
-		$chartDataAll["min"] = $min;
-		$chartDataAll["max"] = $max;
-		$chartDataAll["data"] = $chartData;
-
-
-		return $chartDataAll;
-	}
-
-
-	public function prepareThisChartHour(int $number, string $workShift, string $type, DateTime $from, DateTime $to, string $color, string $name): DateChart
-	{
-		$name = explode("-", $name);
-
-		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
-
-		$chartData = $this->prepareValue($chartDataRaw, $type);
-
-//		$chartData = $chartDataRaw;
-
-
-		$serieType = DateSerie::AREA_SPLINE;
-		$dayChart = new DateChart();
-		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
-		$dayChart->setMinValue($chartData["min"]-1);
-		$dayChart->setMaxValue($chartData["max"]+1);
-		$dayChart->setValueSuffix($name[1]);
-
-//		$x = new DateTime;
-//		$x->time
-
-
-
-		$serie = new DateSerie($serieType, $name[0], $color);
-		$first = true;
-		foreach($chartData["data"] as $data)
-		{
-			$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($data["from"]), $data["value"]));
-		}
-		$dayChart->addSerie($serie);
-
-		return $dayChart;
-
-	}
-	
-
-
-	private function prepareThisChartPair(int $number, string $type, DateTime $from, DateTime $to, string $name, string $color = null)
-	{
-
-		if(!$color)
-		{
-			$color = dechex(rand(0x000000, 0xFFFFFF));
-		}
-
-
-
-		$ws = $this->workShiftManager->getWeekWS();
-
-		$chartWsA = $this->prepareThisChartHour($number, $ws[0], $type, $from, $to, $color, $name);
-
-		$chartWsB = $this->prepareThisChartHour($number, $ws[1], $type, $from, $to, $color, $name);
-
-
-		return array("chartWsA"=>$chartWsA, "chartWsB"=>$chartWsB);
-	}
-
-
+//	public function stringToDateTime(string $text)
+//	{
+//		$dateTime = array();
+//
+//		$dateTimeExplode = explode(",", $text);
+//
+//		$dateTime["to"] = new DateTime();
+//		$dateTime["from"] = new DateTime();
+//		$dateTime["from"]->sub(DateInterval::createFromDateString($text));
+//		$dateTime["from"]->setTime(0, 0);
+//		return $dateTime;
+//	}
+//
+//	public function prepareThisChart(ChartDataPretty $chartData)//: DateChart
+//	{
+//
+////		$serieType = DateSerie::AREA_SPLINE;
+//		$dayChart = new DateChart();
+//		if($chartData->enableTimePrecision)
+//		{
+//			$dayChart->enableTimePrecision(); // Enable time accurate to seconds
+//		}
+//		$dayChart->setMinValue($chartData->min);
+//		$dayChart->setMaxValue($chartData->max);
+//		$dayChart->setValueSuffix($chartData->suffix);
+//
+//		$serie = new DateSerie($chartData->seriesType, $chartData->name, $chartData->color);
+//		foreach($chartData->data as $data)
+//		{
+//			$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($data["from"]), $data["value"]));
+//		}
+//		$dayChart->addSerie($serie);
+//
+//		return $dayChart;
+//
+//	}
+//
+//
+//	/**
+//	 * @param int $number
+//	 * @param string $workShift
+//	 * @param string $name
+//	 * @param string $suffix
+//	 * @param string $seriesType
+//	 * @param string $color
+//	 * @param bool $enableTimePrecision
+//	 * @param int $from
+//	 * @param int $to
+//	 * @return ChartDataPretty
+//	 */
+//	public function prepareThisChartData(int $number, string $workShift, string $name, string $suffix, int $from, int $to, string $seriesType, string $color, bool $enableTimePrecision = false): ChartDataPretty
+//	{
+//		$chartData = new ChartDataPretty($name, $from, $to, $suffix);
+//		$chartData->workShift = $workShift;
+//		$chartData->number = $number;
+//		$chartData->
+//		$chartData->
+//
+//
+//
+////		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
+//
+//		$chartData = array();
+//		$min = null;
+//		$max = null;
+//
+//		$first = true;
+//
+//		$badType = false;
+//
+////		foreach($chartDataRaw as $data)
+////		{
+////
+////			switch ($type)
+////			{
+////				case "finishedCount":
+////					$hour = array("from"=>$data->from, "value"=>$data->finishedCount);
+////					array_push($chartData, $hour);
+////					break;
+////
+////				case "stopCount":
+////					$hour = array("from"=>$data->from, "value"=>$data->stopCount);
+////					array_push($chartData, $hour);
+////					break;
+////
+////				case "stopTimeAvg":
+////					$hour = array("from"=>$data->from, "value"=>$data->stopTimeAvg);
+////					array_push($chartData, $hour);
+////					break;
+////
+////				default:
+////					$badType = true;
+////					break;
+////			}
+////
+////			if($badType)
+////			{
+////				break;
+////			}
+////		}
+//
+//		$chartDataAll = array();
+//		$chartDataAll["min"] = $min;
+//		$chartDataAll["max"] = $max;
+//		$chartDataAll["data"] = $chartData;
+//
+//
+//		return $chartDataAll;
+//	}
+//
+//
+//	private function prepareThisChartPair(int $number, string $type, DateTime $from, DateTime $to, string $name, string $color = null)
+//	{
+//
+//		if(!$color)
+//		{
+//			$color = dechex(rand(0x000000, 0xFFFFFF));
+//		}
+//		$ws = $this->workShiftManager->getWeekWS();
+//
+//
+//
+//
+//
+//		$chartWsA = $this->prepareThisChart();
+//
+//		$chartWsB = $this->prepareThisChart();
+//
+//
+//		return array("chartWsA"=>$chartWsA, "chartWsB"=>$chartWsB);
+//	}
+//
+//
 
 
 
 	public function render(int $number, string $type, string $time, string $name = "", string $nameTime = "", string $color = null)
     {
 
-	    $dateTime = $this->stringToDateTime($time);
+//	    $dateTime = $this->stringToDateTime($time);
+//
+//    	$chats = $thisNumberBox = $this->prepareThisChartPair($number, $type, $dateTime["from"], $dateTime["to"], $name, $color);
+//
 
-    	$chats = $thisNumberBox = $this->prepareThisChartPair($number, $type, $dateTime["from"], $dateTime["to"], $name, $color);
-
-
-    	$this->template->chartWsA = $chats["chartWsA"];
-    	$this->template->chartWsB = $chats["chartWsB"];
+    	$this->template->chartWsA = "";//$chats["chartWsA"];
+    	$this->template->chartWsB = "";//$chats["chartWsB"];
 
 
 	    $this->template->name = $name;
 	    $this->template->nameTime = $nameTime;
     	$this->template->render(__DIR__ . '/ThisChartControl.latte');
-		dump($thisNumberBox);
+//		dump($thisNumberBox);
     }
 
     public function renderWs(string $ws)
