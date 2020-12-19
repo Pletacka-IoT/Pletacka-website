@@ -145,6 +145,26 @@ class WorkShiftManager
     }
 
 
+    public function getWsTable(int $startYear)
+	{
+		$ws = array();
+
+		for($i = $startYear-2; $i<= $startYear + 2; $i++)
+		{
+			$data = $this->database->table("workShift")->where("year = ? AND week = 1", $i)->fetch();
+
+			if($data == null)
+			{
+				$data["noExist"] = true;
+				$data["year"] = $i;
+			}
+
+			array_push($ws, $data);
+		}
+
+		return $ws;
+
+	}
 
 
 
