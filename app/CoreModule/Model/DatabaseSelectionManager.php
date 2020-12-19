@@ -411,12 +411,12 @@ class DatabaseSelectionManager
 	/**
 	 * @param int $number
 	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
-	 * @param string $workShift ["Cahovi" or "Vaňkovi"]
+	 * @param $workShift ["Cahovi" or "Vaňkovi"]
 	 * @param DateTime $from
 	 * @param DateTime $to
 	 * @return array
 	 */
-	public function getSelectionDataDetail(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): array
+	public function getSelectionDataDetail(int $number, string $selection, $workShift, DateTime $from, DateTime $to): array
     {
 
 	    $dsPrettyArray = array();
@@ -424,7 +424,16 @@ class DatabaseSelectionManager
 	    $min = null;
 	    $max = null;
 
-    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+	    if($workShift == null)
+	    {
+		    $dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ?", $from, $to)->fetchAll();
+	    }
+	    else
+	    {
+		    $dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+	    }
+
+
 
     	if(!$dSelection)
 	    {
@@ -434,7 +443,7 @@ class DatabaseSelectionManager
     	foreach ($dSelection as $dRow)
 	    {
 		    $dsPretty = new DatabaseDataExtractorPretty($number);
-		    $dsPretty->workShift = $workShift;
+		    $dsPretty->workShift = $dRow->workShift;
 		    $dsPretty->from = $dRow->time;
 
 	    	$dsPretty->stopTime = $dRow->t_stop;

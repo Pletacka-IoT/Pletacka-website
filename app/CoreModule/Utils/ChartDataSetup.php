@@ -24,10 +24,11 @@ use Nette\Utils\DateTime;
  * @property string $color
  * @property bool $enableTimePrecision
  */
-class ChartDataPretty
+class ChartDataSetup
 {
 	use Nette\SmartObject;
 
+	private $number = -555;
 	private $state = false;
 	private $message = "";
 	private $workShift = "";

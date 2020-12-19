@@ -67,43 +67,20 @@ class ThisChartControl extends  Control{
 	    $this->workShiftManager = $workShiftManager;
     }
 
-//	public function stringToDateTime(string $text)
-//	{
-//		$dateTime = array();
-//
-//		$dateTimeExplode = explode(",", $text);
-//
-//		$dateTime["to"] = new DateTime();
-//		$dateTime["from"] = new DateTime();
-//		$dateTime["from"]->sub(DateInterval::createFromDateString($text));
-//		$dateTime["from"]->setTime(0, 0);
-//		return $dateTime;
-//	}
-//
-//	public function prepareThisChart(ChartDataPretty $chartData)//: DateChart
-//	{
-//
-////		$serieType = DateSerie::AREA_SPLINE;
-//		$dayChart = new DateChart();
-//		if($chartData->enableTimePrecision)
-//		{
-//			$dayChart->enableTimePrecision(); // Enable time accurate to seconds
-//		}
-//		$dayChart->setMinValue($chartData->min);
-//		$dayChart->setMaxValue($chartData->max);
-//		$dayChart->setValueSuffix($chartData->suffix);
-//
-//		$serie = new DateSerie($chartData->seriesType, $chartData->name, $chartData->color);
-//		foreach($chartData->data as $data)
-//		{
-//			$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($data["from"]), $data["value"]));
-//		}
-//		$dayChart->addSerie($serie);
-//
-//		return $dayChart;
-//
-//	}
-//
+	public function stringToDateTime(string $text)
+	{
+		$dateTime = array();
+
+		$dateTimeExplode = explode(",", $text);
+
+		$dateTime["to"] = new DateTime();
+		$dateTime["from"] = new DateTime();
+		$dateTime["from"]->sub(DateInterval::createFromDateString($text));
+		$dateTime["from"]->setTime(0, 0);
+		return $dateTime;
+	}
+
+
 //
 //	/**
 //	 * @param int $number
@@ -127,7 +104,7 @@ class ThisChartControl extends  Control{
 //
 //
 //
-////		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
+//		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, $workShift, $from, $to);
 //
 //		$chartData = array();
 //		$min = null;
@@ -137,36 +114,36 @@ class ThisChartControl extends  Control{
 //
 //		$badType = false;
 //
-////		foreach($chartDataRaw as $data)
-////		{
-////
-////			switch ($type)
-////			{
-////				case "finishedCount":
-////					$hour = array("from"=>$data->from, "value"=>$data->finishedCount);
-////					array_push($chartData, $hour);
-////					break;
-////
-////				case "stopCount":
-////					$hour = array("from"=>$data->from, "value"=>$data->stopCount);
-////					array_push($chartData, $hour);
-////					break;
-////
-////				case "stopTimeAvg":
-////					$hour = array("from"=>$data->from, "value"=>$data->stopTimeAvg);
-////					array_push($chartData, $hour);
-////					break;
-////
-////				default:
-////					$badType = true;
-////					break;
-////			}
-////
-////			if($badType)
-////			{
-////				break;
-////			}
-////		}
+//		foreach($chartDataRaw as $data)
+//		{
+//
+//			switch ($type)
+//			{
+//				case "finishedCount":
+//					$hour = array("from"=>$data->from, "value"=>$data->finishedCount);
+//					array_push($chartData, $hour);
+//					break;
+//
+//				case "stopCount":
+//					$hour = array("from"=>$data->from, "value"=>$data->stopCount);
+//					array_push($chartData, $hour);
+//					break;
+//
+//				case "stopTimeAvg":
+//					$hour = array("from"=>$data->from, "value"=>$data->stopTimeAvg);
+//					array_push($chartData, $hour);
+//					break;
+//
+//				default:
+//					$badType = true;
+//					break;
+//			}
+//
+//			if($badType)
+//			{
+//				break;
+//			}
+//		}
 //
 //		$chartDataAll = array();
 //		$chartDataAll["min"] = $min;
@@ -176,54 +153,116 @@ class ThisChartControl extends  Control{
 //
 //		return $chartDataAll;
 //	}
-//
-//
-//	private function prepareThisChartPair(int $number, string $type, DateTime $from, DateTime $to, string $name, string $color = null)
+
+
+
+	private function prepareThisChart(int $number, array $dateTime)
+	{
+		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, null, $dateTime["from"], $dateTime["to"]);
+
+		return $chartDataRaw;
+	}
+
+//	private function rendThisChart(array $chartData, string $suffix)
 //	{
+//		$dayChart = new DateChart();
+////		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
+//		$dayChart->setValueSuffix($suffix);
 //
-//		if(!$color)
-//		{
-//			$color = dechex(rand(0x000000, 0xFFFFFF));
+//		foreach ($chartData as $chartDataGroup) {
+//			$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup["ws"], $chartDataGroup["color"]);
+//			foreach($chartDataGroup["data"] as $chartDataEvent)
+//			{
+//				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataEvent["time"]), $chartDataEvent["value"]));
+//			}
+//			$dayChart->addSerie($serie);
 //		}
-//		$ws = $this->workShiftManager->getWeekWS();
 //
-//
-//
-//
-//
-//		$chartWsA = $this->prepareThisChart();
-//
-//		$chartWsB = $this->prepareThisChart();
-//
-//
-//		return array("chartWsA"=>$chartWsA, "chartWsB"=>$chartWsB);
+//		return $dayChart;
 //	}
-//
-//
+	private function getColourByWS(string $workShift)
+	{
+		switch($workShift)
+		{
+			case "Cahovi":
+				$c = "orange";
+				break;
+
+			case "Vaňkovi":
+				$c = "blue";
+				break;
+		}
+
+		return $c;
+	}
 
 
+	private function rendThisChart(array $chartData, string $suffix)
+	{
+		$dayChart = new DateChart();
+//		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
+		$dayChart->setValueSuffix($suffix);
 
-	public function render(int $number, string $type, string $time, string $name = "", string $nameTime = "", string $color = null)
+
+		foreach ($chartData as $index => $chartDataGroup)
+		{
+			if($index == array_key_first($chartData))
+			{
+				$workShift = $chartDataGroup->workShift;
+				$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
+				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+			}
+			else
+			{
+				if($workShift == $chartDataGroup->workShift)
+				{
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+				}
+				else
+				{
+					$dayChart->addSerie($serie); // save last segment
+					$workShift = $chartDataGroup->workShift;
+					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+				}
+			}
+
+//			$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup["ws"], $chartDataGroup["color"]);
+//			foreach($chartDataGroup["data"] as $chartDataEvent)
+//			{
+//				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataEvent["time"]), $chartDataEvent["value"]));
+//			}
+//			$dayChart->addSerie($serie);
+		}
+
+		return $dayChart;
+	}
+
+
+	public function render(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
     {
 
-//	    $dateTime = $this->stringToDateTime($time);
+	    $dateTime = $this->stringToDateTime($time);
+
+		$chartData = $this->prepareThisChart($number, $dateTime);
+
+//		dump($chartData);
+
+    	$chat = $thisNumberBox = $this->rendThisChart($chartData, $suffix);
+
+//		dump($chat);
+//    	$this->template->chartWsA = "";//$chats["chartWsA"];
+//    	$this->template->chartWsB = "";//$chats["chartWsB"];
 //
-//    	$chats = $thisNumberBox = $this->prepareThisChartPair($number, $type, $dateTime["from"], $dateTime["to"], $name, $color);
 //
-
-    	$this->template->chartWsA = "";//$chats["chartWsA"];
-    	$this->template->chartWsB = "";//$chats["chartWsB"];
-
-
-	    $this->template->name = $name;
-	    $this->template->nameTime = $nameTime;
-    	$this->template->render(__DIR__ . '/ThisChartControl.latte');
+//	    $this->template->name = $name;
+//	    $this->template->nameTime = $nameTime;
+//    	$this->template->render(__DIR__ . '/ThisChartControl.latte');
 //		dump($thisNumberBox);
+
     }
 
-    public function renderWs(string $ws)
-    {
-    	dump($ws);
-    }
+
+
 
 }

@@ -47,19 +47,17 @@
 
 <div class="container-fluid">
     <div n:snippet="thisChartFin">
-        {control thisChart, $number, "finishedCount", "2 day", "Počet párů-p", "Dnes", "green"}
-{*        {default $wss = "dfdf"}*}
-{*        {control thisChart:ws $wss}*}
+        {control thisChart, $number, "finishedCount", "2 day", "Počet párů", "p", "Dnes"}
     </div>
 </div>
 
-<div class="container-fluid">
-    <div n:snippet="thisChartStopAvg">
-        {control thisChart, $number, "stopTimeAvg", "2 day", "Průměrná doba stání-s", "Dnes", "red"}
+{*<div class="container-fluid">*}
+{*    <div n:snippet="thisChartStopAvg">*}
+{*        {control thisChart, $number, "stopTimeAvg", "2 day", "Průměrná doba stání-s", "Dnes", "red"}*}
 {*        {default $wss = "dfdf"}*}
 {*        {control thisChart:ws $wss}*}
-    </div>
-</div>
+{*    </div>*}
+{*</div>*}
 
 {*{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}*}
 

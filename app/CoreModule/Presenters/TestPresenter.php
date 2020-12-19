@@ -203,21 +203,32 @@ final class TestPresenter extends BasePresenter
 		$chart->setValueSuffix(' $');
 		//$chart->enableTimePrecision(); // Enable time accurate to seconds
 
-		$serie = new DateSerie(DateSerie::LINE, 'Revenues', 'green');
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 10));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 8));
-		$chart->addSerie($serie);
-
-		$serie = new DateSerie(DateSerie::LINE, 'Costs', 'red');
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 2));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 9));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 5));
-		$chart->addSerie($serie);
+//		$serie = new DateSerie(DateSerie::LINE, 'Revenues', 'green');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 10));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 8));
+//		$chart->addSerie($serie);
+//
+//		$serie = new DateSerie(DateSerie::LINE, 'Costs', 'red');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 2));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 9));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 5));
+//		$chart->addSerie($serie);
 
 		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'blue');
 		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 8));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), -5));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 5));
+		$chart->addSerie($serie);
+
+		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'blue');
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-04-01'), 5));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
+		$chart->addSerie($serie);
+
+		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'green');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 8));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 5));
 		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
 		$chart->addSerie($serie);
 
