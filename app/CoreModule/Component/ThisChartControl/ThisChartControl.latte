@@ -6,29 +6,15 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 center-line">
             <div class="thisChartSpace"></div>
             <div class="text-center thisChartHead">
-                <h2>{explode("-",$name)[0]}</h2>
-                <h4>{$nameTime}</h4>
+                <h2>{$name}</h2>
+                <h4>{$timeText}</h4>
             </div>
 
             <div class="thisChart">
-                {$chartWsA|noescape}
+                {$chart|noescape}
             </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="thisChartSpace"></div>
-            <div class="text-center thisChartHead">
-                <h2>{explode("-",$name)[0]}</h2>
-                <h4>{$nameTime}</h4>
-            </div>
-
-            <div class="thisChart">
-                {$chartWsB|noescape}
-            </div>
-        </div>
     </div>
 
 </div>

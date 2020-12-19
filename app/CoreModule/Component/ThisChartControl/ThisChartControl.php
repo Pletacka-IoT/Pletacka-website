@@ -200,9 +200,10 @@ class ThisChartControl extends  Control{
 	private function rendThisChart(array $chartData, string $suffix)
 	{
 		$dayChart = new DateChart();
-//		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
+		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
 		$dayChart->setValueSuffix($suffix);
 
+		$workShift = "";
 
 		foreach ($chartData as $index => $chartDataGroup)
 		{
@@ -210,20 +211,21 @@ class ThisChartControl extends  Control{
 			{
 				$workShift = $chartDataGroup->workShift;
 				$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
-				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
 			}
 			else
 			{
 				if($workShift == $chartDataGroup->workShift)
 				{
-					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
 				}
 				else
 				{
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
 					$dayChart->addSerie($serie); // save last segment
 					$workShift = $chartDataGroup->workShift;
 					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
-					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->time), $chartDataGroup->c_FINISHED));
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
 				}
 			}
 
@@ -248,16 +250,15 @@ class ThisChartControl extends  Control{
 
 //		dump($chartData);
 
-    	$chat = $thisNumberBox = $this->rendThisChart($chartData, $suffix);
+    	$chart = $thisNumberBox = $this->rendThisChart($chartData, $suffix);
 
-//		dump($chat);
-//    	$this->template->chartWsA = "";//$chats["chartWsA"];
+    	$this->template->chart = $chart;
 //    	$this->template->chartWsB = "";//$chats["chartWsB"];
 //
 //
-//	    $this->template->name = $name;
-//	    $this->template->nameTime = $nameTime;
-//    	$this->template->render(__DIR__ . '/ThisChartControl.latte');
+	    $this->template->name = $name;
+	    $this->template->timeText = $timeText;
+    	$this->template->render(__DIR__ . '/ThisChartControl.latte');
 //		dump($thisNumberBox);
 
     }
