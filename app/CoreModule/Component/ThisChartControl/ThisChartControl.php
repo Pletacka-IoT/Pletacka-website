@@ -156,30 +156,14 @@ class ThisChartControl extends  Control{
 
 
 
-	private function prepareThisChart(int $number, array $dateTime)
+	private function prepareThisChart(int $number, array $dateTime, string $selectionType, $workShift)
 	{
-		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, null, $dateTime["from"], $dateTime["to"]);
+//		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, DatabaseSelectionManager::HOUR, null, $dateTime["from"], $dateTime["to"]);
+		$chartDataRaw = $this->databaseSelectionManager->getSelectionDataDetail($number, $selectionType, $workShift, $dateTime["from"], $dateTime["to"]);
 
 		return $chartDataRaw;
 	}
 
-//	private function rendThisChart(array $chartData, string $suffix)
-//	{
-//		$dayChart = new DateChart();
-////		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
-//		$dayChart->setValueSuffix($suffix);
-//
-//		foreach ($chartData as $chartDataGroup) {
-//			$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup["ws"], $chartDataGroup["color"]);
-//			foreach($chartDataGroup["data"] as $chartDataEvent)
-//			{
-//				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataEvent["time"]), $chartDataEvent["value"]));
-//			}
-//			$dayChart->addSerie($serie);
-//		}
-//
-//		return $dayChart;
-//	}
 	private function getColourByWS(string $workShift)
 	{
 		switch($workShift)
@@ -197,69 +181,133 @@ class ThisChartControl extends  Control{
 	}
 
 
-	private function rendThisChart(array $chartData, string $suffix)
+	private function rendThisChartDay(array $chartData, string $suffix, string $type)
 	{
 		$dayChart = new DateChart();
 		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
 		$dayChart->setValueSuffix($suffix);
 
-		$workShift = "";
-
-		foreach ($chartData as $index => $chartDataGroup)
+		foreach ($chartData as $index => $chartDataItem)
 		{
 			if($index == array_key_first($chartData))
 			{
-				$workShift = $chartDataGroup->workShift;
-				$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
-				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
+				$workShift = $chartDataItem->workShift;
+				$lastTime = $chartDataItem->from;
+				$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataItem->workShift, $this->getColourByWS($workShift));
+				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataItem->from), $chartDataItem->$type));
 			}
 			else
 			{
-				if($workShift == $chartDataGroup->workShift)
+				if($workShift == $chartDataItem->workShift)
 				{
-					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataItem->from), $chartDataItem->$type));
 				}
 				else
 				{
-					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
+					if($lastTime->add(DateInterval::createFromDateString("1 hour")) == $chartDataItem->from)
+					{
+						$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataItem->from), $chartDataItem->$type));
+					}
 					$dayChart->addSerie($serie); // save last segment
-					$workShift = $chartDataGroup->workShift;
-					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
-					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->finishedCount));
+					$workShift = $chartDataItem->workShift;
+					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataItem->workShift, $this->getColourByWS($workShift));
+					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataItem->from), $chartDataItem->$type));
+				}
+			}
+			$lastTime = $chartDataItem->from;
+		}
+
+		return $dayChart;
+	}
+
+	private function rendThisChartLong(array $chartData, string $suffix, string $type)
+	{
+		$dayChart = new DateChart();
+//		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
+		$dayChart->setValueSuffix($suffix);
+
+		foreach ($chartData as $chartDataGroup)
+		{
+			foreach($chartDataGroup as $index => $chartDataItem)
+			{
+				if($index == array_key_first($chartData))
+				{
+					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataItem->workShift, $this->getColourByWS($chartDataItem->workShift));
+				}
+				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataItem->from), $chartDataItem->$type));
+
+
+				if($index == array_key_last($chartData))
+				{
+					$dayChart->addSerie($serie); // save last segment
 				}
 			}
 
-//			$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup["ws"], $chartDataGroup["color"]);
-//			foreach($chartDataGroup["data"] as $chartDataEvent)
+//			if($index == array_key_first($chartData))
 //			{
-//				$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataEvent["time"]), $chartDataEvent["value"]));
+//				$workShift = $chartDataGroup->workShift;
+//				$lastTime = $chartDataGroup->from;
+//
 //			}
-//			$dayChart->addSerie($serie);
+//			else
+//			{
+//				if($workShift == $chartDataGroup->workShift)
+//				{
+//					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->$type));
+//				}
+//				else
+//				{
+//					if($lastTime->add(DateInterval::createFromDateString("1 hour")) == $chartDataGroup->from)
+//					{
+//						$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->$type));
+//					}
+//
+//					$workShift = $chartDataGroup->workShift;
+//					$serie = new DateSerie(DateSerie::AREA_SPLINE, $chartDataGroup->workShift, $this->getColourByWS($workShift));
+//					$serie->addSegment(new DateSegment(DateTimeImmutable::createFromMutable($chartDataGroup->from), $chartDataGroup->$type));
+//				}
+//			}
+//			$lastTime = $chartDataGroup->from;
 		}
 
 		return $dayChart;
 	}
 
 
-	public function render(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
+	public function renderDay(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
     {
 
 	    $dateTime = $this->stringToDateTime($time);
 
-		$chartData = $this->prepareThisChart($number, $dateTime);
+		$chartData = $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::HOUR, null);
 
-//		dump($chartData);
-
-    	$chart = $thisNumberBox = $this->rendThisChart($chartData, $suffix);
+    	$chart = $thisNumberBox = $this->rendThisChartDay($chartData, $suffix, $type);
 
     	$this->template->chart = $chart;
-//    	$this->template->chartWsB = "";//$chats["chartWsB"];
-//
-//
 	    $this->template->name = $name;
 	    $this->template->timeText = $timeText;
     	$this->template->render(__DIR__ . '/ThisChartControl.latte');
-//		dump($thisNumberBox);
+
+    }
+
+
+    public function renderLong(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
+    {
+
+	    $dateTime = $this->stringToDateTime($time);
+
+	    $chartData = array();
+
+		array_push($chartData, $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::DAY, "Cahovi"));
+		array_push($chartData, $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::DAY, "Vaňkovi"));
+
+    	$chart = $thisNumberBox = $this->rendThisChartLong($chartData, $suffix, $type);
+
+
+    	$this->template->chart = $chart;
+	    $this->template->name = $name;
+	    $this->template->timeText = $timeText;
+    	$this->template->render(__DIR__ . '/ThisChartControl.latte');
 
     }
 

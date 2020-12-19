@@ -47,26 +47,16 @@
 
 <div class="container-fluid">
     <div n:snippet="thisChartFin">
-        {control thisChart, $number, "finishedCount", "2 day", "Počet párů", "p", "Dnes"}
+        {control thisChart:day, $number, "finishedCount", "3 day", "Počet párů", "p", "Dnes"}
+    </div>
+
+    <div n:snippet="thisChartFin2">
+        {control thisChart:long, $number, "finishedCount", "30 day", "Počet párů", "p", "Posledních 30 dní"}
+        {control thisChart:long, $number, "workTimeAvg", "30 day", "Průměrná doba pletení", "s", "Posledních 30 dní"}
+        {control thisChart:long, $number, "stopTime", "30 day", "Doba stání", "s", "Posledních 30 dní"}
+        {control thisChart:long, $number, "workTime", "30 day", "Doba pletení", "s", "Posledních 30 dní"}
     </div>
 </div>
-
-{*<div class="container-fluid">*}
-{*    <div n:snippet="thisChartStopAvg">*}
-{*        {control thisChart, $number, "stopTimeAvg", "2 day", "Průměrná doba stání-s", "Dnes", "red"}*}
-{*        {default $wss = "dfdf"}*}
-{*        {control thisChart:ws $wss}*}
-{*    </div>*}
-{*</div>*}
-
-{*{control pletackaChart:day "red", "Upleteno", "WORK_TIME"}*}
-
-
-{*{control pletackaChart:day "red", "Upleteno", "STATE","FINISHED"}*}
-{*{control pletackaChart:day "blue", "Upleteno", "STATE","STOP"}*}
-{*{control pletackaChart:day "green", "Upleteno", "STATE", "REWORK"}*}
-
-
 
 <script type="text/javascript">
     $(function() {
