@@ -12,6 +12,7 @@ services:
 			- addResource(Core:Sensors)
 			- addResource(Core:WorkShift)
 			- addResource(Core:SensorsSettings)
+			- addResource(Core:DatabaseTest)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -27,7 +28,7 @@ services:
 
 			- allow(member, Core:Homepage)
 			- allow(member, Core:Sensors)
-			
+
 			- allow(admin) # Administrátor může všechno.
 			
 
@@ -42,7 +43,7 @@ services:
 	- App\CoreModule\Model\RoomManager
 	- App\CoreModule\Model\WorkShiftManager
 	- App\CoreModule\Model\DatabaseSelectionManager
-	- App\CoreModule\Model\DatabaseDataExtractorManager
+	- App\CoreModule\Model\DatabaseTestManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory

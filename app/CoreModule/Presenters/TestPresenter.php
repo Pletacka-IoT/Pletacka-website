@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
-use App\CoreModule\Model\DatabaseDataExtractorManager;
 use Nette\Forms\Form;
 use Tracy\Debugger;
 use Tracy\Dumper;
@@ -61,9 +60,6 @@ final class TestPresenter extends BasePresenter
     private $thisSensorManager;
     private $workShiftManager;
     private $databaseSelectionManager;
-	/**
-	 * @var DatabaseDataExtractorManager
-	 */
 	private $databaseDataExtractorManager;
 
 	public function __construct(
@@ -72,8 +68,7 @@ final class TestPresenter extends BasePresenter
         Request $request,
         SensorsFormFactory $sensorsFormFactory,
         WorkShiftManager $workShiftManager,
-        DatabaseSelectionManager $databaseSelectionManager,
-		DatabaseDataExtractorManager $databaseDataExtractorManager
+        DatabaseSelectionManager $databaseSelectionManager
     )
 	{
         
@@ -83,7 +78,6 @@ final class TestPresenter extends BasePresenter
         $this->sensorsFormFactory = $sensorsFormFactory;
         $this->workShiftManager = $workShiftManager;
         $this->databaseSelectionManager = $databaseSelectionManager;
-		$this->databaseDataExtractorManager = $databaseDataExtractorManager;
 	}
 	
 
@@ -137,6 +131,8 @@ final class TestPresenter extends BasePresenter
 //        }
 
 	}
+
+
 
 	public function renderChart(): void
 	{
