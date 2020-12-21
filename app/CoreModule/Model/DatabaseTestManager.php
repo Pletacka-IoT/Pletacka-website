@@ -55,43 +55,37 @@ class DatabaseTestManager
     }
 
 
-    public function saveEvent(int $number, string $state, DateTime $time): Pretty
+    public function saveEvent(int $number, string $state, DateTime $time, array &$data): Pretty
     {
-    	if(!$this->sensorsManager->sensorIsExist($number))
-	    {
-	    	return new Pretty(false, "", "Sensor number ".$number." not exist");
-	    }
-
     	$this->database->table("A".$number)->insert([
     		'state'=>$state,
 		    'time'=>$time
 		]);
 
+    	$data[$state] ++;
+
     	return new Pretty(true, "saveEvent", "OK");
     }
 
-    public function saveRandom()
-    {
 
-    }
-
-    public function saveStopRework(int $number, DateTime &$workTime, &$count)
-    {
-	    $this->waitMinutes(rand(1, 4), $workTime);
-	    $this->saveEvent($number, TimeBox::STOP, $workTime);
-//	    $workTime->add(DateInterval::createFromDateString(rand(1,30)." minutes"));
-	    $count++;
-
-	    $this->waitMinutes(rand(1, 30), $workTime);
-	    $this->saveEvent($number, TimeBox::REWORK, $workTime);
-//	    $workTime->add(DateInterval::createFromDateString(rand(1,3)." minutes"));
-	    $count++;
-
-    }
+//    public function saveStopRework(int $number, DateTime &$workTime, &$count)
+//    {
+//	    $this->waitMinutes(rand(1, 4), $workTime);
+//	    $this->saveEvent($number, TimeBox::STOP, $workTime);
+////	    $workTime->add(DateInterval::createFromDateString(rand(1,30)." minutes"));
+//	    $count++;
+//
+//	    $this->waitMinutes(rand(1, 30), $workTime);
+//	    $this->saveEvent($number, TimeBox::REWORK, $workTime);
+////	    $workTime->add(DateInterval::createFromDateString(rand(1,3)." minutes"));
+//	    $count++;
+//
+//    }
 
     public function waitMinutes(int $minutes, DateTime &$dateTime)
     {
-    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes ".rand(0, 59)." seconds"));
+//    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes ".rand(0, 59)." seconds"));
+    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes"));
     }
 
     public function saveRandomDay(int $number, DateTime $startTime, DateTime $stopTime): Pretty
@@ -100,42 +94,87 @@ class DatabaseTestManager
 	    {
 		    return new Pretty(false, "saveRandomDay", "Sensor number ".$number." not exist");
 	    }
-//		$startTime = new $startDate;
+	    $allTimeMs = $stopTime->getTimestamp()-$startTime->getTimestamp();
+	    $stopTimeMs = $stopTimeStart = 0;
+	    $workTime = clone $startTime;
 
-//		$startTime->setTime(rand(5, 6), rand(1, 59), rand(1, 59));
-    	$this->saveEvent($number, TimeBox::ON, $startTime);
+	    $data = array();
+	    $data["START_TIME"] = $startTime;
+	    $data["END_TIME"] = $stopTime;
+	    $data[TimeBox::ON] = $data[TimeBox::OFF] = $data[TimeBox::STOP] = $data[TimeBox::REWORK] = $data[TimeBox::FINISHED] = 0;
 
-	    $workTime = $startTime;
-//	    $workTime->add(DateInterval::createFromDateString(rand(1,30)." minutes"));
-//		$this->waitMinutes(rand(1, 30), $workTime);
-
-	    $i = 0;
-
+	    $sState = TimeBox::ON;
 	    while($workTime < $stopTime)
 	    {
-		    $spA = rand(0, 4);
-		    for($sp = 0; $sp< $spA; $sp++)
-		    {
-			    $this->saveStopRework($number, $workTime, $i);
-		    }
+			switch ($sState)
+			{
+				case TimeBox::ON:
+					$this->saveEvent($number, TimeBox::ON, $workTime, $data);
+					$this->waitMinutes(rand(2, 20), $workTime);
 
-		    $okA = rand(0, 10);
-		    for($ok = 0; $ok< $okA; $ok++)
-		    {
-			    $this->waitMinutes(rand(2, 4), $workTime);
-			    $this->saveEvent($number, TimeBox::FINISHED, $startTime);
-			    $i++;
-//			    $workTime->add(DateInterval::createFromDateString(rand(1,4)." minutes"));
-		    }
+					if(rand(0, 3))
+					{
+						$sState = TimeBox::STOP;
+					}
+					else
+					{
+						$sState = TimeBox::FINISHED;
+					}
+					break;
+				case TimeBox::OFF:
+					$this->saveEvent($number, TimeBox::OFF, $workTime, $data);
+					$stopTimeMs += $workTime->getTimestamp()-$stopTimeStart;
+					$this->waitMinutes(rand(2, 30), $workTime);
+
+					$sState = TimeBox::ON;
+					break;
+				case TimeBox::STOP:
+					$this->saveEvent($number, TimeBox::STOP, $workTime, $data);
+					$stopTimeStart = $workTime->getTimestamp();
+					$this->waitMinutes(rand(1, 20), $workTime);
+
+					$sState = TimeBox::REWORK;
+					break;
+				case TimeBox::REWORK:
+					$this->saveEvent($number, TimeBox::REWORK, $workTime, $data);
+					$stopTimeMs += $workTime->getTimestamp()-$stopTimeStart;
+					$this->waitMinutes(rand(2, 4), $workTime);
+
+					if(rand(0, 4))
+					{
+						$sState = TimeBox::FINISHED;
+					}
+					else
+					{
+						$sState = TimeBox::STOP;
+					}
+					break;
+				case TimeBox::FINISHED:
+					$this->saveEvent($number, TimeBox::FINISHED, $workTime, $data);
+					$this->waitMinutes(rand(2, 4), $workTime);
+
+					if(rand(0, 4))
+					{
+						$sState = TimeBox::FINISHED;
+					}
+					else
+					{
+						$sState = TimeBox::STOP;
+					}
+					break;
+			}
 	    }
 
+	    $this->saveEvent($number, TimeBox::OFF, $workTime, $data);
 
-//	    $workTime->add(DateInterval::createFromDateString(rand(1,30)." minutes"));
-	    $this->waitMinutes(rand(2, 30), $workTime);
+	    if($sState == TimeBox::REWORK)
+	    {
+		    $stopTimeMs += $workTime->getTimestamp()-$stopTimeStart;
+	    }
 
-	    $this->saveEvent($number, TimeBox::OFF, $workTime);
+	    $data["STOP_TIME"] = $stopTimeMs;
 
-	    return new Pretty(true, "saveRandomDay", "OK");
+	    return new Pretty(true, $data, "OK");
     }
 
 }
