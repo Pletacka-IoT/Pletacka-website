@@ -151,18 +151,46 @@ final class DatabaseTestPresenter extends BasePresenter
 
 	}
 
+
+	public function generate(DateTime $startTime, int $days)
+	{
+		$number = 30;
+
+//		$startTime = new DateTime("2020-12-01");
+		for($i = 0; $i<$days; $i++)
+		{
+
+			$startTime->setTime(rand(5, 6), rand(1, 59), rand(1, 59));
+//			$startTime->setTime(rand(5, 6), rand(1, 59));
+//			$startTime->setTime(9, 0);
+
+			$endTime = clone $startTime;
+//			$endTime->setTime(11, 0);
+			$endTime->setTime(rand(20, 22), rand(1, 59), rand(1, 59));
+			$gen = ($this->databaseTestManager->generateRandomDay($number,  $startTime, $endTime));
+
+			$startTime->add(\DateInterval::createFromDateString("1 day"));
+		}
+
+	}
+
 	public function actionDefault()
 	{
 
 
 //		$this->test();
 
-		for($i = 0; $i<40; $i++)
-		{
-			$this->test();
-		}
+//		for($i = 0; $i<40; $i++)
+//		{
+//			$this->test();
+//		}
 
 //		$this->debug();
+
+		$this->databaseTestManager->generateRandomFromToCountDays(30, new DateTime("2020-12-10"), 3);
+
+
+//		(new DateTime("2020-12-01"), 4);
 
 
 	}

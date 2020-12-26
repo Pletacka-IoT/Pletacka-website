@@ -85,6 +85,9 @@ final class TestPresenter extends BasePresenter
 	{
 
 
+//		$this->databaseSelectionManager->createSelectionFromTo($)
+
+
 //		$date = $this->databaseDataExtractorManager->getDataHourly(17, new DateTime("2020-11-09 11:02:00"), new DateTime("2020-11-09 11:35:00"));
 
 //		$datea = $this->databaseDataExtractorManager->getDataToHourBefore(17, new DateTime("2020-11-09 11:35:17"));

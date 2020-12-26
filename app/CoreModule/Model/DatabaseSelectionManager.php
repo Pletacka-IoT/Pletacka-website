@@ -339,6 +339,35 @@ class DatabaseSelectionManager
 	    }
     }
 
+	public function createSelectionFromTo(int $number,string $selection, DateTime $from, DateTime $to) :Pretty
+	{
+		if($from>$to)
+		{
+			return new Pretty(false, "", "Bad time format");
+		}
+		$error = 0;
+		$ok = 0;
+		$state = true;
+		$date = clone $from;
+		while($date>=$to)
+		{
+			if($returnMessage =  $this->createSelection($number, $selection, $date)->state)
+			{
+				$ok++;
+			}
+			else
+			{
+				$error++;
+				$state = false;
+			}
+
+			$date->add(DateInterval::createFromDateString(strtolower("1 ".$selection)));
+		}
+
+
+		return new Pretty($state, "", "OK: ".$ok."; ERROR: ".$error);
+	}
+
 
     public function createSelections(object $sensors, string $selection, DateTime $from) :Pretty
     {
