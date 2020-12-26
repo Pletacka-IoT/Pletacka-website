@@ -84,8 +84,8 @@ class DatabaseTestManager
 
     public function waitMinutes(int $minutes, DateTime &$dateTime)
     {
-//    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes ".rand(0, 59)." seconds"));
-    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes"));
+    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes ".rand(0, 59)." seconds"));
+//    	$dateTime->add(DateInterval::createFromDateString($minutes." minutes"));
     }
 
     public function generateRandomDay(int $number, DateTime $startTime, DateTime $stopTime): Pretty

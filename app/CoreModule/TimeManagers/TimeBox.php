@@ -222,32 +222,53 @@ class TimeBox
 	 */
 	public function stopTime(): int
 	{
-		$sState = self::STOP;
 		$time = 0;
 		$start = 0;
+		$sStateLast = "";
+		$first = true;
+
+
+//		if($this->previousEvent == self::STOP)
+//		{
+//			$start = $this->startTime->getTimestamp();
+//		}
 
 		foreach($this->tableSelection as $event)
 		{
+			$sState = $event;
 			switch ($event->state) {
 				case self::STOP:
 					$start = $event->time->getTimestamp();
 					break;
 				case self::REWORK:
-					$time += $event->time->getTimestamp()-$start;
+					if($first)
+					{
+						$start = $this->startTime->getTimestamp();
+						$time += $event->time->getTimestamp()-$start;
+					}
+					else
+					{
+						$time += $event->time->getTimestamp()-$start;
+					}
 					break;
 				case self::OFF:
-					$time += $event->time->getTimestamp()-$start;
+					if($sStateLast == self::STOP)
+					{
+						$time += $event->time->getTimestamp()-$start;
+					}
 					break;
 			}
+			$first = false;
+			$sStateLast = $event->state;
 		}
 
-//		if($sState == self::REWORK)
-//		{
-//			$time += $this->endTime->getTimestamp()-$start;
-//		}
-//		return $time;
-		dump($time);
-		return 300;
+		if($sState->state == self::STOP)
+		{
+			$time += $this->endTime->getTimestamp()-$start;
+		}
+		return $time;
+//		dump($time);
+//		return 300;
 	}
 
 	/**
