@@ -190,7 +190,7 @@ class DatabaseTestManager
 	 * @param int $days includes first day
 	 * @return Pretty
 	 */
-	public function generateRandomFromToCountDays(int $number, DateTime $startDate, int $days): Pretty
+	public function generateRandomDaysFromToCountDays(int $number, DateTime $startDate, int $days): Pretty
 	{
 		if(!$this->sensorsManager->sensorIsExist($number))
 		{
@@ -213,31 +213,31 @@ class DatabaseTestManager
 
 	}
 
-    public function generateRandomByFromToDate(int $number, DateTime $startTime, DateTime $endTime): Pretty
-    {
-	    $myTimeEnd = clone $startTime;
-	    $myTimeEnd->setTime(23, 59, 59);
-
-	    $this->generateRandomDay($number, $startTime, $myTimeEnd);
-	    $myTimeStart = new $myTimeEnd;
-	    $myTimeStart->setTime(0, 0);
+//    public function generateRandomByFromToDate(int $number, DateTime $startTime, DateTime $endTime): Pretty
+//    {
+//	    $myTimeEnd = clone $startTime;
+//	    $myTimeEnd->setTime(23, 59, 59);
+//
+//	    $this->generateRandomDay($number, $startTime, $myTimeEnd);
+//	    $myTimeStart = new $myTimeEnd;
+//	    $myTimeStart->setTime(0, 0);
+////	    $myTimeStart->add(DateInterval::createFromDateString("1 day"));
+////	    $myTimeEnd->add(DateInterval::createFromDateString("1 day"));
+//
+//	    while ($myTimeEnd <= $endTime)
+//	    {
+//		    $this->generateRandomDay($number, $myTimeStart, $myTimeEnd);
+//		    $myTimeStart->add(DateInterval::createFromDateString("1 day"));
+//		    $myTimeEnd->add(DateInterval::createFromDateString("1 day"));
+//	    }
+//
+//
 //	    $myTimeStart->add(DateInterval::createFromDateString("1 day"));
-//	    $myTimeEnd->add(DateInterval::createFromDateString("1 day"));
-
-	    while ($myTimeEnd <= $endTime)
-	    {
-		    $this->generateRandomDay($number, $myTimeStart, $myTimeEnd);
-		    $myTimeStart->add(DateInterval::createFromDateString("1 day"));
-		    $myTimeEnd->add(DateInterval::createFromDateString("1 day"));
-	    }
-
-
-	    $myTimeStart->add(DateInterval::createFromDateString("1 day"));
-	    $this->generateRandomDay($number, $myTimeStart, $endTime);
-
-	    return new Pretty(true, "OK");
-
-    }
+//	    $this->generateRandomDay($number, $myTimeStart, $endTime);
+//
+//	    return new Pretty(true, "OK");
+//
+//    }
 
 //    public function testDatabaseTimeBox(int $number, DateTime $startTime, DateTime $stopTime)
 //    {

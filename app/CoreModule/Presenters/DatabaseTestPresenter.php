@@ -156,6 +156,7 @@ final class DatabaseTestPresenter extends BasePresenter
 	{
 		$number = 30;
 
+
 //		$startTime = new DateTime("2020-12-01");
 		for($i = 0; $i<$days; $i++)
 		{
@@ -174,6 +175,47 @@ final class DatabaseTestPresenter extends BasePresenter
 
 	}
 
+	public function testDaysGen()
+	{
+		$number = 13;
+		$days =30;
+
+//		$this->sensorsManager->deleteSensor($number);
+//		$this->sensorsManager->addNewSensor($number);
+
+		$from = new DateTime("2020-11-09");
+		$to = clone $from;
+		$to->add(\DateInterval::createFromDateString($days." days"));
+
+//		$this->databaseTestManager->generateRandomDaysFromToCountDays($number,clone $from, $days);
+
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to));
+
+		dump($to);
+
+	}
+
+	public function testDays()
+	{
+		$number = 13;
+		$days =30;
+
+		$from = new DateTime("2020-11-09");
+		$to = clone $from;
+		$to->add(\DateInterval::createFromDateString($days." days"));
+
+
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::YEAR_L, $from, $to));
+
+		dump($to);
+
+	}
+
 	public function actionDefault()
 	{
 
@@ -187,7 +229,8 @@ final class DatabaseTestPresenter extends BasePresenter
 
 //		$this->debug();
 
-		$this->databaseTestManager->generateRandomFromToCountDays(30, new DateTime("2020-12-10"), 3);
+
+		$this->testDays();
 
 
 //		(new DateTime("2020-12-01"), 4);

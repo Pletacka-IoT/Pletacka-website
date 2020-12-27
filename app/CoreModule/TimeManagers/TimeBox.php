@@ -266,6 +266,16 @@ class TimeBox
 		{
 			$time += $this->endTime->getTimestamp()-$start;
 		}
+
+		if($time<0)
+		{
+			return 0;
+		}
+
+		if($time>2629743)
+		{
+			return 0;
+		}
 		return $time;
 //		dump($time);
 //		return 300;

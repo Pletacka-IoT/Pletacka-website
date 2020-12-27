@@ -41,7 +41,12 @@ class DatabaseSelectionManager
         HOUR = "H",
         DAY = "D",
         MONTH = "M",
-        YEAR = "Y";
+        YEAR = "Y",
+	    HOUR_L = "hour",
+		DAY_L = "day",
+		MONTH_L = "month",
+		YEAR_L = "year";
+
 
     public const
         WsA = "Cahovi",
@@ -339,19 +344,33 @@ class DatabaseSelectionManager
 	    }
     }
 
-	public function createSelectionFromTo(int $number,string $selection, DateTime $from, DateTime $to) :Pretty
+	/**
+	 * @param int $number
+	 * @param string $selection long format (DAY_L);
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return Pretty
+	 */
+	public function createSelectionFromTo(int $number, string $selection, DateTime $from, DateTime $to) :Pretty
 	{
 		if($from>$to)
 		{
 			return new Pretty(false, "", "Bad time format");
 		}
+		$v = strlen($selection);
+		if($v<3)
+		{
+			return new Pretty(false, "", "Bad selection format, use long format (DAY_L)");
+		}
+
+
 		$error = 0;
 		$ok = 0;
 		$state = true;
 		$date = clone $from;
-		while($date>=$to)
+		while($date<=$to)
 		{
-			if($returnMessage =  $this->createSelection($number, $selection, $date)->state)
+			if(($returnMessage =  $this->createSelection($number, strtoupper($selection[0]), $date))->state)
 			{
 				$ok++;
 			}
@@ -360,12 +379,12 @@ class DatabaseSelectionManager
 				$error++;
 				$state = false;
 			}
+			$date->add(DateInterval::createFromDateString(("1 ".$selection)));
 
-			$date->add(DateInterval::createFromDateString(strtolower("1 ".$selection)));
 		}
 
 
-		return new Pretty($state, "", "OK: ".$ok."; ERROR: ".$error);
+		return new Pretty($state, array("ok"=>$ok, "error"=>$error), $selection." selection -> "."OK: ".$ok."; ERROR: ".$error);
 	}
 
 
