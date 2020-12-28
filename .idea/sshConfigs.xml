@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="pletacka.local" id="7affc406-d214-43cb-a45c-6f7e40a2d562" port="22" nameFormat="DESCRIPTIVE" username="pi" />
-      <sshConfig authType="PASSWORD" host="25.73.172.2" id="52de0597-7ce9-431a-8474-abb40292c530" port="22" nameFormat="DESCRIPTIVE" username="pi" />
-    </configs>
-  </component>
-</project>
