@@ -404,7 +404,7 @@ class DatabaseSelectionManager
 
 		if($returnAll["error"]>0)
 		{
-			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů");
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
 		}
 		else
 		{
@@ -421,6 +421,36 @@ class DatabaseSelectionManager
 			$returnAll["error"] += $return["error"];
 		}
 
+	}
+
+
+	public function createMultiSelectionForSensorsFromTo(object $sensors, DateTime $from, DateTime $to): Pretty
+	{
+		if(!$sensors)
+			return new Pretty(false, "", "No sensors");
+
+		$returnAll = array("ok"=>0, "error"=>0);
+		$returnState = true;
+
+		foreach ($sensors as $sensor)
+		{
+			$return = $this->createMultiSelection(intval($sensor->number), $from, $to);
+			$this->countReturn($returnAll, $return->main);
+
+			if(!$return->state)
+			{
+				$returnState = false;
+			}
+		}
+
+		if($returnState)
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno - ".$returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
+		}
+		else
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+		}
 	}
 
 

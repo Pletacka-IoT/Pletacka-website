@@ -40,7 +40,7 @@ final class RouterFactory
 					'smazat' => 'delete',
 					'test' => 'test',
                     'debug' => 'debug',
-                    'pridat' => 'add',
+                    'hromadne-upravy' => 'multiEdit',
 				]
 			]
 		]);

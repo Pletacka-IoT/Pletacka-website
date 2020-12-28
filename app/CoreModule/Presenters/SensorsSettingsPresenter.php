@@ -98,6 +98,27 @@ final class SensorsSettingsPresenter extends BasePresenter
     }
 
 
+	public function createComponentUpdateMultiSensorsDataForm(): Form
+	{
+		return $this->sensorsFormFactory->createUpdateData(function (Form $form, \stdClass $values) {
+
+			$sensors = $this->sensorsManager->getSensors();
+			$returnMessage = $this->databaseSelectionManager->createMultiSelectionForSensorsFromTo($sensors, new DateTime($values->from), new DateTime($values->to));
+			if($returnMessage->state)
+			{
+				$this->flashMessage($returnMessage->msg, 'success');
+				$this->redirect('this');
+			}
+			else
+			{
+
+				$this->flashMessage($returnMessage->msg, 'error');
+				$this->redirect('this');
+			}
+		});
+	}
+
+
 	public function createComponentAddFromToForm(): Form
 	{
 		return $this->sensorsFormFactory->createCreateFromTo(function (Form $form, \stdClass $values) {
