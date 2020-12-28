@@ -121,13 +121,20 @@ class WorkShiftManager
     public function getActualWS()
     {
         $act = $this->getWS(date("Y"), date("W"));
-        if(date("H")<14)
+        if($act)
         {
-            return $act[0];
+	        if(date("H")<14)
+	        {
+		        return $act[0];
+	        }
+	        else
+	        {
+		        return $act[1];
+	        }
         }
         else
         {
-            return $act[1];
+        	return false;
         }
     }
 

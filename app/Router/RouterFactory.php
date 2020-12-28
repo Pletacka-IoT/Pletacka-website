@@ -77,6 +77,12 @@ final class RouterFactory
 			'action' => 'default'
 		]);
 
+		$router[] = new Route('nastaveni', [
+			'presenter' => 'Core:Setup',
+			'action' => 'default'
+
+		]);
+
 		$router[] = new Route('<presenter>/<action>[/<number>]', 'Core:Homepage:default');
 		return $router;
 	}

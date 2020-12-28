@@ -13,6 +13,7 @@ services:
 			- addResource(Core:WorkShift)
 			- addResource(Core:SensorsSettings)
 			- addResource(Core:DatabaseTest)
+			- addResource(Core:Setup)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -22,6 +23,7 @@ services:
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
+			- allow(guest, Core:Setup)
 			# - allow(guest, Error)
 			# - allow(guest, Error4xx)
 
@@ -44,6 +46,7 @@ services:
 	- App\CoreModule\Model\WorkShiftManager
 	- App\CoreModule\Model\DatabaseSelectionManager
 	- App\CoreModule\Model\DatabaseTestManager
+	- App\CoreModule\Model\SetupManager
 
     # Forms
 	- App\CoreModule\Forms\SensorsFormFactory

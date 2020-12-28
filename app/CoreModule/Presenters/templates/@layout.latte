@@ -49,9 +49,9 @@
 
 				<a class="navbar-brand ajax" n:href=:Core:Homepage:default>Pletačka IoT</a>
 
-				<li class="nav-item ">
-					<a class="ajax btn btn-warning btn-sm" n:href="RedrawAll!?_tracy_skip_error">Aktualizovat</a>
-				</li>
+{*				<li class="nav-item ">*}
+{*					<a class="ajax btn btn-warning btn-sm" n:href="RedrawAll!?_tracy_skip_error">Aktualizovat</a>*}
+{*				</li>*}
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<span class="navbar-toggler-icon"></span>
@@ -59,31 +59,33 @@
 
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">
 					<ul class="navbar-nav">
-					<li class="nav-item">
+						<li class="nav-item">
+							{if $user->loggedIn}
+								<a class="nav-link ajax" n:href="Sign:out">Odhlásit se</a>
+							{else}
+								<a class="nav-link ajax" n:href="Sign:in">Přihlásit se</a>
+							{/if}
+						</li>
 						{if $user->loggedIn}
-							<a class="nav-link ajax" n:href="Sign:out">Odhlásit se</a>
-						{else}
-							<a class="nav-link ajax" n:href="Sign:in">Přihlásit se</a>
+							<li class="nav-item">
+								<a class="nav-link" target="_blank" href="{$basePath}/www/adminer">Adminer</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link ajax" n:href="SensorsSettings:default">Senzory</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link ajax" n:href="WorkShift:default">Směny</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link ajax" n:href="Test:chart">Grafy-test</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link ajax" n:href="Test:debug">Debug</a>
+							</li>
+							<li class="nav-item ">
+								<a class="nav-link ajax" n:href="DatabaseTest:default">Generátor dat</a>
+							</li>
 						{/if}
-					</li>
-					{if $user->loggedIn}
-					<li class="nav-item">
-						<a class="nav-link" target="_blank" href="{$basePath}/www/adminer">Adminer</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link ajax" n:href="SensorsSettings:default">Senzory</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link ajax" n:href="WorkShift:default">Směny</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link ajax" n:href="Test:chart">Grafy-test</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link ajax" n:href="Test:debug">Debug</a>
-					</li>
-
-					{/if}
 					</ul>
 				</div>
 {*				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">*}

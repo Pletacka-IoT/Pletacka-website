@@ -46,8 +46,8 @@ session:
 
 
 database:
-	dsn: 'mysql:host=127.0.0.1;dbname=Pletacka-IoT'
-#	dsn: 'mysql:host=192.168.0.2;dbname=Pletacka-IoT'
+#	dsn: 'mysql:host=127.0.0.1;dbname=Pletacka-IoT'
+	dsn: 'mysql:host=127.0.0.1;dbname=Pletacka-IoT-2.0'
 	user: pletacka
 	password: ladasmolik
 #	port: 3306

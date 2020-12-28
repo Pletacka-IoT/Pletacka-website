@@ -19,27 +19,9 @@
     {/snippet}
 </div>
 
-{*<div class="container-fluid bg-info p-4" >*}
-
-{*    <a class="ajax btn btn-warning btn-sm" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>*}
-{*    {snippet sBubbles}*}
-{*        <div class="row">*}
-{*            <div class="col-lg-7 " style="max-width: 1080px">*}
-{*                {include bubbles $bubblesBig}*}
-{*            </div>*}
-
-
-{*            <div class="col-lg-5 " style="max-width: 500px">*}
-{*                {include bubbles $bubblesSmall}*}
-{*            </div>*}
-{*        </div>*}
-{*    {/snippet}*}
-{*</div>*}
-
-
 <div class="container-fluid bg-info p-4" >
 
-{*    <a class="ajax btn btn-warning btn-sm text-center" id="ReloadBubbles"  n:href="ReloadBubbles!">Aktualizovat</a>*}
+{*    <a class="ajax btn btn-warning btn-sm text-center" id="ReloadBubbles" *}{*style="visibility: hidden;"*}{*  n:href="ReloadBubbles!">Aktualizovat</a>*}
     {snippet statusBubbles}
 
         <div class="row">
@@ -54,25 +36,6 @@
         </div>
     {/snippet}
 </div>
-
-{*<div class="container-fluid text-center p-4 bg-primary text-white " >*}
-{*    <h1 class="display-4">*}
-{*        Info*}
-{*    </h1>*}
-{*    <div class="row">*}
-
-{*        <div class="col-sm-3">*}
-{*            {$settings->title_succes_rate}*}
-{*        </div>*}
-{*        <div class="col-sm-3">*}
-{*            {$settings->title_error_count}*}
-{*        </div>*}
-{*        <div class="col-sm-3">*}
-{*            {$settings->title_error_count}*}
-{*        </div>*}
-{*    </div>*}
-{*</div>*}
-
 
 {*<script>*}
 {*    setInterval(*}

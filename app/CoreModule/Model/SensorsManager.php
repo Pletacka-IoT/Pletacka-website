@@ -48,6 +48,17 @@ class SensorsManager
     }
 
 
+    public function importantTablesAreExist()
+    {
+		return $ret = $this->database->table("users")->fetch();
+
+
+    	//	    try {
+//
+//	    }catch ()
+    }
+
+
     
     /**
      * @brief Get all sensors from database
@@ -117,7 +128,7 @@ class SensorsManager
         $sensorNumber = "A".$sensorNumber;
         
         $this->database->query("
-            DROP TABLE IF EXISTS `A1-H`;            
+            DROP TABLE IF EXISTS $sensorNumber;            
             CREATE TABLE $sensorNumber (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
