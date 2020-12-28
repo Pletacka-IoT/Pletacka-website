@@ -355,12 +355,12 @@ class DatabaseSelectionManager
 	{
 		if($from>$to)
 		{
-			return new Pretty(false, "", "Bad time format");
+			return new Pretty(false, null, "Bad time format");
 		}
 		$v = strlen($selection);
 		if($v<3)
 		{
-			return new Pretty(false, "", "Bad selection format, use long format (DAY_L)");
+			return new Pretty(false, null, "Bad selection format, use long format (DAY_L)");
 		}
 
 
@@ -385,6 +385,42 @@ class DatabaseSelectionManager
 
 
 		return new Pretty($state, array("ok"=>$ok, "error"=>$error), $selection." selection -> "."OK: ".$ok."; ERROR: ".$error);
+	}
+
+	public function createMultiSelection(int $number, DateTime $from, DateTime $to) :Pretty
+	{
+		$returnAll = array("ok"=>0, "error"=>0);
+
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::YEAR_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+
+
+
+		if($returnAll["error"]>0)
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů");
+		}
+		else
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+		}
+
+	}
+
+	private function countReturn(array& $returnAll, $return)
+	{
+		if($return != null)
+		{
+			$returnAll["ok"] += $return["ok"];
+			$returnAll["error"] += $return["error"];
+		}
+
 	}
 
 

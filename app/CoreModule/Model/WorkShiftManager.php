@@ -89,7 +89,7 @@ class WorkShiftManager
 
     public function setYear($year, $wsFirst, $wsSecond)
     {
-        for($i = 1; $i<=52; $i++)
+        for($i = 1; $i<=53; $i++)
         {
             if(!$this->getWS($year, $i))
             {

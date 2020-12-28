@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\CoreModule\Presenters;
 
+use App\CoreModule\Model\DatabaseSelectionManager;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -22,6 +23,7 @@ use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Serie\DateSerie;
 use Jakubandrysek\Chart\Segment\DateSegment;
 use DateTimeImmutable;
+use Nette\Utils\DateTime;
 
 /**
  * @brief Sensor presenter
@@ -46,6 +48,10 @@ final class SensorsSettingsPresenter extends BasePresenter
     private $thisSensorFormFactory;
     private $thisChartManager;
     private $chartManager;
+	/**
+	 * @var DatabaseSelectionManager
+	 */
+	private $databaseSelectionManager;
 
 
 	public function __construct(
@@ -55,7 +61,8 @@ final class SensorsSettingsPresenter extends BasePresenter
         SensorsFormFactory $sensorsFormFactory,
         ThisSensorFormFactory $thisSensorFormFactory,
         ThisChartManager $thisChartManager,
-        ChartManager $chartManager
+        ChartManager $chartManager,
+		DatabaseSelectionManager $databaseSelectionManager
     )
 	{
         
@@ -66,7 +73,8 @@ final class SensorsSettingsPresenter extends BasePresenter
         $this->thisSensorFormFactory = $thisSensorFormFactory;
         $this->thisChartManager = $thisChartManager;
         $this->chartManager = $chartManager;
-    }
+		$this->databaseSelectionManager = $databaseSelectionManager;
+	}
 
     ///////////////////
     //Pridani senzoru
@@ -151,21 +159,6 @@ final class SensorsSettingsPresenter extends BasePresenter
     public function createComponentEditSensorForm(): Form
     {
 		return $this->sensorsFormFactory->createEdit(function (Form $form, \stdClass $values) {
-            // Get sensor name
-//            $url = $this->request->getHeaders()["referer"];
-//            $exUrl = explode('/', $url);
-//            $exUrl = explode('?', $exUrl[5]);
-//            $sNumber = $exUrl[0];
-//            if(!is_numeric($sNumber))
-//            {
-//                $url = $this->request->getHeaders()["referer"];
-//                $exUrl = explode('/', $url);
-//                $exUrl = explode('?', $exUrl[7]);
-//                $sNumber = $exUrl[0];
-//            }
-//
-//            echo($values->number);
-
 
             $returnMessage = $this->sensorsManager->editSensor(intval($values->oldNumber),intval($values->number), $values->description);
             if($returnMessage->state)
@@ -182,6 +175,24 @@ final class SensorsSettingsPresenter extends BasePresenter
 		});
     }
 
+	public function createComponentUpdateSensorDataForm(): Form
+	{
+		return $this->sensorsFormFactory->createUpdateData(function (Form $form, \stdClass $values) {
+
+			$returnMessage = $this->databaseSelectionManager->createMultiSelection(intval($values->number), new DateTime($values->from), new DateTime($values->to));
+			if($returnMessage->state)
+			{
+				$this->flashMessage($returnMessage->msg, 'success');
+				$this->redirect('this',$values->number);
+			}
+			else
+			{
+
+				$this->flashMessage($returnMessage->msg, 'error');
+				$this->redirect('this',$values->number);
+			}
+		});
+	}
 
     public function renderEdit(int $number)
     {
@@ -196,6 +207,7 @@ final class SensorsSettingsPresenter extends BasePresenter
 
         $this->template->number = $number;
         $this['editSensorForm']->setDefaults(array('number'=>$number, 'oldNumber'=>$number, 'description'=>$desciption));
+        $this['updateSensorDataForm']->setDefaults(array('number'=>$number));
 
     }
 

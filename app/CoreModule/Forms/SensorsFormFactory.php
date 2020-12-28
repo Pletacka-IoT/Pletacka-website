@@ -78,6 +78,33 @@ final class SensorsFormFactory
 		return $form;
 	}
 
+	/**
+	 * Edit sensor Form
+	 */
+	public function createUpdateData(callable $onSuccess): Form
+	{
+		$form = $this->formFactory->create();
+
+		$form->addHidden('number');
+
+
+		$form->addText('from', 'Od:')
+			->setHtmlType("date")
+			->setRequired(self::FORM_MSG_REQUIRED);
+
+		$form->addText('to', 'Do:')
+			->setHtmlType("date")
+			->setRequired(self::FORM_MSG_REQUIRED);
+
+		$form->addSubmit('send', 'Proveď');
+
+		$form->onSuccess[] = function (Form $form, \stdClass $values) use ($onSuccess) {
+
+			$onSuccess($form, $values);
+		};
+
+		return $form;
+	}
 
 	/**
      * Create sensor Form

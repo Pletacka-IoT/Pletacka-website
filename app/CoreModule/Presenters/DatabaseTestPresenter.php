@@ -177,7 +177,7 @@ final class DatabaseTestPresenter extends BasePresenter
 
 	public function testDaysGen()
 	{
-		$number = 13;
+		$number = 14;
 		$days =30;
 
 //		$this->sensorsManager->deleteSensor($number);
@@ -189,9 +189,10 @@ final class DatabaseTestPresenter extends BasePresenter
 
 //		$this->databaseTestManager->generateRandomDaysFromToCountDays($number,clone $from, $days);
 
-		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to));
+//		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to));
 		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to));
 		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to));
+		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::YEAR_L, $from, $to));
 
 		dump($to);
 
@@ -199,8 +200,8 @@ final class DatabaseTestPresenter extends BasePresenter
 
 	public function testDays()
 	{
-		$number = 13;
-		$days =30;
+		$number = 14;
+		$days =50;
 
 		$from = new DateTime("2020-11-09");
 		$to = clone $from;
@@ -211,6 +212,20 @@ final class DatabaseTestPresenter extends BasePresenter
 		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to));
 		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to));
 		dump($this->databaseSelectionManager->createSelectionFromTo($number, DatabaseSelectionManager::YEAR_L, $from, $to));
+
+		dump($to);
+
+	}
+
+	public function testDaysAuto()
+	{
+		$number = 14;
+
+
+		$from = new DateTime("2020-11-09");
+		$to = new DateTime("2020-12-29");
+
+		dump($this->databaseSelectionManager->createMultiSelection($number, $from, $to));
 
 		dump($to);
 
@@ -230,6 +245,7 @@ final class DatabaseTestPresenter extends BasePresenter
 //		$this->debug();
 
 
+//		$this->testDaysAuto();
 		$this->testDays();
 
 
