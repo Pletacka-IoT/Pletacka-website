@@ -231,6 +231,24 @@ final class DatabaseTestPresenter extends BasePresenter
 
 	}
 
+
+	public function testMultiRen()
+	{
+		$sensors = $this->sensorsManager->getSensors();
+
+		$from = new DateTime("2020-11-07");
+		$to = new DateTime("2020-11-09");
+		$num = 17;
+
+//		$ret = $this->databaseSelectionManager->createMultiSelection($num, $from, $to);
+
+
+
+		$ret = $this->databaseSelectionManager->createMultiSelectionForSensorsFromTo($sensors, $from, $to);
+
+		dump($ret);
+	}
+
 	public function actionDefault()
 	{
 
@@ -246,10 +264,12 @@ final class DatabaseTestPresenter extends BasePresenter
 
 
 //		$this->testDaysAuto();
-		$this->testDays();
+//		$this->testDays();
 
 
 //		(new DateTime("2020-12-01"), 4);
+
+		$this->testMultiRen();
 
 
 	}

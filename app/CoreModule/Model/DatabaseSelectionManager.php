@@ -404,11 +404,11 @@ class DatabaseSelectionManager
 
 		if($returnAll["error"]>0)
 		{
-			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
+			return new Pretty(true, array("num"=>$number, "ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
 		}
 		else
 		{
-			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+			return new Pretty(true, array("num"=>$number, "ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
 		}
 
 	}
@@ -436,6 +436,7 @@ class DatabaseSelectionManager
 		{
 			$return = $this->createMultiSelection(intval($sensor->number), $from, $to);
 			$this->countReturn($returnAll, $return->main);
+//			dump($return);
 
 			if(!$return->state)
 			{
@@ -445,11 +446,11 @@ class DatabaseSelectionManager
 
 		if($returnState)
 		{
-			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno - ".$returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
 		}
 		else
 		{
-			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno - ".$returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
 		}
 	}
 
