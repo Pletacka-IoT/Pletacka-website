@@ -3,16 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/StatusNumbersControl/StatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/StatusNumbersControl/StatusNumbersControl.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/DatabaseTestPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/DatabaseTestPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Setup/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Setup/default.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/components/charts.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/components/charts.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/common.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/common.neon" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +18,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="upgrade_php8.0_composer" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
@@ -86,6 +85,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -102,7 +102,7 @@
       <workItem from="1609199815566" duration="103000" />
       <workItem from="1609199935405" duration="191000" />
       <workItem from="1609200146685" duration="594000" />
-      <workItem from="1609200760153" duration="6079000" />
+      <workItem from="1609200760153" duration="11246000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -111,7 +111,21 @@
       <option name="project" value="LOCAL" />
       <updated>1609201367814</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix website with empty database">
+      <created>1609263853979</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609263853979</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix website with empty database">
+      <created>1609263872152</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609263872152</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +144,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finished update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished update" />
+    <MESSAGE value="Fix website with empty database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix website with empty database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

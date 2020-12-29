@@ -281,8 +281,15 @@ class ThisChartControl extends  Control{
 
 		$chartData = $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::HOUR, null);
 
+		if(!$chartData)
+		{
+			return;
+		}
+
     	$chart = $thisNumberBox = $this->rendThisChartDay($chartData, $suffix, $type);
 
+
+    	$this->template->noData = $chart;
     	$this->template->chart = $chart;
 	    $this->template->name = $name;
 	    $this->template->timeText = $timeText;
@@ -300,6 +307,12 @@ class ThisChartControl extends  Control{
 
 		array_push($chartData, $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::DAY, "Cahovi"));
 		array_push($chartData, $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::DAY, "Vaňkovi"));
+
+
+	    if(!$chartData[0] or !$chartData[1])
+	    {
+		    return;
+	    }
 
     	$chart = $thisNumberBox = $this->rendThisChartLong($chartData, $suffix, $type);
 

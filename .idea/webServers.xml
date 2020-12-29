@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9b528fdb-98ff-44d7-8ca2-cb9fdc8ddd8c" name="Pi" url="http://pletacka.local/">
+        <fileTransfer rootFolder="/home/pi/Server" accessType="SFTP" host="pletacka.local" port="22" sshConfigId="febc105c-cbe6-4c53-bdbe-a4b059edf753" sshConfig="pi@pletacka.local:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
