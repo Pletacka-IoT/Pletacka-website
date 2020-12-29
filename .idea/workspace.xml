@@ -1,16 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="" />
+    <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Pletacka-website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pletacka-website.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Controllers/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Controllers/BaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Controllers/BaseV1Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Controllers/BaseV1Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Controllers/DatabaseSelectionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Controllers/DatabaseSelectionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Controllers/SensorsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Controllers/SensorsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Controllers/ThisSensorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Controllers/ThisSensorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/components/bubbles.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/components/bubbles.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/config/config.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/config/config.neon" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/apitte/core" />
+      <path value="$PROJECT_DIR$/vendor/apitte/debug" />
+      <path value="$PROJECT_DIR$/vendor/apitte/presenter" />
+      <path value="$PROJECT_DIR$/vendor/apitte/negotiation" />
+      <path value="$PROJECT_DIR$/vendor/apitte/openapi" />
+      <path value="$PROJECT_DIR$/vendor/tracy/tracy" />
+      <path value="$PROJECT_DIR$/vendor/nette/finder" />
+      <path value="$PROJECT_DIR$/vendor/nette/caching" />
+      <path value="$PROJECT_DIR$/vendor/nette/robot-loader" />
+      <path value="$PROJECT_DIR$/vendor/nette/neon" />
+      <path value="$PROJECT_DIR$/vendor/nette/routing" />
+      <path value="$PROJECT_DIR$/vendor/nette/component-model" />
+      <path value="$PROJECT_DIR$/vendor/nette/forms" />
+      <path value="$PROJECT_DIR$/vendor/nette/safe-stream" />
+      <path value="$PROJECT_DIR$/vendor/nette/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/nette/tester" />
+      <path value="$PROJECT_DIR$/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/vendor/nette/http" />
+      <path value="$PROJECT_DIR$/vendor/nette/application" />
+      <path value="$PROJECT_DIR$/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/vendor/nette/php-generator" />
+      <path value="$PROJECT_DIR$/vendor/nette/di" />
+      <path value="$PROJECT_DIR$/vendor/nette/database" />
+      <path value="$PROJECT_DIR$/vendor/nette/mail" />
+      <path value="$PROJECT_DIR$/vendor/nette/security" />
+      <path value="$PROJECT_DIR$/vendor/latte/latte" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/dg/adminer-custom" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/jakubandrysek/chart" />
+      <path value="$PROJECT_DIR$/vendor/contributte/application" />
+      <path value="$PROJECT_DIR$/vendor/contributte/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/contributte/cache" />
+      <path value="$PROJECT_DIR$/vendor/contributte/http" />
+      <path value="$PROJECT_DIR$/vendor/contributte/latte" />
+      <path value="$PROJECT_DIR$/vendor/contributte/psr7-http-message" />
+      <path value="$PROJECT_DIR$/vendor/contributte/tracy" />
+      <path value="$PROJECT_DIR$/vendor/contributte/di" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-nette" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="1mIzs9uqFLXOJKf7OekqFCwak4Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,6 +85,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -31,10 +97,19 @@
       <option name="presentableId" value="Default" />
       <updated>1609196096485</updated>
       <workItem from="1609196097848" duration="1013000" />
+      <workItem from="1609199638586" duration="134000" />
+      <workItem from="1609199815566" duration="103000" />
+      <workItem from="1609199935405" duration="191000" />
+      <workItem from="1609200146685" duration="594000" />
+      <workItem from="1609200760153" duration="571000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
