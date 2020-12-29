@@ -68,16 +68,11 @@ $(function() {
 <li>redrawAll()
 : <a class="el" href="classApp_1_1Presenters_1_1BasePresenter.html#a6f8b81c36a56f163395e2b556eb74128">App\Presenters\BasePresenter</a>
 </li>
-<li>renameThisSensor()
-: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#ac192991476e3fdcbb664cf30c9319c31">App\CoreModule\Model\SensorsManager</a>
-</li>
-<li>renameThisSensorSelection()
-: <a class="el" href="classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#ae3cab2912c770ac8de5bc307267c7ff8">App\CoreModule\Model\SensorsManager</a>
-</li>
 <li>render()
 : <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControl.html#a39141cecf2745af652655a66e90d5e02">App\CoreModule\Component\PletackaChartControl\PletackaChartControl</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl_1_1StatusBubblesControl.html#a29deefb931e28815ebadba11ff460fce">App\CoreModule\Component\StatusBubblesControl\StatusBubblesControl</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1StatusNumbersControl_1_1StatusNumbersControl.html#a240bf3eaeea4b47155e3bd83e8a08611">App\CoreModule\Component\StatusNumbersControl\StatusNumbersControl</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1ThisStatusNumbersControl_1_1ThisStatusNumbersControl.html#a5e91b5cc8ad5b85ecb0e5c2e3b0a4fe5">App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControl</a>
 </li>
 <li>renderChart()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1TestPresenter.html#a2614bdd8f7766d322505ffb68f4795e8">App\CoreModule\Presenters\TestPresenter</a>
@@ -85,12 +80,14 @@ $(function() {
 <li>renderDay()
 : <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControl.html#afae692f23797dda4e100d9806df43bed">App\CoreModule\Component\PletackaChartControl\PletackaChartControl</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl_1_1StatusBubblesControl.html#a4afac6a8992f1c6352d24196d9203034">App\CoreModule\Component\StatusBubblesControl\StatusBubblesControl</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1ThisChartControl_1_1ThisChartControl.html#a1b3a7bcd869db70c99baf2e494bbf981">App\CoreModule\Component\ThisChartControl\ThisChartControl</a>
 </li>
 <li>renderDefault()
 : <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1ConnectPresenter.html#a0f676d52197c5d51f05a1586fa968854">App\CoreModule\Presenters\ConnectPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1HomepagePresenter.html#a3a3ae43c53177958fdd90d2cd236be58">App\CoreModule\Presenters\HomepagePresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#aae22b0640aa8b4390e6f71f8afb2e7cc">App\CoreModule\Presenters\SensorsPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#ab3f5061544a3d1bced60891c3de8c8d6">App\CoreModule\Presenters\SensorsSettingsPresenter</a>
+, <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1SetupPresenter.html#a08cb24c5a142deccb0217e6d2f07fff9">App\CoreModule\Presenters\SetupPresenter</a>
 , <a class="el" href="classApp_1_1CoreModule_1_1Presenters_1_1WorkShiftPresenter.html#a3e8aaef76cff8853efaed2895c155114">App\CoreModule\Presenters\WorkShiftPresenter</a>
 , <a class="el" href="classApp_1_1Presenters_1_1Error4xxPresenter.html#a7b1526f98943508230687ae594873c1d">App\Presenters\Error4xxPresenter</a>
 , <a class="el" href="classApp_1_1Presenters_1_1ErrorAppPresenter.html#a736d34bf34e5d377cea0958483ae1f12">App\Presenters\ErrorAppPresenter</a>
@@ -100,6 +97,9 @@ $(function() {
 </li>
 <li>renderGet()
 : <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControl.html#aee4ba1ffee8ed43d6489d0bc60719e37">App\CoreModule\Component\PletackaChartControl\PletackaChartControl</a>
+</li>
+<li>renderLong()
+: <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1ThisChartControl_1_1ThisChartControl.html#a90679ea6aaa6d3761c3c3c86579513c5">App\CoreModule\Component\ThisChartControl\ThisChartControl</a>
 </li>
 <li>renderSet()
 : <a class="el" href="classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControl.html#a125e353dd6638e882b96ad3b851d1b71">App\CoreModule\Component\PletackaChartControl\PletackaChartControl</a>
@@ -121,7 +121,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 9 2020 18:53:58 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Tue Dec 29 2020 21:32:33 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>

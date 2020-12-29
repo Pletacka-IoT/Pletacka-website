@@ -80,8 +80,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a478da0630c51dfaf6be06d74955be5f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a478da0630c51dfaf6be06d74955be5f9">__construct</a> (bool $state=false, int $finished=0, int $rating=0, int $stopTime=0, string $stopTimeStr=&quot;&quot;, int $workTime=0, int $allTime=0)</td></tr>
-<tr class="separator:a478da0630c51dfaf6be06d74955be5f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82a9df95c7f423cefa2b5cfd429a1bca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a82a9df95c7f423cefa2b5cfd429a1bca">__construct</a> (bool $state=false, int $finishedCount=0, int $stopCount=0, int $rating=0, int $stopTime=0, string $stopTimeStr=&quot;&quot;, int $workTime=0, int $allTime=0)</td></tr>
+<tr class="separator:a82a9df95c7f423cefa2b5cfd429a1bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2571496a6597950cfc7686eaa2ff386"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#aa2571496a6597950cfc7686eaa2ff386">divideTimeVariablesByCount</a> (int $num)</td></tr>
 <tr class="separator:aa2571496a6597950cfc7686eaa2ff386"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3013aa2ec7f78b3d638e87fcb0cfa303"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a3013aa2ec7f78b3d638e87fcb0cfa303">finishedCountToPairs</a> ()</td></tr>
@@ -89,8 +89,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a39a8999db8a8253bd804258258c53ec3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a39a8999db8a8253bd804258258c53ec3">$finished</a></td></tr>
-<tr class="separator:a39a8999db8a8253bd804258258c53ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f737649d1ec6f7613a8ef33b5f70b2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a8f737649d1ec6f7613a8ef33b5f70b2e">$finishedCount</a></td></tr>
+<tr class="separator:a8f737649d1ec6f7613a8ef33b5f70b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a338f2bfeaf2a56ae579a0ef0041e029d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#a338f2bfeaf2a56ae579a0ef0041e029d">$stopTime</a></td></tr>
 <tr class="separator:a338f2bfeaf2a56ae579a0ef0041e029d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac05748d4ca1253c22a56fc9ac4a93fb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classApp_1_1Utils_1_1NumbersPretty.html#ac05748d4ca1253c22a56fc9ac4a93fb2">$rating</a></td></tr>
@@ -107,8 +107,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class create pretty output in specific format. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a478da0630c51dfaf6be06d74955be5f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a478da0630c51dfaf6be06d74955be5f9">&#9670;&nbsp;</a></span>__construct()</h2>
+<a id="a82a9df95c7f423cefa2b5cfd429a1bca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a9df95c7f423cefa2b5cfd429a1bca">&#9670;&nbsp;</a></span>__construct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,7 +123,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>$finished</em> = <code>0</code>, </td>
+          <td class="paramname"><em>$finishedCount</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$stopCount</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -216,14 +222,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a39a8999db8a8253bd804258258c53ec3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39a8999db8a8253bd804258258c53ec3">&#9670;&nbsp;</a></span>$finished</h2>
+<a id="a8f737649d1ec6f7613a8ef33b5f70b2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f737649d1ec6f7613a8ef33b5f70b2e">&#9670;&nbsp;</a></span>$finishedCount</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">App\Utils\NumbersPretty::$finished</td>
+          <td class="memname">App\Utils\NumbersPretty::$finishedCount</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -306,7 +312,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 9 2020 18:53:58 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
+Generated on Tue Dec 29 2020 21:32:33 for Pletacka website Nette documentation by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
 </small></address>
 </body>
 </html>
