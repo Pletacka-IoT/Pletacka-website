@@ -60,6 +60,7 @@ final class TestPresenter extends BasePresenter
     private $thisSensorManager;
     private $workShiftManager;
     private $databaseSelectionManager;
+	private $databaseDataExtractorManager;
 
 	public function __construct(
 	    SensorsManager $sensorsManager,
@@ -82,6 +83,16 @@ final class TestPresenter extends BasePresenter
 
 	public function actionDebug($name)
 	{
+
+
+//		$this->databaseSelectionManager->createSelectionFromTo($)
+
+
+//		$date = $this->databaseDataExtractorManager->getDataHourly(17, new DateTime("2020-11-09 11:02:00"), new DateTime("2020-11-09 11:35:00"));
+
+//		$datea = $this->databaseDataExtractorManager->getDataToHourBefore(17, new DateTime("2020-11-09 11:35:17"));
+
+//		dump($date);
 //        for($s = 1; $s<=20; $s++)
 //        {
 //			for($i = 0; $i<24; $i++)
@@ -123,6 +134,8 @@ final class TestPresenter extends BasePresenter
 //        }
 
 	}
+
+
 
 	public function renderChart(): void
 	{
@@ -189,21 +202,32 @@ final class TestPresenter extends BasePresenter
 		$chart->setValueSuffix(' $');
 		//$chart->enableTimePrecision(); // Enable time accurate to seconds
 
-		$serie = new DateSerie(DateSerie::LINE, 'Revenues', 'green');
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 10));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 8));
-		$chart->addSerie($serie);
-
-		$serie = new DateSerie(DateSerie::LINE, 'Costs', 'red');
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 2));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 9));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 5));
-		$chart->addSerie($serie);
+//		$serie = new DateSerie(DateSerie::LINE, 'Revenues', 'green');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 10));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 4));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 8));
+//		$chart->addSerie($serie);
+//
+//		$serie = new DateSerie(DateSerie::LINE, 'Costs', 'red');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 2));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 9));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 5));
+//		$chart->addSerie($serie);
 
 		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'blue');
 		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 8));
-		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), -5));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 5));
+		$chart->addSerie($serie);
+
+		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'blue');
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-04-01'), 5));
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
+		$chart->addSerie($serie);
+
+		$serie = new DateSerie(DateSerie::AREA_LINE, 'Balance', 'green');
+//		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-01-01'), 8));
+		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-02-01'), 5));
 		$serie->addSegment(new DateSegment(new DateTimeImmutable('2012-03-01'), 3));
 		$chart->addSerie($serie);
 

@@ -62,7 +62,9 @@ final class WorkShiftPresenter extends BasePresenter
     {
 //        dump($this->workShiftManager->getWS(2020, 1));
 
+	    $this->template->wsTable = $wsTable = $this->workShiftManager->getWsTable((int)date("Y"));
 
+//	    dump($wsTable);
 
 
     }
@@ -72,6 +74,8 @@ final class WorkShiftPresenter extends BasePresenter
 
         dump($this->workShiftManager->getActualWS());
         dump($this->workShiftManager->getWeekWS());
+
+
 
     }
 }

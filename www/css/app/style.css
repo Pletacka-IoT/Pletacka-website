@@ -7,14 +7,15 @@ a:hover{
 div.flash{
     color: #0c5460;
     background-color: #d1ecf1;
-    border-color: #bee5eb;
-	padding: 1em;
+    border-color: #073608;
+	/*padding: 1em;*/
 
     position: relative;
     padding: .75rem 1.25rem;
 
-    border: 1px solid transparent;
-    border-radius: .25rem;
+    /*border: 1px solid transparent;*/
+    /*border-radius: .25rem;*/
+    text-align: right;
 }
 
 /*Muj alert*/
@@ -31,68 +32,6 @@ div.success {
     border-color: #c3e6cb;
 }
 
-.xbubble {
-    /*display: inline-block;*/
-    position: relative;
-    /*left: -10px;*/
-    width: 90px;
-    height: 50px;
-    /*margin: 6px;!*/
-    margin-top: 6px;
-
-    border-radius: 15px!important;
-    /*z-index: -1;*/
-
-}
-
-.xbubble-number{
-    color: white;
-    position: relative;
-    /*left: 10px;*/
-    top: 13px;
-    text-align: center;
-    width: 100%;
-}
-
-.xbubble-text{
-    position: relative;
-    left: -85px;
-    top: 20px;
-    color: #ffffff;
-    width: 45px;
-    z-index: 5;
-}
-
-
-
-.xbubble-off{
-    background-color: #6a6767;
-}
-/*.xbubble-text-off{*/
-/*    color: #6a6767;*/
-/*}*/
-
-.xbubble-ok{
-    background-color: #1A7E1E;
-}
-/*.xbubble-text-ok{*/
-/*    color: #1A7E1E;*/
-/*}*/
-
-.xbubble-stop{
-    background-color: #f51026;
-}
-/*.xbubble-text-stop{*/
-/*    color: #f51026;*/
-/*}*/
-
-.xbubble-brim{
-    border: 5px solid red;
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-    display: inline-block;
-}
 
 /*///////////////////////////////////*/
 .bubble-border{
@@ -142,6 +81,91 @@ div.success {
 
 /*///////////////////////////////////*/
 
+.tsNumberCol{
+    padding: 5px;
+}
+
+
+
+.tsNumberBubble{
+    border-radius: 15px!important;
+    padding: 3px;
+    text-align: center;
+    color: white;
+    height:100%;
+    width: 100%;
+    /*height: 50px;*/
+    /*margin 15px;*/
+    /*height: 90px;*/
+/*    min-width: 70px;*/
+
+}
+
+.tsNumberName{
+    font: 25px Arial;
+}
+
+.tsNumberDate{
+
+}
+
+.tsNumberValue{
+    text-align: center;
+    font: 30px Arial;
+}
+
+.tsNumberGreen{
+    background-color: #1A7E1E;
+}
+
+.tsNumberBlue{
+    background-color: #0a5ece;
+}
+
+.tsNumberRed{
+    background-color: #d03f4a;
+}
+
+.tsNumberOrange{
+    background-color: #f84705;
+}
+
+.tsNumberLightRed{
+    background-color: #d03f4a;
+}
+
+.tsNumberLightGreen{
+    background-color: #0ece0e;
+}
+
+.tsNumberRedPurple{
+    background-color: #6f42c1;
+}
+
+.tsNumberDarkRed{
+    background-color: #491217;
+}
+
+.tsNumberDarkYellow{
+    background-color: #ba8b00;
+}
+
+.tsNumberPink{
+    background-color: #e83e8c;
+}
+
+.tsNumberYellow{
+    background-color: yellow;
+}
+
+.tsNumberSkyblue{
+    background-color: #095d7f;
+}
+
+
+
+/*///////////////////////////////////*/
+
 .zoom {
     transition: transform .2s;
 }
@@ -150,8 +174,17 @@ div.success {
     -ms-transform: scale(1.2); /* IE 9 */
     -webkit-transform: scale(1.2); /* Safari 3-8 */
     transform: scale(1.2);
-
 }
+
+/*.zoom-sm{*/
+/*    transition: transform .2s;*/
+/*}*/
+
+/*.zoom-sm:hover {*/
+/*    -ms-transform: scale(1.1); !* IE 9 *!*/
+/*    -webkit-transform: scale(1.1); !* Safari 3-8 *!*/
+/*    transform: scale(1.1);*/
+/*}*/
 
 .center{
     margin-left: auto;

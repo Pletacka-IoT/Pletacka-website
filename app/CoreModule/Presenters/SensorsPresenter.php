@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\CoreModule\Presenters;
 
 use App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory;
+use App\CoreModule\Component\ThisChartControl\ThisChartControl;
+use App\CoreModule\Component\ThisChartControl\ThisChartControlFactory;
+use App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -25,6 +28,7 @@ use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Serie\DateSerie;
 use Jakubandrysek\Chart\Segment\DateSegment;
 use DateTimeImmutable;
+use Nette\Utils\DateTime;
 
 /**
  * @brief Sensor presenter
@@ -53,6 +57,14 @@ final class SensorsPresenter extends BasePresenter
     private $pletackaChartControlFactory;
 
     private $sNumber;
+	/**
+	 * @var ThisStatusNumbersControlFactory
+	 */
+	private $thisStatusNumbersControlFactory;
+	/**
+	 * @var ThisChartControlFactory
+	 */
+	private $thisChartControlFactory;
 
 
 	public function __construct(
@@ -64,7 +76,9 @@ final class SensorsPresenter extends BasePresenter
 		ThisChartManager $thisChartManager,
 		ChartManager $chartManager,
 		WorkShiftManager $workShiftManager,
-		PletackaChartControlFactory $pletackaChartControlFactory
+		PletackaChartControlFactory $pletackaChartControlFactory,
+		ThisStatusNumbersControlFactory $thisStatusNumbersControlFactory,
+		ThisChartControlFactory $thisChartControlFactory
     )
 	{
         
@@ -77,7 +91,19 @@ final class SensorsPresenter extends BasePresenter
         $this->chartManager = $chartManager;
         $this->workShiftManager = $workShiftManager;
         $this->pletackaChartControlFactory = $pletackaChartControlFactory;
-    }
+		$this->thisStatusNumbersControlFactory = $thisStatusNumbersControlFactory;
+		$this->thisChartControlFactory = $thisChartControlFactory;
+	}
+
+	protected function createComponentThisStatusNumbers()
+	{
+		return $this->thisStatusNumbersControlFactory->create();
+	}
+
+	protected function createComponentThisChart()
+	{
+		return $this->thisChartControlFactory->create();
+	}
 
     protected function createComponentPletackaChart()
     {
@@ -96,12 +122,20 @@ final class SensorsPresenter extends BasePresenter
         }
 
         //Setup component number
-        $this->sNumber = $number;
+
 
 
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
+//        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->number = $number;
+        $this->template->sensorHasData = $sensorHasData = $this->thisSensorManager->sensorHasData($number);
+
+
+//        $this->template->wss = "daszf";
+        $this->template->xFrom = new DateTime("2020-11-16 00:00:00");
+	    $this->template->xTo  = new DateTime("2020-11-16 23:59:59");
+
+	    $x = $this->workShiftManager->getWeekWS();
 
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 

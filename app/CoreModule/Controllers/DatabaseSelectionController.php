@@ -2,7 +2,7 @@
 
 namespace App\CoreModule\Controllers;
 
-use Apitte\Core\Annotation\Controller\ControllerPath;
+//use Apitte\Core\Annotation\Controller\ControllerPath;
 use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Annotation\Controller\RequestParameters;
@@ -20,7 +20,7 @@ use Nette\Utils\DateTime;
 
 /**
  * ThisSensor API class for selected sensor - extend BaseV1Controller
- * @ControllerPath("/cron")
+ * @Path("/cron")
  */
 final class DatabaseSelectionController extends BaseV1Controller
 {

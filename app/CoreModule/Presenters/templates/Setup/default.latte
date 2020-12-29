@@ -1,0 +1,25 @@
+{block title}Prvotní nastavení{/block}
+
+{block content}
+
+
+<div class="container-fluid  p-4 bg-primary text-white text-center"  >
+    <h1 class="display-4">
+        Prvotní nastavení
+    </h1>
+</div>
+
+
+
+<div class="container-fluid text-white text-center bg-info p-4" >
+    {if $setup > 0}
+        <h3>Nastavení proběhlo v pořádku</h3>
+        <br>
+        <h4>počet vytvořených tabulek ({$setup})</h4>
+    {else}
+        <h3>Vše je v pořádku nastaveno</h3>
+        <br>
+        <h4>Systém je aktuální</h4>
+    {/if}
+
+</div>

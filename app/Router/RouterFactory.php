@@ -40,7 +40,7 @@ final class RouterFactory
 					'smazat' => 'delete',
 					'test' => 'test',
                     'debug' => 'debug',
-                    'pridat' => 'add',
+                    'hromadne-upravy' => 'multiEdit',
 				]
 			]
 		]);
@@ -72,6 +72,16 @@ final class RouterFactory
 			'action' => 'default'
 		]);
 
+		$router[] = new Route('database', [
+			'presenter' => 'Core:DatabaseTest',
+			'action' => 'default'
+		]);
+
+		$router[] = new Route('nastaveni', [
+			'presenter' => 'Core:Setup',
+			'action' => 'default'
+
+		]);
 
 		$router[] = new Route('<presenter>/<action>[/<number>]', 'Core:Homepage:default');
 		return $router;

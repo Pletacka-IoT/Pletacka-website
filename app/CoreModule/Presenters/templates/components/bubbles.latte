@@ -1,56 +1,56 @@
-{define bubbles $bubblesData}
+{*{define bubbles $bubblesData}*}
 
-	<div class="table-responsive xbubble-brim center">
-		{foreach $bubblesData as $number => $bubble}
-		{var myColumn = $bubble["COLUMN"]}
-			{first}<table class="table table-borderless">{/first}
-				{first $myColumn}<tr>{/first}
-					{if $bubble["VISIBILITY"] == "VISIBLY"}
-						{if $bubble["LAST_STATE"] == 'OFF'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-off zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-off"></div></a></td>
-						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-ok zoom"></div></a></td>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-ok">{floor($bubble["FINISHED"]/2)}-P</div></a></td>
-						{elseif $bubble["LAST_STATE"] == 'STOP'}
-							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>
-							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-stop zoom"></div></a></td>
-							<td>
-								<a class="ajax" n:href="Sensors:default $number" >
-									<div class="xbubble-text xbubble-text-stop">
+{*	<div class="table-responsive xbubble-brim center">*}
+{*		{foreach $bubblesData as $number => $bubble}*}
+{*		{var myColumn = $bubble["COLUMN"]}*}
+{*			{first}<table class="table table-borderless">{/first}*}
+{*				{first $myColumn}<tr>{/first}*}
+{*					{if $bubble["VISIBILITY"] == "VISIBLY"}*}
+{*						{if $bubble["LAST_STATE"] == 'OFF'}*}
+{*							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>*}
+{*							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-off zoom"></div></a></td>*}
+{*							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-off"></div></a></td>*}
+{*						{elseif $bubble["LAST_STATE"] == 'ON' or $bubble["LAST_STATE"] == 'FINISHED' or $bubble["LAST_STATE"] == 'REWORK'}*}
+{*							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>*}
+{*							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-ok zoom"></div></a></td>*}
+{*							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-text xbubble-text-ok">{floor($bubble["FINISHED"]/2)}-P</div></a></td>*}
+{*						{elseif $bubble["LAST_STATE"] == 'STOP'}*}
+{*							<th><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble-number"><h2>{$number}</h2></div></a></th>*}
+{*							<td><a class="ajax" n:href="Sensors:default $number" ><div class="xbubble xbubble-stop zoom"></div></a></td>*}
+{*							<td>*}
+{*								<a class="ajax" n:href="Sensors:default $number" >*}
+{*									<div class="xbubble-text xbubble-text-stop">*}
 {*										{gmdate("H:i:s", $bubble["STOP_TIME"])}H*}
 
 {*										{dump $bubble["STOP_TIME"]}*}
-										{if $bubble["STOP_TIME"]>3600}
-											{if gmdate("H", $bubble["STOP_TIME"])[0] == 0}
-												{gmdate("H", $bubble["STOP_TIME"])[1]}&nbsp;hod
-											{else}
-												{gmdate("H", $bubble["STOP_TIME"])}&nbsp;hod
-											{/if}
+{*										{if $bubble["STOP_TIME"]>3600}*}
+{*											{if gmdate("H", $bubble["STOP_TIME"])[0] == 0}*}
+{*												{gmdate("H", $bubble["STOP_TIME"])[1]}&nbsp;hod*}
+{*											{else}*}
+{*												{gmdate("H", $bubble["STOP_TIME"])}&nbsp;hod*}
+{*											{/if}*}
 
-										{else}
-											{if gmdate("i", $bubble["STOP_TIME"])[0] == 0}
-												{gmdate("i", $bubble["STOP_TIME"])[1]}&nbsp;min
-											{else}
-												{gmdate("i", $bubble["STOP_TIME"])}&nbsp;min
-											{/if}
-										{/if}
-									</div>
-								</a>
-							</td>
-						{/if}
-					{else}
-						<th><div class = "xbubble-number"><h2></h2></div></th>
-						<td><div class="xbubble xbubble-hide"></div></td>
-						<td><div class="xbubble-text"></div></td>
-					{/if}
+{*										{else}*}
+{*											{if gmdate("i", $bubble["STOP_TIME"])[0] == 0}*}
+{*												{gmdate("i", $bubble["STOP_TIME"])[1]}&nbsp;min*}
+{*											{else}*}
+{*												{gmdate("i", $bubble["STOP_TIME"])}&nbsp;min*}
+{*											{/if}*}
+{*										{/if}*}
+{*									</div>*}
+{*								</a>*}
+{*							</td>*}
+{*						{/if}*}
+{*					{else}*}
+{*						<th><div class = "xbubble-number"><h2></h2></div></th>*}
+{*						<td><div class="xbubble xbubble-hide"></div></td>*}
+{*						<td><div class="xbubble-text"></div></td>*}
+{*					{/if}*}
 
-				{last $myColumn}</tr>{/last}
-			{last}</table>{/last}
-		{/foreach}
-	</div>
+{*				{last $myColumn}</tr>{/last}*}
+{*			{last}</table>{/last}*}
+{*		{/foreach}*}
+{*	</div>*}
 
-{/define}
+{*{/define}*}
 

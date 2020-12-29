@@ -65,25 +65,14 @@ final class HomepagePresenter extends BasePresenter
 
     public function renderDefault() : void
     {
-        $this->template->settings = $this->sensorsManager->getTitleSettings();
 
         $this->template->actualWS = $this->workShiftManager->getActualWS();
 
-        // Info table
-        ($pletackyAll = $this->template->pletackyAll = $this->chartManager->sensorsChartHomepage());
-
         // Big pletacka room
 	    $this->template->plBig = $plBig = $this->roomManager->roomPletarnaBig;
-//        ($bubblesBig = $this->template->bubblesBig = $this->chartManager->sensorsChartBubbles($plBig));
 
         // Small pletacka room
 	    $this->template->plSmall = $plSmall = $this->roomManager->roomPletarnaSmall;
-//        ($bubblesSmall = $this->template->bubblesSmall = $this->chartManager->sensorsChartBubbles($plSmall));
-
-//        $last = $pletackyAll["ALL_SENSORS"]["Pletacka1"];
-//        dump($last[array_key_last($last)]->state);
-
-//	    	    dump($url = $this->link("Homepage:default"));
 
 
 

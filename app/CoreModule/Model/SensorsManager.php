@@ -48,6 +48,17 @@ class SensorsManager
     }
 
 
+    public function importantTablesAreExist()
+    {
+		return $ret = $this->database->table("users")->fetch();
+
+
+    	//	    try {
+//
+//	    }catch ()
+    }
+
+
     
     /**
      * @brief Get all sensors from database
@@ -112,12 +123,12 @@ class SensorsManager
      * @param int $sensorNumber machine number
      * @return bool create status
      */    
-    public function addThisSensor($sensorNumber)
+    private function addThisSensor($sensorNumber)
     {
         $sensorNumber = "A".$sensorNumber;
         
         $this->database->query("
-            DROP TABLE IF EXISTS `A1-H`;            
+            DROP TABLE IF EXISTS $sensorNumber;            
             CREATE TABLE $sensorNumber (
             id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             state ENUM('FINISHED','STOP','REWORK', 'ON', 'OFF') NOT NULL DEFAULT 'FINISHED',
@@ -133,7 +144,7 @@ class SensorsManager
      * @param $selection
      * @return bool create status
      */
-    public function addThisSensorSelection($sensorNumber, $selection)
+    private function addThisSensorSelection($sensorNumber, $selection)
     {
         $sensorNumber = "A".$sensorNumber."_".$selection;
 
@@ -160,7 +171,7 @@ class SensorsManager
      * @param int $newNumber new machine number
      * @return bool rename status
      */
-    public function renameThisSensor(int $oldNumber, int $newNumber)
+    private function renameThisSensor(int $oldNumber, int $newNumber)
     {
         $oldNumber = "A".$oldNumber;
         $newNumber = "A".$newNumber;
@@ -182,7 +193,7 @@ class SensorsManager
      * @param string $selection
      * @return bool rename status
      */
-    public function renameThisSensorSelection(int $oldNumber, int $newNumber, string $selection)
+    private function renameThisSensorSelection(int $oldNumber, int $newNumber, string $selection)
     {
         $oldNumber = "A".$oldNumber."_".$selection;
         $newNumber = "A".$newNumber."_".$selection;
@@ -201,7 +212,7 @@ class SensorsManager
      * @param int $sensorNumber machine number
      * @return \Nette\Database\ResultSet
      */     
-    public function deleteThisSensor($sensorNumber)
+    private function deleteThisSensor($sensorNumber)
     {
         if($this->sensorIsExist($sensorNumber))
         {
@@ -215,7 +226,7 @@ class SensorsManager
      * @param int $sensorNumber machine number
      * @return \Nette\Database\ResultSet
      */
-    public function deleteThisSensorSelection($sensorNumber, $selection)
+    private function deleteThisSensorSelection($sensorNumber, $selection)
     {
         if($this->sensorIsExist($sensorNumber)) {
             $sensorNumber = "A" . $sensorNumber . "_" . $selection;
@@ -280,17 +291,19 @@ class SensorsManager
             return new Pretty(false, "" , "Senzor který chceš smazat neexistuje");
         }
 
-        $count = $this->database->table("sensors")
+	    $this->deleteThisSensor($number);
+	    $this->deleteThisSensorSelection($number, self::HOUR);
+	    $this->deleteThisSensorSelection($number, self::DAY);
+	    $this->deleteThisSensorSelection($number, self::MONTH);
+	    $this->deleteThisSensorSelection($number, self::YEAR);
+
+	    $count = $this->database->table("sensors")
             ->where('number', $number)
             ->delete();
 
-        $this->deleteThisSensor($number);
-        $this->deleteThisSensorSelection($number, self::HOUR);
-        $this->deleteThisSensorSelection($number, self::DAY);
-        $this->deleteThisSensorSelection($number, self::MONTH);
-        $this->deleteThisSensorSelection($number, self::YEAR);
 
-        return new Pretty(true, $count , "Senzor byl smazán");
+
+	    return new Pretty(true, $count , "Senzor byl smazán");
     }
 
 	/**

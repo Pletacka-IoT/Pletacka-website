@@ -12,6 +12,8 @@ services:
 			- addResource(Core:Sensors)
 			- addResource(Core:WorkShift)
 			- addResource(Core:SensorsSettings)
+			- addResource(Core:DatabaseTest)
+			- addResource(Core:Setup)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -21,15 +23,15 @@ services:
 			- allow(guest, Core:Connect)
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
+			- allow(guest, Core:Setup)
 			# - allow(guest, Error)
 			# - allow(guest, Error4xx)
 
 
 			- allow(member, Core:Homepage)
 			- allow(member, Core:Sensors)
-			
+
 			- allow(admin) # Administrátor může všechno.
-			
 
 			# - deny(guest, Core:Homepage)
 
@@ -42,11 +44,16 @@ services:
 	- App\CoreModule\Model\RoomManager
 	- App\CoreModule\Model\WorkShiftManager
 	- App\CoreModule\Model\DatabaseSelectionManager
+	- App\CoreModule\Model\DatabaseTestManager
+	- App\CoreModule\Model\SetupManager
 
     # Forms
+
 	- App\CoreModule\Forms\SensorsFormFactory
 	- App\CoreModule\Forms\ThisSensorFormFactory
 	- App\CoreModule\Forms\WorkShiftFormFactory
 	- App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory
 	- App\CoreModule\Component\StatusBubblesControl\StatusBubblesControlFactory
 	- App\CoreModule\Component\StatusNumbersControl\StatusNumbersControlFactory
+	- App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory
+	- App\CoreModule\Component\ThisChartControl\ThisChartControlFactory

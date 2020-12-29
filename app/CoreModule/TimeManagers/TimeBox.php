@@ -8,7 +8,7 @@ use Nette;
 use Nette\Database\Table\Selection;
 use DateInterval;
 use PhpParser\Node\Scalar\String_;
-use DateTime;
+use Nette\Utils\DateTime;
 
 
 /**
@@ -33,20 +33,26 @@ class TimeBox
 	private $startTime;
 
 	private $endTime;
+	/**
+	 * @var Selection
+	 */
+	private $previousEvent;
 
 
 	/**
-     * @brief Constructor
-     * @param Selection $tableSelection
-     * @param           $startTime
-     * @param           $endTime
-     */
-	public function __construct($tableSelection, DateTime $startTime, DateTime  $endTime)
+	 * @brief Constructor
+	 * @param  $tableSelection
+	 * @param  $previousEvent
+	 * @param DateTime $startTime
+	 * @param DateTime $endTime
+	 */
+	public function __construct($tableSelection, $previousEvent,DateTime $startTime, DateTime  $endTime)
 	{
 		//TODO change times to DateTime
 		$this->tableSelection = $tableSelection;
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
+		$this->previousEvent = $previousEvent;
 	}
 
     /**
@@ -63,7 +69,7 @@ class TimeBox
      * @param null $state Pletacka state or all states (null)
      * @return int count
      */
-	public function countEvents($state = NULL)
+	public function countEvents($state = NULL): int
 	{
 
 	    $count = 0;
@@ -85,16 +91,15 @@ class TimeBox
 
     /**
      * @brief Get all pletacka time
-     * @param $previousEvent
      * @return int time in seconds
      */
-    public function allTime($previousEvent)
+    public function allTime(): int
     {
         $time = 0;
 	    $start = 0;
-        if($previousEvent)
+        if($this->previousEvent)
         {
-            $state = $previousEvent->state;
+            $state = $this->previousEvent->state;
             if($state != self::OFF)
             {
                 $state = self::ON;
@@ -145,128 +150,154 @@ class TimeBox
 
         if($state != self::OFF)
         {
-//        	$stop = $this->tableSelection[array_key_last($this->tableSelection)]->time->getTimestamp();
             $time += $this->endTime->getTimestamp() - $start;
         }
 
         return $time;
 
     }
+//
+//
+//    /**
+//     * @brief Get stop time
+//     * @return int time in seconds
+//     */
+//    public function stopTime(): int
+//    {
+//        $sState = self::STOP;
+//        $time = 0;
+//        $start = 0;
+//
+//        foreach($this->tableSelection as $event)
+//        {
+//            switch ($sState) {
+//                case self::STOP:
+//                    if($event->state == self::STOP)
+//                    {
+//                        $sState = self::REWORK;
+//                        $start = $event->time->getTimestamp();
+////                        echo " -> STOP -> ".$start;
+//                    }
+//                    else if($event->state == self::OFF)
+//                    {
+//                        $start = $stop = 0;
+//                        $sState = self::OFF;
+//                    }
+//                    break;
+//                case self::REWORK:
+//                    if($event->state == self::REWORK)
+//                    {
+//                        $stop = $event->time->getTimestamp();
+//                        $sState = self::STOP;
+//                        $time += $stop-$start;
+////                        echo " -> REWORK -> ".$stop."-> ALL: ". $time;
+//                    }
+//                    else if($event->state == self::OFF)
+//                    {
+//	                    $time += $this->endTime->getTimestamp()-$start;
+//                    	$start = $stop = 0;
+//                        $sState = self::OFF;
+//                    }
+//                    break;
+//                case self::OFF:
+//                    if($event->state == self::ON)
+//                    {
+//                        $sState = self::STOP;
+//                    }
+//                    break;
+//            }
+//        }
+//
+//        if($sState == self::REWORK)
+//        {
+//	        $time += $this->endTime->getTimestamp()-$start;
+//        }
+//        return $time;
+//    }
 
 
-    /**
-     * @brief Get stop time
-     * @param $previousEvent
-     * @return int time in seconds
-     */
-    public function stopTime($previousEvent)
-    {
-        $sState = self::STOP;
-        $time = 0;
-        $start = 0;
-
-        // Fix time after last $event
-//	    ISSUE
-
-        foreach($this->tableSelection as $event)
-        {
-            switch ($sState) {
-                case self::STOP:
-                    if($event->state == self::STOP)
-                    {
-                        $sState = self::REWORK;
-                        $start = $event->time->getTimestamp();
-//                        echo " -> STOP -> ".$start;
-                    }
-                    else if($event->state == self::OFF)
-                    {
-                        $start = $stop = 0;
-                        $sState = self::OFF;
-                    }
-                    break;
-                case self::REWORK:
-                    if($event->state == self::REWORK)
-                    {
-                        $stop = $event->time->getTimestamp();
-                        $sState = self::STOP;
-                        $time += $stop-$start;
-//                        echo " -> REWORK -> ".$stop."-> ALL: ". $time;
-                    }
-                    else if($event->state == self::OFF)
-                    {
-                        $start = $stop = 0;
-                        $sState = self::OFF;
-                    }
-                    break;
-                case self::OFF:
-                    if($event->state == self::ON)
-                    {
-                        $sState = self::STOP;
-                    }
-                    break;
-            }
-        }
+	/**
+	 * @brief Get stop time
+	 * @return int time in seconds
+	 */
+	public function stopTime(): int
+	{
+		$time = 0;
+		$start = 0;
+		$sStateLast = "";
+		$first = true;
 
 
-        if($sState == self::REWORK)
-        {
+//		if($this->previousEvent == self::STOP)
+//		{
+//			$start = $this->startTime->getTimestamp();
+//		}
 
-	        $time += $this->endTime->getTimestamp()-$start;
-        }
-        return $time;
-    }
+		foreach($this->tableSelection as $event)
+		{
+			$sState = $event;
+			switch ($event->state) {
+				case self::STOP:
+					$start = $event->time->getTimestamp();
+					break;
+				case self::REWORK:
+					if($first)
+					{
+						$start = $this->startTime->getTimestamp();
+						$time += $event->time->getTimestamp()-$start;
+					}
+					else
+					{
+						$time += $event->time->getTimestamp()-$start;
+					}
+					break;
+				case self::OFF:
+					if($sStateLast == self::STOP)
+					{
+						$time += $event->time->getTimestamp()-$start;
+					}
+					break;
+			}
+			$first = false;
+			$sStateLast = $event->state;
+		}
+
+		if($sState->state == self::STOP)
+		{
+			$time += $this->endTime->getTimestamp()-$start;
+		}
+
+		if($time<0)
+		{
+			return 0;
+		}
+
+		if($time>2629743)
+		{
+			return 0;
+		}
+		return $time;
+//		dump($time);
+//		return 300;
+	}
 
 	/**
 	 * @brief Get last stop time
-	 * @param Nette\Utils\DateTime $now
+	 * @param DateTime $now
 	 * @return int time in seconds
 	 */
-    public function lastStopTime(Nette\Utils\DateTime $now)
+    public function lastStopTime(DateTime $now)
     {
-		if(($stop = $this->tableSelection[array_key_last($this->tableSelection)])->state != self::STOP)
-		{
-			return null;
-		}
+	    if (($stop = $this->tableSelection[array_key_last($this->tableSelection)])->state != self::STOP) {
+		    return null;
+	    }
 
 	    $stop = $stop->time->getTimestamp();
-		$start = $now->getTimestamp();
+	    $start = $now->getTimestamp();
 
-		return $start-$stop;
+	    return $start - $stop;
 
-
-
-//    	$table = array_reverse($this->tableSelection);
-//        $first = true;
-//
-//        foreach($table as $event)
-//        {
-//            if($first)
-//            {
-//				$stop = $event->time->getTimestamp();
-//            }
-//            else if($event->state == self::)
-//            {
-//
-//            }
-
-
-//        }
-//
-//        return ;
-//
-//        return $time;
     }
-
-//    /**
-//     * @brief Get work time
-//     * @param $previousEvent
-//     * @return int time in second
-//     */
-//    public function workTime($previousEvent)
-//    {
-//        $time = $this->allTime($previousEvent)-$this->stopTime($previousEvent);
-//        return $time;
-//    }
 
 
 	/**
@@ -278,75 +309,6 @@ class TimeBox
 	public function workTime(int $allTime, int $stopTime)
 	{
 		return $allTime-$stopTime;
-	}
-
-//    /**
-//     * @brief Get average stop time
-//     * @param $previousEvent
-//     * @return int time in seconds
-//     */
-//    public function avgStopTime($previousEvent)
-//    {
-//        $count = $this->countEvents(self::STOP);
-//
-//        if($count>0)
-//        {
-//            return ceil($this->stopTime($previousEvent)/$count);
-//        }
-//        else
-//            return 0;
-//
-//    }
-	/**
-	 * @brief Get average stop time
-	 * @param int $stopTime
-	 * @param int $countEvents
-	 * @return int time in seconds
-	 */
-    public function avgStopTime(int $stopTime, int $countEvents)
-    {
-        if($countEvents>0)
-        {
-            return ceil($stopTime/$countEvents);
-        }
-        else
-            return 0;
-
-    }
-
-
-//	/**
-//	 * @brief Get average work time
-//	 * @param $previousEvent
-//	 * @return int time in seconds
-//	 */
-//	public function avgWorkTime($previousEvent)
-//	{
-//		$count = $this->countEvents(self::FINISHED);
-//
-//		if($count>0)
-//		{
-//			return ceil($this->workTime($previousEvent)/$count);
-//		}
-//		else
-//			return 0;
-//	}
-
-	/**
-	 * @brief Get average work time
-	 * @param int $workTime
-	 * @param int $countEvents
-	 * @return int time in seconds
-	 */
-	public function avgWorkTime(int $workTime, int $countEvents)
-	{
-		if($countEvents>0)
-		{
-			return ceil($workTime/$countEvents);
-		}
-		else
-			return 0;
-
 	}
     
 }

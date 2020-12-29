@@ -89,7 +89,7 @@ class WorkShiftManager
 
     public function setYear($year, $wsFirst, $wsSecond)
     {
-        for($i = 1; $i<=52; $i++)
+        for($i = 1; $i<=53; $i++)
         {
             if(!$this->getWS($year, $i))
             {
@@ -121,13 +121,20 @@ class WorkShiftManager
     public function getActualWS()
     {
         $act = $this->getWS(date("Y"), date("W"));
-        if(date("H")<14)
+        if($act)
         {
-            return $act[0];
+	        if(date("H")<14)
+	        {
+		        return $act[0];
+	        }
+	        else
+	        {
+		        return $act[1];
+	        }
         }
         else
         {
-            return $act[1];
+        	return false;
         }
     }
 
@@ -145,6 +152,26 @@ class WorkShiftManager
     }
 
 
+    public function getWsTable(int $startYear)
+	{
+		$ws = array();
+
+		for($i = $startYear-2; $i<= $startYear + 2; $i++)
+		{
+			$data = $this->database->table("workShift")->where("year = ? AND week = 1", $i)->fetch();
+
+			if($data == null)
+			{
+				$data["noExist"] = true;
+				$data["year"] = $i;
+			}
+
+			array_push($ws, $data);
+		}
+
+		return $ws;
+
+	}
 
 
 

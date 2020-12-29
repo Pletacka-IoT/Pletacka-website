@@ -2,9 +2,8 @@
 
 namespace App\CoreModule\Controllers;
 
-use Apitte\Core\Annotation\Controller\ControllerPath;
-use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
+use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
 use Apitte\Core\Annotation\Controller\RequestParameters;
@@ -17,7 +16,7 @@ use Apitte\Core\Exception\Api\MessageException;
 
 /**
  * Sensor API class - extend BaseV1Controller
- * @ControllerPath("/sensors")
+ * @Path("/sensors")
  */
 final class SensorsController extends BaseV1Controller
 {

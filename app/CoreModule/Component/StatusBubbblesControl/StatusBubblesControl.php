@@ -77,7 +77,8 @@ class StatusBubblesControl extends  Control{
 
     public function getCountFinishedTodayWS(int $number, DateTime $from, string $state)
     {
-    	return $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
+    	$x = $this->database->table("A".$number)->where("time>? AND state = ?", $from, $state)->count();
+	    return $x;
     }
 
     public function getClassName(string $sting): string
@@ -104,7 +105,7 @@ class StatusBubblesControl extends  Control{
 				}
 				else
 				{
-					$finishedPairs = floor($this->getCountFinishedTodayWS($number, $from, "FINISHED")/2);
+					$finishedPairs = ceil($this->getCountFinishedTodayWS($number, $from, "FINISHED")/2);
 
 					if($finishedPairs>0)
 					{
@@ -167,9 +168,9 @@ class StatusBubblesControl extends  Control{
 	    $allSensorNumbers = $this->multiSensorsManager->getAllSensorsName();
 	    $bubblesAll = array();
 	    $row = 0;
-	    $empty = -1;
+	    $empty = 0;
 
-//	    dump(new DateTime("Y-m-d 04:00:00"));
+	    $noData = true;
 
 
 	    foreach($roomAll as $roomRow)
@@ -182,19 +183,24 @@ class StatusBubblesControl extends  Control{
 			    {
 					$bubbleBox = $this->prepareBubbleBox(intval($roomSensorNumber), $from);
 			    	$bubbleSensor = array($roomSensorNumber => $bubbleBox);
+			    	$noData = false;
 			    }
 		    	else
 			    {
-			    	$bubbleSensor = array($empty=>null);
-			    	$empty--;
+				    $empty--;
+				    $bubbleSensor = array($empty=>null);
 			    }
 		    	$bubblesRow += $bubbleSensor;
 		    }
 			$bubblesAll[$row] = $bubblesRow;
 	    	$row++;
 	    }
-	    $this->template->bubblesAll = $bubblesAll;
+
 	    $this->template->textName = $textName;
+	    $this->template->bubblesAll = $bubblesAll;
+	    $this->template->noData = $noData;
+
+//	    dump($empty);
 
 //	    $allSensors = $this->multiSensorsManager->getAllSensorsEvents($roomSensorsArray, $from, $to, false);
 //	    dump($url = $this->link("core:ahoj"));

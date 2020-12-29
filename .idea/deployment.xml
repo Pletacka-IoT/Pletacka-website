@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Pi" remoteFilesAllowedToDisappearOnAutoupload="false" showDifferentInSync="false" showNewOnTargetInSync="false">
+  <component name="PublishConfigData" serverName="Pi" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="PI-Hamachi">
+      <paths name="Pi">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="Pi">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="Pletacka-IoT">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="" />
-          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/temp/cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/doc" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

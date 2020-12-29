@@ -2,6 +2,7 @@
 
 namespace App\CoreModule\Model;
 
+use App\Utils\DatabaseDataExtractorPretty;
 use App\Utils\DatabaseSelectionPretty;
 use http\Exception;
 use Nette;
@@ -40,7 +41,12 @@ class DatabaseSelectionManager
         HOUR = "H",
         DAY = "D",
         MONTH = "M",
-        YEAR = "Y";
+        YEAR = "Y",
+	    HOUR_L = "hour",
+		DAY_L = "day",
+		MONTH_L = "month",
+		YEAR_L = "year";
+
 
     public const
         WsA = "Cahovi",
@@ -215,10 +221,10 @@ class DatabaseSelectionManager
 				    }
 			    }
 
-			    $timeBox = new TimeBox($rawData, $from, $to);
+			    $timeBox = new TimeBox($rawData, $previousData, $from, $to);
 
-			    $databaseOutput->t_all += $timeBox->allTime($previousData);
-			    $databaseOutput->t_stop += $timeBox->stopTime($previousData);
+			    $databaseOutput->t_all += $timeBox->allTime();
+			    $databaseOutput->t_stop += $timeBox->stopTime();
 			    $databaseOutput->t_work = $databaseOutput->t_all - $databaseOutput->t_stop;
 
 			    if(!$this->database->table($dbSelectionName)->where("time = ?", $from)->fetch())
@@ -338,6 +344,116 @@ class DatabaseSelectionManager
 	    }
     }
 
+	/**
+	 * @param int $number
+	 * @param string $selection long format (DAY_L);
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return Pretty
+	 */
+	public function createSelectionFromTo(int $number, string $selection, DateTime $from, DateTime $to) :Pretty
+	{
+		if($from>$to)
+		{
+			return new Pretty(false, null, "Bad time format");
+		}
+		$v = strlen($selection);
+		if($v<3)
+		{
+			return new Pretty(false, null, "Bad selection format, use long format (DAY_L)");
+		}
+
+
+		$error = 0;
+		$ok = 0;
+		$state = true;
+		$date = clone $from;
+		while($date<=$to)
+		{
+			if(($returnMessage =  $this->createSelection($number, strtoupper($selection[0]), $date))->state)
+			{
+				$ok++;
+			}
+			else
+			{
+				$error++;
+				$state = false;
+			}
+			$date->add(DateInterval::createFromDateString(("1 ".$selection)));
+
+		}
+
+
+		return new Pretty($state, array("ok"=>$ok, "error"=>$error), $selection." selection -> "."OK: ".$ok."; ERROR: ".$error);
+	}
+
+	public function createMultiSelection(int $number, DateTime $from, DateTime $to) :Pretty
+	{
+		$returnAll = array("ok"=>0, "error"=>0);
+
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::HOUR_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::DAY_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::MONTH_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+		$return = $this->createSelectionFromTo($number, DatabaseSelectionManager::YEAR_L, $from, $to);
+		$this->countReturn($returnAll, $return->main);
+
+
+
+		if($returnAll["error"]>0)
+		{
+			return new Pretty(true, array("num"=>$number, "ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), $returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
+		}
+		else
+		{
+			return new Pretty(true, array("num"=>$number, "ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+		}
+
+	}
+
+	private function countReturn(array& $returnAll, $return)
+	{
+		if($return != null)
+		{
+			$returnAll["ok"] += $return["ok"];
+			$returnAll["error"] += $return["error"];
+		}
+
+	}
+
+
+	public function createMultiSelectionForSensorsFromTo(object $sensors, DateTime $from, DateTime $to): Pretty
+	{
+		if(!$sensors)
+			return new Pretty(false, "", "No sensors");
+
+		$returnAll = array("ok"=>0, "error"=>0);
+		$returnState = true;
+
+		foreach ($sensors as $sensor)
+		{
+			$return = $this->createMultiSelection(intval($sensor->number), $from, $to);
+			$this->countReturn($returnAll, $return->main);
+//			dump($return);
+
+			if(!$return->state)
+			{
+				$returnState = false;
+			}
+		}
+
+		if($returnState)
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno ".$returnAll["ok"]." dat");
+		}
+		else
+		{
+			return new Pretty(true, array("ok"=>$returnAll["ok"], "error"=>$returnAll["error"]), "Aktualizováno - ".$returnAll["error"]." errorů, ".$returnAll["ok"]." v pořádku");
+		}
+	}
+
 
     public function createSelections(object $sensors, string $selection, DateTime $from) :Pretty
     {
@@ -373,24 +489,102 @@ class DatabaseSelectionManager
     }
 
 
-    public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseSelectionPretty
+	/**
+	 * @param int $number
+	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
+	 * @param string $workShift ["Cahovi" or "Vaňkovi"]
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return DatabaseDataExtractorPretty
+	 */
+	public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
     {
-    	$dsPretty = new DatabaseSelectionPretty($number);
+    	$dsPretty = new DatabaseDataExtractorPretty($number);
 	    $dsPretty->workShift = $workShift;
 
-    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time <= ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+
+    	if(!$dSelection)
+	    {
+	    	return new DatabaseDataExtractorPretty(-555, false, "No input data");
+	    }
 
     	foreach ($dSelection as $dRow)
 	    {
-
-		    $dsPretty->t_stop += $dRow->t_stop;
-		    $dsPretty->t_work += $dRow->t_work;
-		    $dsPretty->t_all += $dRow->t_all;
-		    $dsPretty->c_FINISHED += $dRow->c_FINISHED;
-		    $dsPretty->c_STOP += $dRow->c_STOP;
+		    $dsPretty->stopTime += $dRow->t_stop;
+		    $dsPretty->workTime += $dRow->t_work;
+		    $dsPretty->allTime += $dRow->t_all;
+		    $dsPretty->finishedCount += $dRow->c_FINISHED;
+		    $dsPretty->stopCount += $dRow->c_STOP;
+		    $dsPretty->status = true;
 	    }
 
     	return $dsPretty;
+    }
+
+
+	/**
+	 * @param int $number
+	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
+	 * @param $workShift ["Cahovi" or "Vaňkovi" / null (auto)]
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @return array
+	 */
+	public function getSelectionDataDetail(int $number, string $selection, $workShift, DateTime $from, DateTime $to): array
+    {
+
+	    $dsPrettyArray = array();
+
+	    $min = null;
+	    $max = null;
+
+	    if($workShift == null)
+	    {
+		    $dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ?", $from, $to)->fetchAll();
+	    }
+	    else
+	    {
+		    $dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+	    }
+
+
+
+    	if(!$dSelection)
+	    {
+	    	return $dsPrettyArray;
+	    }
+
+    	foreach ($dSelection as $dRow)
+	    {
+		    $dsPretty = new DatabaseDataExtractorPretty($number);
+		    $dsPretty->workShift = $dRow->workShift;
+		    $dsPretty->from = $dRow->time;
+
+	    	$dsPretty->stopTime = $dRow->t_stop;
+		    $dsPretty->workTime = $dRow->t_work;
+		    $dsPretty->allTime = $dRow->t_all;
+		    $dsPretty->finishedCount = $dRow->c_FINISHED;
+		    $dsPretty->stopCount = $dRow->c_STOP;
+
+		    if($dRow->c_STOP)
+		    {
+			    $dsPretty->stopTimeAvg = intval($dRow->t_stop/$dRow->c_STOP);
+		    }
+
+		    if($dRow->c_FINISHED)
+		    {
+			    $dsPretty->workTimeAvg = intval($dRow->t_work/$dRow->c_FINISHED);
+		    }
+
+		    $dsPretty->status = true;
+
+//		    if($)
+
+		    array_push($dsPrettyArray, $dsPretty);
+	    }
+
+    	return $dsPrettyArray;
     }
 }
 
