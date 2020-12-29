@@ -56,12 +56,14 @@ class ThisStatusNumbersControl extends  Control{
 	public function __construct(MultiSensorsManager $multiSensorsManager,
 	                            ThisSensorManager $thisSensorManager,
 								Context $database,
-								DatabaseSelectionManager $databaseSelectionManager)
+								DatabaseSelectionManager $databaseSelectionManager,
+								WorkShiftManager $workShiftManager)
     {
 	    $this->multiSensorsManager = $multiSensorsManager;
 	    $this->thisSensorManager = $thisSensorManager;
 	    $this->database = $database;
 	    $this->databaseSelectionManager = $databaseSelectionManager;
+	    $this->workShiftManager = $workShiftManager;
     }
 
     public function timeRemoveFirstNull($text)
@@ -225,23 +227,28 @@ class ThisStatusNumbersControl extends  Control{
 			    $numberBox->allTime += $sensorNumberData->allTime;
 		    }
 
-		    $sensorEvents = $this->thisSensorManager->getAllEvents($number, $timeboxFrom, $timeboxTo);
-		    if($sensorEvents)
+	    // TODO add better ws check (13:59->14:05)
+	    if($this->workShiftManager->getActualWS() == $workShift)
 		    {
-			    $numberBox->status = true;
-			    $addCounter = true;
-			    $previousEvent = $this->thisSensorManager->getPreviousEvent($number, $sensorEvents);
+			    $sensorEvents = $this->thisSensorManager->getAllEvents($number, $timeboxFrom, $timeboxTo);
+			    if($sensorEvents)
+			    {
+				    $numberBox->status = true;
+				    $addCounter = true;
+				    $previousEvent = $this->thisSensorManager->getPreviousEvent($number, $sensorEvents);
 
-			    $timebox = new TimeBox($sensorEvents, $previousEvent, $timeboxFrom, $timeboxTo);
-			    $stopTime = $timebox->stopTime();
-			    $numberBox->stopTime += $stopTime;
-			    $allTime = $timebox->allTime();
-			    $numberBox->allTime += $allTime;
-			    $numberBox->workTime += $timebox->workTime($allTime, $stopTime);
+				    $timebox = new TimeBox($sensorEvents, $previousEvent, $timeboxFrom, $timeboxTo);
+				    $stopTime = $timebox->stopTime();
+				    $numberBox->stopTime += $stopTime;
+				    $allTime = $timebox->allTime();
+				    $numberBox->allTime += $allTime;
+				    $numberBox->workTime += $timebox->workTime($allTime, $stopTime);
 
-			    $numberBox->finishedCount += $timebox->countEvents(TimeBox::FINISHED);
-			    $numberBox->stopCount += $timebox->countEvents(TimeBox::STOP);
+				    $numberBox->finishedCount += $timebox->countEvents(TimeBox::FINISHED);
+				    $numberBox->stopCount += $timebox->countEvents(TimeBox::STOP);
+			    }
 		    }
+
 		    if($addCounter)
 		    {
 			    $numberBox->finishedCount = intval(ceil($numberBox->finishedCount/2));
