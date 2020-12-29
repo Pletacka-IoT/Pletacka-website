@@ -19,7 +19,8 @@ api:
 	plugins:
 		Apitte\Debug\DI\DebugPlugin:
 			debug:
-				true
+				panel: %debugMode%
+				negotiation: %debugMode%
 		Apitte\OpenApi\DI\OpenApiPlugin:
 			definition:
 #				openapi: "3.0.2"

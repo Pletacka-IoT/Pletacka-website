@@ -32,7 +32,6 @@ services:
 			- allow(member, Core:Sensors)
 
 			- allow(admin) # Administrátor může všechno.
-			
 
 			# - deny(guest, Core:Homepage)
 
@@ -49,6 +48,7 @@ services:
 	- App\CoreModule\Model\SetupManager
 
     # Forms
+
 	- App\CoreModule\Forms\SensorsFormFactory
 	- App\CoreModule\Forms\ThisSensorFormFactory
 	- App\CoreModule\Forms\WorkShiftFormFactory

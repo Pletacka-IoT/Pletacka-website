@@ -11,7 +11,15 @@
 
 
 
-<div class="container-fluid p-4" >
-{*        {if}*}
+<div class="container-fluid text-white text-center bg-info p-4" >
+    {if $setup > 0}
+        <h3>Nastavení proběhlo v pořádku</h3>
+        <br>
+        <h4>počet vytvořených tabulek ({$setup})</h4>
+    {else}
+        <h3>Vše je v pořádku nastaveno</h3>
+        <br>
+        <h4>Systém je aktuální</h4>
+    {/if}
 
 </div>

@@ -122,12 +122,15 @@ final class SensorsPresenter extends BasePresenter
         }
 
         //Setup component number
-        $this->sNumber = $number;
+
 
 
 //        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
+//        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->number = $number;
+        $this->template->sensorHasData = $sensorHasData = $this->thisSensorManager->sensorHasData($number);
+
+
 //        $this->template->wss = "daszf";
         $this->template->xFrom = new DateTime("2020-11-16 00:00:00");
 	    $this->template->xTo  = new DateTime("2020-11-16 23:59:59");

@@ -2,12 +2,12 @@
 
 namespace App\CoreModule\Controllers;
 
-use Apitte\Core\Annotation\Controller\GroupPath;
+use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\UI\Controller\IController;
 
 /**
  * Main API class - extend IController
- * @GroupPath("/api")
+ * @Path("/api")
  */
 abstract class BaseController implements IController
 {

@@ -250,10 +250,10 @@ class ThisStatusNumbersControl extends  Control{
 			    $numberBox->workTimeStr= $this->humanTimeShort($numberBox->workTime);
 			    $numberBox->allTimeStr= $this->humanTimeShort($numberBox->allTime);
 
-				$numberBox->workTimeAvg = intval($numberBox->workTime/$numberBox->finishedCount);
+				$numberBox->workTimeAvg = intval($this->safeDivision($numberBox->workTime, $numberBox->finishedCount));
 			    $numberBox->workTimeAvgStr = $this->humanTimeShort($numberBox->workTimeAvg);
 
-				$numberBox->stopTimeAvg = intval($numberBox->stopTime/$numberBox->stopCount);
+				$numberBox->stopTimeAvg = intval($this->safeDivision($numberBox->stopTime, $numberBox->stopCount));
 			    $numberBox->stopTimeAvgStr = $this->humanTimeShort($numberBox->stopTimeAvg);
 
 
@@ -267,8 +267,22 @@ class ThisStatusNumbersControl extends  Control{
 //			    $numberBox->stopTimeStr = "0 min";
 	        }
         return $numberBox;
-
     }
+
+
+	private function safeDivision(int |float $dividend, int | float $divisor)
+	{
+		if($divisor == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return $dividend/$divisor;
+		}
+    }
+
+
 
     public function thisNumberBoxes(int $number, string $workShift)
     {
