@@ -83,6 +83,12 @@ class ThisSensorManager
         return $this->database->table("A".$sNumber)->where("time >=? AND time <=?", $from, $to)->fetchAll();
     }
 
+
+	public function sensorHasData($sNumber): bool
+	{
+		return boolval($this->database->table("A".$sNumber)->fetch());
+	}
+
 	public function getPreviousEvent($sNumber, $events)
     {
         $previous = array_key_first($events)-1;

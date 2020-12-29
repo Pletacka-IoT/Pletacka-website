@@ -269,7 +269,7 @@ final class DatabaseTestPresenter extends BasePresenter
 
 //		(new DateTime("2020-12-01"), 4);
 
-		$this->testMultiRen();
+//		$this->testMultiRen();
 
 
 	}
