@@ -27,10 +27,23 @@
 	<script src="{$basePath}/js/external/d3.js"></script>
 	<script src="{$basePath}/js/external/moment.min.js"></script>
 	<script src="{$basePath}/js/external/daterangepicker.min.js"></script>
+{*	<script src="{$basePath}/js/main.js"></script>*}
 
 	{ifset head}{include head|noescape} | {/ifset}
 
 	<title n:snippet="title">{ifset title}{include title|stripHtml} | {/ifset}Pletacka IoT</title>
+
+	<style>
+			.mystyle {
+				width: 100%;
+				padding: 25px;
+				background-color: coral;
+				color: white;
+				font-size: 25px;
+				box-sizing: border-box;
+			}
+	</style>
+
 {*	{block head}{/block}*}
 
 
@@ -40,7 +53,7 @@
 	<div class="page">
 
 		{snippet header}
-				<nav class="navbar navbar-expand-md bg-dark navbar-dark"><!--fixed-top-->
+				<nav class="navbar navbar-expand-md bg-dark navbar-dark" id="my-header" ><!--fixed-top-->
 
 				<!-- Brand/logo -->
 				<a class="navbar-brand ajax" n:href="Homepage:default">
@@ -66,6 +79,9 @@
 								<a class="nav-link ajax" n:href="Sign:in">Přihlásit se</a>
 							{/if}
 						</li>
+						<li>
+							<a class="nav-link btn-sm btn-warning" onClick="toggleHeaderTop()">Připni</a>
+						</li>
 						{if $user->loggedIn}
 							<li class="nav-item">
 								<a class="nav-link" target="_blank" href="{$basePath}/www/adminer">Adminer</a>
@@ -85,6 +101,8 @@
 							<li class="nav-item ">
 								<a class="nav-link ajax" n:href="DatabaseTest:default">Generátor dat</a>
 							</li>
+
+
 						{/if}
 					</ul>
 				</div>
@@ -95,6 +113,7 @@
 		{/snippet}
 
 		<div class="content">
+{*			//TODO fixed top message*}
 			{snippet msg2}
 			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type, ">{$flash->message}</div>{*hide-big*}
 			{/snippet}

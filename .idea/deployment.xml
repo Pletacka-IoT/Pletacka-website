@@ -13,6 +13,17 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="Pi-Ham">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/temp/cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/doc" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>
