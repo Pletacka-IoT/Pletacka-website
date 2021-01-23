@@ -48,7 +48,8 @@
 
     <div class="container-fluid">
         <div n:snippet="thisChartFin">
-            {control thisChart:day, $number, "finishedCount", "3 day", "Počet párů", "p", "Dnes"}
+            {control thisChart:today, $number, "finishedCount", "0 day", "Počet párů", "p", "Dnes"}
+            {control thisChart:day, $number, "finishedCount", "2 day", "Počet párů", "p", "Poslední 3 dny"}
         </div>
 
         <div n:snippet="thisChartFin2">

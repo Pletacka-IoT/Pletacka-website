@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sshConfigs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/StatusNumbersControl/StatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/StatusNumbersControl/StatusNumbersControl.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/css/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/css/app/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +26,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpDebugGeneral" xdebug_debug_port="9003" />
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="3a8446f9-89f8-42fa-8fa4-1e0faee8cdb9" name="Server" />
@@ -102,6 +99,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -125,6 +123,12 @@
       <workItem from="1609200146685" duration="594000" />
       <workItem from="1609200760153" duration="25014000" />
       <workItem from="1609779586165" duration="4840000" />
+      <workItem from="1609784694051" duration="2657000" />
+      <workItem from="1610134972114" duration="2860000" />
+      <workItem from="1610478667432" duration="1417000" />
+      <workItem from="1610734580644" duration="2540000" />
+      <workItem from="1611412534239" duration="54000" />
+      <workItem from="1611412607701" duration="574000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -186,20 +190,31 @@
     <MESSAGE value="Fix small bugs" />
     <MESSAGE value="Add toggle button for fixing header on the top" />
     <MESSAGE value="Add toggle button for fixing header" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add toggle button for fixing header" />
+    <MESSAGE value="Toggle header button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Toggle header button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php</url>
-          <line>232</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>305</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php</url>
-          <line>325</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>303</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>279</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>282</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
