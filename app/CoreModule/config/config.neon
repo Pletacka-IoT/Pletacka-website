@@ -57,3 +57,4 @@ services:
 	- App\CoreModule\Component\StatusNumbersControl\StatusNumbersControlFactory
 	- App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory
 	- App\CoreModule\Component\ThisChartControl\ThisChartControlFactory
+	- App\CoreModule\Component\ThisSensorOverview\ThisSensorOverviewFactory

@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteApplication.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/NetteForms.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverview.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverviewFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/overview.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/config/config.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/config/config.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Router/RouterFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Router/RouterFactory.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +29,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true" />
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="3a8446f9-89f8-42fa-8fa4-1e0faee8cdb9" name="Server" />
@@ -98,10 +101,15 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/CoreModule/Component" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/CoreModule/Component" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" nameIsGenerated="true" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="Server" start_url="http://localhost/Pletacka-website/">
@@ -128,7 +136,7 @@
       <workItem from="1610478667432" duration="1417000" />
       <workItem from="1610734580644" duration="2540000" />
       <workItem from="1611412534239" duration="54000" />
-      <workItem from="1611412607701" duration="574000" />
+      <workItem from="1611412607701" duration="2662000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -165,7 +173,21 @@
       <option name="project" value="LOCAL" />
       <updated>1609282320962</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add one day chart">
+      <created>1611413289519</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611413289519</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Database backup">
+      <created>1611413324652</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1611413324652</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,7 +213,9 @@
     <MESSAGE value="Add toggle button for fixing header on the top" />
     <MESSAGE value="Add toggle button for fixing header" />
     <MESSAGE value="Toggle header button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Toggle header button" />
+    <MESSAGE value="Add one day chart" />
+    <MESSAGE value="Database backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Database backup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
