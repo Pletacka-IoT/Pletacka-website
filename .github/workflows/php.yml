@@ -25,5 +25,8 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
       
+    - name: Make folder writable.
+      run: sudo chmod 777 ./
+      
     - name: Nette Tester
       run: ./vendor/bin/tester -p php
