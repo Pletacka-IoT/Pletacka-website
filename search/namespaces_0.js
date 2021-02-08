@@ -1,19 +1,17 @@
 var searchData=
 [
-  ['app_436',['App',['../namespaceApp.html',1,'']]],
-  ['component_437',['Component',['../namespaceApp_1_1CoreModule_1_1Component.html',1,'App::CoreModule']]],
-  ['controllers_438',['Controllers',['../namespaceApp_1_1CoreModule_1_1Controllers.html',1,'App::CoreModule']]],
-  ['coremodule_439',['CoreModule',['../namespaceApp_1_1CoreModule.html',1,'App']]],
-  ['exceptions_440',['Exceptions',['../namespaceApp_1_1Exceptions.html',1,'App']]],
-  ['forms_441',['Forms',['../namespaceApp_1_1CoreModule_1_1Forms.html',1,'App\CoreModule\Forms'],['../namespaceApp_1_1Forms.html',1,'App\Forms']]],
-  ['model_442',['Model',['../namespaceApp_1_1CoreModule_1_1Model.html',1,'App\CoreModule\Model'],['../namespaceApp_1_1Model.html',1,'App\Model']]],
-  ['pletackachartcontrol_443',['PletackaChartControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1PletackaChartControl.html',1,'App::CoreModule::Component']]],
-  ['presenters_444',['Presenters',['../namespaceApp_1_1CoreModule_1_1Presenters.html',1,'App\CoreModule\Presenters'],['../namespaceApp_1_1Presenters.html',1,'App\Presenters']]],
-  ['router_445',['Router',['../namespaceApp_1_1Router.html',1,'App']]],
-  ['statusbubblescontrol_446',['StatusBubblesControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl.html',1,'App::CoreModule::Component']]],
-  ['statusnumberscontrol_447',['StatusNumbersControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1StatusNumbersControl.html',1,'App::CoreModule::Component']]],
-  ['thischartcontrol_448',['ThisChartControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1ThisChartControl.html',1,'App::CoreModule::Component']]],
-  ['thisstatusnumberscontrol_449',['ThisStatusNumbersControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1ThisStatusNumbersControl.html',1,'App::CoreModule::Component']]],
-  ['timemanagers_450',['TimeManagers',['../namespaceApp_1_1TimeManagers.html',1,'App']]],
-  ['utils_451',['Utils',['../namespaceApp_1_1Utils.html',1,'App']]]
+  ['app_434',['App',['../namespaceApp.html',1,'']]],
+  ['controllers_435',['Controllers',['../namespaceApp_1_1CoreModule_1_1Controllers.html',1,'App::CoreModule']]],
+  ['exceptions_436',['Exceptions',['../namespaceApp_1_1Exceptions.html',1,'App']]],
+  ['forms_437',['Forms',['../namespaceApp_1_1CoreModule_1_1Forms.html',1,'App\CoreModule\Forms'],['../namespaceApp_1_1Forms.html',1,'App\Forms']]],
+  ['model_438',['Model',['../namespaceApp_1_1CoreModule_1_1Model.html',1,'App\CoreModule\Model'],['../namespaceApp_1_1Model.html',1,'App\Model']]],
+  ['pletackachartcontrol_439',['PletackaChartControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1PletackaChartControl.html',1,'App::CoreModule::Component']]],
+  ['presenters_440',['Presenters',['../namespaceApp_1_1CoreModule_1_1Presenters.html',1,'App\CoreModule\Presenters'],['../namespaceApp_1_1Presenters.html',1,'App\Presenters']]],
+  ['router_441',['Router',['../namespaceApp_1_1Router.html',1,'App']]],
+  ['statusbubblescontrol_442',['StatusBubblesControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl.html',1,'App::CoreModule::Component']]],
+  ['statusnumberscontrol_443',['StatusNumbersControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1StatusNumbersControl.html',1,'App::CoreModule::Component']]],
+  ['thischartcontrol_444',['ThisChartControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1ThisChartControl.html',1,'App::CoreModule::Component']]],
+  ['thisstatusnumberscontrol_445',['ThisStatusNumbersControl',['../namespaceApp_1_1CoreModule_1_1Component_1_1ThisStatusNumbersControl.html',1,'App::CoreModule::Component']]],
+  ['timemanagers_446',['TimeManagers',['../namespaceApp_1_1TimeManagers.html',1,'App']]],
+  ['utils_447',['Utils',['../namespaceApp_1_1Utils.html',1,'App']]]
 ];
