@@ -2,15 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverview.latte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverview.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisSensorOverview/ThisSensorOverviewFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/overview.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverview.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverviewBoxes.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverviewFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/OverviewPresenter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/UtilsTest/DatabaseDataExtractorPrettyTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/bootstrap.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/SensorsPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/config/config.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/config/config.neon" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Router/RouterFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Router/RouterFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +36,10 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpDebugGeneral" xdebug_debug_port="9003" />
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true">
+    <xdebug_debug_ports port="9003" />
+    <xdebug_debug_ports port="9003" />
+  </component>
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="3a8446f9-89f8-42fa-8fa4-1e0faee8cdb9" name="Server" />
@@ -101,14 +111,22 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/CoreModule/Component" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/UtilsTest" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/CoreModule/Component" />
+      <recent name="$PROJECT_DIR$/tests/UtilsTest" />
+      <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview" />
+      <recent name="$PROJECT_DIR$/app/CoreModule/Presenters/templates/OverviewPresenter" />
+      <recent name="$PROJECT_DIR$/app/CoreModule/Presenters" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/Test2" />
+      <recent name="$PROJECT_DIR$/tests/Test1" />
     </key>
   </component>
   <component name="RunManager">
@@ -136,7 +154,9 @@
       <workItem from="1610478667432" duration="1417000" />
       <workItem from="1610734580644" duration="2540000" />
       <workItem from="1611412534239" duration="54000" />
-      <workItem from="1611412607701" duration="2662000" />
+      <workItem from="1611412607701" duration="3742000" />
+      <workItem from="1612706213440" duration="2052000" />
+      <workItem from="1612797833358" duration="15110000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -187,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611413324652</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Prepare code for overview">
+      <created>1611415347032</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1611415347032</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +242,8 @@
     <MESSAGE value="Toggle header button" />
     <MESSAGE value="Add one day chart" />
     <MESSAGE value="Database backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Database backup" />
+    <MESSAGE value="Prepare code for overview" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prepare code for overview" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -239,6 +267,11 @@
           <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
           <line>282</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php</url>
+          <line>334</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

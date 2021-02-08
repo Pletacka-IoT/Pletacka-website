@@ -30,6 +30,8 @@ use Nette\Utils\DateTime;
  * @property DateTime $to
  * @property bool $stopThere
  */
+
+
 class DatabaseDataExtractorPretty
 {
 	use Nette\SmartObject;
@@ -65,7 +67,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getNumber(): int
+	protected function getNumber(): int
 	{
 		return $this->number;
 	}
@@ -73,7 +75,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $number
 	 */
-	public function setNumber(int $number): void
+	protected function setNumber(int $number): void
 	{
 		$this->number = $number;
 	}
@@ -81,7 +83,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getAllTimeStr(): string
+	protected function getAllTimeStr(): string
 	{
 		return $this->allTimeStr;
 	}
@@ -89,7 +91,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $allTimeStr
 	 */
-	public function setAllTimeStr(string $allTimeStr): void
+	protected function setAllTimeStr(string $allTimeStr): void
 	{
 		$this->allTimeStr = $allTimeStr;
 	}
@@ -97,7 +99,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getStopTimeStr(): string
+	protected function getStopTimeStr(): string
 	{
 		return $this->stopTimeStr;
 	}
@@ -105,7 +107,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $stopTimeStr
 	 */
-	public function setStopTimeStr(string $stopTimeStr): void
+	protected function setStopTimeStr(string $stopTimeStr): void
 	{
 		$this->stopTimeStr = $stopTimeStr;
 	}
@@ -113,7 +115,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getWorkTimeStr(): string
+	protected function getWorkTimeStr(): string
 	{
 		return $this->workTimeStr;
 	}
@@ -121,7 +123,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $workTimeStr
 	 */
-	public function setWorkTimeStr(string $workTimeStr): void
+	protected function setWorkTimeStr(string $workTimeStr): void
 	{
 		$this->workTimeStr = $workTimeStr;
 	}
@@ -129,7 +131,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getRating(): int
+	protected function getRating(): int
 	{
 		return $this->rating;
 	}
@@ -137,7 +139,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $rating
 	 */
-	public function setRating(int $rating): void
+	protected function setRating(int $rating): void
 	{
 		$this->rating = $rating;
 	}
@@ -145,7 +147,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getStopTimeAvg(): int
+	protected function getStopTimeAvg(): int
 	{
 		return $this->stopTimeAvg;
 	}
@@ -153,7 +155,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $stopTimeAvg
 	 */
-	public function setStopTimeAvg(int $stopTimeAvg): void
+	protected function setStopTimeAvg(int $stopTimeAvg): void
 	{
 		$this->stopTimeAvg = $stopTimeAvg;
 	}
@@ -161,7 +163,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getStopTimeAvgStr(): string
+	protected function getStopTimeAvgStr(): string
 	{
 		return $this->stopTimeAvgStr;
 	}
@@ -169,7 +171,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $stopTimeAvgStr
 	 */
-	public function setStopTimeAvgStr(string $stopTimeAvgStr): void
+	protected function setStopTimeAvgStr(string $stopTimeAvgStr): void
 	{
 		$this->stopTimeAvgStr = $stopTimeAvgStr;
 	}
@@ -177,7 +179,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return int
 	 */
-	public function getWorkTimeAvg(): int
+	protected function getWorkTimeAvg(): int
 	{
 		return $this->workTimeAvg;
 	}
@@ -185,7 +187,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param int $workTimeAvg
 	 */
-	public function setWorkTimeAvg(int $workTimeAvg): void
+	protected function setWorkTimeAvg(int $workTimeAvg): void
 	{
 		$this->workTimeAvg = $workTimeAvg;
 	}
@@ -193,7 +195,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getWorkTimeAvgStr(): string
+	protected function getWorkTimeAvgStr(): string
 	{
 		return $this->workTimeAvgStr;
 	}
@@ -201,7 +203,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $workTimeAvgStr
 	 */
-	public function setWorkTimeAvgStr(string $workTimeAvgStr): void
+	protected function setWorkTimeAvgStr(string $workTimeAvgStr): void
 	{
 		$this->workTimeAvgStr = $workTimeAvgStr;
 	}
@@ -224,7 +226,8 @@ class DatabaseDataExtractorPretty
 
 	/**
 	 * @return string
-	 */public function getMsg(): string
+	 */
+	protected function getMsg(): string
 	{
 		return $this->msg;
 	}
@@ -232,7 +235,8 @@ class DatabaseDataExtractorPretty
 
 	/**
     * @param string $msg
-    */public function setMsg(string $msg): void
+    */
+	protected function setMsg(string $msg): void
 	{
 		$this->msg = $msg;
 	}
@@ -241,7 +245,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return string
 	 */
-	public function getWorkShift(): string
+	protected function getWorkShift(): string
 	{
 		return $this->workShift;
 	}
@@ -249,7 +253,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param string $workShift
 	 */
-	public function setWorkShift(string $workShift): void
+	protected function setWorkShift(string $workShift): void
 	{
 		$this->workShift = $workShift;
 	}
@@ -369,7 +373,7 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @return bool
 	 */
-	public function isStopThere(): bool
+	protected function isStopThere(): bool
 	{
 		return $this->stopThere;
 	}
@@ -377,10 +381,35 @@ class DatabaseDataExtractorPretty
 	/**
 	 * @param bool $stopThere
 	 */
-	public function setStopThere(bool $stopThere): void
+	protected function setStopThere(bool $stopThere): void
 	{
 		$this->stopThere = $stopThere;
 	}
+
+	public function add(DatabaseDataExtractorPretty $var)
+	{
+		$this->number = -555;
+		$this->status = false;
+		$this->msg = "";
+		$this->rating = 0;
+		$this->allTimeStr = "-";
+		$this->stopTimeStr = "-";
+		$this->workTimeStr = "-";
+		$this->stopTimeAvgStr = "-";
+		$this->workTimeAvgStr = "-";
+
+		$this->allTime += $var->stopTime;
+		$this->stopTime += $var->stopTime;
+		$this->stopTimeAvg = ($var->stopTimeAvg + $this->stopTimeAvg)/2;
+		$this->workTime += $var->stopTime;
+		$this->workTimeAvg = ($var->workTimeAvg + $this->workTimeAvg)/2;
+		$this->finishedCount += $var->finishedCount;
+		$this->stopCount += $var->stopCount;
+
+
+	}
+	
+	
 
 
 }

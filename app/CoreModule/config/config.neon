@@ -14,6 +14,7 @@ services:
 			- addResource(Core:SensorsSettings)
 			- addResource(Core:DatabaseTest)
 			- addResource(Core:Setup)
+			- addResource(Core:Overview)
 			# - addResource(Error)
 			# - addResource(Error4xx)
 
@@ -24,6 +25,7 @@ services:
 			- allow(guest, Core:Homepage)
 			- allow(guest, Core:Sensors, default)
 			- allow(guest, Core:Setup)
+			- allow(guest, Core:Overview)
 			# - allow(guest, Error)
 			# - allow(guest, Error4xx)
 
@@ -58,3 +60,4 @@ services:
 	- App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory
 	- App\CoreModule\Component\ThisChartControl\ThisChartControlFactory
 	- App\CoreModule\Component\ThisSensorOverview\ThisSensorOverviewFactory
+	- App\CoreModule\Component\SensorOverview\SensorOverviewFactory

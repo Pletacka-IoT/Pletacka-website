@@ -53,7 +53,7 @@
 		"phpstan/phpstan-nette": "^0.12"
 	},
 	"autoload": {
-		"classmap": ["app/Bootstrap.php"]
+		"classmap": ["app/", "tests/","app/Bootstrap.php"]
 	},
 	"minimum-stability": "stable",
 	"scripts": {

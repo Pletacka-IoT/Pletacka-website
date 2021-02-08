@@ -145,21 +145,6 @@ class ThisStatusNumbersControl extends  Control{
     }
 
 
-//
-//    public function humanTimeShort(int $timeSeconds)
-//    {
-//    	if($timeSeconds>3600)
-//	    {
-//		    return $this->timeRemoveFirstNull(gmdate("h", $timeSeconds))."h ".$this->timeRemoveFirstNull(gmdate("i", $timeSeconds))."m";
-//	    }
-//    	else
-//	    {
-////		    return $this->timeRemoveFirstNull(gmdate("i", $timeSeconds))."m";
-//		    $dv = new DateInterval('PT'.$timeSeconds.'S');
-//		    return $dv->format("%h:%i:%s");
-//	    }
-//    }
-
 
     public function getClassName(string $sting): string
     {
@@ -170,35 +155,6 @@ class ThisStatusNumbersControl extends  Control{
 
     public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
     {
-////	    $selectionTo = new DateTime($to);
-////	    $selectionTo->setTime($timeboxTo->format("H")-1, 0);
-////	    // One hour between times is generated in selection
-////	    $timeboxFrom = new $timeboxTo;
-////	    $timeboxFrom->setTime(intval($timeboxTo->format("H")), 0);
-//
-//	    $numberBox = new NumbersPretty();
-//
-//		$sensorNumberData = $this->databaseSelectionManager->getSelectionData($number, DatabaseSelectionManager::HOUR,$workShift, $from, $to);
-//		if($sensorNumberData->allTime)
-//		{
-//			$numberBox->state = true;
-//			$addCounter = true;
-//			$numberBox->finishedCount = $sensorNumberData->finishedCount;
-//			$numberBox->stopTime = $sensorNumberData->stopTime;
-//			$numberBox->workTime = $sensorNumberData->workTime;
-//			$numberBox->allTime = $sensorNumberData->allTime;
-//
-//			$numberBox->finishedCountToPairs();
-//			$numberBox->stopTimeStr = $this->humanTime($numberBox->stopTime);
-//
-//			$numberBox->rating = intval(($numberBox->workTime*100)/$numberBox->allTime);
-//		}
-//    	else
-//	    {
-//	    	$numberBox->stopTimeStr = "0 min";
-//	    }
-//
-//    	return $numberBox;
 
 	    $selectionTo = new DateTime();
 	    $selectionTo->setTime($selectionTo->format("H")-1, 0);
@@ -277,6 +233,22 @@ class ThisStatusNumbersControl extends  Control{
     }
 
 
+    public function prepareNumberBox(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
+    {
+	    $thisNumberBox = $this->prepareThisNumberBox(-555, $workShift, $from, $to);
+
+//	    $this
+
+//	    $thisNumberBox->
+
+    	foreach ($sensorNumbers as $sensorNumber) {
+//		    return new DatabaseDataExtractorPretty( 1, true, "OK");
+    	}
+
+	    return new DatabaseDataExtractorPretty( 1, true, "OK");
+    }
+
+
 	private function safeDivision(int |float $dividend, int | float $divisor)
 	{
 		if($divisor == 0)
@@ -318,23 +290,55 @@ class ThisStatusNumbersControl extends  Control{
 	    return $thisNumberBoxes;
     }
 
+
+    public function numberBoxes(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+    {
+	    $thisNumberBoxes = array();
+
+    	$fromDay = new DateTime();
+	    $fromDay->setTimestamp(strtotime("today"));
+	    $toDay = new DateTime();
+	    $toDay->setTimestamp(strtotime("tomorrow")-1);
+    	$thisNumberBoxes["DAY"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromDay, $toDay);
+
+
+//    	$fromWeek = new DateTime();
+//    	$fromWeek->setTimestamp(strtotime("today"));
+//    	$fromWeek->sub(DateInterval::createFromDateString("1 week"));
+//	    $toWeek = new DateTime();
+//	    $toWeek->setTimestamp(strtotime("tomorrow")-1);
+//    	$thisNumberBoxes["WEEK"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromWeek, $toWeek);
+//
+//    	$fromMonth = new DateTime();
+//    	$fromMonth->setTimestamp(strtotime("today"));
+//    	$fromMonth->sub(DateInterval::createFromDateString("1 month"));
+//	    $toMonth = new DateTime();
+//	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
+//    	$thisNumberBoxes["MONTH"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth);
+	    return $thisNumberBoxes;
+    }
+
     public function render(int $number, string $workShift)
     {
 	    $thisNumberBox = $this->thisNumberBoxes($number, $workShift);
 	    $this->template->thisNumberBox = $thisNumberBox;
 
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
-//	    dump($thisNumberBox);
     }
 
-//    public function renderA(int $number)
-//    {
-//		$this->render($number, "Cahovi");
-//    }
+	/**
+	 * @param Nette\Database\Table\Selection $sensorNumbers
+	 * @param string $workShift
+	 */
+	public function renderall(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+    {
+	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
+	    $this->template->thisNumberBox = $thisNumberBox;
 //
-//	public function renderB(int $number)
-//	{
-//		$this->render($number, "Vaňkovi");
-//	}
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+
+//	    dump($sensorNumbers);
+    }
+
 
 }

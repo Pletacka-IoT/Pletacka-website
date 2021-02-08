@@ -64,6 +64,17 @@ final class RouterFactory
 			]
 		]);
 
+		$router[] = new Route('prehled/<action>', [
+			'presenter' => 'Core:Overview',
+			'action' => [
+				// Route::FILTER_STRICT => true,
+				Route::VALUE => 'default',
+//				Route::FILTER_TABLE => [
+//					'test' => 'test',
+//				]
+			]
+		]);
+
 		$router[] = new Route('sign/<action>', [
 			'presenter' => 'Core:Sign',
 			'action' => 'in',

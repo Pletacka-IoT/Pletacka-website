@@ -526,7 +526,7 @@ class DatabaseSelectionManager
 	/**
 	 * @param int $number
 	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
-	 * @param $workShift ["Cahovi" or "Vaňkovi" / null (auto)]
+	 * @param $workShift ["Cahovi" or "Vaňkovi" / null (all)]
 	 * @param DateTime $from
 	 * @param DateTime $to
 	 * @return array
