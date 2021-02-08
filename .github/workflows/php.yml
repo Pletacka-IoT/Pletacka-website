@@ -3,15 +3,24 @@ name: Tests
 on: [push, pull_request]
 
 jobs:
-    lowest_dependencies:
-        name: PHP 8.0 tests
+    tests:
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ['7.4', '8.0']
+
+            fail-fast: false
+
+        name: PHP ${{ matrix.php }} tests
         steps:
             - uses: actions/checkout@v2
-            - uses: shivammathur/setup-php@v1
+            - uses: shivammathur/setup-php@v2
               with:
-                  php-version: 7.1
+                  php-version: ${{ matrix.php }}
                   coverage: none
 
-            - run: composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
+            - run: composer install --no-progress --prefer-dist
             - run: vendor/bin/tester tests -s -C
+            - if: failure()
+              run: for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+              shell: bash
