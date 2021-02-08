@@ -1,32 +1,17 @@
-name: PHP Composer
+name: Tests
 
 on: [push, pull_request]
 
 jobs:
-  build:
+    tests:
+        name: Lowest Dependencies
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v1
+              with:
+                  php-version: 8.0
+                  coverage: none
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-      
-    - name: Make folder writable.
-      run: sudo chmod 777 ./
-      
-    - name: Nette Tester
-      run: ./vendor/bin/tester -p php
+            - run: composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
+            - run: vendor/bin/tester tests -s -C
