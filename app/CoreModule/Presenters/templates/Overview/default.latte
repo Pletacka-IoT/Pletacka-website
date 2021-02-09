@@ -1,0 +1,30 @@
+{block title}Přehled{/block}
+
+{block content}
+{var $ws = "Cahovi"}
+
+<div class="container-fluid">
+    <div class="row">
+        {foreach $workShift as $ws}
+            {first }{/first}
+            <div  n:class="col-md-6, $workShift[0]==$ws ? center-line">
+                {*                {var $ws = "Cahovi"}*}
+                <div class="text-center">
+                    <h1>{$ws}</h1>
+                </div>
+                <div class="thisStatusNumbers">
+                        {control thisStatusNumbers:AllOverview, $sensors, $ws}
+                </div>
+            </div>
+        {/foreach}
+    </div>
+
+
+
+{*    {control thisStatusNumbers:All, $sensors, $ws}*}
+</div>
+
+<div class="container">
+    <br>
+    {control thisStatusNumbers:AllSingle, $sensors, "", "1 year", "Poslední rok celkem"}
+</div>

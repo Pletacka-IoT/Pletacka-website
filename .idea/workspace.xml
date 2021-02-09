@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Sensors/default.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/common.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/common.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlSingle.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlSingle.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true">
+    <xdebug_debug_ports port="9003" />
+    <xdebug_debug_ports port="9003" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="3a8446f9-89f8-42fa-8fa4-1e0faee8cdb9" name="Server" />
+    </servers>
+  </component>
+  <component name="PhpWebServerValidation" path_to_validation_script="$PROJECT_DIR$" selected_validation_type="LOCAL" web_path_to_validation_script="http://localhost/Pletacka-website/" />
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
@@ -84,10 +96,51 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/doc" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl" />
+      <recent name="$PROJECT_DIR$/tests/UtilsTest" />
+      <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview" />
+      <recent name="$PROJECT_DIR$/app/CoreModule/Presenters/templates/OverviewPresenter" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/Test2" />
+      <recent name="$PROJECT_DIR$/tests/Test1" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Shell Script.ClearCacheNette">
+    <configuration name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" nameIsGenerated="true" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="Server" start_url="http://localhost/Pletacka-website/">
+      <method v="2" />
+    </configuration>
+    <configuration name="ClearCacheNette" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/usr/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHP Web Page.Unnamed" />
+      <item itemvalue="Shell Script.ClearCacheNette" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -102,7 +155,17 @@
       <workItem from="1609199815566" duration="103000" />
       <workItem from="1609199935405" duration="191000" />
       <workItem from="1609200146685" duration="594000" />
-      <workItem from="1609200760153" duration="11246000" />
+      <workItem from="1609200760153" duration="25014000" />
+      <workItem from="1609779586165" duration="4840000" />
+      <workItem from="1609784694051" duration="2657000" />
+      <workItem from="1610134972114" duration="2860000" />
+      <workItem from="1610478667432" duration="1417000" />
+      <workItem from="1610734580644" duration="2540000" />
+      <workItem from="1611412534239" duration="54000" />
+      <workItem from="1611412607701" duration="3742000" />
+      <workItem from="1612706213440" duration="2052000" />
+      <workItem from="1612797833358" duration="23024000" />
+      <workItem from="1612871846117" duration="11685000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -125,7 +188,84 @@
       <option name="project" value="LOCAL" />
       <updated>1609263872152</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix empty data">
+      <created>1609277441459</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609277441459</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fix small bugs">
+      <created>1609282320962</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609282320962</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add one day chart">
+      <created>1611413289519</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611413289519</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Database backup">
+      <created>1611413324652</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1611413324652</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Prepare code for overview">
+      <created>1611415347032</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1611415347032</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add SensorOverview + start writing tests">
+      <created>1612819992024</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612819992025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add test file">
+      <created>1612820127688</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1612820127688</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add overview boxes">
+      <created>1612868095025</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1612868095025</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add collapse">
+      <created>1612875293690</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1612875293690</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Start ThisStatusNumbersControl big update">
+      <created>1612890442249</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1612890442249</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Working ThisStatusNumbersControl">
+      <created>1612895886964</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1612895886964</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,16 +276,69 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finished update" />
     <MESSAGE value="Fix website with empty database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix website with empty database" />
+    <MESSAGE value="Fix empty data" />
+    <MESSAGE value="Fix small bugs" />
+    <MESSAGE value="Add toggle button for fixing header on the top" />
+    <MESSAGE value="Add toggle button for fixing header" />
+    <MESSAGE value="Toggle header button" />
+    <MESSAGE value="Add one day chart" />
+    <MESSAGE value="Database backup" />
+    <MESSAGE value="Prepare code for overview" />
+    <MESSAGE value="Add SensorOverview + start writing tests" />
+    <MESSAGE value="Add test file" />
+    <MESSAGE value="Add overview boxes" />
+    <MESSAGE value="Add collapse" />
+    <MESSAGE value="Start ThisStatusNumbersControl big update" />
+    <MESSAGE value="Working ThisStatusNumbersControl" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working ThisStatusNumbersControl" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>305</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>303</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>279</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>282</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

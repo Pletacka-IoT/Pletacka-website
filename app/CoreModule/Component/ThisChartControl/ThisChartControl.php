@@ -181,7 +181,8 @@ class ThisChartControl extends  Control{
 	}
 
 
-	private function rendThisChartDay(array $chartData, string $suffix, string $type)
+
+	private function rendThisChartDay(array $chartData, string $suffix, string $type): DateChart
 	{
 		$dayChart = new DateChart();
 		$dayChart->enableTimePrecision(); // Enable time accurate to seconds
@@ -273,6 +274,29 @@ class ThisChartControl extends  Control{
 		return $dayChart;
 	}
 
+	public function renderToday(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
+	{
+
+		$dateTime = $this->stringToDateTime($time);
+
+
+		$chartData = $this->prepareThisChart($number, $dateTime, DatabaseSelectionManager::HOUR, null);
+
+		if(!$chartData)
+		{
+			return;
+		}
+
+		$chart = $thisNumberBox = $this->rendThisChartDay($chartData, $suffix, $type);
+
+
+		$this->template->noData = $chart;
+		$this->template->chart = $chart;
+		$this->template->name = $name;
+		$this->template->timeText = $timeText;
+		$this->template->render(__DIR__ . '/ThisChartControl.latte');
+
+	}
 
 	public function renderDay(int $number, string $type, string $time, string $name = "", string $suffix = "", string $timeText = "")
     {

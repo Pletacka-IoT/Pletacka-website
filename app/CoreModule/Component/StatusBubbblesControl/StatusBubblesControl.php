@@ -120,7 +120,7 @@ class StatusBubblesControl extends  Control{
 					}
 					else
 					{
-						return new BubblesPretty("EMPTY");
+						return new BubblesPretty("EMPTY", "", $this->getClassName("on"));
 					}
 				}
 			}

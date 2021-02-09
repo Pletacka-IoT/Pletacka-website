@@ -8,6 +8,7 @@ use App\CoreModule\Component\PletackaChartControl\PletackaChartControlFactory;
 use App\CoreModule\Component\ThisChartControl\ThisChartControl;
 use App\CoreModule\Component\ThisChartControl\ThisChartControlFactory;
 use App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControlFactory;
+use App\CoreModule\Component\ThisSensorOverview\ThisSensorOverviewFactory;
 use Nette;
 use App\CoreModule\Model\SensorsManager;
 use App\CoreModule\Model\ThisSensorManager;
@@ -65,6 +66,10 @@ final class SensorsPresenter extends BasePresenter
 	 * @var ThisChartControlFactory
 	 */
 	private $thisChartControlFactory;
+	/**
+	 * @var ThisSensorOverviewFactory
+	 */
+	private ThisSensorOverviewFactory $thisSensorOverviewFactory;
 
 
 	public function __construct(
@@ -78,7 +83,8 @@ final class SensorsPresenter extends BasePresenter
 		WorkShiftManager $workShiftManager,
 		PletackaChartControlFactory $pletackaChartControlFactory,
 		ThisStatusNumbersControlFactory $thisStatusNumbersControlFactory,
-		ThisChartControlFactory $thisChartControlFactory
+		ThisChartControlFactory $thisChartControlFactory,
+		ThisSensorOverviewFactory $thisSensorOverviewFactory
     )
 	{
         
@@ -93,6 +99,7 @@ final class SensorsPresenter extends BasePresenter
         $this->pletackaChartControlFactory = $pletackaChartControlFactory;
 		$this->thisStatusNumbersControlFactory = $thisStatusNumbersControlFactory;
 		$this->thisChartControlFactory = $thisChartControlFactory;
+		$this->thisSensorOverviewFactory = $thisSensorOverviewFactory;
 	}
 
 	protected function createComponentThisStatusNumbers()
@@ -121,12 +128,7 @@ final class SensorsPresenter extends BasePresenter
             
         }
 
-        //Setup component number
 
-
-
-//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($number, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-//        $this->template->sensor = $this->sensorsManager->getSensorsNumber(intval($number));
         $this->template->number = $number;
         $this->template->sensorHasData = $sensorHasData = $this->thisSensorManager->sensorHasData($number);
 
@@ -140,10 +142,6 @@ final class SensorsPresenter extends BasePresenter
         $this->template->workShift = $this->workShiftManager->getWeekWS();
 
         $this['showChartForm']->setDefaults(array("num"=>$number));
-
-
-
-
 
 
 //        $from = "2020-04-24 22:01:00";
@@ -173,12 +171,7 @@ final class SensorsPresenter extends BasePresenter
 //            $this->template->avgWorkTime = $events->avgWorkTime($previousEvent);
 //        }
 
-
-
     }
-
-
-    //****************
 
     public function createComponentShowChartForm(): Form
     {
@@ -202,46 +195,60 @@ final class SensorsPresenter extends BasePresenter
 
     }
 
-    public function ShowChart(Form $form, \stdClass $values): void
+//    public function ShowChart(Form $form, \stdClass $values): void
+//    {
+//        $this->flashMessage($values->from."->".$values->to);
+//
+//        $sNumber = $values->num;
+//
+//        $this->flashMessage($sNumber);
+//
+//
+//        $from = $values->from;
+//        $to = $values->to;
+//
+//        if($from>$to)
+//        {
+//            $this->flashMessage("Tento rozsah nelze zobrazit", 'error');
+//            return;
+//        }
+//
+//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
+////        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
+//
+//        if($rawEvents)
+//        {
+//            $events = new TimeBox($rawEvents, 0, 24);
+//
+//            $this->template->events = $events->getEvents();
+//
+//            $this->template->countAll = $events->countEvents();
+//            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
+//            $this->template->countStop = $events->countEvents(TimeBox::STOP);
+//            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
+//            $this->template->countOn = $events->countEvents(TimeBox::ON);
+//            $this->template->countOff = $events->countEvents(TimeBox::OFF);
+//            $this->template->allTime = $events->allTime();
+//            $this->template->stopTime = $events->stopTime();
+//            $this->template->workTime = $events->workTime();
+//            $this->template->avgStopTime = $events->avgStopTime();
+//            $this->template->avgWorkTime = $events->avgWorkTime();
+//        }
+//        echo("");
+//    }
+
+
+	protected function createComponentThisOverview()
+	{
+		return $this->thisSensorOverviewFactory->create();
+	}
+
+    public function renderOverview($number)
     {
-        $this->flashMessage($values->from."->".$values->to);
 
-        $sNumber = $values->num;
+	    $this->template->number = $number;
 
-        $this->flashMessage($sNumber);
-
-
-        $from = $values->from;
-        $to = $values->to;
-
-        if($from>$to)
-        {
-            $this->flashMessage("Tento rozsah nelze zobrazit", 'error');
-            return;
-        }
-
-        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, $from, $to);
-//        $this->template->rawEvents = $rawEvents = $this->thisSensorManager->getAllEvents($sNumber, "2020-05-05 06:00:00", "2020-05-05 23:00:00");
-
-        if($rawEvents)
-        {
-            $events = new TimeBox($rawEvents, 0, 24);
-
-            $this->template->events = $events->getEvents();
-
-            $this->template->countAll = $events->countEvents();
-            $this->template->countFinished = $events->countEvents(TimeBox::FINISHED);
-            $this->template->countStop = $events->countEvents(TimeBox::STOP);
-            $this->template->countRework = $events->countEvents(TimeBox::REWORK);
-            $this->template->countOn = $events->countEvents(TimeBox::ON);
-            $this->template->countOff = $events->countEvents(TimeBox::OFF);
-            $this->template->allTime = $events->allTime();
-            $this->template->stopTime = $events->stopTime();
-            $this->template->workTime = $events->workTime();
-            $this->template->avgStopTime = $events->avgStopTime();
-            $this->template->avgWorkTime = $events->avgWorkTime();
-        }
-        echo("");
+//	    $this['showChartForm']->setDefaults(array("num"=>$number));
     }
 
 

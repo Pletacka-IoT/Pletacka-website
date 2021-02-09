@@ -500,11 +500,20 @@ class DatabaseSelectionManager
 	public function getSelectionData(int $number, string $selection, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
     {
     	$dsPretty = new DatabaseDataExtractorPretty($number);
-	    $dsPretty->workShift = $workShift;
 
-    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+    	if($workShift == "")
+	    {
+		    $dsPretty->workShift = "";
+	    	$dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ?", $from, $to)->fetchAll();
+	    }
+        else
+	    {
+		    $dsPretty->workShift = $workShift;
+		    $dSelection = $this->database->table("A".$number."_".$selection)->where("time >= ? AND time < ? AND workShift = ?", $from, $to, $workShift)->fetchAll();
+	    }
 
-    	if(!$dSelection)
+
+	    if(!$dSelection)
 	    {
 	    	return new DatabaseDataExtractorPretty(-555, false, "No input data");
 	    }
@@ -526,7 +535,7 @@ class DatabaseSelectionManager
 	/**
 	 * @param int $number
 	 * @param string $selection [self::HOUR, DAY, MONTH, YEAR]
-	 * @param $workShift ["Cahovi" or "Vaňkovi" / null (auto)]
+	 * @param $workShift ["Cahovi" or "Vaňkovi" / null (all)]
 	 * @param DateTime $from
 	 * @param DateTime $to
 	 * @return array

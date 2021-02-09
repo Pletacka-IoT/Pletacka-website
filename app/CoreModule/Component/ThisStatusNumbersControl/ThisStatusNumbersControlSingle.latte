@@ -1,0 +1,43 @@
+<div>
+    <div class="tsNumberHead text-center">
+        <h4>{$numberBoxes->msg}</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberOrange">
+                <div class="tsNumberName">Doba pletení</div>
+                <div class="tsNumberValue">{$numberBoxes->workTimeStr}</div>
+            </div>
+        </div>
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberGreen">
+                <div class="tsNumberName">Upleteno</div>
+                <div class="tsNumberValue">{$numberBoxes->finishedCount} párů</div>
+            </div>
+        </div>
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberBlue">
+                <div class="tsNumberName">Úspěšnost</div>
+                <div class="tsNumberValue">{$numberBoxes->rating}%</div>
+            </div>
+        </div>
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberSkyblue">
+                <div class="tsNumberName">Pr. doba běhu</div>
+                <div class="tsNumberValue">{$numberBoxes->workTimeAvgStr}</div>
+            </div>
+        </div>
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberDarkYellow">
+                <div class="tsNumberName">Počet zastavení</div>
+                <div class="tsNumberValue">{$numberBoxes->stopCount}</div>
+            </div>
+        </div>
+        <div class="col-md-4 tsNumberCol">
+            <div class="tsNumberBubble zoom-sm tsNumberRed">
+                <div class="tsNumberName">Pr. doba stání</div>
+                <div class="tsNumberValue">{$numberBoxes->stopTimeAvgStr}</div>
+            </div>
+        </div>
+    </div>
+</div>

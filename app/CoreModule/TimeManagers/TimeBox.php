@@ -48,7 +48,6 @@ class TimeBox
 	 */
 	public function __construct($tableSelection, $previousEvent,DateTime $startTime, DateTime  $endTime)
 	{
-		//TODO change times to DateTime
 		$this->tableSelection = $tableSelection;
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
