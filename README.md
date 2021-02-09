@@ -1,5 +1,8 @@
 # Pletacka-website-nette
 
+[<!--lint ignore no-dead-urls-->![GitHub Actions status | Pletacka-IoT/Pletacka-website](https://github.com/Pletacka-IoT/Pletacka-website/workflows/PHP%20Tests/badge.svg)](https://github.com/Pletacka-IoT/Pletacka-website/actions?workflow=PHP+Tests) 
+[<!--lint ignore no-dead-urls-->![GitHub Actions status | Pletacka-IoT/Pletacka-website](https://github.com/Pletacka-IoT/Pletacka-website/workflows/Deploy%20documentation/badge.svg)](https://github.com/Pletacka-IoT/Pletacka-website/actions?workflow=Deploy+documentation)
+
 <h2>Pletacka <a href="https://jakubandrysek.github.io/Pletacka-website-nette">documentation</a></h2>
 
 - [Classes](https://jakubandrysek.github.io/Pletacka-website-nette/annotated.html) 

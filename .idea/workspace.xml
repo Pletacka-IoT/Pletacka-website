@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlSingle.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlSingle.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="upgrade_php8.0_composer" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
