@@ -360,7 +360,7 @@ class ThisStatusNumbersControl extends  Control{
     public function render(int $number, string $workShift)
     {
 	    $thisNumberBox = $this->thisNumberBoxes($number, $workShift);
-	    $this->template->thisNumberBox = $thisNumberBox;
+	    $this->template->numberBoxes = $thisNumberBox;
 
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
     }
@@ -373,11 +373,13 @@ class ThisStatusNumbersControl extends  Control{
     {
 	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
 //	    dump($thisNumberBox);
-	    $this->template->thisNumberBox = $thisNumberBox;
+	    $this->template->numberBoxes = $thisNumberBox;
 //
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
 
 //	    dump($sensorNumbers);
+
+
     }
 
 	/**
@@ -397,7 +399,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $numberBox = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth, $dateText);
 
 //	    dump($numberBox);
-	    $this->template->numberBox = $numberBox;
+	    $this->template->numberBoxes = $numberBox;
 //
 	    $this->template->render(__DIR__ . '/ThisStatusNumbersControlSingle.latte');
 

@@ -53,7 +53,7 @@
 	<div class="page">
 
 		{snippet header}
-				<nav class="navbar navbar-expand-md bg-dark navbar-dark" id="my-header" ><!--fixed-top-->
+				<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top" id="my-header" ><!--fixed-top-->
 
 				<!-- Brand/logo -->
 				<a class="navbar-brand ajax" n:href="Homepage:default">
@@ -82,9 +82,9 @@
 						<li class="nav-item ">
 							<a class="nav-link ajax" n:href="Overview:default">Přehled</a>
 						</li>
-						<li>
-							<a class="nav-link btn-sm btn-warning" onClick="toggleHeaderTop()">Připni</a>
-						</li>
+{*						<li>*}
+{*							<a class="nav-link btn-sm btn-warning" onClick="toggleHeaderTop()">Připni</a>*}
+{*						</li>*}
 						{if $user->loggedIn}
 							<li class="nav-item">
 								<a class="nav-link" target="_blank" href="{$basePath}/www/adminer">Adminer</a>
