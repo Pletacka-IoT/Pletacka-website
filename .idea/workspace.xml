@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlOne.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlOne.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlSingle.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +165,7 @@
       <workItem from="1611412607701" duration="3742000" />
       <workItem from="1612706213440" duration="2052000" />
       <workItem from="1612797833358" duration="23024000" />
-      <workItem from="1612871846117" duration="6090000" />
+      <workItem from="1612871846117" duration="10132000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -249,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612875293690</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Start ThisStatusNumbersControl big update">
+      <created>1612890442249</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1612890442249</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,7 +303,8 @@
     <MESSAGE value="Add test file" />
     <MESSAGE value="Add overview boxes" />
     <MESSAGE value="Add collapse" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add collapse" />
+    <MESSAGE value="Start ThisStatusNumbersControl big update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start ThisStatusNumbersControl big update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -396,6 +396,10 @@ class DatabaseDataExtractorPretty
 		$this->workTimeStr = "-";
 		$this->stopTimeAvgStr = "-";
 		$this->workTimeAvgStr = "-";
+		if($this->msg == "")
+		{
+			$this->msg = $var->msg;
+		}
 
 		$this->allTime += $var->stopTime;
 		$this->stopTime += $var->stopTime;

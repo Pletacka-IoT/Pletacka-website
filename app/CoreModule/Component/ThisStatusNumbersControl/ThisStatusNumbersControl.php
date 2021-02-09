@@ -152,9 +152,28 @@ class ThisStatusNumbersControl extends  Control{
     	return "bubble-".strtolower($sting);
     }
 
+	/**
+	 * @param $string
+	 * @return string
+	 */
+	public function clean($string): string
+	{
+		$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+		$string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+
+		return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+	}
 
 
-    public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
+	/**
+	 * @param int $number
+	 * @param string $workShift
+	 * @param DateTime $from
+	 * @param DateTime $to
+	 * @param string $dateText
+	 * @return DatabaseDataExtractorPretty
+	 */
+	public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
     {
 
 	    $selectionTo = new DateTime();
@@ -235,18 +254,19 @@ class ThisStatusNumbersControl extends  Control{
     }
 
 
-    public function prepareNumberBox(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
+    public function prepareNumberBox(Nette\Database\Table\Selection $sensorNumbers, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
     {
 	    $numberBox = new DatabaseDataExtractorPretty();
 
     	foreach ($sensorNumbers as $sensorNumber) {
-		    $sensor = $this->prepareThisNumberBox($sensorNumber->number, $workShift, $from, $to, $dateText);
+		    $sensor = $this->prepareThisNumberBox($sensorNumber->number, $workShift, $from, $to, "");
 		    if($sensor->status)
 		    {
 			    $numberBox->add($sensor);
 		    }
     	}
 
+		$numberBox->msg = $dateText;
 	    $numberBox->stopTimeStr = $this->humanTimeShort($numberBox->stopTime);
 	    $numberBox->workTimeStr= $this->humanTimeShort($numberBox->workTime);
 	    $numberBox->allTimeStr= $this->humanTimeShort($numberBox->allTime);
@@ -256,8 +276,6 @@ class ThisStatusNumbersControl extends  Control{
 
 	    $numberBox->stopTimeAvg = intval($this->safeDivision($numberBox->stopTime, $numberBox->stopCount));
 	    $numberBox->stopTimeAvgStr = $this->humanTimeShort($numberBox->stopTimeAvg);
-
-
 
 	    return $numberBox;
     }
@@ -313,7 +331,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $fromDay->setTimestamp(strtotime("today"));
 	    $toDay = new DateTime();
 	    $toDay->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["DAY"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromDay, $toDay);
+    	$thisNumberBoxes["DAY"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromDay, $toDay, "Dnes");
 
 
     	$fromWeek = new DateTime();
@@ -321,21 +339,21 @@ class ThisStatusNumbersControl extends  Control{
     	$fromWeek->sub(DateInterval::createFromDateString("1 week"));
 	    $toWeek = new DateTime();
 	    $toWeek->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["WEEK"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromWeek, $toWeek);
+    	$thisNumberBoxes["WEEK"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromWeek, $toWeek, "Poslední týden");
 
     	$fromMonth = new DateTime();
     	$fromMonth->setTimestamp(strtotime("today"));
     	$fromMonth->sub(DateInterval::createFromDateString("1 month"));
 	    $toMonth = new DateTime();
 	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["MONTH"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth);
+    	$thisNumberBoxes["MONTH"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth, "Poslední měsíc");
 
     	$fromMonth = new DateTime();
     	$fromMonth->setTimestamp(strtotime("today"));
     	$fromMonth->sub(DateInterval::createFromDateString("1 year"));
 	    $toMonth = new DateTime();
 	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["YEAR"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth);
+    	$thisNumberBoxes["YEAR"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth, "Poslední rok");
 	    return $thisNumberBoxes;
     }
 
@@ -351,7 +369,7 @@ class ThisStatusNumbersControl extends  Control{
 	 * @param Nette\Database\Table\Selection $sensorNumbers
 	 * @param string $workShift
 	 */
-	public function renderOverview(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+	public function renderAllOverview(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
     {
 	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
 //	    dump($thisNumberBox);
@@ -365,16 +383,24 @@ class ThisStatusNumbersControl extends  Control{
 	/**
 	 * @param Nette\Database\Table\Selection $sensorNumbers
 	 * @param string $workShift
+	 * @param string $pastTime
+	 * @param string $dateText
 	 */
-	public function renderYear(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+	public function renderAllSingle(Nette\Database\Table\Selection $sensorNumbers, string $workShift, string $pastTime, string $dateText)
     {
-	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
-	    dump($thisNumberBox);
-	    $this->template->thisNumberBox = $thisNumberBox;
-//
-	    $this->template->render(__DIR__ . '/ThisStatusNumbersControlOne.latte');
+	    $fromMonth = new DateTime();
+	    $fromMonth->setTimestamp(strtotime("today"));
+//	    $fromMonth->sub(DateInterval::createFromDateString("1 month"));
+	    $fromMonth->sub(DateInterval::createFromDateString($pastTime));
+	    $toMonth = new DateTime();
+	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
+	    $numberBox = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth, $dateText);
 
-//	    dump($sensorNumbers);
+//	    dump($numberBox);
+	    $this->template->numberBox = $numberBox;
+//
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControlSingle.latte');
+
     }
 
 
