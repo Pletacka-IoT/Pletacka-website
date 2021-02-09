@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['roommanager_401',['RoomManager',['../classApp_1_1CoreModule_1_1Model_1_1RoomManager.html',1,'App::CoreModule::Model']]],
-  ['routerfactory_402',['RouterFactory',['../classApp_1_1Router_1_1RouterFactory.html',1,'App::Router']]]
+  ['pletackachartcontrol_419',['PletackaChartControl',['../classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControl.html',1,'App::CoreModule::Component::PletackaChartControl']]],
+  ['pletackachartcontrolfactory_420',['PletackaChartControlFactory',['../classApp_1_1CoreModule_1_1Component_1_1PletackaChartControl_1_1PletackaChartControlFactory.html',1,'App::CoreModule::Component::PletackaChartControl']]],
+  ['pretty_421',['Pretty',['../classApp_1_1Utils_1_1Pretty.html',1,'App::Utils']]]
 ];

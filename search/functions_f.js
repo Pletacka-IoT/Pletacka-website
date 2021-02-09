@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['updatews_689',['updateWS',['../classApp_1_1CoreModule_1_1Model_1_1WorkShiftManager.html#a8fb20eaf3a79c96a37bfbc084e554a53',1,'App::CoreModule::Model::WorkShiftManager']]]
+  ['test_722',['test',['../classApp_1_1CoreModule_1_1Presenters_1_1DatabaseTestPresenter.html#a6b8cedf9f1228d64e513f9f83edfb67f',1,'App::CoreModule::Presenters::DatabaseTestPresenter']]],
+  ['testdays_723',['testDays',['../classApp_1_1CoreModule_1_1Presenters_1_1DatabaseTestPresenter.html#a9bf2971502c2a9a9022ebc8814a1cdee',1,'App::CoreModule::Presenters::DatabaseTestPresenter']]],
+  ['testdaysauto_724',['testDaysAuto',['../classApp_1_1CoreModule_1_1Presenters_1_1DatabaseTestPresenter.html#acfd529200c9b26f59686beeb6558a5ba',1,'App::CoreModule::Presenters::DatabaseTestPresenter']]],
+  ['testdaysgen_725',['testDaysGen',['../classApp_1_1CoreModule_1_1Presenters_1_1DatabaseTestPresenter.html#a37d88708cd00911a4faf8e359325d982',1,'App::CoreModule::Presenters::DatabaseTestPresenter']]],
+  ['testmultiren_726',['testMultiRen',['../classApp_1_1CoreModule_1_1Presenters_1_1DatabaseTestPresenter.html#a7a5f16d2a0f4a4fa23f73b0d4b2eeb7b',1,'App::CoreModule::Presenters::DatabaseTestPresenter']]],
+  ['thisnumberboxes_727',['thisNumberBoxes',['../classApp_1_1CoreModule_1_1Component_1_1ThisStatusNumbersControl_1_1ThisStatusNumbersControl.html#a952ad0e689a132dc4356d7559afbe166',1,'App::CoreModule::Component::ThisStatusNumbersControl::ThisStatusNumbersControl']]],
+  ['timeremovefirstnull_728',['timeRemoveFirstNull',['../classApp_1_1CoreModule_1_1Component_1_1StatusBubblesControl_1_1StatusBubblesControl.html#a933cad1ca6671e89480336725dd84a3e',1,'App\CoreModule\Component\StatusBubblesControl\StatusBubblesControl\timeRemoveFirstNull()'],['../classApp_1_1CoreModule_1_1Component_1_1StatusNumbersControl_1_1StatusNumbersControl.html#a5c79149776684d81b51f340d96512069',1,'App\CoreModule\Component\StatusNumbersControl\StatusNumbersControl\timeRemoveFirstNull()'],['../classApp_1_1CoreModule_1_1Component_1_1ThisStatusNumbersControl_1_1ThisStatusNumbersControl.html#a9443957714fbde2d9b3a2d9c43df5d3c',1,'App\CoreModule\Component\ThisStatusNumbersControl\ThisStatusNumbersControl\timeRemoveFirstNull()']]]
 ];
