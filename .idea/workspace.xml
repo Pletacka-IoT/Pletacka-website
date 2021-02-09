@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverview.latte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverview.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverviewBoxes.latte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview/SensorOverviewFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/OverviewPresenter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/UtilsTest/DatabaseDataExtractorPrettyTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/bootstrap.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/config/config.neon" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/config/config.neon" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Router/RouterFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Router/RouterFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +145,7 @@
       <workItem from="1611412534239" duration="54000" />
       <workItem from="1611412607701" duration="3742000" />
       <workItem from="1612706213440" duration="2052000" />
-      <workItem from="1612797833358" duration="15110000" />
+      <workItem from="1612797833358" duration="22858000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -214,7 +203,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611415347032</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add SensorOverview + start writing tests">
+      <created>1612819992024</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612819992025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add test file">
+      <created>1612820127688</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1612820127688</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +228,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -243,7 +258,9 @@
     <MESSAGE value="Add one day chart" />
     <MESSAGE value="Database backup" />
     <MESSAGE value="Prepare code for overview" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prepare code for overview" />
+    <MESSAGE value="Add SensorOverview + start writing tests" />
+    <MESSAGE value="Add test file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add test file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -269,9 +286,14 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php</url>
-          <line>334</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php</url>
+          <line>394</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php</url>
+          <line>393</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
