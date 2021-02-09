@@ -3,7 +3,6 @@
 {block content}
 {var $ws = "Cahovi"}
 
-Ahoj
 <div class="container-fluid">
     <div class="row">
         {foreach $workShift as $ws}
@@ -14,10 +13,12 @@ Ahoj
                     <h1>{$ws}</h1>
                 </div>
                 <div class="thisStatusNumbers">
-                    {*                    {dump $ws}*}
-                        {control thisStatusNumbers:All, $sensors, $ws}
+                        {control thisStatusNumbers:Overview, $sensors, $ws}
                 </div>
             </div>
         {/foreach}
     </div>
+
+{*    {control thisStatusNumbers:Year, $sensors, ""}*}
+{*    {control thisStatusNumbers:All, $sensors, $ws}*}
 </div>

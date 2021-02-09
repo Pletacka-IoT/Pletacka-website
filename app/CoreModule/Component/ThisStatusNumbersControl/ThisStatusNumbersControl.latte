@@ -230,7 +230,64 @@
                         </div>
                     </div>
                 </div>
-            </div>s
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        {var $date = "Poslední rok"}
+        {var $type = "YEAR"}
+        <div class="card-header">
+            <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseYear">
+                {$date}
+            </a>
+        </div>
+        <div id="collapseYear" class="collapse">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberOrange">
+                            <div class="tsNumberName">Doba pletení</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->workTimeStr}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberGreen">
+                            <div class="tsNumberName">Upleteno</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->finishedCount} párů</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberBlue">
+                            <div class="tsNumberName">Úspěšnost</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->rating}%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberSkyblue">
+                            <div class="tsNumberName">Pr. doba běhu</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->workTimeAvgStr}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberDarkYellow">
+                            <div class="tsNumberName">Počet zastavení</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->stopCount}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 tsNumberCol">
+                        <div class="tsNumberBubble zoom-sm tsNumberRed">
+                            <div class="tsNumberName">Pr. doba stání</div>
+                            <div class="tsNumberDate">{$date}</div>
+                            <div class="tsNumberValue">{$thisNumberBox[$type]->stopTimeAvgStr}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

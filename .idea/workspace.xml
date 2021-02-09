@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ExampleTests/ExampleTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +102,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/UtilsTest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -118,10 +120,27 @@
       <recent name="$PROJECT_DIR$/tests/Test1" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Shell Script.ClearCacheNette">
     <configuration name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" nameIsGenerated="true" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="Server" start_url="http://localhost/Pletacka-website/">
       <method v="2" />
     </configuration>
+    <configuration name="ClearCacheNette" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/usr/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="PHP Web Page.Unnamed" />
+      <item itemvalue="Shell Script.ClearCacheNette" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -145,7 +164,8 @@
       <workItem from="1611412534239" duration="54000" />
       <workItem from="1611412607701" duration="3742000" />
       <workItem from="1612706213440" duration="2052000" />
-      <workItem from="1612797833358" duration="22858000" />
+      <workItem from="1612797833358" duration="23024000" />
+      <workItem from="1612871846117" duration="3163000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -217,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612820127688</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Add overview boxes">
+      <created>1612868095025</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1612868095025</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +287,8 @@
     <MESSAGE value="Prepare code for overview" />
     <MESSAGE value="Add SensorOverview + start writing tests" />
     <MESSAGE value="Add test file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add test file" />
+    <MESSAGE value="Add overview boxes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add overview boxes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -284,16 +312,6 @@
           <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
           <line>282</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php</url>
-          <line>394</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php</url>
-          <line>393</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

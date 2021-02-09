@@ -327,6 +327,13 @@ class ThisStatusNumbersControl extends  Control{
 	    $toMonth = new DateTime();
 	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
     	$thisNumberBoxes["MONTH"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth);
+
+    	$fromMonth = new DateTime();
+    	$fromMonth->setTimestamp(strtotime("today"));
+    	$fromMonth->sub(DateInterval::createFromDateString("1 year"));
+	    $toMonth = new DateTime();
+	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
+    	$thisNumberBoxes["YEAR"] = $this->prepareNumberBox($sensorNumbers, $workShift, $fromMonth, $toMonth);
 	    return $thisNumberBoxes;
     }
 
@@ -342,7 +349,22 @@ class ThisStatusNumbersControl extends  Control{
 	 * @param Nette\Database\Table\Selection $sensorNumbers
 	 * @param string $workShift
 	 */
-	public function renderall(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+	public function renderOverview(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
+    {
+	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
+//	    dump($thisNumberBox);
+	    $this->template->thisNumberBox = $thisNumberBox;
+//
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+
+//	    dump($sensorNumbers);
+    }
+
+	/**
+	 * @param Nette\Database\Table\Selection $sensorNumbers
+	 * @param string $workShift
+	 */
+	public function renderYear(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift)
     {
 	    $thisNumberBox = $this->numberBoxes($sensorNumbers, $workShift);
 	    dump($thisNumberBox);
