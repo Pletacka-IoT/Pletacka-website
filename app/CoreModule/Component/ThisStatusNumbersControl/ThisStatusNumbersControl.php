@@ -27,6 +27,7 @@ use Jakubandrysek\Chart\DateChart;
 use Jakubandrysek\Chart\Segment\DateSegment;
 use DateTimeImmutable;
 use Nette\Utils\DateTime;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * @brief
@@ -153,7 +154,7 @@ class ThisStatusNumbersControl extends  Control{
 
 
 
-    public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
+    public function prepareThisNumberBox(int $number, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
     {
 
 	    $selectionTo = new DateTime();
@@ -168,6 +169,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $numberBox->from = $from;
 	    $numberBox->to = $to;
 	    $numberBox->number = $number;
+	    $numberBox->msg = $dateText;
 	    $addCounter = false;
 
 
@@ -233,12 +235,12 @@ class ThisStatusNumbersControl extends  Control{
     }
 
 
-    public function prepareNumberBox(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift, DateTime $from, DateTime $to): DatabaseDataExtractorPretty
+    public function prepareNumberBox(Nette\Database\Table\Selection | null $sensorNumbers, string $workShift, DateTime $from, DateTime $to, string $dateText): DatabaseDataExtractorPretty
     {
 	    $numberBox = new DatabaseDataExtractorPretty();
 
     	foreach ($sensorNumbers as $sensorNumber) {
-		    $sensor = $this->prepareThisNumberBox($sensorNumber->number, $workShift, $from, $to);
+		    $sensor = $this->prepareThisNumberBox($sensorNumber->number, $workShift, $from, $to, $dateText);
 		    if($sensor->status)
 		    {
 			    $numberBox->add($sensor);
@@ -283,7 +285,7 @@ class ThisStatusNumbersControl extends  Control{
 	    $fromDay->setTimestamp(strtotime("today"));
 	    $toDay = new DateTime();
 	    $toDay->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["DAY"] = $this->prepareThisNumberBox($number, $workShift, $fromDay, $toDay);
+    	$thisNumberBoxes["DAY"] = $this->prepareThisNumberBox($number, $workShift, $fromDay, $toDay, "Dnes");
 
 
     	$fromWeek = new DateTime();
@@ -291,14 +293,14 @@ class ThisStatusNumbersControl extends  Control{
     	$fromWeek->sub(DateInterval::createFromDateString("1 week"));
 	    $toWeek = new DateTime();
 	    $toWeek->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["WEEK"] = $this->prepareThisNumberBox($number, $workShift, $fromWeek, $toWeek);
+    	$thisNumberBoxes["WEEK"] = $this->prepareThisNumberBox($number, $workShift, $fromWeek, $toWeek, "Poslední týden");
 
     	$fromMonth = new DateTime();
     	$fromMonth->setTimestamp(strtotime("today"));
     	$fromMonth->sub(DateInterval::createFromDateString("1 month"));
 	    $toMonth = new DateTime();
 	    $toMonth->setTimestamp(strtotime("tomorrow")-1);
-    	$thisNumberBoxes["MONTH"] = $this->prepareThisNumberBox($number, $workShift, $fromMonth, $toMonth);
+    	$thisNumberBoxes["MONTH"] = $this->prepareThisNumberBox($number, $workShift, $fromMonth, $toMonth, "Poslední měsíc");
 	    return $thisNumberBoxes;
     }
 
@@ -370,7 +372,7 @@ class ThisStatusNumbersControl extends  Control{
 	    dump($thisNumberBox);
 	    $this->template->thisNumberBox = $thisNumberBox;
 //
-	    $this->template->render(__DIR__ . '/ThisStatusNumbersControl.latte');
+	    $this->template->render(__DIR__ . '/ThisStatusNumbersControlOne.latte');
 
 //	    dump($sensorNumbers);
     }

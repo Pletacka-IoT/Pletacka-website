@@ -390,7 +390,6 @@ class DatabaseDataExtractorPretty
 	{
 		$this->number = -555;
 		$this->status = false;
-		$this->msg = "";
 		$this->rating = intval(($var->rating + $this->rating)/2);
 		$this->allTimeStr = "-";
 		$this->stopTimeStr = "-";

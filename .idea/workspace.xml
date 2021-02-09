@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControlOne.latte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Bootstrap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.latte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl/ThisStatusNumbersControl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/@layout.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/templates/Overview/default.latte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Utils/DatabaseDataExtractorPretty.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,18 +100,18 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/CoreModule/Component/ThisStatusNumbersControl" />
       <recent name="$PROJECT_DIR$/tests/UtilsTest" />
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/app/CoreModule/Component/SensorOverview" />
       <recent name="$PROJECT_DIR$/app/CoreModule/Presenters/templates/OverviewPresenter" />
-      <recent name="$PROJECT_DIR$/app/CoreModule/Presenters" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tests/Test2" />
@@ -165,7 +163,7 @@
       <workItem from="1611412607701" duration="3742000" />
       <workItem from="1612706213440" duration="2052000" />
       <workItem from="1612797833358" duration="23024000" />
-      <workItem from="1612871846117" duration="3163000" />
+      <workItem from="1612871846117" duration="6090000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -244,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612868095025</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add collapse">
+      <created>1612875293690</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1612875293690</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +293,8 @@
     <MESSAGE value="Add SensorOverview + start writing tests" />
     <MESSAGE value="Add test file" />
     <MESSAGE value="Add overview boxes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add overview boxes" />
+    <MESSAGE value="Add collapse" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add collapse" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
