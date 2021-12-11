@@ -1,56 +1,51 @@
 {
-	"name": "nette/sandbox",
-	"description": "The sandbox is a pre-packaged Nette Framework project, basic configured structure for your application.",
+	"name": "jakubandrysek/pletacka",
+	"description": "System for monitoring ihe industrial production",
 	"homepage": "https://nette.org",
 	"type": "project",
-	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
+	"license": ["MIT"],
 	"authors": [
 		{
-			"name": "David Grudl",
-			"homepage": "https://davidgrudl.com"
-		},
-		{
-			"name": "Nette Community",
-			"homepage": "https://nette.org/contributors"
+			"name": "Jakub Andrýsek",
+			"homepage": "https://kubaandrysek.cz"
 		}
 	],
 	"require": {
-		"php": ">=7.3",
-		"nette/application": "^v3.0",
-		"nette/bootstrap": "^3.0",
-		"nette/caching": "^3.0",
+		"php": ">=8.0",
+		"nette/application": "^3.1",
+		"nette/bootstrap": "^3.1",
+		"nette/caching": "^3.1",
 		"nette/database": "^3.1",
 		"nette/di": "^3.0",
 		"nette/finder": "^2.5",
-		"nette/forms": "^3.0",
-		"nette/http": "^3.0",
-		"nette/mail": "^3.0",
+		"nette/forms": "^3.1",
+		"nette/http": "^3.1",
+		"nette/mail": "^3.1",
 		"nette/robot-loader": "^3.3",
-		"nette/safe-stream": "^2.4",
-		"nette/security": "^3.0",
-		"nette/utils": "^v3.2",
+		"nette/security": "^3.1",
+		"nette/utils": "^3.2",
 		"latte/latte": "^2.9",
 		"tracy/tracy": "^2.8",
 		"dg/adminer-custom": "^1.8",
 
-		"contributte/application": "^0.5",
+		"contributte/application": "^v0.5.1",
         "contributte/bootstrap": "^0.5",
         "contributte/cache": "^0.6",
         "contributte/di": "^0.5",
         "contributte/http": "^0.4.0",
         "contributte/latte": "^0.5.0",
 		"contributte/tracy": "^0.5.0",
-		"apitte/core": "^0.7.0",
-        "apitte/debug": "^0.7.0",
-        "apitte/openapi": "^0.7.0",
-        "apitte/presenter": "^0.7.0",
-		"apitte/negotiation": "^0.7.0",
+		"apitte/core": "^v0.8.1",
+        "apitte/debug": "^0.8.0",
+        "apitte/openapi": "^v0.8.0",
+        "apitte/presenter": "^v0.8.0",
+		"apitte/negotiation": "^v0.8.0",
 		"jakubandrysek/chart": "^3.2.0",
-		"myclabs/php-enum": "^1.7"
+		"myclabs/php-enum": "^1.8.3"
 	},
 	"require-dev": {
-		"nette/tester": "^2.0",
-		"phpstan/phpstan-nette": "^0.12"
+		"nette/tester": "^v2.3.5",
+		"phpstan/phpstan-nette": "^1.0.0"
 	},
 	"autoload": {
 		"classmap": ["app/", "tests/","app/Bootstrap.php"]

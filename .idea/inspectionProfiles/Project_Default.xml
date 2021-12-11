@@ -12,5 +12,8 @@
         </value>
       </option>
     </inspection_tool>
+    <inspection_tool class="PhpStanGlobal" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="config" value="$PROJECT_DIR$/phpstan.neon" />
+    </inspection_tool>
   </profile>
 </component>

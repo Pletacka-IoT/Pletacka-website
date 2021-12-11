@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="9b528fdb-98ff-44d7-8ca2-cb9fdc8ddd8c" name="Pi" url="http://pletacka.local/">
-        <fileTransfer rootFolder="/home/pi/Server" accessType="SFTP" host="pletacka.local" port="22" sshConfigId="e18920d5-0c7c-4b4b-bd01-2333c6a6e101" sshConfig="pletacka.local">
+        <fileTransfer rootFolder="/home/pi/Server" accessType="SFTP" host="192.168.0.2" port="22" sshConfigId="e18920d5-0c7c-4b4b-bd01-2333c6a6e101" sshConfig="pletacka.local">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

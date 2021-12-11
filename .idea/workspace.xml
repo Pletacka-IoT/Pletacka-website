@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Pletacka-website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pletacka-website.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/A17-2020-10-6.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-09-12.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-10-03.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-10-29.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-11-07-only-sensors-data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-12.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-19.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-28.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-08.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-15.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-23.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-02-07.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-02-09.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +28,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -21,6 +39,17 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/vendor/nette/database/src/Database/Table/Selection.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/Bootstrap.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../local/www/index.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/config/common.neon" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/config/local.neon" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/codealike.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true">
     <xdebug_debug_ports port="9003" />
@@ -48,7 +77,6 @@
       <path value="$PROJECT_DIR$/vendor/nette/routing" />
       <path value="$PROJECT_DIR$/vendor/nette/component-model" />
       <path value="$PROJECT_DIR$/vendor/nette/forms" />
-      <path value="$PROJECT_DIR$/vendor/nette/safe-stream" />
       <path value="$PROJECT_DIR$/vendor/nette/bootstrap" />
       <path value="$PROJECT_DIR$/vendor/nette/tester" />
       <path value="$PROJECT_DIR$/vendor/nette/utils" />
@@ -79,6 +107,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-nette" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/koriym/attributes" />
     </include_path>
   </component>
   <component name="ProjectId" id="1mIzs9uqFLXOJKf7OekqFCwak4Y" />
@@ -120,6 +150,7 @@
       <method v="2" />
     </configuration>
     <configuration name="ClearCacheNette" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/bash-scripts/ClearCacheNette.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
@@ -129,6 +160,7 @@
       <option name="INTERPRETER_PATH" value="/usr/bin/zsh" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
       <envs />
       <method v="2" />
     </configuration>
@@ -265,6 +297,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

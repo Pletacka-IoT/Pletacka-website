@@ -2,8 +2,8 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="25.73.172.2" id="febc105c-cbe6-4c53-bdbe-a4b059edf753" port="22" nameFormat="DESCRIPTIVE" username="pi" />
-      <sshConfig authType="PASSWORD" host="pletacka.local" id="e18920d5-0c7c-4b4b-bd01-2333c6a6e101" port="22" customName="pletacka.local" nameFormat="CUSTOM" username="pi">
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="25.73.172.2" id="febc105c-cbe6-4c53-bdbe-a4b059edf753" port="22" nameFormat="DESCRIPTIVE" username="pi" />
+      <sshConfig authType="PASSWORD" host="192.168.0.2" id="e18920d5-0c7c-4b4b-bd01-2333c6a6e101" port="22" customName="pletacka.local" nameFormat="CUSTOM" username="pi">
         <option name="customName" value="pletacka.local" />
       </sshConfig>
     </configs>
