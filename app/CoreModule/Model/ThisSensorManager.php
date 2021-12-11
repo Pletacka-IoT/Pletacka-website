@@ -98,7 +98,7 @@ class ThisSensorManager
 
 	public function getLastEvent(int $sNumber)
 	{
-		return $this->database->table("A".$sNumber)->order("id DESC")->fetch();
+		return $this->database->table("A".$sNumber)->order("id DESC")->limit(1)->fetch();
 	}
 
 }
