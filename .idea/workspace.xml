@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9a274b0-0d4d-43ea-a41b-8ecd3fedf3b5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Pletacka-website.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pletacka-website.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.dtd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.dtd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intellij-latte/xmlSources/Latte.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/A17-2020-10-6.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-09-12.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-10-03.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-10-29.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-11-07-only-sensors-data.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-12.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-19.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2020-12-28.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-08.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-15.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-01-23.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-02-07.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/Pletacka-IoT-2021-02-09.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Component/PletackaChartControl/PletackaChartControl.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Component/PletackaChartControl/PletackaChartControl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CoreModule/Presenters/ConnectPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CoreModule/Presenters/ConnectPresenter.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,23 +29,34 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/vendor/nette/database/src/Database/Table/Selection.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Bootstrap.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/CoreModule/Component/StatusBubbblesControl/StatusBubblesControl.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../local/www/index.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/Router/RouterFactory.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vendor/jakubandrysek/chart/src/Serie/DateSerie.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/composer.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/common.neon" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/local.neon" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Model/DatabaseSelectionManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/codealike.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Model/SetupManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vendor/nette/database/src/Database/Table/Selection.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/temp/cache/nette.configurator/Container_713334fccf.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Presenters/ConnectPresenter.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vendor/jakubandrysek/chart/src/DateChart.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Presenters/HomepagePresenter.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../local/adminer.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/CoreModule/Presenters/SetupPresenter.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/config/common.neon" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vendor/nette/application/src/Application/Request.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/config/local.neon" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="PhpDebugGeneral" xdebug_debug_port="9003" listening_started="true">
+  <component name="PhpDebugGeneral" xdebug_debug_port="9003">
     <xdebug_debug_ports port="9003" />
     <xdebug_debug_ports port="9003" />
   </component>
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="3a8446f9-89f8-42fa-8fa4-1e0faee8cdb9" name="Server" />
+      <server host="pletac.localhost" id="913b3c74-fbf2-453b-a578-ecc0b0d77d42" name="pletac.localhost" />
     </servers>
   </component>
   <component name="PhpWebServerValidation" path_to_validation_script="$PROJECT_DIR$" selected_validation_type="LOCAL" web_path_to_validation_script="http://localhost/Pletacka-website/" />
@@ -145,7 +144,7 @@
       <recent name="$PROJECT_DIR$/tests/Test1" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.ClearCacheNette">
+  <component name="RunManager" selected="PHP Web Page.Unnamed">
     <configuration name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" nameIsGenerated="true" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="Server" start_url="http://localhost/Pletacka-website/">
       <method v="2" />
     </configuration>
@@ -193,6 +192,9 @@
       <workItem from="1612706213440" duration="2052000" />
       <workItem from="1612797833358" duration="23024000" />
       <workItem from="1612871846117" duration="11685000" />
+      <workItem from="1639504321255" duration="2724000" />
+      <workItem from="1639748256132" duration="2246000" />
+      <workItem from="1639846865920" duration="7426000" />
     </task>
     <task id="LOCAL-00001" summary="Finished update">
       <created>1609201367814</created>
@@ -373,6 +375,46 @@
           <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
           <line>282</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/PletackaChartControl/PletackaChartControl.php</url>
+          <line>276</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/PletackaChartControl/PletackaChartControl.php</url>
+          <line>40</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Presenters/HomepagePresenter.php</url>
+          <line>42</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>289</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Component/ThisChartControl/ThisChartControl.php</url>
+          <line>186</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php</url>
+          <line>88</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php</url>
+          <line>82</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/CoreModule/Model/ThisSensorManager.php</url>
+          <line>97</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

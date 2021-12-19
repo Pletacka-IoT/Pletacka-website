@@ -86,13 +86,16 @@ class ThisSensorManager
 
 	public function sensorHasData($sNumber): bool
 	{
-		return boolval($this->database->table("A".$sNumber)->fetch());
+		return boolval($this->database->table("A".$sNumber)->limit(1)->fetch());
 	}
 
 	public function getPreviousEvent($sNumber, $events)
     {
-        $previous = array_key_first($events)-1;
-        return $this->database->table("A".$sNumber)->where("id =?",$previous)->fetch();
+        if(!$events) {
+			return false;
+        }
+		$previous = array_key_first($events)-1;
+        return $this->database->table("A".$sNumber)->where("id =?",$previous)->limit(1)->fetch();
     }
 
 
