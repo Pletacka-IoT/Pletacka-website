@@ -1,28 +1,57 @@
-# Pletacka-website-nette
+# Integration into Industry 4.0 [EN]
 
-[<!--lint ignore no-dead-urls-->![GitHub Actions status | Pletacka-IoT/Pletacka-website](https://github.com/Pletacka-IoT/Pletacka-website/workflows/PHP%20Tests/badge.svg)](https://github.com/Pletacka-IoT/Pletacka-website/actions?workflow=PHP+Tests) 
-[<!--lint ignore no-dead-urls-->![GitHub Actions status | Pletacka-IoT/Pletacka-website](https://github.com/Pletacka-IoT/Pletacka-website/workflows/Deploy%20documentation/badge.svg)](https://github.com/Pletacka-IoT/Pletacka-website/actions?workflow=Deploy+documentation)
+![Pletacka](https://raw.githubusercontent.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/master/img/Uvod.png)
 
-<h2>Pletacka <a href="https://jakubandrysek.github.io/Pletacka-website-nette">documentation</a></h2>
+![Pletacka](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/img/prehled.png?raw=true)
 
-- [Classes](https://jakubandrysek.github.io/Pletacka-website-nette/annotated.html) 
-- [Namespaces](https://jakubandrysek.github.io/Pletacka-website-nette/namespaces.html) 
-- [Files](https://jakubandrysek.github.io/Pletacka-website-nette/files.html)
+![Pletacka](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/img/Edit.png?raw=true)
 
-## CZ
-Webová s tránka k mé středoškolské odborné činnosti - [SOČ](http://www.soc.cz/)
+![Pletacka](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/img/Pletarna.png?raw=true)
 
-## EN
-Webpage for my Students` Professional Activities - [SPA](http://www.soc.cz/english/)
+![Pletacka](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/img/Princip.png?raw=true)
 
-<h1>Project <a href="https://github.com/JakubAndrysek/Pletacka-website-nette/releases">timeline</a></h1>
+![Pletacka](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/img/Databaze.png?raw=true)
 
-## To Use
 
-To clone and run this repository you'll need [Git](https://git-scm.com),  [PHP 7.4](https://www.php.net/downloads.php) and web server [Apache](https://httpd.apache.org/download.cgi)+Database installed on your computer. From your command line:
 
-```bash
-# Clone this repository to Apache server folder
-git clone https://github.com/JakubAndrysek/Pletacka-website-nette.git
-``` 
-...
+📖 [High school project](https://www.soc.cz/english/) - thesis (2020 - 2021)
+
+## iSocks IoT
+
+### What is iSocks IoT?
+iSocks IoT is a system for automatic monitoring of industrial production and its implementation in practice.
+
+The system was designed as a universal platform for monitoring production machines, with a primary focus on knitting machines.
+
+[Project paper](https://github.com/JakubAndrysek/SOC-Integrace-do-prumyslu-4.0/blob/luxembourg/text.pdf) [EN]
+
+
+# Integrace do průmyslu 4.0 [CZ]
+
+📖 [Středoškolská odborná činnost](https://www.soc.cz/) - textová práce (2020 - 2021)
+
+## Pletačka IoT
+Tato práce představuje ucelený systém pro automatický monitoring průmyslové výroby a jeho nasazení do praxe.
+Systém byl navrhován jako univerzální platforma pro monitoring výrobních strojů, s primárním zaměřením na pletací stroje.
+
+[Text práce](https://kubaandrysek.cz/2021/06/12/soc-integrace#textová-práce) [CZ]
+
+
+# More information / více informací
+
+- https://kubaandrysek.cz/2021/06/12/soc-integrace
+
+# Structure of repositories Pletacka-IoT
+- [📖 High school project - thesis](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0)
+- [📟 Electronic board for Pletacka-IoT project](https://github.com/Pletacka-IoT/Pletacka-board)
+- [📊 Webpage for my project Pletacka-IoT](https://github.com/Pletacka-IoT/Pletacka-website)
+
+# This repository
+- [🇨🇿 High school project - thesis](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/master/text.pdf)
+- [🇬🇧 English version - thesis (For Luxembourg conference)](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/luxembourg/text.pdf)
+- [📖 České hlavičky - thesis](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/ceske-hlavicky/text.pdf)
+- [🖥 Poster for conference](https://github.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/blob/poster/luxembourg/Luxembourg_poster_en.pdf)
+
+# Poster
+
+![](https://raw.githubusercontent.com/Pletacka-IoT/SOC-Integrace-do-prumyslu-4.0/poster/luxembourg/Luxembourg_poster_en.png)

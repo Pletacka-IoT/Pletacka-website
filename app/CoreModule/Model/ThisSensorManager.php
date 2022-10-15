@@ -91,11 +91,8 @@ class ThisSensorManager
 
 	public function getPreviousEvent($sNumber, $events)
     {
-        if(!$events) {
-			return false;
-        }
-		$previous = array_key_first($events)-1;
-        return $this->database->table("A".$sNumber)->where("id =?",$previous)->limit(1)->fetch();
+        $previous = array_key_first($events)-1;
+        return $this->database->table("A".$sNumber)->where("id =?",$previous)->fetch();
     }
 
 
