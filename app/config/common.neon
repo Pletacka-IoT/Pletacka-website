@@ -49,8 +49,8 @@ session:
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=Pletacka-IoT'
 #	dsn: 'mysql:host=127.0.0.1;dbname=Pletacka-IoT-2.0'
-	user: pletacka
-	password: ladasmolik
+	user: root
+	password: rakosnicek
 #	port: 3306
 	options:
 		lazy: yes
@@ -64,9 +64,9 @@ services:
 		setup:
 			# - addResource(Error)
 			# - addResource(Error4xx)
-			
+
 			# - allow(guest, Error)
-			# - allow(guest, Error4xx)		
+			# - allow(guest, Error4xx)
 
 	- App\Model\UserManager
 	# - App\Model\DatabaseManager
@@ -76,5 +76,5 @@ services:
 	router: App\Router\RouterFactory::createRouter
 
 includes:
-	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.	
+	- ../CoreModule/config/config.neon # Načtení konfigurace z CoreModule.
 
