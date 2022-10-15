@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plete_774',['PLETE',['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsPresenter.html#a69a55b2477443a5368afabe6e69c7348',1,'App\CoreModule\Presenters\SensorsPresenter\PLETE()'],['../classApp_1_1CoreModule_1_1Presenters_1_1SensorsSettingsPresenter.html#a3e6fcf815ffcf6ed4a52899f60cfb359',1,'App\CoreModule\Presenters\SensorsSettingsPresenter\PLETE()']]]
+  ['rework_0',['REWORK',['../classApp_1_1CoreModule_1_1Model_1_1ThisSensorManager.html#a46ee8cfc19163203308365e4b6270322',1,'App\CoreModule\Model\ThisSensorManager\REWORK()'],['../classApp_1_1TimeManagers_1_1TimeBox.html#ad030c3c506b2b3dde864265ff176700b',1,'App\TimeManagers\TimeBox\REWORK()']]]
 ];

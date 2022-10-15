@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['column_5fid_758',['COLUMN_ID',['../classApp_1_1Model_1_1UserManager.html#a75f9b411c6095d3eb278dc10be81f5e6',1,'App::Model::UserManager']]],
-  ['column_5fname_759',['COLUMN_NAME',['../classApp_1_1Model_1_1UserManager.html#a4019ae437cc39a046444472459631ebd',1,'App::Model::UserManager']]],
-  ['column_5fpassword_5fhash_760',['COLUMN_PASSWORD_HASH',['../classApp_1_1Model_1_1UserManager.html#a9c6e473d84c1037c7ec567b6286478fc',1,'App::Model::UserManager']]],
-  ['column_5frole_761',['COLUMN_ROLE',['../classApp_1_1Model_1_1UserManager.html#af13e6e9c753b0581b42b9305115e5083',1,'App::Model::UserManager']]]
+  ['day_0',['DAY',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#aa2450ee8ba6ed5af5507a591d108a95d',1,'App\CoreModule\Model\DatabaseSelectionManager\DAY()'],['../classApp_1_1CoreModule_1_1Model_1_1SensorsManager.html#a37495d9c196ca581c3d7af6ec7d7db76',1,'App\CoreModule\Model\SensorsManager\DAY()']]],
+  ['day_5fl_1',['DAY_L',['../classApp_1_1CoreModule_1_1Model_1_1DatabaseSelectionManager.html#a75f748b7b1d53952519860828c56c336',1,'App::CoreModule::Model::DatabaseSelectionManager']]]
 ];

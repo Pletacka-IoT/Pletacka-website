@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pletacka_2dwebsite_2dnette_783',['Pletacka-website-nette',['../index.html',1,'']]]
+  ['integration_20into_20industry_204_2e0_20_5ben_5d_0',['Integration into Industry 4.0 [EN]',['../index.html',1,'']]]
 ];
